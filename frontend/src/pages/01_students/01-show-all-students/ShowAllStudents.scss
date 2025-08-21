@@ -197,15 +197,15 @@
       color: white;
       padding: 10px;
       text-align: center;
-      border: 1px solid #1e40af;
+      // border: 1px solid #1e40af;
       // width: 50px !important; 
     }
 
     td {
       & {
         text-align: center;
-        border: 1px solid #ddd;
-
+        border: 1px solid #b5bac9;
+        
       }
 
 
@@ -214,10 +214,15 @@
           width: 100%;
           padding: 5px 8px;
           box-sizing: border-box;
+          // border: 1px solid #ddd;
+          
         }
 
         &.name-input {
-          width: 160px !important;
+          // width: 160px !important;
+          min-height: 50px;
+          height: 100% !important;
+          // margin: 5px;
         }
 
         &.roll-input {

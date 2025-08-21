@@ -19,12 +19,21 @@ from rest_framework.permissions import BasePermission
 from django.contrib.auth import get_user_model
 from django.db import transaction
 from django.contrib.auth.models import User 
-
+from datetime import datetime
 class IsStaffUser(BasePermission):
     def has_permission(self, request, view):
         return request.user.is_authenticated and request.user.is_staff
     
-    
+def getFormatedData(dob_value):
+    if dob_value:
+        try:
+            # Try to parse the date in YYYY-MM-DD format
+            dob_value = datetime.strptime(dob_value, "%Y-%m-%d").date()
+        except (ValueError, TypeError):
+            # If parsing fails, ignore the value
+            dob_value = None
+    else:
+        dob_value = None
 # ///////////////////////////////////// add student //////////////////////////////////////////// 
 def generate_student_id(class_obj, year_obj, group_obj, section_obj, roll_number):
     shift_code = class_obj.shift[0].upper()
@@ -52,17 +61,17 @@ def add_students(student_info, student_list):
     class_obj = Class.objects.get(id=student_info['class_instance_id'])
     group_obj = Group.objects.get(id=student_info['group_id'])
     section_obj = Section.objects.get(id=student_info['section_id'])
-    print("student_list: ", student_list)
+    # print("student_list: ", student_list)
 
     for index, student in enumerate(student_list):
-        print("student:", student)
+        # print("student:", student)
 
         roll_number = student['roll_number']
         # print(class_obj, year_obj, group_obj, section_obj, roll_number)
         student_id = generate_student_id(class_obj, year_obj, group_obj, section_obj, roll_number)
         # print("Generated student_id:", student_id)
         
-
+        dob_value = getFormatedData(student.get('dob', None))
         student_data = {
             'institute': institute,
             'year': year_obj,
@@ -76,7 +85,8 @@ def add_students(student_info, student_list):
             'fathers_name':  student['fathers_name'],
             'mothers_name':  student['mothers_name'],
             'picture':  student['picture'],
-            'dob':  student['dob'],
+            'dob':  dob_value,
+            # 'dob':  student['dob'],
             'student_id': student_id,
             'email': student['email'] or f"{student['phone_number'] or student_id}@gmail.com",
             'password': student['password'] or '1234',

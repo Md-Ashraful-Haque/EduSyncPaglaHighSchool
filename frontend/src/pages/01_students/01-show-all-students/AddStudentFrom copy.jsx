@@ -11,7 +11,7 @@ import { saveFormData } from "Utils/utilsFunctions/UtilFuntions";
 import CSVFileInput from "./InputCSVFile";
 
 import Loading_1 from "LoadingComponent/loading/Loading_1";
-import { Plus, Trash2, Eye, EyeOff, Upload } from 'lucide-react';
+
 const initialStudent = {
   name: "",
   name_bangla: "",
@@ -65,6 +65,84 @@ const AddStudentForm = ({ setIsModalOpen }) => {
     const updated = insertStudents.filter((_, i) => i !== index);
     setInsertStudents(updated);
   };
+
+
+  // const saveStudents = async (e) => {
+  //   e.preventDefault();
+
+  //   setIsLoading(true);
+
+  //   // console.log("Submit Students:", insertStudents);
+  //   // console.log("bySubjectVars:", bySubjectVars);
+
+  //   const requestData = {
+  //     ...bySubjectVars,
+  //     insertStudents,
+  //   };
+
+  //   try {
+  //     const response = await saveFormData(
+  //       createNewAccessToken,
+  //       "save-students",
+  //       requestData
+  //     );
+
+  //     // console.log(response);
+  //     // alert(response.success)
+  //     // alert(response.inserted_count)
+  //     // alert(response.failed_students)
+  //     // alert(response.failed_students_index)
+  //     setFailedToSave(response.failed_students_index);
+  //     // alert(response.message)
+  //     if (response.success) {
+  //       toast.success(
+  //         `${response.inserted_count} জন শিক্ষার্থীর ডাটা সংরক্ষণ করা হয়েছে।`,
+  //         {
+  //           position: "top-center",
+  //           autoClose: 2000,
+  //           hideProgressBar: false,
+  //           closeOnClick: false,
+  //           pauseOnHover: true,
+  //           draggable: true,
+  //           progress: undefined,
+  //         }
+  //       );
+  //     }
+
+  //     if (response.failed_students_index.length > 0) {
+  //       toast.error(
+  //         `এই সারি গুলোর ডাটা সংরক্ষণ করা হয়নি: ${response.failed_students_index.join(
+  //           ", "
+  //         )}`,
+  //         {
+  //           position: "top-center",
+  //           autoClose: 10000,
+  //           hideProgressBar: false,
+  //           closeOnClick: false,
+  //           pauseOnHover: true,
+  //           draggable: true,
+  //           progress: undefined,
+  //         }
+  //       );
+  //     }
+  //   } catch (err) {
+  //     // setError(err.response.data.error || "Failed to save students");
+  //     toast.error(err.response.data.error, {
+  //       position: "top-center",
+  //       autoClose: 10000,
+  //       hideProgressBar: false,
+  //       closeOnClick: false,
+  //       pauseOnHover: true,
+  //       draggable: true,
+  //       progress: undefined,
+  //     });
+  //     setIsModalOpen(false);
+  //     // console.log(response)
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
+
   const saveStudents = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -114,14 +192,9 @@ const AddStudentForm = ({ setIsModalOpen }) => {
         );
       }
 
-      if (
-        response.failed_students_index &&
-        response.failed_students_index.length > 0
-      ) {
+      if (response.failed_students_index && response.failed_students_index.length > 0) {
         toast.error(
-          `এই সারি গুলোর ডাটা সংরক্ষণ করা হয়নি: ${response.failed_students_index.join(
-            ", "
-          )}`,
+          `এই সারি গুলোর ডাটা সংরক্ষণ করা হয়নি: ${response.failed_students_index.join(", ")}`,
           {
             position: "top-center",
             autoClose: 10000,
@@ -134,20 +207,24 @@ const AddStudentForm = ({ setIsModalOpen }) => {
         );
       }
     } catch (err) {
-      toast.error(err.response?.data?.error || "Failed to save students", {
-        position: "top-center",
-        autoClose: 10000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
+      toast.error(
+        err.response?.data?.error || "Failed to save students",
+        {
+          position: "top-center",
+          autoClose: 10000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        }
+      );
       setIsModalOpen(false);
     } finally {
       setIsLoading(false);
     }
   };
+
 
   const handleCSVUpload = (event) => {
     const file = event.target.files[0];
@@ -177,12 +254,12 @@ const AddStudentForm = ({ setIsModalOpen }) => {
           else if (key === "fathers name") student.fathers_name = val;
           else if (key === "mothers name") student.mothers_name = val;
           else if (key === "roll") student.roll_number = val;
+
           else if (key === "mobile") student.phone_number = val;
           else if (key === "password") student.password = val;
           else if (key === "dob") student.dob = val;
           else if (key === "email") student.email = val;
-          else if (key === "guardian mobile")
-            student.guardian_mobile_number = val;
+          else if (key === "guardian mobile") student.guardian_mobile_number = val;
           else if (key === "address") student.address = val;
           else if (key === "picture") student.picture = null; // You can’t upload files from CSV directly
         });
@@ -255,9 +332,9 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                   <SelectFields fields={["class"]} />
                   <SelectFields fields={["group"]} />
                   <SelectFields fields={["section"]} />
-
+        
                   <div className="input-csv-file-for-student">
-                    <CSVFileInput handleCSVUpload={handleCSVUpload} />
+                    <CSVFileInput handleCSVUpload={handleCSVUpload}/>
                     {/* <input
                       type="file"
                       accept=".csv"
@@ -273,7 +350,7 @@ const AddStudentForm = ({ setIsModalOpen }) => {
 
         <div className="student-list">
           <div className="student-table-container">
-            <table className="student-input-table shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_15px_-4px_rgba(0,0,0,0.1)] !rounded-lg">
+            <table className="student-input-table">
               <thead>
                 <tr className="bg-gray-100 text-left">
                   <th>নাম(ইংরেজি)</th>
@@ -291,12 +368,11 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                   <th>Action</th>
                 </tr>
               </thead>
-              
               <tbody>
                 {insertStudents.map((student, index) => (
                   <tr
                     key={index}
-                    className={`border-t  ${
+                    className={`border-t ${
                       failedToSave.includes(index) ? "bg-red-100" : ""
                     }`}
                   >
@@ -316,12 +392,9 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                         type="text"
                         value={student.name_bangla}
                         onChange={(e) =>
-                          handleStudentChange(
-                            index,
-                            "name_bangla",
-                            e.target.value
-                          )
+                          handleStudentChange(index, "name_bangla", e.target.value)
                         }
+                        
                         className="name-input"
                       />
                     </td>
@@ -337,7 +410,7 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                           )
                         }
                         required
-                        className="name-input"
+                        className="roll-input"
                       />
                     </td>
 
@@ -348,11 +421,12 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                         onChange={(e) =>
                           handleStudentChange(index, "nid", e.target.value)
                         }
+                        
                         className="name-input"
                       />
                     </td>
                     {/* ////////////// Mible Number ///////////  */}
-
+                    
                     <td>
                       <input
                         type="text"
@@ -364,7 +438,7 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                             e.target.value
                           )
                         }
-                        className="name-input"
+                        className="mobile-input"
                       />
                     </td>
                     <td>
@@ -372,12 +446,9 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                         type="text"
                         value={student.fathers_name}
                         onChange={(e) =>
-                          handleStudentChange(
-                            index,
-                            "fathers_name",
-                            e.target.value
-                          )
+                          handleStudentChange(index, "fathers_name", e.target.value)
                         }
+                        
                         className="name-input"
                       />
                     </td>
@@ -387,12 +458,9 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                         type="text"
                         value={student.mothers_name}
                         onChange={(e) =>
-                          handleStudentChange(
-                            index,
-                            "mothers_name",
-                            e.target.value
-                          )
+                          handleStudentChange(index, "mothers_name", e.target.value)
                         }
+                        
                         className="name-input"
                       />
                     </td>
@@ -403,116 +471,18 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                         onChange={(e) =>
                           handleStudentChange(index, "dob", e.target.value)
                         }
-                        className="name-input"
                       />
                     </td>
-                    
-                    {/* Picture Upload */}
-                    {/* <td className="px-3 py-0  ">
-                      <div className="relative group/upload  !cursor-pointer">
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => handleFileChange(index, e.target.files[0])}
-                          className="absolute inset-0 w-full h-full opacity-0 !cursor-pointer"
-                        />
-                        <div className=" flex items-center justify-center px-3 py-2 border-2 border-dashed border-gray-300 rounded-xl hover:border-blue-400 hover:bg-blue-50 transition-all duration-200 group-hover/upload:border-blue-500 group-hover/upload:bg-blue-100">
-                          <Upload className="w-5 h-5 text-gray-500 group-hover/upload:text-blue-600" />
-                        </div>
-                      </div>
-                    </td> */}
 
-
-                    {/* <td className="px-3 py-0">
-                      <div className="relative group/upload !cursor-pointer">
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => handleFileChange(index, e.target.files[0])}
-                          className="absolute inset-0 w-full h-full opacity-0 !cursor-pointer z-10"
-                        />
-
-                        <div
-                          className={`flex items-center justify-center transition-all duration-200 rounded-xl
-                            ${
-                              insertStudents[index].picture
-                                ? "p-0 border-0 hover:border-0 hover:bg-transparent" // No padding or border
-                                : "px-3 py-2 border-2 border-dashed border-gray-300 hover:border-blue-400 hover:bg-blue-50 group-hover/upload:border-blue-500 group-hover/upload:bg-blue-100" // default
-                            }`}
-                        >
-                          {!insertStudents[index].picture && (
-                            <Upload className="w-5 h-5 text-gray-500 group-hover/upload:text-blue-600" />
-                          )}
-
-                          {insertStudents[index].picture && (
-                            <img
-                              src={
-                                typeof insertStudents[index].picture === "object"
-                                  ? URL.createObjectURL(insertStudents[index].picture)
-                                  : insertStudents[index].picture
-                              }
-                              alt="preview"
-                              className="w-20 h-15 object-cover rounded-md"
-                            />
-                          )}
-                        </div>
-                      </div>
-                    </td> */}
-
-                    <td className="px-3 py-0 relative">
-                      <div className="relative group !cursor-pointer">
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => handleFileChange(index, e.target.files[0])}
-                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
-                        />
-
-                        <div
-                          className={`flex items-center justify-center transition-all duration-200 rounded-xl
-                            ${
-                              insertStudents[index].picture
-                                ? "p-0 border-0 hover:border-0 hover:bg-transparent"
-                                : "px-3 py-2 border-2 border-dashed border-gray-300 hover:border-blue-400 hover:bg-blue-50"
-                            }`}
-                        >
-                          {/* Show upload icon if no image */}
-                          {!insertStudents[index].picture && (
-                            <Upload className="w-5 h-5 text-gray-500 hover:text-blue-600" />
-                          )}
-
-                          {/* Image preview */}
-                          {insertStudents[index].picture && (
-                            <div className="relative group">
-                              <img
-                                src={
-                                  typeof insertStudents[index].picture === "object"
-                                    ? URL.createObjectURL(insertStudents[index].picture)
-                                    : insertStudents[index].picture
-                                }
-                                alt="preview"
-                                className="w-10 h-10 object-cover rounded-md"
-                              />
-
-                              {/* Full image on hover */}
-                              <div className="fixed left-1/2 top-1/3 transform -translate-x-1/2 scale-0 group-hover:scale-100 transition-transform duration-200 z-50">
-                                <img
-                                  src={
-                                    typeof insertStudents[index].picture === "object"
-                                      ? URL.createObjectURL(insertStudents[index].picture)
-                                      : insertStudents[index].picture
-                                  }
-                                  alt="full preview"
-                                  className="max-h-96 max-w-xs rounded-lg shadow-lg border border-gray-300"
-                                />
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </div>
+                    <td>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) =>
+                          handleFileChange(index, e.target.files[0])
+                        }
+                      />
                     </td>
-
-
 
                     {/* <td className="relative">
                       <input
@@ -536,7 +506,7 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                         {student.showPassword ? "🙈" : "👁️"}
                       </button>
                     </td> */}
-
+                    
                     {/* <td>
                       <input
                         type="email"
@@ -557,13 +527,12 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                         className="input"
                       />
                     </td> */}
-
-                    <td >
+                    
+                    <td>
                       <button
                         type="button"
                         onClick={() => handleRemove(index)}
-                        className="text-red-600 hover:text-red-800 p-3 "
-                        
+                        className="text-red-600 hover:text-red-800"
                       >
                         <TrashIcon className="w-5 h-5" />
                       </button>

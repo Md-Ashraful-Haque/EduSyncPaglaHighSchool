@@ -291,9 +291,39 @@ class AllStudentListView(generics.ListAPIView):
 class SaveStudents(APIView):
     permission_classes = [IsAuthenticated]
     # permission_classes = [IsStaffUser]
+    
+    def parse_insert_students(self, request):
+        students = []
+        i = 0
+        while True:
+            student = {}
+            has_data = False
+            for key in request.POST:
+                prefix = f"insertStudents[{i}]["
+                if key.startswith(prefix):
+                    field = key[len(prefix):-1]
+                    student[field] = request.POST.get(key)
+                    has_data = True
+
+            # Attach file if exists
+            for key in request.FILES:
+                prefix = f"insertStudents[{i}]["
+                if key.startswith(prefix):
+                    field = key[len(prefix):-1]
+                    student[field] = request.FILES[key]
+                    has_data = True
+
+            if not has_data:
+                break
+            students.append(student)
+            i += 1
+
+        return students
+
+
     def post(self, request):
         try:
-            # print("Request Data:", request.data)
+            print("Request Data:", request.data)
             # Ensure required fields are present
             required_fields = [
                 'year', 'shift', 'class_name', 'group_name_bangla','section_name', 
@@ -320,7 +350,8 @@ class SaveStudents(APIView):
             
             # print("Student Info:", student_info)    
             
-            new_students = request.data['insertStudents']
+            # new_students = request.data['insertStudents']
+            new_students = self.parse_insert_students(request)
             
             return Response(add_students(student_info, new_students))
 
