@@ -1,0 +1,41 @@
+@use "../../../03-common-sass/essentials"as *;
+@use "sass-mq" as *;
+@use "./00_variable"as *;
+
+$form-border-color: #9989FF;
+
+.layout {
+  &{
+    background-color: $container-bg;
+  }
+  .wrap {
+    & {
+      // border: 1px solid #8a8a8a;
+      min-height: calc(100vh - sizew_4(64, 80, 1366, 1920));
+      // width: calc(100% - sizew_4(302, 342, 1366, 1920)); /////////////
+      background-color: $content_bg;
+      transition: all 0.3s ease-in;
+      padding: 12px;
+      box-sizing: border-box;
+    }
+
+    // @include three-mqr("margin-left", 302, 302, 302, 302, 302, 342);
+    @include three-mqr("margin-left", 280, 280, 280, 280, 280, 320);
+    // @include three-mq("margin-top", 50, 63, 80);
+    @include three-mqr("margin-top", 50, 50, 63, 64, 64, 80);
+
+    .wrap-content {
+      border: 1px solid rgb(218, 222, 255);
+      border-radius: 10px; 
+      overflow: hidden;
+      box-sizing: border-box;
+      @include cwhp(100%);
+    }
+
+    @include mq($until: medium) { 
+      margin-left: 0px;
+      width: 100%; 
+    }
+
+  }
+}

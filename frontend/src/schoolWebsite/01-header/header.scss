@@ -1,0 +1,98 @@
+@use "../../assets/03-common-sass/essentials"as *;
+@use "sass-mq"as *;
+
+
+
+.header-section {
+  & {
+    // border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    // background: #070063;
+    background: linear-gradient(90deg, rgba(7, 0, 99, 1) 0%, rgba(9, 9, 121, 1) 35%, rgba(0, 82, 189, 1) 100%);
+    padding: 20px 16px;
+    margin-left: -24px;
+  }
+
+  @include mq($until: large) {
+    padding: 8px 16px;
+    //  justify-content: flex-start;
+  }
+
+  .site-header {
+    & {
+      // border: 1px solid rgb(171, 129, 129); 
+      display: flex;
+      justify-content: center;
+
+      @include mq ($from: 992px) {
+        min-width: 1280px;
+      }
+
+    }
+
+    .site-logo {
+      // border: 1px solid rgb(60, 30, 30);
+      margin-right: 16px;
+
+      @include mq($until: large) {
+        margin-right: 8px;
+      }
+
+      img {
+        width: 120px;
+
+        @include mq($until: large) {
+          width: 75px;
+        }
+      }
+    }
+
+    .institute-info {
+      & {
+        // border: 1px solid rgb(29, 10, 156);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-family: 'Muli';
+        // font-family: Poppins;
+        // font-weight: 900;
+      }
+
+      h1 {
+        // border: 1px solid rgb(29, 10, 156);
+        font-size: 48px;
+        font-weight: bolder;
+        text-shadow: 1px 1px 2px black, 0 0 1em blue, 0 0 0.2em blue;
+        margin-bottom: 0;
+
+        @include mq($until: medium) {
+          font-size: 22px;
+        }
+      }
+
+      .estd {
+        font-size: 20px;
+        font-weight: bolder;
+
+        @include mq($until: medium) {
+          font-size: 12px;
+        }
+
+        // border: 1px solid rgb(29, 10, 156);
+      }
+
+      .address {
+        // border: 1px solid rgb(29, 10, 156);
+        font-weight: bolder;
+        font-size: 20px;
+
+        @include mq($until: medium) {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}

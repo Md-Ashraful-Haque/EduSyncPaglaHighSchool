@@ -1,0 +1,223 @@
+import "./merit-summary.scss";
+import React from "react";
+import SelectFields from "pageComponents/SelectFields";
+// import SelectFields from "../00-field_selector/SelectFields";
+import YearSelector from "pageComponents/yearSelector/YearSelector";
+import ResultSummaryReport from "./ResultSummaryReport";
+import { useMarksInputBySubjectContext } from "ContextAPI/MarksInputBySubjectContext";
+// import ResultTable from "./01_result_table";
+import FullScreenModal from "pageComponents/02_full_screen_window";
+// import Marksheet from "./02_marksheet";
+import showBangla from "../../../utils/utilsFunctions/engNumberToBang";
+import schoolLogo from "../../../assets/images/eduSyncLogo.svg";
+import ToggleLanguage from "pageComponents/toggleResult";
+import { generatePDF } from "../../../utils/utilsFunctions/pdfDownload";
+import OpenNewTabWithHeader from "./07_marksheetWithNewTab";
+import { ResultContextAPIProvider } from "ContextAPI/MarksInputBySubjectContext";
+import Loading_1 from "LoadingComponent/loading/Loading_1";
+
+import { toast } from "react-toastify";
+
+import { doGetAPIcall } from "Utils/utilsFunctions/UtilFuntions";
+import { useAppContext } from "ContextAPI/AppContext";
+import { useState } from "react";
+
+import FormHeading from "pageComponents/classwise-or-sectionwise/FormHeading";
+
+import MeritReportHeader from "./01-merit-report-header";
+import MeritReportTable from "./02_merit_report_table";
+////////////////////////////////////////////////////////////////////////////////
+const ShowMeritReport = () => {
+  const { createNewAccessToken } = useAppContext();
+  const [examAndInstituteInfo, setExamAndInstituteInfo] = useState({}); // State for serializer data
+  const [results, setResults] = useState([]); // State for serializer data
+  const [highest_marks, setHighest_marks] = useState([]); // State for serializer data
+  const [isModalOpen, setIsModalOpen] = useState(true);
+  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [data, setData] = useState(null);
+
+  const handleModalClose = () => {
+    setIsModalOpen(!isModalOpen);
+  };
+
+  const [resultOption, setResultOption] = useState({
+    year: true,
+    class: true,
+    section: false,
+  });
+
+  const updateResultOption = (key) => {
+    setResultOption({
+      year: key === "year",
+      class: key === "class",
+      section: key === "section",
+    });
+  };
+
+  const { bySubjectVars, updateBySubjectVars } =
+    useMarksInputBySubjectContext();
+
+  const handleChange = (event, varName) => {
+    updateBySubjectVars(varName, event.target.value);
+    updateBySubjectVars("class_name", "");
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    const requestData = {
+      ...bySubjectVars,
+      year: bySubjectVars.year,
+      exam_name: bySubjectVars.exam_name,
+      shift: bySubjectVars.shift,
+      class_name: bySubjectVars.class_name,
+      // group: bySubjectVars.group_name_bangla,
+      // section: bySubjectVars.section_name_display,
+      // year_type: resultOption.year,
+      // class_type: resultOption.class,
+      // section_type: resultOption.section,
+    };
+
+    try {
+      const response = await doGetAPIcall(
+        createNewAccessToken,
+        "result-summary",
+        requestData
+      );
+      setResults(response.group_results  || response); // Store serializer data
+      setHighest_marks(response.highest_marks || response); // Store serializer data
+      setExamAndInstituteInfo(response.exam_and_institute_info || response); // Store serializer data
+
+
+      setData(response);
+
+      setIsModalOpen(!isModalOpen);
+      console.log("response summary: ", response);
+      console.log("response summary: ", response);
+
+    } catch (error) {
+      // Extract the error message from the backend response
+      let errorMessage = "An unexpected error occurred";
+
+      if (error.response && error.response.data) {
+        // Check for different error response formats from your backend
+        if (error.response.data.message) {
+          errorMessage = error.response.data.message; // For {"message": "..."}
+        } else if (error.response.data.error) {
+          errorMessage = error.response.data.error; // For {"error": "..."}
+        } else {
+          errorMessage = JSON.stringify(error.response.data); // Fallback: stringify the entire response
+        }
+      } else {
+        errorMessage = error.message; // Fallback to error.message if no response data
+      }
+      // Show error toast message with the exact backend error
+      toast.error(`Error Generating Result: ${errorMessage}`, {
+        position: "top-center",
+        autoClose: 3000, // Longer duration for errors to ensure readability
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Construct filename from first student
+  const firstStudent = results[0];
+  const fileName = firstStudent
+    ? `${firstStudent.class_name}-${firstStudent.group_name}-${firstStudent.section_name_display}-মার্কশীট.pdf`
+    : "marksheets.pdf";
+
+  if (isLoading) {
+    return (
+      <>
+        <div>
+          <Loading_1 />
+        </div>
+      </>
+    );
+  }
+
+  return (
+    <div className="generate-result">
+      <FormHeading 
+        heading={"মেধা সারাংশ দেখার ফর্ম"}
+      />
+      {/* see result using the form below */}
+      <form onSubmit={handleSubmit}>
+        <div className="field-selector-form-container">
+          <div className="field-selector-form">
+            <div id="field-selector-form">
+              <div id="option-component">
+                <div className="option-label"> শিফট </div>
+                <div className="option-value">
+                  <div className="shift-section">
+                    <select
+                      name="session"
+                      id="shitf-name"
+                      value={bySubjectVars.shift}
+                      onChange={(event) => {
+                        handleChange(event, "shift");
+                      }}
+                    >
+                      <option value="morning">Morning</option>
+                      <option value="day">Day</option> 
+                    </select>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div id="field-selector-form">
+              <div id="option-component">
+                <div className="option-label"> বছর </div>
+                <div className="option-value">
+                  <YearSelector />
+                </div>
+              </div>
+            </div>
+
+            <SelectFields fields={["class", "exam-by-year"]} /> 
+          </div>
+          <div className="result-generator-button">
+            <button type="submit" className="generate-btn">
+              মেধা সারাংশ দেখুন
+            </button>
+          </div>
+        </div>
+      </form>
+
+      <div className="downloadFullResult">
+        {results?.length > 0 && (
+          <React.Fragment>
+            <FullScreenModal isOpen={isModalOpen} onClose={handleModalClose}>
+              <ResultSummaryReport data={data} />
+
+              <div className="download-button">
+                <div className="print-button">
+                  {/* <ToggleLanguage />  */}
+
+                  <OpenNewTabWithHeader
+                    data={data}
+                  />
+                </div>
+              </div>
+            </FullScreenModal>
+          </React.Fragment>
+        )}
+      </div>
+      {/* {results.length > 0 && <ResultTable results={results} />} */}
+
+      {/* </div> */}
+    </div>
+  );
+};
+
+ShowMeritReport.propTypes = {};
+
+export default ShowMeritReport;

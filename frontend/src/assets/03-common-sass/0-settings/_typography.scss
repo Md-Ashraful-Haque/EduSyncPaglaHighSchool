@@ -1,0 +1,51 @@
+
+// Breakpoint				Class infix		Dimensions
+// X-Small							None			<576px
+// Small								sm				≥576px
+// Medium								md				≥768px
+// Large								lg				≥992px
+// Extra large					xl				≥1200px
+// Extra extra large		xxl				≥1400px
+
+@use '../../../../node_modules/sass-mq/mq' as mq with (
+  $breakpoints: (
+		xsmall: 360px,
+    small: 576px,
+		medium-1: 767px,
+		medium: 768px,
+		large: 992px,
+		xlarge: 1200px,
+		xxlarge: 1366px,
+		// xxlarge: 1400px,
+		xxxlarge: 1920px,
+		xxxlargep1: 1921px
+  )
+);
+
+
+// $breakpoints: (
+// 		xsmall: 360px,
+//     small: 576px,
+// 		medium: 768px,
+// 		large: 992px,
+// 		xlarge: 1200px,
+// 		xxlarge: 1400px,
+// 		xxxlarge: 1920px,
+// 		xxxlargep1: 1921px
+//   )
+
+
+
+/*
+
+1920/1400 = 1.37
+1400/1200 = 1.66
+1200/992 =
+992/768 =
+768/576 = 
+576/280 = 2.057
+
+
+
+
+*/

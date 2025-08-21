@@ -1,0 +1,69 @@
+institute,shift,year,class,group,name,name_bengali,class_name,code,is_optional,serial_number,full_marks,pass_marks
+PHS,morning,2025,6,N/A,Bangla First Paper,বাংলা প্রথম পত্র,Six-Eight,6801,False,1,100,33
+PHS,morning,2025,6,N/A,Bangla Second Paper,বাংলা দ্বিতীয় পত্র,Six-Eight,6802,False,2,50,17
+PHS,morning,2025,6,N/A,English First Paper,ইংরেজি প্রথম পত্র,Six-Eight,6803,False,3,100,33
+PHS,morning,2025,6,N/A,English Second Paper,ইংরেজি দ্বিতীয় পত্র,Six-Eight,6804,False,4,50,17
+PHS,morning,2025,6,N/A,Mathematics,গণিত,Six-Eight,6805,False,5,100,33
+PHS,morning,2025,6,N/A,Science,বিজ্ঞান,Six-Eight,6806,False,6,100,33
+PHS,morning,2025,6,N/A,Bangladesh and Global Studies,বাংলাদেশ ও বিশ্বপরিচয়,Six-Eight,6807,False,7,100,33
+PHS,morning,2025,6,N/A,ICT,তথ্য ও যোগাযোগ প্রযুক্তি,Six-Eight,6808,False,8,50,17
+PHS,morning,2025,6,N/A,Religion,ধর্ম,Six-Eight,6809,False,9,100,33
+PHS,morning,2025,6,N/A,Agriculture Studies,কৃষিশিক্ষা,Six-Eight,6810,True,10,50,0
+,,,,,,,,,,,,
+PHS,morning,2025,7,N/A,Bangla First Paper,বাংলা প্রথম পত্র,Six-Eight,6801,False,1,100,33
+PHS,morning,2025,7,N/A,Bangla Second Paper,বাংলা দ্বিতীয় পত্র,Six-Eight,6802,False,2,50,17
+PHS,morning,2025,7,N/A,English First Paper,ইংরেজি প্রথম পত্র,Six-Eight,6803,False,3,100,33
+PHS,morning,2025,7,N/A,English Second Paper,ইংরেজি দ্বিতীয় পত্র,Six-Eight,6804,False,4,50,17
+PHS,morning,2025,7,N/A,Mathematics,গণিত,Six-Eight,6805,False,5,100,33
+PHS,morning,2025,7,N/A,Science,বিজ্ঞান,Six-Eight,6806,False,6,100,33
+PHS,morning,2025,7,N/A,Bangladesh and Global Studies,বাংলাদেশ ও বিশ্বপরিচয়,Six-Eight,6807,False,7,100,33
+PHS,morning,2025,7,N/A,ICT,তথ্য ও যোগাযোগ প্রযুক্তি,Six-Eight,6808,False,8,50,17
+PHS,morning,2025,7,N/A,Religion,ধর্ম,Six-Eight,6809,False,9,100,33
+PHS,morning,2025,7,N/A,Agriculture Studies,কৃষিশিক্ষা,Six-Eight,6810,True,10,50,0
+,,,,,,,,,,,,
+PHS,morning,2025,8,N/A,Bangla First Paper,বাংলা প্রথম পত্র,Six-Eight,6801,False,1,100,33
+PHS,morning,2025,8,N/A,Bangla Second Paper,বাংলা দ্বিতীয় পত্র,Six-Eight,6802,False,2,50,17
+PHS,morning,2025,8,N/A,English First Paper,ইংরেজি প্রথম পত্র,Six-Eight,6803,False,3,100,33
+PHS,morning,2025,8,N/A,English Second Paper,ইংরেজি দ্বিতীয় পত্র,Six-Eight,6804,False,4,50,17
+PHS,morning,2025,8,N/A,Mathematics,গণিত,Six-Eight,6805,False,5,100,33
+PHS,morning,2025,8,N/A,Science,বিজ্ঞান,Six-Eight,6806,False,6,100,33
+PHS,morning,2025,8,N/A,Bangladesh and Global Studies,বাংলাদেশ ও বিশ্বপরিচয়,Six-Eight,6807,False,7,100,33
+PHS,morning,2025,8,N/A,ICT,তথ্য ও যোগাযোগ প্রযুক্তি,Six-Eight,6808,False,8,50,17
+PHS,morning,2025,8,N/A,Religion,ধর্ম,Six-Eight,6809,False,9,100,33
+PHS,morning,2025,8,N/A,Agriculture Studies,কৃষিশিক্ষা,Six-Eight,6810,True,10,50,0
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+,,,,,,,,,,,,
+PHS,day,2025,6,N/A,Bangla First Paper,বাংলা প্রথম পত্র,Six-Eight,6801,False,1,100,33
+PHS,day,2025,6,N/A,Bangla Second Paper,বাংলা দ্বিতীয় পত্র,Six-Eight,6802,False,2,50,17
+PHS,day,2025,6,N/A,English First Paper,ইংরেজি প্রথম পত্র,Six-Eight,6803,False,3,100,33
+PHS,day,2025,6,N/A,English Second Paper,ইংরেজি দ্বিতীয় পত্র,Six-Eight,6804,False,4,50,17
+PHS,day,2025,6,N/A,Mathematics,গণিত,Six-Eight,6805,False,5,100,33
+PHS,day,2025,6,N/A,Science,বিজ্ঞান,Six-Eight,6806,False,6,100,33
+PHS,day,2025,6,N/A,Bangladesh and Global Studies,বাংলাদেশ ও বিশ্বপরিচয়,Six-Eight,6807,False,7,100,33
+PHS,day,2025,6,N/A,ICT,তথ্য ও যোগাযোগ প্রযুক্তি,Six-Eight,6808,False,8,50,17
+PHS,day,2025,6,N/A,Religion,ধর্ম,Six-Eight,6809,False,9,100,33
+PHS,day,2025,6,N/A,Agriculture Studies,কৃষিশিক্ষা,Six-Eight,6810,True,10,50,0
+,,,,,,,,,,,,
+PHS,day,2025,7,N/A,Bangla First Paper,বাংলা প্রথম পত্র,Six-Eight,6801,False,1,100,33
+PHS,day,2025,7,N/A,Bangla Second Paper,বাংলা দ্বিতীয় পত্র,Six-Eight,6802,False,2,50,17
+PHS,day,2025,7,N/A,English First Paper,ইংরেজি প্রথম পত্র,Six-Eight,6803,False,3,100,33
+PHS,day,2025,7,N/A,English Second Paper,ইংরেজি দ্বিতীয় পত্র,Six-Eight,6804,False,4,50,17
+PHS,day,2025,7,N/A,Mathematics,গণিত,Six-Eight,6805,False,5,100,33
+PHS,day,2025,7,N/A,Science,বিজ্ঞান,Six-Eight,6806,False,6,100,33
+PHS,day,2025,7,N/A,Bangladesh and Global Studies,বাংলাদেশ ও বিশ্বপরিচয়,Six-Eight,6807,False,7,100,33
+PHS,day,2025,7,N/A,ICT,তথ্য ও যোগাযোগ প্রযুক্তি,Six-Eight,6808,False,8,50,17
+PHS,day,2025,7,N/A,Religion,ধর্ম,Six-Eight,6809,False,9,100,33
+PHS,day,2025,7,N/A,Agriculture Studies,কৃষিশিক্ষা,Six-Eight,6810,True,10,50,0
+,,,,,,,,,,,,
+PHS,day,2025,8,N/A,Bangla First Paper,বাংলা প্রথম পত্র,Six-Eight,6801,False,1,100,33
+PHS,day,2025,8,N/A,Bangla Second Paper,বাংলা দ্বিতীয় পত্র,Six-Eight,6802,False,2,50,17
+PHS,day,2025,8,N/A,English First Paper,ইংরেজি প্রথম পত্র,Six-Eight,6803,False,3,100,33
+PHS,day,2025,8,N/A,English Second Paper,ইংরেজি দ্বিতীয় পত্র,Six-Eight,6804,False,4,50,17
+PHS,day,2025,8,N/A,Mathematics,গণিত,Six-Eight,6805,False,5,100,33
+PHS,day,2025,8,N/A,Science,বিজ্ঞান,Six-Eight,6806,False,6,100,33
+PHS,day,2025,8,N/A,Bangladesh and Global Studies,বাংলাদেশ ও বিশ্বপরিচয়,Six-Eight,6807,False,7,100,33
+PHS,day,2025,8,N/A,ICT,তথ্য ও যোগাযোগ প্রযুক্তি,Six-Eight,6808,False,8,50,17
+PHS,day,2025,8,N/A,Religion,ধর্ম,Six-Eight,6809,False,9,100,33
+PHS,day,2025,8,N/A,Agriculture Studies,কৃষিশিক্ষা,Six-Eight,6810,True,10,50,0

@@ -1,0 +1,33 @@
+class_name,code,name,name_bengali,mark_type,max_marks,pass_marks,serial_number
+Nine-Ten,g-91001,Bangla First Paper,বাংলা প্রথম পত্র,MCQ,30,10,1
+Nine-Ten,g-91001,Bangla First Paper,বাংলা প্রথম পত্র,WR,70,23,2
+Nine-Ten,g-91002,Bangla Second Paper,বাংলা দ্বিতীয় পত্র,MCQ,30,10,1
+Nine-Ten,g-91002,Bangla Second Paper,বাংলা দ্বিতীয় পত্র,WR,70,23,2
+Nine-Ten,g-91003,English First Paper,ইংরেজি প্রথম পত্র,WR,100,33,1
+Nine-Ten,g-91004,English Second Paper,ইংরেজি দ্বিতীয় পত্র,WR,100,33,1
+Nine-Ten,g-91005,Mathematics,গণিত,MCQ,30,10,1
+Nine-Ten,g-91005,Mathematics,গণিত,WR,70,23,2
+Nine-Ten,g-91006,Religion,ধর্ম,MCQ,30,10,1
+Nine-Ten,g-91006,Religion,ধর্ম,WR,70,23,2
+Nine-Ten,g-91007,ICT,তথ্য ও যোগাযোগ প্রযুক্তি,Practical,25,8,1
+Nine-Ten,g-91007,ICT,তথ্য ও যোগাযোগ প্রযুক্তি,WR,25,7,2
+Nine-Ten,g-91008,Career Education,ক্যারিয়ার শিক্ষা,CA,50,0,1
+Nine-Ten,g-91009,Physical Education,শারীরিক শিক্ষা,CA,50,0,2
+Nine-Ten,go-91040,Higher Math,উচ্চতর গণিত,Practical,25,0,1
+Nine-Ten,go-91040,Higher Math,উচ্চতর গণিত,MCQ,25,0,2
+Nine-Ten,go-91040,Higher Math,উচ্চতর গণিত,WR,50,0,3
+Nine-Ten,go-91041,Agriculture,কৃষিশিক্ষা,Practical,25,0,1
+Nine-Ten,go-91041,Agriculture,কৃষিশিক্ষা,MCQ,25,0,2
+Nine-Ten,go-91041,Agriculture,কৃষিশিক্ষা,WR,50,0,3
+Nine-Ten,go-91042,Health Sciences and Sports,স্বাস্থ্য বিজ্ঞান ও খেলাধুলা,CA,50,0,1
+Nine-Ten,gs-91010,Physics,পদার্থবিজ্ঞান,Practical,25,8,1
+Nine-Ten,gs-91010,Physics,পদার্থবিজ্ঞান,MCQ,25,8,2
+Nine-Ten,gs-91010,Physics,পদার্থবিজ্ঞান,WR,50,17,3
+Nine-Ten,gs-91011,Chemistry,রসায়ন,Practical,25,8,1
+Nine-Ten,gs-91011,Chemistry,রসায়ন,MCQ,25,8,2
+Nine-Ten,gs-91011,Chemistry,রসায়ন,WR,50,17,3
+Nine-Ten,gs-91012,Biology,জীববিজ্ঞান,Practical,25,8,1
+Nine-Ten,gs-91012,Biology,জীববিজ্ঞান,MCQ,25,8,2
+Nine-Ten,gs-91012,Biology,জীববিজ্ঞান,WR,50,17,3
+Nine-Ten,gs-91013,Bangladesh and Global Studies,বাংলাদেশ ও বিশ্ব পরিচয়,MCQ,30,10,1
+Nine-Ten,gs-91013,Bangladesh and Global Studies,বাংলাদেশ ও বিশ্ব পরিচয়,WR,70,23,2

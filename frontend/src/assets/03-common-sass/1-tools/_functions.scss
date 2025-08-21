@@ -1,0 +1,93 @@
+
+
+// min-size= mininum size on mininum display size, default minimum display size: 360 
+// max-size= maximum size on maximum display size, default maximum display size: 1920 
+// example: sizew_4(200, 500, 320,1920);
+
+@function sizew_4($min-size, $max-size, $min-ss:360, $max-ss:1920) {
+  $size: calc(#{$min-size}px + #{$max-size - $min-size} * (100vw - #{$min-ss}px)/#{$max-ss - $min-ss});
+  @return $size;
+}
+
+@function sizew_1319($min-size, $max-size, $min-ss:1366, $max-ss:1920) {
+  $size: calc(#{$min-size}px + #{$max-size - $min-size} * (100vw - #{$min-ss}px)/#{$max-ss - $min-ss});
+  @return $size;
+}
+
+// Get size for device width 1366 to 1920 or laptop to desktop
+@function gs($input-size, $min-ss:1400, $max-ss:1920) {
+  $min-size: calc($input-size * 0.711458); // 1366/1920
+  $max-size: $input-size;
+  $size: calc(#{$min-size}px + #{$max-size - $min-size} * (100vw - #{$min-ss}px)/#{$max-ss - $min-ss});
+  @return $size;
+}
+
+// Get size for device width 1366 to 1920 or laptop to desktop
+@function gsm($input-size, $min-ss:360, $max-ss:576) {
+  $min-size: $input-size;
+  $max-size: calc($input-size * 1.6); // 576/360
+  $size: calc(#{$min-size}px + #{$max-size - $min-size} * (100vw - #{$min-ss}px)/#{$max-ss - $min-ss});
+  @return $size;
+}
+
+// Get size for device width 1366 to 1920 (laptop to desktop)
+// @function gs($input-size, $min-ss: 1366, $max-ss: 1920) {
+//   $min-size: $input-size * ( ($min-ss / $max-ss) - 0.02 ); // Calculate minimum size directly
+//   $size: calc(#{$min-size}px + (#{$input-size} - #{$min-size}) * (100vw - #{$min-ss}px) / (#{$max-ss} - #{$min-ss}));
+//   @return $size;
+// }
+
+
+
+// @function get_sizeh($min-size, $max-size) {
+//   $h1: calc(#{$min-size}px + (#{$max-size}*var(--multiplier)-#{$min-size}) * (100vmin - 360px)/(2160-360));
+//   @return $h1;
+// }
+
+
+// @function get_sizew($min-size, $max-size) {
+//   $h1: calc(#{$min-size}px + (#{$max-size}*var(--multiplier)-#{$min-size}) * (100vw - 360px)/(3840-360));
+//   @return $h1;
+// }
+
+
+// @function sizew_4($min-fs, $max-fs, $min-ss:360, $max-ss:3840) {
+//   $size: calc(#{$min-fs}px + #{$max-fs - $min-fs} * (100vw - #{$min-ss}px)/#{$max-ss - $min-ss});
+//   @return $size;
+// }
+
+
+
+// @function sizew_3($min-fs, $min-ss, $max-ss) {
+//   $max-fs: math.div($max-ss, $min-ss)*$min-fs;
+//   $size: calc(#{$min-fs}px + #{$max-fs - $min-fs} * (100vw - #{$min-ss}px)/#{$max-ss - $min-ss});
+//   @return $size;
+// }
+// @function sizew_min_max($min-fs, $min-ss, $max-ss) {
+//   $max-fs: math.div($max-ss, $min-ss)*$min-fs;
+//   $size: calc(#{$min-fs}px + #{$max-fs - $min-fs} * (100vw - #{$min-ss}px)/#{$max-ss - $min-ss});
+//   @return $size;
+// }
+
+// @function sw($min-fs, $max-fs, $min-ss:360, $max-ss:3840) {
+//   $size: calc(#{$min-fs}px + #{$max-fs - $min-fs} * (100vw - #{$min-ss}px)/#{$max-ss - $min-ss});
+//   @return $size;
+// }
+
+// // for use in media query
+// @function size1938($min-fs, $max-fs, $min-ss:1920, $max-ss:3840) {
+//   $size: calc(#{$min-fs}px + #{$max-fs - $min-fs} * (100vw - #{$min-ss}px)/#{$max-ss - $min-ss});
+//   @return $size;
+// }
+
+
+// // multiplication 
+// @function mul($a, $b){
+//   @return $a * $b;
+// }
+
+
+// // @function ns_margin(){
+
+
+// // }

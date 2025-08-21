@@ -1,0 +1,290 @@
+/* -------------------------------- 
+Spacing
+-------------------------------- */
+
+:root {
+  /* spacing values */
+  --space-unit: 1em;
+  --space-xxxs: calc(0.25 * var(--space-unit));
+  --space-xxs:  calc(0.375 * var(--space-unit));
+
+  --space-xs:   calc(0.5 * var(--space-unit));
+  --space-sm:   calc(0.75 * var(--space-unit));
+  --space-md:   calc(1.25 * var(--space-unit));
+  --space-lg:   calc(2 * var(--space-unit));
+  --space-xl:   calc(2.8 * var(--space-unit));
+  --space-xxl:  calc(3.9 * var(--space-unit));
+  --space-xxxl: calc(5.5 * var(--space-unit));
+
+  --space-1:   calc(0.5 * var(--space-unit));
+  --space-2:   calc(0.75 * var(--space-unit));
+  --space-3:   calc(1 * var(--space-unit));
+  --space-4:   calc(1.25 * var(--space-unit));
+  --space-5:   calc(1.5 * var(--space-unit));
+  --space-6:   calc(1.75 * var(--space-unit));
+  --space-7:   calc(2 * var(--space-unit));
+  --space-8:   calc(2.25 * var(--space-unit));
+  --space-9:   calc(2.5 * var(--space-unit));
+  --space-10:   calc(2.75 * var(--space-unit));
+  --space-11:   calc(3 * var(--space-unit));
+  --space-12:   calc(3.25 * var(--space-unit));
+  --space-13:   calc(3.5 * var(--space-unit));
+  --space-14:   calc(3.75 * var(--space-unit));
+  --space-15:   calc(4 * var(--space-unit));
+
+
+  /* components padding */
+  --component-padding: var(--space-sm);
+}
+
+// optional - edit space unit and padding of all components at a specific breakpoint
+// @include mq( large ) {
+//   :root {
+//       --space-unit: 1.25em;
+//       --component-padding: var(--space-md);
+//   }
+// }
+
+/* vertical margins */
+// .margin-top, .margin-top--md {
+//   margin-top: var(--space-md);
+// }
+
+// .margin-top--sm {
+//   margin-top: var(--space-sm);
+// }
+
+// .margin-top--lg {
+//   margin-top: var(--space-lg);
+// }
+
+// .margin-top--xl {
+//   margin-top: var(--space-xl);
+// }
+
+// .margin-top--xxl {
+//   margin-top: var(--space-xxl);
+// }
+
+// .margin-bottom, .margin-bottom--md {
+//   margin-bottom: var(--space-md);
+// }
+
+// .margin-bottom--sm {
+//   margin-bottom: var(--space-sm);
+// }
+
+// .margin-bottom--lg {
+//   margin-bottom: var(--space-lg);
+// }
+
+// .margin-bottom--xl {
+//   margin-bottom: var(--space-xl);
+// }
+
+// .margin-bottom--xxl {
+//   margin-bottom: var(--space-xxl);
+// }
+
+// @include mq( large ) {
+//   .margin-top, .margin-top--md {
+//       margin-top: var(--space-lg);
+//   }
+  
+//   .margin-top--sm {
+//       margin-top: var(--space-md);
+//   }
+  
+//   .margin-top--lg {
+//       margin-top: var(--space-xl);
+//   }
+  
+//   .margin-top--xl {
+//       margin-top: var(--space-xxl);
+//   }
+  
+//   .margin-top--xxl {
+//       margin-top: var(--space-xxxl);
+//   }
+
+//   .margin-bottom, .margin-bottom--md {
+//       margin-bottom: var(--space-lg);
+//   }
+  
+//   .margin-bottom--sm {
+//       margin-bottom: var(--space-md);
+//   }
+  
+//   .margin-bottom--lg {
+//       margin-bottom: var(--space-xl);
+//   }
+  
+//   .margin-bottom--xl {
+//       margin-bottom: var(--space-xxl);
+//   }
+  
+//   .margin-bottom--xxl {
+//       margin-bottom: var(--space-xxxl);
+//   }
+// }
+
+/////////////////////////////////
+@mixin ns_margin($margin_name,$margin_short_name) {
+  .nsm#{$margin_short_name}-1 {
+    margin-#{$margin_name}: var(--space-1) !important;
+  }
+
+  .nsm#{$margin_short_name}-2 {
+    margin-#{$margin_name}: var(--space-2) !important;
+  }
+
+  .nsm#{$margin_short_name}-3 {
+    margin-#{$margin_name}: var(--space-3) !important;
+  }
+
+  .nsm#{$margin_short_name}-4 {
+    margin-#{$margin_name}: var(--space-4) !important;
+  }
+
+  .nsm#{$margin_short_name}-5 {
+    margin-#{$margin_name}: var(--space-5) !important;
+  }
+
+  .nsm#{$margin_short_name}-6 {
+    margin-#{$margin_name}: var(--space-6) !important;
+  }
+
+  .nsm#{$margin_short_name}-7 {
+    margin-#{$margin_name}: var(--space-7) !important;
+  }
+
+  .nsm#{$margin_short_name}-8 {
+    margin-#{$margin_name}: var(--space-8) !important;
+  }
+
+  .nsm#{$margin_short_name}-9 {
+    margin-#{$margin_name}: var(--space-9) !important;
+  }
+
+  .nsm#{$margin_short_name}-10 {
+    margin-#{$margin_name}: var(--space-10) !important;
+  }
+
+  .nsm#{$margin_short_name}-11 {
+    margin-#{$margin_name}: var(--space-11) !important;
+  }
+
+  .nsm#{$margin_short_name}-12 {
+    margin-#{$margin_name}: var(--space-12) !important;
+  }
+
+  .nsm#{$margin_short_name}-13 {
+    margin-#{$margin_name}: var(--space-13) !important;
+  }
+
+  .nsm#{$margin_short_name}-14 {
+    margin-#{$margin_name}: var(--space-14) !important;
+  }
+
+  .nsm#{$margin_short_name}-15 {
+    margin-#{$margin_name}: var(--space-15) !important;
+  }
+}
+
+// @mixin ns_margin($margin_name,$margin_short_name) {
+@include ns_margin('top','t');
+@include ns_margin('right','r');
+@include ns_margin('bottom','b');
+@include ns_margin('left','l');
+
+
+// @include mq( xsmall ) {
+
+//   .ns-margin-b-1 {
+//     margin-bottom: var(--space-1);
+//   }
+
+//   .ns-margin-b-2 {
+//     margin-bottom: var(--space-2);
+//   }
+
+//   .ns-margin-b-3 {
+//     margin-bottom: var(--space-3);
+//   }
+
+//   .ns-margin-b-4 {
+//     margin-bottom: var(--space-4);
+//   }
+
+//   .ns-margin-b-5 {
+//     margin-bottom: var(--space-5);
+//   }
+
+//   .ns-margin-b-6 {
+//     margin-bottom: var(--space-6);
+//   }
+
+//   .ns-margin-b-7 {
+//     margin-bottom: var(--space-7);
+//   }
+
+//   .ns-margin-b-8 {
+//     margin-bottom: var(--space-8);
+//   }
+
+//   .ns-margin-b-9 {
+//     margin-bottom: var(--space-9);
+//   }
+
+//   .ns-margin-b-10 {
+//     margin-bottom: var(--space-10);
+//   }
+
+//   .ns-margin-b-11 {
+//     margin-bottom: var(--space-11);
+//   }
+
+//   .ns-margin-b-12 {
+//     margin-bottom: var(--space-12);
+//   }
+
+//   .ns-margin-b-13 {
+//     margin-bottom: var(--space-13);
+//   }
+
+//   .ns-margin-b-14 {
+//     margin-bottom: var(--space-14);
+//   }
+
+//   .ns-margin-b-15 {
+//     margin-bottom: var(--space-15);
+//   }
+  
+// }
+
+// @include mq( small ) {
+
+// }
+
+// @include mq( medium ) {
+
+// }
+
+// @include mq( large ) {
+
+// }
+
+// @include mq( xlarge ) {
+
+// }
+
+// @include mq( xxlarge ) {
+
+// }
+
+// @include mq( xxxlarge ) {
+
+// }
+// @include mq( xxxlargep1 ) {
+
+// }

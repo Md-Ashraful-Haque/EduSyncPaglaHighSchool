@@ -1,0 +1,157 @@
+@font-face {
+  font-family: 'araf-icon';
+  src: url('./araf-fonts/araf-web-font.otf?af-v-1') format('opentype');
+    /* url('../araf-fonts/araf-web-font.eot?s4b20j'),
+    url('../araf-fonts/araf-web-font.eot?s4b20j#iefix') format('embedded-opentype'),
+    url('../araf-fonts/araf-web-font.woff?s4b20j') format('woff'),
+    url('../araf-fonts/araf-web-font.svg?s4b20j#araf-web-font') format('svg'); */
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="af-"], [class*=" af-"] {
+  /* use !important to prevent issues with browser extensions that change araf-fonts */
+  font-family: 'araf-icon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+.af-cloud-server::before {
+  content: "\e901";
+}
+.af-cloud-lock::before {
+  content: "\e902";
+}
+.af-cloud-service::before {
+  content: "\e903";
+}
+.af-innovation::before {
+  content: "\e904";
+}
+.af-server-storage::before {
+  content: "\e905";
+}
+.af-tracking::before {
+  content: "\e906";
+}
+
+.af-desktop-server::before {
+  content: "\e907";
+}
+
+
+.af-two-square::before {
+  content: "\e908";
+}
+
+.af-team-work::before {
+  content: "\e909";
+}
+
+
+.af-tech-service::before {
+  content: "\e90a";
+}
+
+.af-award::before {
+  content: "\e90b";
+}
+
+.af-customer-review::before {
+  content: "\e90c";
+}
+
+.af-experience::before {
+  content: "\e90d";
+}
+
+.af-finished-project::before {
+  content: "\e90e";
+}
+
+.af-happy-client::before {
+  content: "\e90f";
+}
+
+.af-expertise::before {
+  content: "\e910";
+}
+
+.af-seo-icon::before {
+  content: "\e911";
+}
+
+.af-innovation::before {
+  content: "\e912";
+}
+
+.af-client-centric::before {
+  content: "\e913";
+}
+
+.af-robust-support::before {
+  content: "\e914";
+}
+
+.af-security::before {
+  content: "\e915";
+}
+
+.af-customize::before {
+  content: "\e916";
+}
+
+.af-scalability::before {
+  content: "\e917";
+}
+
+.af-security-2::before {
+  content: "\e918";
+}
+
+.af-global-addreass::before {
+  content: "\e919";
+}
+
+.af-email::before {
+  content: "\e91a";
+}
+
+.af-phone::before {
+  content: "\e91b";
+}
+.af-input-or-bigdata::before {
+  content: "\e91c";
+}
+.af-analysis::before {
+  content: "\e91d";
+}
+.af-planning::before {
+  content: "\e91e";
+}
+.af-coding-or-execution::before {
+  content: "\e91f";
+}
+.af-handover::before {
+  content: "\e920";
+}
+
+.af-simplicity::before {
+  content: "\e921";
+}
+.af-data-analysys::before {
+  content: "\e922";
+}
+
+
+

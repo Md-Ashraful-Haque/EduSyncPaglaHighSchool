@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gradient Border Example</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-color: #f5f5f5;
+      font-family: Arial, sans-serif;
+    }
+
+    .gradient-border {
+      position: relative;
+      border-radius: 12px; /* Outer border radius */
+      padding: 10px; /* Adjust for content space */
+      display: inline-block;
+    }
+
+    .gradient-border::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 12px; /* Outer radius */
+      padding: 4px; /* Thickness of the gradient border */
+      background: linear-gradient(90deg, #2061ED 100%, #2061ED 50%);
+      z-index: -1;
+      box-sizing: border-box;
+    }
+
+    .content {
+      background: white; /* Inner content background color */
+      border-radius: 8px; /* Match inner radius: outer radius - padding */
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="gradient-border">
+    <div class="content">
+      This is a div with a working gradient border and border-radius in Chrome.
+    </div>
+  </div>
+</body>
+</html>

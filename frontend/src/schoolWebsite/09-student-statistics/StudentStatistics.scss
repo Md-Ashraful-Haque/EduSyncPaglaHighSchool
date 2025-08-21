@@ -1,0 +1,119 @@
+.student-statistics {
+  & {
+    padding: 0.8rem;
+    background-color: #f9f9f9;
+    width: 98%;
+    max-width: 1120px; 
+    margin-top: 32px;
+    padding: 24px 40px;
+    border-radius: 16px;
+    border: 1px solid blue;
+  }
+  @media screen and (max-width: 992px) {
+    margin-top: 8px;
+    padding: 16px;
+  }
+
+
+  h2 {
+    text-align: center;
+    margin-bottom: 1rem;
+    // color: #373535;
+    color: #4D44B5;
+    background: linear-gradient(to right, #1E33F2, #0b002f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 500;
+  }
+
+  // Wrapper to enable horizontal scroll
+  .table-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; // smooth scroll on iOS
+
+    &.student-statistics-for-desktop {
+      display: block;
+
+      @media screen and (max-width: 992px) {
+        display: none;
+      }
+    }
+
+  }
+
+  table {
+    width: 100%;
+    // min-width: 1200px; // minimum width so it scrolls on mobile
+    border-collapse: collapse;
+    background: #fff;
+    // background: linear-gradient(to right, #d0d4f1, #f1eff5);
+    // font-size: 0.8rem;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); 
+    margin-bottom: 16px;
+
+    @media screen and (max-width: 992px) {
+      font-size: 0.8rem;
+    }
+
+    thead{
+      tr{
+        &>th{
+          background-color: initial;
+          color: initial;
+        }
+        &.desk-student-info-header{
+          color: white !important;
+          background: linear-gradient(to right, #0721e76e, #70366b51);
+          
+        }
+      }
+    }
+
+    th,
+    td {
+      border: 1px solid #102fdc42;
+      padding: 0.8rem 0;
+      text-align: center;
+      white-space: nowrap; // prevent content wrap
+      @media screen and (max-width: 992px) {
+        padding: 0.5rem 0;
+      }
+    }
+    
+    th {
+      font-weight: 700;
+      background-color: #ececec;
+      color: #000;
+      @media screen and (max-width: 992px) {
+        font-size: 0.75rem;
+      }
+
+      &.student-statistics-heading {
+        background-color: #d0f0d0;
+        background: linear-gradient(to right, #e4eae8, #b1e40b35);
+
+        @media screen and (max-width: 992px) {
+          font-size: 0.9rem;
+        }
+      }
+    }
+
+    tr:nth-child(even) {
+      background-color: #f3f3f3;
+      background: linear-gradient(to right, #d2d0f1, #f1eff5);
+    }
+
+    .totals {
+      background-color: #d0f0d0;
+      font-weight: bold;
+    }
+  }
+
+  .student-statistics-for-mobile {
+    display: none;
+
+    @media screen and (max-width: 992px) {
+      display: block;
+    }
+  }
+}

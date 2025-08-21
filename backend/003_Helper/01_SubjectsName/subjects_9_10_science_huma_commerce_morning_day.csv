@@ -1,0 +1,123 @@
+S.I No,institute,shift,year,class,group_science,group_humanities,group_commerce,name,name_bengali,class_name,code,is_optional,serial_number,full_marks,pass_marks
+1,PHS,morning,2025,9,science,humanities,commerce,Bangla First Paper,বাংলা প্রথম পত্র,Nine-Ten,g-91001,False,1,100,33
+2,PHS,morning,2025,9,science,humanities,commerce,Bangla Second Paper,বাংলা দ্বিতীয় পত্র,Nine-Ten,g-91002,False,2,100,33
+3,PHS,morning,2025,9,science,humanities,commerce,English First Paper,ইংরেজি প্রথম পত্র,Nine-Ten,g-91003,False,3,100,33
+4,PHS,morning,2025,9,science,humanities,commerce,English Second Paper,ইংরেজি দ্বিতীয় পত্র,Nine-Ten,g-91004,False,4,100,33
+5,PHS,morning,2025,9,science,humanities,commerce,Mathematics,গণিত,Nine-Ten,g-91005,False,5,100,33
+6,PHS,morning,2025,9,science,humanities,commerce,Religion,ধর্ম,Nine-Ten,g-91006,False,6,100,33
+7,PHS,morning,2025,9,science,humanities,commerce,ICT,তথ্য ও যোগাযোগ প্রযুক্তি,Nine-Ten,g-91007,False,7,50,17
+,,,,,,,,,,,,,,,
+8,PHS,morning,2025,9,science,,,Physics,পদার্থবিজ্ঞান,Nine-Ten,gs-91010,False,10,100,33
+9,PHS,morning,2025,9,science,,,Chemistry,রসায়ন,Nine-Ten,gs-91011,False,11,100,33
+10,PHS,morning,2025,9,science,,,Biology,জীববিজ্ঞান,Nine-Ten,gs-91012,False,12,100,33
+11,PHS,morning,2025,9,science,,,Bangladesh and Global Studies,বাংলাদেশ ও বিশ্ব পরিচয়,Nine-Ten,gs-91013,False,13,100,33
+,,,,,,,,,,,,,,,
+12,PHS,morning,2025,9,science,humanities,commerce,Higher Math,উচ্চতর গণিত,Nine-Ten,go-91040,True,40,100,0
+13,PHS,morning,2025,9,science,humanities,commerce,Agriculture,কৃষিশিক্ষা,Nine-Ten,go-91041,True,41,100,0
+14,PHS,morning,2025,9,science,humanities,commerce,Career Education,ক্যারিয়ার শিক্ষা,Nine-Ten,g-91008,True,30,100,0
+15,PHS,morning,2025,9,science,humanities,commerce,Physical Education,শারীরিক শিক্ষা,Nine-Ten,g-91009,True,31,100,0
+16,PHS,morning,2025,9,science,humanities,commerce,Health Sciences and Sports,স্বাস্থ্য বিজ্ঞান ও খেলাধুলা,Nine-Ten,go-91042,True,42,100,0
+,,,,,,,,,,,,,,,
+17,PHS,morning,2025,9,,humanities,,History of Bangladesh and World Civilization,বাংলাদেশের ইতিহাস ও বিশ্বসভ্যতা,Nine-Ten,gh-91014,True,14,100,33
+18,PHS,morning,2025,9,,humanities,,Geography and Environment,ভূগোল ও পরিবেশ,Nine-Ten,gh-91015,True,15,100,33
+19,PHS,morning,2025,9,,humanities,,Economics,অর্থনীতি,Nine-Ten,gh-91016,True,16,100,33
+20,PHS,morning,2025,9,,humanities,,Civics and Citizenship,পৌরনীতি ও নাগরিকতা,Nine-Ten,gh-91017,True,17,100,33
+,,,,,,,,,,,,,,,
+21,PHS,morning,2025,9,,commerce,,Business Entrepreneurship,ব্যবসায় উদ্যোগ,Nine-Ten,gb-91019,True,19,100,33
+22,PHS,morning,2025,9,,commerce,,Accounting,হিসাববিজ্ঞান,Nine-Ten,gb-91020,True,20,100,33
+23,PHS,morning,2025,9,,commerce,,Finance and Banking,ফিন্যান্স ও ব্যাংকিং,Nine-Ten,gb-91021,True,21,100,33
+,,,,,,,,,,,,,,,
+24,PHS,morning,2025,9,,humanities,commerce,Science,বিজ্ঞান,Nine-Ten,ghb-91018,True,29,100,33
+,,,,,,,,,,,,,,,
+1,PHS,day,2025,9,science,humanities,commerce,Bangla First Paper,বাংলা প্রথম পত্র,Nine-Ten,g-91001,False,1,100,33
+2,PHS,day,2025,9,science,humanities,commerce,Bangla Second Paper,বাংলা দ্বিতীয় পত্র,Nine-Ten,g-91002,False,2,100,33
+3,PHS,day,2025,9,science,humanities,commerce,English First Paper,ইংরেজি প্রথম পত্র,Nine-Ten,g-91003,False,3,100,33
+4,PHS,day,2025,9,science,humanities,commerce,English Second Paper,ইংরেজি দ্বিতীয় পত্র,Nine-Ten,g-91004,False,4,100,33
+5,PHS,day,2025,9,science,humanities,commerce,Mathematics,গণিত,Nine-Ten,g-91005,False,5,100,33
+6,PHS,day,2025,9,science,humanities,commerce,Religion,ধর্ম,Nine-Ten,g-91006,False,6,100,33
+7,PHS,day,2025,9,science,humanities,commerce,ICT,তথ্য ও যোগাযোগ প্রযুক্তি,Nine-Ten,g-91007,False,7,50,17
+,,,,,,,,,,,,,,,
+8,PHS,day,2025,9,science,,,Physics,পদার্থবিজ্ঞান,Nine-Ten,gs-91010,False,10,100,33
+9,PHS,day,2025,9,science,,,Chemistry,রসায়ন,Nine-Ten,gs-91011,False,11,100,33
+10,PHS,day,2025,9,science,,,Biology,জীববিজ্ঞান,Nine-Ten,gs-91012,False,12,100,33
+11,PHS,day,2025,9,science,,,Bangladesh and Global Studies,বাংলাদেশ ও বিশ্ব পরিচয়,Nine-Ten,gs-91013,False,13,100,33
+,,,,,,,,,,,,,,,
+12,PHS,day,2025,9,science,humanities,commerce,Higher Math,উচ্চতর গণিত,Nine-Ten,go-91040,True,40,100,0
+13,PHS,day,2025,9,science,humanities,commerce,Agriculture,কৃষিশিক্ষা,Nine-Ten,go-91041,True,41,100,0
+14,PHS,day,2025,9,science,humanities,commerce,Career Education,ক্যারিয়ার শিক্ষা,Nine-Ten,g-91008,True,30,100,0
+15,PHS,day,2025,9,science,humanities,commerce,Physical Education,শারীরিক শিক্ষা,Nine-Ten,g-91009,True,31,100,0
+16,PHS,day,2025,9,science,humanities,commerce,Health Sciences and Sports,স্বাস্থ্য বিজ্ঞান ও খেলাধুলা,Nine-Ten,go-91042,True,42,100,0
+,,,,,,,,,,,,,,,
+17,PHS,day,2025,9,,humanities,,History of Bangladesh and World Civilization,বাংলাদেশের ইতিহাস ও বিশ্বসভ্যতা,Nine-Ten,gh-91014,True,14,100,33
+18,PHS,day,2025,9,,humanities,,Geography and Environment,ভূগোল ও পরিবেশ,Nine-Ten,gh-91015,True,15,100,33
+19,PHS,day,2025,9,,humanities,,Economics,অর্থনীতি,Nine-Ten,gh-91016,True,16,100,33
+20,PHS,day,2025,9,,humanities,,Civics and Citizenship,পৌরনীতি ও নাগরিকতা,Nine-Ten,gh-91017,True,17,100,33
+,,,,,,,,,,,,,,,
+21,PHS,day,2025,9,,commerce,,Business Entrepreneurship,ব্যবসায় উদ্যোগ,Nine-Ten,gb-91019,True,19,100,33
+22,PHS,day,2025,9,,commerce,,Accounting,হিসাববিজ্ঞান,Nine-Ten,gb-91020,True,20,100,33
+23,PHS,day,2025,9,,commerce,,Finance and Banking,ফিন্যান্স ও ব্যাংকিং,Nine-Ten,gb-91021,True,21,100,33
+,,,,,,,,,,,,,,,
+24,PHS,day,2025,9,,humanities,commerce,Science,বিজ্ঞান,Nine-Ten,ghb-91018,True,29,100,33
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,
+1,PHS,morning,2025,10,science,humanities,commerce,Bangla First Paper,বাংলা প্রথম পত্র,Nine-Ten,g-91001,False,1,100,33
+2,PHS,morning,2025,10,science,humanities,commerce,Bangla Second Paper,বাংলা দ্বিতীয় পত্র,Nine-Ten,g-91002,False,2,100,33
+3,PHS,morning,2025,10,science,humanities,commerce,English First Paper,ইংরেজি প্রথম পত্র,Nine-Ten,g-91003,False,3,100,33
+4,PHS,morning,2025,10,science,humanities,commerce,English Second Paper,ইংরেজি দ্বিতীয় পত্র,Nine-Ten,g-91004,False,4,100,33
+5,PHS,morning,2025,10,science,humanities,commerce,Mathematics,গণিত,Nine-Ten,g-91005,False,5,100,33
+6,PHS,morning,2025,10,science,humanities,commerce,Religion,ধর্ম,Nine-Ten,g-91006,False,6,100,33
+7,PHS,morning,2025,10,science,humanities,commerce,ICT,তথ্য ও যোগাযোগ প্রযুক্তি,Nine-Ten,g-91007,False,7,50,17
+,,,,,,,,,,,,,,,
+8,PHS,morning,2025,10,science,,,Physics,পদার্থবিজ্ঞান,Nine-Ten,gs-91010,False,10,100,33
+10,PHS,morning,2025,10,science,,,Chemistry,রসায়ন,Nine-Ten,gs-91011,False,11,100,33
+10,PHS,morning,2025,10,science,,,Biology,জীববিজ্ঞান,Nine-Ten,gs-91012,False,12,100,33
+11,PHS,morning,2025,10,science,,,Bangladesh and Global Studies,বাংলাদেশ ও বিশ্ব পরিচয়,Nine-Ten,gs-91013,False,13,100,33
+,,,,,,,,,,,,,,,
+12,PHS,morning,2025,10,science,humanities,commerce,Higher Math,উচ্চতর গণিত,Nine-Ten,go-91040,True,40,100,0
+13,PHS,morning,2025,10,science,humanities,commerce,Agriculture,কৃষিশিক্ষা,Nine-Ten,go-91041,True,41,100,0
+14,PHS,morning,2025,10,science,humanities,commerce,Career Education,ক্যারিয়ার শিক্ষা,Nine-Ten,g-91008,True,30,100,0
+15,PHS,morning,2025,10,science,humanities,commerce,Physical Education,শারীরিক শিক্ষা,Nine-Ten,g-91009,True,31,100,0
+16,PHS,morning,2025,10,science,humanities,commerce,Health Sciences and Sports,স্বাস্থ্য বিজ্ঞান ও খেলাধুলা,Nine-Ten,go-91042,True,42,100,0
+,,,,,,,,,,,,,,,
+17,PHS,morning,2025,10,,humanities,,History of Bangladesh and World Civilization,বাংলাদেশের ইতিহাস ও বিশ্বসভ্যতা,Nine-Ten,gh-91014,True,14,100,33
+18,PHS,morning,2025,10,,humanities,,Geography and Environment,ভূগোল ও পরিবেশ,Nine-Ten,gh-91015,True,15,100,33
+110,PHS,morning,2025,10,,humanities,,Economics,অর্থনীতি,Nine-Ten,gh-91016,True,16,100,33
+20,PHS,morning,2025,10,,humanities,,Civics and Citizenship,পৌরনীতি ও নাগরিকতা,Nine-Ten,gh-91017,True,17,100,33
+,,,,,,,,,,,,,,,
+21,PHS,morning,2025,10,,commerce,,Business Entrepreneurship,ব্যবসায় উদ্যোগ,Nine-Ten,gb-91019,True,19,100,33
+22,PHS,morning,2025,10,,commerce,,Accounting,হিসাববিজ্ঞান,Nine-Ten,gb-91020,True,20,100,33
+23,PHS,morning,2025,10,,commerce,,Finance and Banking,ফিন্যান্স ও ব্যাংকিং,Nine-Ten,gb-91021,True,21,100,33
+,,,,,,,,,,,,,,,
+24,PHS,morning,2025,10,,humanities,commerce,Science,বিজ্ঞান,Nine-Ten,ghb-91018,True,29,100,33
+,,,,,,,,,,,,,,,
+1,PHS,day,2025,10,science,humanities,commerce,Bangla First Paper,বাংলা প্রথম পত্র,Nine-Ten,g-91001,False,1,100,33
+2,PHS,day,2025,10,science,humanities,commerce,Bangla Second Paper,বাংলা দ্বিতীয় পত্র,Nine-Ten,g-91002,False,2,100,33
+3,PHS,day,2025,10,science,humanities,commerce,English First Paper,ইংরেজি প্রথম পত্র,Nine-Ten,g-91003,False,3,100,33
+4,PHS,day,2025,10,science,humanities,commerce,English Second Paper,ইংরেজি দ্বিতীয় পত্র,Nine-Ten,g-91004,False,4,100,33
+5,PHS,day,2025,10,science,humanities,commerce,Mathematics,গণিত,Nine-Ten,g-91005,False,5,100,33
+6,PHS,day,2025,10,science,humanities,commerce,Religion,ধর্ম,Nine-Ten,g-91006,False,6,100,33
+7,PHS,day,2025,10,science,humanities,commerce,ICT,তথ্য ও যোগাযোগ প্রযুক্তি,Nine-Ten,g-91007,False,7,50,17
+,,,,,,,,,,,,,,,
+8,PHS,day,2025,10,science,,,Physics,পদার্থবিজ্ঞান,Nine-Ten,gs-91010,False,10,100,33
+10,PHS,day,2025,10,science,,,Chemistry,রসায়ন,Nine-Ten,gs-91011,False,11,100,33
+10,PHS,day,2025,10,science,,,Biology,জীববিজ্ঞান,Nine-Ten,gs-91012,False,12,100,33
+11,PHS,day,2025,10,science,,,Bangladesh and Global Studies,বাংলাদেশ ও বিশ্ব পরিচয়,Nine-Ten,gs-91013,False,13,100,33
+,,,,,,,,,,,,,,,
+12,PHS,day,2025,10,science,humanities,commerce,Higher Math,উচ্চতর গণিত,Nine-Ten,go-91040,True,40,100,0
+13,PHS,day,2025,10,science,humanities,commerce,Agriculture,কৃষিশিক্ষা,Nine-Ten,go-91041,True,41,100,0
+14,PHS,day,2025,10,science,humanities,commerce,Career Education,ক্যারিয়ার শিক্ষা,Nine-Ten,g-91008,True,30,100,0
+15,PHS,day,2025,10,science,humanities,commerce,Physical Education,শারীরিক শিক্ষা,Nine-Ten,g-91009,True,31,100,0
+16,PHS,day,2025,10,science,humanities,commerce,Health Sciences and Sports,স্বাস্থ্য বিজ্ঞান ও খেলাধুলা,Nine-Ten,go-91042,True,42,100,0
+,,,,,,,,,,,,,,,
+17,PHS,day,2025,10,,humanities,,History of Bangladesh and World Civilization,বাংলাদেশের ইতিহাস ও বিশ্বসভ্যতা,Nine-Ten,gh-91014,True,14,100,33
+18,PHS,day,2025,10,,humanities,,Geography and Environment,ভূগোল ও পরিবেশ,Nine-Ten,gh-91015,True,15,100,33
+110,PHS,day,2025,10,,humanities,,Economics,অর্থনীতি,Nine-Ten,gh-91016,True,16,100,33
+20,PHS,day,2025,10,,humanities,,Civics and Citizenship,পৌরনীতি ও নাগরিকতা,Nine-Ten,gh-91017,True,17,100,33
+,,,,,,,,,,,,,,,
+21,PHS,day,2025,10,,commerce,,Business Entrepreneurship,ব্যবসায় উদ্যোগ,Nine-Ten,gb-91019,True,19,100,33
+22,PHS,day,2025,10,,commerce,,Accounting,হিসাববিজ্ঞান,Nine-Ten,gb-91020,True,20,100,33
+23,PHS,day,2025,10,,commerce,,Finance and Banking,ফিন্যান্স ও ব্যাংকিং,Nine-Ten,gb-91021,True,21,100,33
+,,,,,,,,,,,,,,,
+24,PHS,day,2025,10,,humanities,commerce,Science,বিজ্ঞান,Nine-Ten,ghb-91018,True,29,100,33

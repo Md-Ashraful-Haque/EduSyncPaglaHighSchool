@@ -1,0 +1,36 @@
+@use "../../../assets/03-common-sass/essentials"as *;
+@use "sass-mq" as *;
+// @use "./desktop/desktopLogin.scss" as *;
+// @use "./mobile/mobileLogin.scss" as *;
+.login-page{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  // min-height: 100vh;
+  box-sizing: border-box;
+}
+.copy-right{
+  // height: 5%;
+  
+    & {
+      // border: 1px solid red;  
+      width: 100%; 
+      display: flex;
+      justify-content: center;
+      font-size: gs(16); 
+      padding: gs(15);
+      background-color: #F3FAFF;
+      @include mq($until: medium){
+        color: #2061ED; 
+        padding: gsm(12);
+        font-size: gsm(12);
+      }
+    }
+    a{
+      padding-left: 2px;
+      text-decoration: none;
+      font-weight: bold;
+      color: #2061ED;
+    }
+  
+}

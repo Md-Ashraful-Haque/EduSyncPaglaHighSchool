@@ -1,0 +1,373 @@
+@use "../../../assets/03-common-sass/essentials"as *;
+
+
+@use "sass-mq"as *;
+
+.enter-marks-by-subject {
+  
+  .enter-marks-by-subject-form {
+    & {
+      // border: 1px solid $form-border-color;
+      height: 100%;
+      width: 100%;
+      border-radius: gs(12);
+      padding: gs(20);
+      background-color: white;
+
+      // margin-bottom: gs(24);
+    }
+    
+    .current-session-header {
+      & {
+        width: 100%;
+        height: 100%;
+        min-width: 280px;
+      }
+
+      .session-section {
+        &{
+          // margin-right: 40px;
+          // border: 1px dotted #ff0303;
+        }
+
+        span {
+          margin-right: gs(16);
+        }
+
+        select {
+          padding: 5px 10px;
+          font-size: 16px;
+          border: 1px solid $current-session-border-color;
+          border-radius: gs(5);
+          background-color: transparent;
+          outline: none;
+        }
+      }
+
+      .heading-container {
+        & {
+          width: 100%;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .heading {
+
+          & {
+            width: gs(335);
+            padding: gs(10) gs(15);
+            border-radius: gs(12);
+            background-color: $current-session-heading-color;
+            // border: 1px solid  $current-session-heading-color; 
+            font-size: gs(16);
+            // font-weight: bold;
+            color: white;
+
+            display: flex;
+            justify-self: center;
+            align-self: center;
+          }
+        }
+      }
+
+      .shift-section {
+        & {
+          display: flex;
+          justify-content: flex-end;
+        }
+
+        .shift {
+          & {
+            margin-right: 40px;
+          }
+
+          span {
+            margin-right: gs(16);
+          }
+
+          select {
+            padding: 5px 10px;
+            font-size: 16px;
+            border: 1px solid $current-session-border-color;
+            border-radius: gs(5);
+            background-color: transparent;
+            outline: none;
+          }
+        }
+
+        .current-sesstion-button {
+          & {
+            display: flex;
+            justify-content: flex-end;
+          }
+
+          .button {
+            & {
+              padding-left: 10px;
+            }
+
+            button {
+              & {
+                width: gs(36);
+                height: gs(36);
+                border: 1px solid $current-session-border-color;
+                background-color: transparent;
+              }
+
+              @include mq($until: 1366px) {
+                width: gs(50);
+                height: gs(50);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Roll wise marks for a subject of all students of a section
+  .enter-marks-by-subject-form-query-fields {
+    & {
+      // border: 1px solid $form-border-color;
+      height: 100%;
+      width: 100%;
+      border-radius: gs(12); 
+      padding-top: 30px;
+      background-color: white; 
+      font-family: "SolaimanLipi", sans-serif;
+      font-weight: 500;
+    } 
+
+    .mark-entry-heading {
+      & {
+        // background-color: $form-border-color;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: gs(10);
+        border-top-left-radius: gs(12);
+        border-top-right-radius: gs(12);
+
+        // font-family: "SolaimanLipi", sans-serif;
+        font-size: 18px;
+
+        // font-weight: 900;
+        // color: white;
+      }
+
+    }
+
+    .section-wise-student-marks-entry {
+      & {
+        // border: 1px dotted #000;
+        width: 100%;
+        padding: gs(32);
+      }
+
+      .marks-entry-for-one-subject {
+        [class^="col-"] {
+          padding: 0px;
+        }
+
+        .heading {
+          border: 1px solid $roll-border-color;
+          height: gs(60);
+          min-height: 44px; 
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          // font-family: "SolaimanLipi", sans-serif;
+          font-size: 16px;
+
+          // font-weight: bold;
+          background-color: $mark-entry-header-bg-color;
+          color: $mark-entry-header-color;
+
+          &.data-even {
+            background-color: $student-even-data-bg;
+            border-top: 1px solid transparent;
+            font-weight: lighter;
+            border-radius: 0;
+          }
+
+          &.data-odd {
+            background-color: $student-odd-data-bg;
+            border-top: 1px solid transparent;
+            font-weight: lighter;
+            border-radius: 0;
+          }
+
+          input {
+            outline: none;
+            border: none;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 900;
+            background-color: white;
+          }
+        }
+
+        .serial-no {
+          border-top-left-radius: 10px;
+
+          @include mq($until: large){
+            display: none;
+          }
+        }
+
+        .name-heading {
+          border-left: 1px solid transparent;
+          @include mq($until: medium){
+            border: 1px solid $roll-border-color;
+            border-top-left-radius: 10px;
+          }
+        }
+
+        .roll-heading {
+          border-left: 1px solid transparent;
+          border-right: 1px solid transparent;
+        }
+
+        .marks-heading {
+          border-top-right-radius: 10px;
+        }
+
+        .save-button{
+          // border: 1px solid red;
+          width: 100%;
+          padding: 10px;
+          padding-top: 20px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          justify-content: center;
+
+          button{
+            // border: 1px solid red;
+            background-color: $current-session-heading-color;
+            color: white;
+            font-weight: bold;
+            // font-family: "SolaimanLipi", sans-serif;
+            min-width: 130px;
+            min-height: 44px; 
+            padding: 12px 15px;
+            border: 1px solid #1E33F2;
+            border-radius: 100px; 
+            transition: all 300ms ease-in-out;
+
+            &:hover {
+              color: rgb(46, 46, 46);
+              background-color: white;
+              box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+            }
+          }
+        }
+
+      }
+    }
+
+    .mark-entry-fields {
+      & {
+        // display: flex;
+
+        padding: gs(32);
+        // border: 1px solid $form-border-color;  
+      }
+
+    }
+
+    .select-option-instruction{
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+
+  }
+
+  .subject-selector-form-container {
+    & {
+      // border: 1px solid blue;
+      width: 100%;
+      height: 100%;
+      // min-height: calc(100vh - 63px - 30px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: gs(15);
+      @include mq($from: large){
+        min-height: calc(100vh - 63px - 30px - 270px);
+      }
+    }
+    .shift-and-session-header{
+      background-color: white !important;
+
+      .session-and-shift{
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 24px; 
+        width: 100%;
+        color: gray;
+
+        @include mq($until: large){
+          justify-content: center;
+        }
+        select{
+          color: gray;
+        }
+        .option-label{
+          background-color: white !important;
+        }
+
+      }
+
+    }
+
+    .subject-selector-form {
+      & {
+        // border: 1px solid $form-border-color;
+        max-width: 950px;
+        padding: gs(30) gs(20);
+        border-radius: gs(25);
+        background-color: #f6f8ff; 
+      }
+
+      @include mq($until: large){
+        padding: gs(100) gs(20);
+      }
+
+      
+
+      .form-fields{
+        gap: 24px;
+        #option-component{
+          &{
+            width: 100%; 
+            max-width: 290px;
+          }
+        }
+      }
+      
+    }
+  }
+
+  // &>[class^="col-"] {
+  //   padding: 0px;
+  // }
+
+  // &>[class^="row"] {
+  //   padding: 10px;
+  //   // background-color: rgb(245, 244, 255);
+  //   border-radius: 12px;
+  // }
+
+}

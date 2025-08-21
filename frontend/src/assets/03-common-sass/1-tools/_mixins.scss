@@ -1,0 +1,117 @@
+@use "sass-mq" as *;
+@use "../0-settings/typography" as *;
+@use "./functions" as *;
+
+// @use "../0-settings/z9settings" as *;
+// @use "../2-generic/elements" as *;
+
+
+//////////////////// Constant Width and Height /////////////////////
+@mixin cwh($w, $h:$w){
+  width: #{$w}px;
+  height: #{$h}px;
+}
+
+@mixin cwhp($w, $h:$w){
+  width: #{$w};
+  height: #{$h};
+}
+
+//////////////////// Two MQ /////////////////////
+@mixin two-mqd($attribute, $start-size, $end-size){
+  @include mq($until: xxlarge) {
+    #{$attribute}: $start-size;
+  }
+
+  @include mq($from: xxlarge) {
+    #{$attribute}: $end-size;
+  }
+}
+
+@mixin two-mq($attribute, $start-size, $middile-size, $end-size){
+  @include mq($until: xxlarge) {
+    #{$attribute}: sizew_4($start-size, $middile-size, 320, 1366);
+  }
+
+  @include mq($from: xxlarge) {
+    #{$attribute}: sizew_4($middile-size, $end-size, 1366, 1920);
+  }
+}
+
+
+//////////////////// Three MQ /////////////////////
+@mixin three-mq($attribute, $s1, $s2, $s3){
+  @include mq($until: small) {
+    #{$attribute}: #{$s1}px;
+  }
+  @include mq($until: xxxlarge) {
+    #{$attribute}: #{$s2}px;
+  } 
+
+  @include mq($from: xxxlarge) {
+    #{$attribute}: #{$s3}px;
+  } 
+}
+
+@mixin three-mqr($attribute, $s1, $s2, $s3, $s4, $s5, $s6){
+  @include mq($from: xsmall, $until: small) {
+    #{$attribute}: sizew_4($s1, $s2, 360, 576);
+  }
+  @include mq($from: small, $until: xxlarge) {
+    #{$attribute}: sizew_4($s3, $s4, 576, 1366);
+  } 
+
+  @include mq($from: xxlarge) {
+    #{$attribute}: sizew_4($s5, $s6, 1366, 1920);
+  } 
+}
+
+
+
+//////////////////// Four MQ /////////////////////
+@mixin four-mq($attribute, $s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8){
+  @include mq($from: xsmall, $until: small) {
+    #{$attribute}: sizew_4($s1, $s2, 280, 576);
+  }
+  @include mq($from: small, $until: large) {
+    #{$attribute}: sizew_4($s3, $s4, 576, 992);
+  } 
+
+  @include mq($from: large, $until: xxlarge) {
+    #{$attribute}: sizew_4($s5, $s6, 992, 1366);
+  }
+
+  @include mq($from: xxlarge) {
+    #{$attribute}: sizew_4($s7, $s8, 1366, 1920);
+  }
+}
+
+// 1️⃣ Define breakpoints in a map
+// $breakpoints: (
+//   "xs": 480px,   // small phones
+//   "sm": 576px,   // large phones
+//   "md": 768px,   // tablets portrait
+//   "lg": 992px,   // tablets landscape / small laptops
+//   "xl": 1200px,  // desktops
+//   "xxl": 1400px  // large desktops
+// );
+
+// 2️⃣ Create a mixin for max-width queries
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media screen and (max-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  } @else {
+    @warn "⚠ Breakpoint '#{$breakpoint}' not found in \$breakpoints map.";
+  }
+}
+
+// 3️⃣ Usage example
+// .my-text {
+//   font-size: 28px;
+
+//   @include respond-to(md) {
+//     font-size: 22px;
+//   }
+// }

@@ -1,0 +1,32 @@
+
+
+#field-selector-form{
+  &{
+    
+    @media screen and (max-width: 576px) {
+      min-width: 300px;
+    }
+  }
+  .form-fields{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 24px;
+  }
+  .label-and-value{
+    &{
+      // border: 1px solid red;
+      display: flex;
+
+    }
+    .label{
+      // border: 1px solid red;
+    }
+    .value{
+      // border: 1px solid red;
+    }
+  }
+}
+

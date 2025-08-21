@@ -1,0 +1,7 @@
+@use "../../../assets/03-common-sass/essentials"as *;
+@use "sass-mq"as *;
+
+.print-page-break {
+    page-break-before: always; /* start on a new page */
+    break-before: page;        /* modern equivalent */
+  }

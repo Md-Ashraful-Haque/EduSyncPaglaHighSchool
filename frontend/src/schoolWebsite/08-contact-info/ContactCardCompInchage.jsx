@@ -1,0 +1,66 @@
+import React from 'react';
+import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
+import schoolLogo from "../../assets/images/penchulTransWhite.png";
+
+const ContactCardInfoService = () => {
+  React.useEffect(() => {
+    // Inject styles
+    const styleId = 'contact-card-styles';
+    if (!document.getElementById(styleId)) {
+      const styleElement = document.createElement('style');
+      styleElement.id = styleId;
+      styleElement.textContent = styles;
+      document.head.appendChild(styleElement);
+    }
+  }, []);
+
+  return (
+    <div className="contact-card compline-incharge contact-info">
+      <div className="card-header">
+        <h2 className="title"> অভিযোগ নিষ্পত্তি কর্মকর্তার ঠিকানা  </h2>
+        {/* <h2 className="title"> অভিযোগ নিষ্পত্তি কর্মকর্তার ঠিকানা এবং মোবাইল নম্বর </h2> */}
+      </div>
+      
+      <div className="card-body">
+        <div className="profile-section">
+          <div className="avatar">
+            {/* <span className="initials">মা</span> */}
+            <img src={schoolLogo} alt="" />
+          </div>
+          <div className="profile-info">
+            <h3 className="name">জনাব মোঃ সাইফুল ইসলাম</h3>
+            <p className="designation">সহকারি শিক্ষক </p>
+          </div>
+        </div>
+
+        <div className="contact-details">
+          <div className="contact-item">
+            <MapPin className="icon" size={18} />
+            <span className="text">পেঁচুল উচ্চ বিদ্যালয়, শেরপুর, বগুড়া</span>
+          </div>
+          
+          <div className="contact-item phone-item">
+            <Phone className="icon" size={18} />
+            <span className="text">০১৭৩৩১৮১৩১১</span>
+            <div className="whatsapp-badge">
+              <Phone size={14} />
+              <span>কল</span>
+            </div>
+          </div>
+          
+          <div className="contact-item">
+            <Mail className="icon" size={18} />
+            <span className="text">penchulhighschool2014@gmail.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// SCSS Styles
+const styles = `
+
+`;
+
+export default ContactCardInfoService;

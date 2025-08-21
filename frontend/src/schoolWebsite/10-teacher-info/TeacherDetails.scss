@@ -1,0 +1,337 @@
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+// Optional variables for reuse
+$primary: #3b82f6;
+$primary-dark: #1d4ed8;
+$text-dark: #1e293b;
+$text-muted: #64748b;
+$bg-light: #f8fafc;
+$border-light: rgba(226, 232, 240, 0.6);
+
+.teacher-cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+  gap: 24px;
+  padding: 20px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 16px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 12px;
+  }
+}
+
+.teacher-card-details {
+  & {
+    // background: linear-gradient(145deg, #ffffff 0%, $bg-light 100%);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 1px 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    position: relative;
+    font-family: 'Noto Sans Bengali', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    padding: 48px;
+    padding-bottom: 16px;
+    max-width: 1180px;
+    min-width: 992px;
+    min-height: 580px;
+    display: flex;
+  }
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+    min-width: 320px;
+    padding: 0px;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  }
+
+  &:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15), 0 10px 20px rgba(0, 0, 0, 0.1);
+
+    .teacher-photo {
+      transform: scale(1.05);
+    }
+  }
+
+  @media (max-width: 768px) {
+    border-radius: 16px;
+  }
+
+  .card-header {
+    // padding: 24px 24px 16px;
+    display: flex;
+    // justify-content: center;
+    // align-items: center;
+    flex-direction: column;
+    gap: 16px;
+
+    @media (max-width: 768px) {
+      padding: 20px 20px 12px;
+      flex-direction: column;
+      text-align: center;
+      gap: 12px;
+    }
+
+    @media (max-width: 480px) {
+      padding: 16px 16px 8px;
+    }
+
+    .photo-container {
+      flex-shrink: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      position: relative;
+      margin-bottom: 16px;
+      max-width: 280px;
+
+      @media (max-width: 768px) {
+        width: 280px;
+        // height: 100px;
+        align-self: center;
+      }
+
+      .teacher-photo {
+        width: 100%;
+        height: 100%;
+        max-width: 350px;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+      }
+
+
+      .no-photo {
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: $text-muted;
+        font-size: 10px;
+        font-weight: 500;
+        gap: 4px;
+      }
+    }
+
+    .teacher-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: 0;
+
+      .teacher-name {
+        font-size: 22px;
+        font-weight: 700;
+        color: $text-dark;
+        margin: 0 0 4px;
+        line-height: 1.6;
+
+        @media (max-width: 768px) {
+          font-size: 20px;
+        }
+
+        @media (max-width: 480px) {
+          font-size: 18px;
+        }
+      }
+
+      .name-and-designation {
+        font-size: 16px;
+        color: $text-muted;
+        font-weight: 500;
+        margin-bottom: 8px;
+        border-bottom: 2px solid #ea0a9f;
+
+      }
+
+
+    }
+  }
+
+  .card-body {
+    padding: 0 24px 24px;
+
+    @media (max-width: 768px) {
+      padding: 0 20px 20px;
+      // max-width: 400px;
+    }
+
+    @media (max-width: 480px) {
+      padding: 0 16px 16px;
+    }
+
+    .info-grid {
+      display: grid;
+      gap: 20px;
+
+      .info-section {
+        background: rgba(248, 250, 252, 0.8);
+        border-radius: 12px;
+        padding: 16px;
+        border: 1px solid $border-light;
+
+        @media (max-width: 768px) {
+          padding: 12px;
+        }
+
+        .section-title {
+          font-size: 16px;
+          font-weight: 700;
+          color: #334155;
+          margin-bottom: 12px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .info-item {
+          display: flex;
+          align-items: flex-start;
+          gap: 8px;
+          margin-bottom: 8px;
+          font-size: 15px;
+          color: #475569;
+          line-height: 1.5;
+
+          .blood-group {
+            // font-size: 1rem;
+
+            strong {
+              margin-right: 5px;
+            }
+
+            .blood-value {
+              color: #d9534f;
+              font-weight: bold;
+
+              sup {
+                // font-size: 0.7em;
+                margin-left: 1px;
+              }
+            }
+
+            .blood-na {
+              color: #6c757d;
+              font-style: italic;
+            }
+          }
+
+
+
+
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          svg {
+            color: $text-muted;
+            flex-shrink: 0;
+            margin-top: 2px;
+          }
+
+          .date-info {
+            display: flex;
+            // flex-direction: column;
+            gap: 8px;
+
+            .label {
+              font-weight: 600;
+              color: #334155;
+            }
+
+            .age {
+              font-size: 12px;
+              color: $text-muted;
+              font-style: italic;
+            }
+
+            .index-badge {
+              // display: inline-block;
+              // background: linear-gradient(135deg, $primary, $primary-dark); 
+              // border-radius: 12px;
+              // font-size: 11px;
+              // font-weight: 600;
+              // letter-spacing: 0.025em;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              background-color: rgb(59 130 246 / .5);
+              padding: 4px 8px;
+              padding-top: 6px;
+              margin-top: -5px;
+              border-radius: 100px;
+              font-size: 12px;
+              font-weight: 700;
+              --tw-border-opacity: 1;
+              border-color: rgb(167 243 208 / var(--tw-border-opacity, 1));
+              --tw-bg-opacity: 1;
+              background-color: rgb(209 250 229 / var(--tw-bg-opacity, 1));
+            }
+          }
+        }
+      }
+
+      .qualification-section {
+        grid-column: 1 / -1;
+
+        .qualification-text {
+          background: white;
+          padding: 12px;
+          border-radius: 8px;
+          border-left: 4px solid $primary;
+          font-size: 15px;
+          line-height: 1.6;
+          color: #374151;
+          max-width: 400px;
+        }
+      }
+    }
+  }
+
+  .teacher-details-button {
+    & {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+  }
+}
+
+.no-teachers {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 60px 20px;
+  color: $text-muted;
+  font-size: 18px;
+  font-weight: 500;
+
+  .no-teachers-icon {
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 16px;
+    color: #cbd5e1;
+  }
+}
+
+///////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
