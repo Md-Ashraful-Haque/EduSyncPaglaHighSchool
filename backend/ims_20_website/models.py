@@ -159,7 +159,7 @@ class Notice(models.Model):
     class Meta:
         ordering = ['-pin_on_top', '-is_important', '-published_at']
         verbose_name = "03 Notice"
-        verbose_name_plural = "03 Notices"
+        verbose_name_plural = "Notices"
 
     def __str__(self):
         return self.title
