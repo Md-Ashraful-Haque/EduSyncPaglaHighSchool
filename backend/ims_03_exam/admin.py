@@ -91,3 +91,4 @@ class ExamForIMSAdmin(admin.ModelAdmin):
     filter_horizontal = ['class_instance']
 
 admin.site.register(ExamForIMS, ExamForIMSAdmin)
+
