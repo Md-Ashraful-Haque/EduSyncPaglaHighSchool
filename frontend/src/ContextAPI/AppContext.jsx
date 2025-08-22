@@ -18,6 +18,7 @@ export const ContextAPIProvider = ({ children }) => {
     only_marks_input: null,
     allow_result_processing: null,
     user_image: null,
+    is_staff: null,
   });
 
   const [instituteInfo, setInstituteInfo] = useState(null);
@@ -67,7 +68,8 @@ export const ContextAPIProvider = ({ children }) => {
           updateVar("allow_result_processing", response.allow_result_processing);
           updateVar("only_marks_input", response.only_marks_input);
           updateVar("user_image", response.image);
-          // console.log("allow : ", response);
+          updateVar("is_staff", response.is_staff);
+          console.log("allow : ", response);
         } catch (error) {
           console.error("User Access Info Loader fetch error:", error);
         } finally {

@@ -5,9 +5,6 @@ from rest_framework.response import Response
 # from rest_framework import status
 
 from rest_framework_simplejwt.views import TokenRefreshView
-# from rest_framework.response import Response
-# from rest_framework_simplejwt.tokens import RefreshToken
-# from rest_framework_simplejwt.exceptions import TokenError
 
 from rest_framework_simplejwt.views import TokenVerifyView
 # from rest_framework.response import Response
@@ -21,11 +18,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework import serializers
 from rest_framework.pagination import PageNumberPagination
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-# from rest_framework import status
-# from rest_framework_simplejwt.views import TokenRefreshView
 
-# from rest_framework.response import Response
-# from rest_framework import status
 from rest_framework.request import Request
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.parsers import JSONParser
@@ -289,8 +282,8 @@ class AllStudentListView(generics.ListAPIView):
 
 
 class SaveStudents(APIView):
-    permission_classes = [IsAuthenticated]
-    # permission_classes = [IsStaffUser]
+    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsStaffUser]
     
     def parse_insert_students(self, request):
         students = []
@@ -412,11 +405,17 @@ class TeacherPermission(APIView):
         model_name = f"{user.role}_profile"
         profile = getattr(user, model_name)
         
+        # print("user: ", user)
+        # print("profile: ", profile)
+        # print("is staff: ", profile.user.is_staff)
+        # print("model_name: ", model_name)
+        
         data = {
             'allow_all_subject': profile.allow_all_subject,
             'allow_students_info': profile.allow_students_info,
             'allow_result_processing': profile.allow_result_processing,
             'only_marks_input': profile.only_marks_input,
+            'is_staff':  profile.user.is_staff,
             'image': request.build_absolute_uri(profile.picture.url) if profile.picture else None
         }
         

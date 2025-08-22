@@ -27,7 +27,7 @@ const DataSelectorFormFields = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false); 
-  const { createNewAccessToken } = useAppContext();
+  const { createNewAccessToken,vars } = useAppContext();
   const { bySubjectVars, updateBySubjectVars } = useMarksInputBySubjectContext();
 
   // Extracted fetch logic
@@ -150,16 +150,23 @@ const DataSelectorFormFields = () => {
                     </div>
                   </div>
                 </div>
-                <div className="w-full sm:w-auto flex justify-center pr-0 sm:pr-4 ">
-                  <button onClick={handleModalClose}>
-                    <div className="max-h-[48px] border border-blue-50 flex justify-center items-center p-2 px-3 rounded-full hover:!border-blue-800  hover:bg-blue-50 transition-colors">
-                      <div className="border border-blue-500 rounded-full p-1 mr-2">
-                        <PlusIcon className="size-4 text-blue-500" />
+
+
+                {/* {vars.is_staff &&( */}
+                  <div className="w-full sm:w-auto flex justify-center pr-0 sm:pr-4 ">
+                    <button onClick={handleModalClose}  disabled={vars.is_staff? false: true}>
+                      <div className="max-h-[48px] border border-blue-50 flex justify-center items-center p-2 px-3 rounded-full hover:!border-blue-800  hover:bg-blue-50 transition-colors">
+                        <div className="border border-blue-500 rounded-full p-1 mr-2">
+                          <PlusIcon className="size-4 text-blue-500" />
+                        </div>
+                        Add Student
                       </div>
-                      Add Student
-                    </div>
-                  </button>
-                </div>
+                    </button>
+                  </div> 
+                {/* )} */}
+
+
+
               </div>
             </div>
             <div className="row">

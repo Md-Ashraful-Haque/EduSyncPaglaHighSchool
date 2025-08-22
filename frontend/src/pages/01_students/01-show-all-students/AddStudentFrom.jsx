@@ -124,7 +124,7 @@ const AddStudentForm = ({ setIsModalOpen }) => {
           )}`,
           {
             position: "top-center",
-            autoClose: 10000,
+            autoClose: 5000,
             hideProgressBar: false,
             closeOnClick: false,
             pauseOnHover: true,
@@ -134,9 +134,10 @@ const AddStudentForm = ({ setIsModalOpen }) => {
         );
       }
     } catch (err) {
-      toast.error(err.response?.data?.error || "Failed to save students", {
+      // console.log("Failed err: ", err);
+      toast.error(err?.response.data.detail || "Failed to save students", {
         position: "top-center",
-        autoClose: 10000,
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: false,
         pauseOnHover: true,
@@ -173,9 +174,9 @@ const AddStudentForm = ({ setIsModalOpen }) => {
 
           if (key === "name") student.name = val;
           else if (key === "name bangla") student.name_bangla = val;
-          else if (key === "nid") student.nid = val;
-          else if (key === "fathers name") student.fathers_name = val;
-          else if (key === "mothers name") student.mothers_name = val;
+          else if (key === "birth registration number") student.nid = val;  //Birth Registration Number
+          else if (key === "father's name") student.fathers_name = val;
+          else if (key === "mother's name") student.mothers_name = val;
           else if (key === "roll") student.roll_number = val;
           else if (key === "mobile") student.phone_number = val;
           else if (key === "password") student.password = val;
@@ -276,19 +277,18 @@ const AddStudentForm = ({ setIsModalOpen }) => {
             <table className="student-input-table shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_15px_-4px_rgba(0,0,0,0.1)] !rounded-lg">
               <thead>
                 <tr className="bg-gray-100 text-left">
-                  <th>নাম(ইংরেজি)</th>
-                  <th>নাম(বাংলা) </th>
-                  <th>রোল(ইংরেজি)</th>
-                  <th>NID নম্বর </th>
-                  <th>মোবাইল </th>
-                  {/* <th>মোবাইল নম্বর </th> */}
+                  <th>রোল (ইংরেজি)</th>
+                  <th>ইংরেজি নাম </th>
+                  <th>বাংলা নাম  </th>
+                  <th>জন্ম তারিখ </th>
                   <th>পিতার নাম </th>
                   <th>মাতার নাম </th>
-                  <th>জন্ম তারিখ </th>
-                  {/* <th>ই-মেইল </th>  */}
-                  {/* <th>যোগাযোগের ঠিকানা </th> */}
+                  <th>মোবাইল </th>
+                  <th>Birth Regi নম্বর </th>
                   <th>ছবি</th>
                   <th>Action</th>
+                  {/* <th>ই-মেইল </th>  */}
+                  {/* <th>যোগাযোগের ঠিকানা </th> */}
                 </tr>
               </thead>
               
@@ -300,31 +300,8 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                       failedToSave.includes(index) ? "bg-red-100" : ""
                     }`}
                   >
-                    <td>
-                      <input
-                        type="text"
-                        value={student.name}
-                        onChange={(e) =>
-                          handleStudentChange(index, "name", e.target.value)
-                        }
-                        required
-                        className="name-input"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        value={student.name_bangla}
-                        onChange={(e) =>
-                          handleStudentChange(
-                            index,
-                            "name_bangla",
-                            e.target.value
-                          )
-                        }
-                        className="name-input"
-                      />
-                    </td>
+
+                    {/* Roll Number */}
                     <td>
                       <input
                         type="text"
@@ -341,32 +318,48 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                       />
                     </td>
 
+                    {/* Name English */}
                     <td>
                       <input
                         type="text"
-                        value={student.nid}
+                        value={student.name}
                         onChange={(e) =>
-                          handleStudentChange(index, "nid", e.target.value)
+                          handleStudentChange(index, "name", e.target.value)
                         }
+                        required
                         className="name-input"
                       />
                     </td>
-                    {/* ////////////// Mible Number ///////////  */}
 
+                    {/* Name Bangla */}
                     <td>
                       <input
                         type="text"
-                        value={student.phone_number}
+                        value={student.name_bangla}
                         onChange={(e) =>
                           handleStudentChange(
                             index,
-                            "phone_number",
+                            "name_bangla",
                             e.target.value
                           )
                         }
                         className="name-input"
                       />
                     </td>
+
+                    {/* Date of Birth */}
+                    <td>
+                      <input
+                        type="date"
+                        value={student.dob}
+                        onChange={(e) =>
+                          handleStudentChange(index, "dob", e.target.value)
+                        }
+                        className="name-input"
+                      />
+                    </td>
+
+                    {/* Father's Name  */}
                     <td>
                       <input
                         type="text"
@@ -381,7 +374,8 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                         className="name-input"
                       />
                     </td>
-
+                    
+                    {/* Mother's Name */}
                     <td>
                       <input
                         type="text"
@@ -396,69 +390,36 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                         className="name-input"
                       />
                     </td>
+
+                    {/* Mobile Number*/}
                     <td>
                       <input
-                        type="date"
-                        value={student.dob}
+                        type="text"
+                        value={student.phone_number}
                         onChange={(e) =>
-                          handleStudentChange(index, "dob", e.target.value)
+                          handleStudentChange(
+                            index,
+                            "phone_number",
+                            e.target.value
+                          )
                         }
                         className="name-input"
                       />
                     </td>
-                    
-                    {/* Picture Upload */}
-                    {/* <td className="px-3 py-0  ">
-                      <div className="relative group/upload  !cursor-pointer">
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => handleFileChange(index, e.target.files[0])}
-                          className="absolute inset-0 w-full h-full opacity-0 !cursor-pointer"
-                        />
-                        <div className=" flex items-center justify-center px-3 py-2 border-2 border-dashed border-gray-300 rounded-xl hover:border-blue-400 hover:bg-blue-50 transition-all duration-200 group-hover/upload:border-blue-500 group-hover/upload:bg-blue-100">
-                          <Upload className="w-5 h-5 text-gray-500 group-hover/upload:text-blue-600" />
-                        </div>
-                      </div>
-                    </td> */}
 
+                    {/* Birth Regi Number */}
+                    <td>
+                      <input
+                        type="text"
+                        value={student.nid}
+                        onChange={(e) =>
+                          handleStudentChange(index, "nid", e.target.value)
+                        }
+                        className="name-input"
+                      />
+                    </td>
 
-                    {/* <td className="px-3 py-0">
-                      <div className="relative group/upload !cursor-pointer">
-                        <input
-                          type="file"
-                          accept="image/*"
-                          onChange={(e) => handleFileChange(index, e.target.files[0])}
-                          className="absolute inset-0 w-full h-full opacity-0 !cursor-pointer z-10"
-                        />
-
-                        <div
-                          className={`flex items-center justify-center transition-all duration-200 rounded-xl
-                            ${
-                              insertStudents[index].picture
-                                ? "p-0 border-0 hover:border-0 hover:bg-transparent" // No padding or border
-                                : "px-3 py-2 border-2 border-dashed border-gray-300 hover:border-blue-400 hover:bg-blue-50 group-hover/upload:border-blue-500 group-hover/upload:bg-blue-100" // default
-                            }`}
-                        >
-                          {!insertStudents[index].picture && (
-                            <Upload className="w-5 h-5 text-gray-500 group-hover/upload:text-blue-600" />
-                          )}
-
-                          {insertStudents[index].picture && (
-                            <img
-                              src={
-                                typeof insertStudents[index].picture === "object"
-                                  ? URL.createObjectURL(insertStudents[index].picture)
-                                  : insertStudents[index].picture
-                              }
-                              alt="preview"
-                              className="w-20 h-15 object-cover rounded-md"
-                            />
-                          )}
-                        </div>
-                      </div>
-                    </td> */}
-
+                    {/* Picture Upload */} 
                     <td className="px-3 py-0 relative">
                       <div className="relative group !cursor-pointer">
                         <input
@@ -593,9 +554,9 @@ const AddStudentForm = ({ setIsModalOpen }) => {
               <button
                 type="button"
                 onClick={handleAdd}
-                className="bg-blue-500 text-white p-2 !rounded-full hover:bg-blue-600 flex items-center gap-2"
+                className="bg-blue-500 text-white p-2 mt-2 !rounded-full hover:bg-blue-600 flex items-center gap-2"
               >
-                <PlusIcon className="w-5 h-5" />
+                <PlusIcon className="w-8 h-8" />
               </button>
             </div>
           </div>

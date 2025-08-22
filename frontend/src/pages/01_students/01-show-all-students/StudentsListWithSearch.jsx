@@ -9,7 +9,7 @@ import FullScreenModal from "pageComponents/02_full_screen_window";
 // import { toast } from "react-toastify";
 import CustomSelect from './ControlTableItem'
 import StudentTableCell from './StudentTableCell'
-
+import { toast } from "react-toastify";
 const StudentsListWithSearch = ({
   students,
   setStudentList,
@@ -20,8 +20,9 @@ const StudentsListWithSearch = ({
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editVar, setEditVar] = useState({});
   const [updateStatus, setUpdateStatus] = useState({});
+  
 
-  const { createNewAccessToken } = useAppContext();
+  const { createNewAccessToken, vars } = useAppContext();
 
   const filteredStudents = students.filter((student) => {
     const valuesToSearch = [
@@ -73,14 +74,23 @@ const StudentsListWithSearch = ({
       try {
         const url = `delete-student/${studentID}`;
         const response = await doDeleteAPIcalls(createNewAccessToken, url);
-        console.log("Deleted:", response);
+        // console.log("Deleted:", response);
 
         // Remove from local state
         setStudentList((prevList) =>
           prevList.filter((s) => s.student_id !== studentID)
         );
       } catch (err) {
-        console.log(err.response?.error || "Failed to delete student");
+        toast.error(err?.response.data.detail || "Failed to delete student", {
+          position: "top-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        // console.log(err.response?.error || "Failed to delete student");
       }
     }
   };
@@ -266,13 +276,17 @@ const StudentsListWithSearch = ({
                         <PencilIcon className="w-5 h-5 text-gray-500 group-hover/btn:text-blue-600 transition-colors duration-200" />
                       </button>
 
-                      <button
-                        onClick={() => deleteStudent(student.student_id)}
-                        className="group/btn p-2 !ml-2 !rounded-lg hover:bg-red-100 transition-colors duration-200"
-                        title="Delete Student"
-                      >
-                        <TrashIcon className="w-5 h-5 text-gray-500 group-hover/btn:text-red-600 transition-colors duration-200" />
-                      </button>
+                      {vars.is_staff &&(
+                        <button
+                          onClick={() => deleteStudent(student.student_id)}
+                          className="group/btn p-2 !ml-2 !rounded-lg hover:bg-red-100 transition-colors duration-200"
+                          title="Delete Student"
+                        >
+                          <TrashIcon className="w-5 h-5 text-gray-500 group-hover/btn:text-red-600 transition-colors duration-200" />
+                        </button>
+                      )}
+
+
                     </div>
                   </td>
 

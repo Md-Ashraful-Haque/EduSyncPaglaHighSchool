@@ -17,8 +17,8 @@ import { toast } from "react-toastify";
 import MarkTypeCheckboxes from "./MarkTypeCheckboxes";
 
 const StudentListForOneSubject = () => {
-  const { createNewAccessToken } = useAppContext();
-  const { bySubjectVars } = useMarksInputBySubjectContext();
+  const { createNewAccessToken,vars } = useAppContext();
+  const { bySubjectVars} = useMarksInputBySubjectContext();
   const [showStudent, setShowStudent] = useState(false);
   const [showAllMarkType, setShowAllMarkType] = useState(false);
   const [markTypes, setMarkTypes] = useState([]);
@@ -30,7 +30,11 @@ const StudentListForOneSubject = () => {
   const inputRefs = useRef({}); // store multiple refs by student ID
   const [invalidInputs, setInvalidInputs] = useState({});
 
+  
+
   useEffect(() => {
+    // console.log("bySubjectVars: ", bySubjectVars);
+    console.log("vars: ", vars);
     const isCompleted = areAllFieldsFilled(bySubjectVars);
     // console.log("isCompleted: ", isCompleted);
     setShowStudent(isCompleted);
@@ -167,7 +171,8 @@ const StudentListForOneSubject = () => {
     } catch (error) {
       // console.error("Error submitting marks:", error.response?.data || error.message);
       // Show error toast message
-      toast.error("Error submitting marks: " + error.message);
+
+      toast.error( error.response.data.detail);
     }
   };
 
@@ -311,6 +316,7 @@ const StudentListForOneSubject = () => {
                                         ? ""
                                         : markValue
                                     }
+                                    disabled={vars.is_staff ? false : true}
                                     placeholder={`-1 থেকে ${maxMarks[markType]}`}
                                     min={-1}
                                     max={maxMarks[markType]}
@@ -340,10 +346,11 @@ const StudentListForOneSubject = () => {
                       </div>
                     );
                   })}
-
-                  <div className="save-button">
-                    <button type="submit"> সংরক্ষণ করুন </button>
-                  </div>
+                  {vars.is_staff && (
+                    <div className="save-button">
+                      <button type="submit"> সংরক্ষণ করুন </button>
+                    </div>
+                  )}
                 </form>
               </div>
             </div>
