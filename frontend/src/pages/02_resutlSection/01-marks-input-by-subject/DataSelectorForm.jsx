@@ -18,6 +18,7 @@ const DataSelectorFormFields = () => {
     updateBySubjectVars(varName, event.target.value);
     updateBySubjectVars("class_name", "");
   };
+
   
   return (
     <>
@@ -62,10 +63,11 @@ const DataSelectorFormFields = () => {
                   </div>
                 </div>
               </div>
-              <div className="subject-selector-form current-session-header">
+              {/* <div className="subject-selector-form current-session-header">
                 <SelectFields fields={["class", "group", "section", "exam", "subject"]}/>
-                {/* <SelectFields fields={["class", "group", "section", "exam", "subject", "type"]}/> */}
-              </div>
+
+                
+              </div> */}
             </div>
           </div>
         </div>

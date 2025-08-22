@@ -32,14 +32,12 @@ const StudentListForOneSubject = () => {
   const [maxMarks, setMaxMarks] = useState(100);
   const inputRefs = useRef({}); // store multiple refs by student ID
   const [invalidInputs, setInvalidInputs] = useState({});
-  const [selectedFile, setSelectedFile] = useState(null);
-  const fileInputRef = useRef(null);
 
   
 
   useEffect(() => {
     // console.log("bySubjectVars: ", bySubjectVars);
-    // console.log("vars: ", vars);
+    console.log("vars: ", vars);
     const isCompleted = areAllFieldsFilled(bySubjectVars);
     // console.log("isCompleted: ", isCompleted);
     setShowStudent(isCompleted);
@@ -87,33 +85,10 @@ const StudentListForOneSubject = () => {
     }
 
     setSelectedMarkTypes([]);
-    // if (isCompletedWithoutMarkType) {
-    //   fetchData(createNewAccessToken, "mark-types-by-subject", {
-    //     subject_for_ims_id: bySubjectVars.subject_name_display,
-    //   }).then(setMarkTypes);
-    // }
-
     if (isCompletedWithoutMarkType) {
       fetchData(createNewAccessToken, "mark-types-by-subject", {
         subject_for_ims_id: bySubjectVars.subject_name_display,
-      }).then((data) => {
-        setMarkTypes(data);
-
-        // সবগুলো mark_type initial select
-        if (data?.all_mark_types?.length > 0) {
-          const allTypes = data.all_mark_types.map((mt) => mt.mark_type);
-          setSelectedMarkTypes(allTypes);
-        }
-      });
-    }
-
-
-    ////////////////////////////////// Reset file selection //////////
-
-    // console.log("selectedFile: ", selectedFile)
-    setSelectedFile(null); // state reset
-    if (fileInputRef.current) {
-      fileInputRef.current.value = ""; // file input reset
+      }).then(setMarkTypes);
     }
   }, [bySubjectVars]);
 
@@ -253,7 +228,6 @@ const StudentListForOneSubject = () => {
   const handleCSVUpload = (event) => {
     const file = event.target.files[0];
     if (!file) return;
-    setSelectedFile(file);
 
     const reader = new FileReader();
 
@@ -325,39 +299,58 @@ const StudentListForOneSubject = () => {
     <>
       <div className="subject-selector-form-container">
         <div className="subject-selector-form current-session-header">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-            <SelectFields fields={["class"]} />
-            <SelectFields fields={["group"]} />
-            <SelectFields fields={["section"]} />
-            <SelectFields fields={["exam"]} />
-            <SelectFields fields={["subject"]} />
-            {/* <SelectFields
+          <SelectFields fields={["class"]} />
+          <SelectFields fields={["group"]} />
+          <SelectFields fields={["section"]} />
+          <SelectFields fields={["exam"]} />
+          <SelectFields fields={["subject"]} />
+          {/* <SelectFields
             fields={["class", "group", "section", "exam", "subject"]} 
           /> */}
 
+          <div id="field-selector-form">
+            <div className="form-fields">
+              <div id="option-component" className="border">
+                <div className="option-label">CSV:</div>
+                <div className="option-value">
+                  <input
+                    className="w-full"
+                    type="file"
+                    accept=".csv"
+                    onChange={handleCSVUpload}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="subject-selector-form-container">
+        <div className="subject-selector-form current-session-header">
+          {/* 2x3 Responsive Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+            {/* Row 1 */}
+            <SelectFields fields={["class"]} />
+            <SelectFields fields={["group"]} />
+            <SelectFields fields={["section"]} />
+            
+            {/* Row 2 */}
+            <SelectFields fields={["exam"]} />
+            <SelectFields fields={["subject"]} />
+            
+            {/* CSV Upload Field */}
             <div id="field-selector-form">
               <div className="form-fields">
-                <div id="option-component" className="border">
-                  <div className="option-label">CSV:</div>
+                <div id="option-component" className="border p-4 rounded-lg">
+                  <div className="option-label text-sm font-medium mb-2">CSV:</div>
                   <div className="option-value">
-                    {/* <input
-                      className="w-full"
+                    <input
+                      className="w-full p-2 border rounded-md file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                       type="file"
                       accept=".csv"
                       onChange={handleCSVUpload}
-                    /> */}
-
-                    <div className="relative">
-                      <input
-                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                        type="file"
-                        accept=".csv"
-                        onChange={handleCSVUpload}
-                      />
-                      <div className="w-full px-3 py-2  bg-white text-sm">
-                        {selectedFile ? selectedFile.name : 'Choose file'}
-                      </div>
-                    </div>
+                    />
                   </div>
                 </div>
               </div>

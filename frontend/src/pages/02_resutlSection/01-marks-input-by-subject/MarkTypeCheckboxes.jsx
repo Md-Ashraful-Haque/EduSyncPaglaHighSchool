@@ -1,9 +1,12 @@
 
-import React, { useState } from "react";
+// import React, { useState } from "react";
 import './markTypeCheckboxes.scss';
+import { useEffect } from "react";
 
 const MarkTypeCheckboxes = ({ markTypes,selectedMarkTypes, setSelectedMarkTypes }) => {
   // const [selectedMarkTypes, setSelectedMarkTypes] = useState([]);
+
+  
 
   const handleCheckboxChange = (id) => {
     setSelectedMarkTypes((prev) =>

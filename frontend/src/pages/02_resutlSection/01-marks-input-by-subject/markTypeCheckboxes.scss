@@ -1,35 +1,16 @@
-// .select-mark-types-container{
-//   &{
-//     // border: 1px solid red;
-//     display: flex;
-//     gap: 16px;
-//     justify-content: center;
-//   }
-
-//   .input-box-and-label{
-//     &{
-//       padding: 8px 12px;
-//       display: flex;
-//       align-items: center;
-//       gap: 4px;
-//       user-select: none;
-//       border: 1px solid #D2C5FF;
-//       border-radius: 100px;
-//     }
-
-//     &:hover{
-//       box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-//     }
-//   }
-// }
 
 .select-mark-types-container {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
+  &{
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 10px 48px;
+  }
 
   .input-box-and-label {
     padding: 8px 12px;
+    min-width: 200px;
     display: flex;
     align-items: center;
     gap: 4px;

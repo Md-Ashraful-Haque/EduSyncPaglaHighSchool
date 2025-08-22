@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagla High School - Under Development</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 30px rgba(59, 130, 246, 0.5); }
+            50% { box-shadow: 0 0 50px rgba(59, 130, 246, 0.8); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .float { animation: float 3s ease-in-out infinite; }
+        .glow { animation: glow 2s ease-in-out infinite; }
+        .fade-in { animation: fadeIn 1s ease-out forwards; }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 flex flex-col items-center justify-center text-white p-6">
+    
+    <!-- Logo -->
+    <div class="mb-8 fade-in">
+        <div class="relative">
+            <div class="w-24 h-24 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full glow flex items-center justify-center float">
+                <!-- <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z"/>
+                </svg> -->
+
+                <img src="./paglaLogo.png" alt="">
+            </div>
+        </div>
+    </div>
+    
+    <!-- School Name -->
+    <div class="text-center space-y-6 fade-in" style="animation-delay: 0.3s;">
+        <h1 class="text-5xl md:text-7xl font-bold text-center">
+            <span class="bg-gradient-to-r from-yellow-300 via-orange-300 to-red-300 bg-clip-text text-transparent">
+                Pagla High School
+            </span>
+        </h1>
+        
+        <!-- Message -->
+        <p class="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed">
+            Software Engineer working on your site. Please wait a moment.
+        </p>
+    </div>
+
+</body>
+</html>

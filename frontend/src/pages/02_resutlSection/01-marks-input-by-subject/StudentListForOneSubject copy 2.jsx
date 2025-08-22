@@ -15,9 +15,6 @@ import { useAppContext } from "ContextAPI/AppContext";
 
 import { toast } from "react-toastify";
 import MarkTypeCheckboxes from "./MarkTypeCheckboxes";
-import SelectFields from "pageComponents/SelectFields";
-
-
 
 const StudentListForOneSubject = () => {
   const { createNewAccessToken,vars } = useAppContext();
@@ -32,14 +29,12 @@ const StudentListForOneSubject = () => {
   const [maxMarks, setMaxMarks] = useState(100);
   const inputRefs = useRef({}); // store multiple refs by student ID
   const [invalidInputs, setInvalidInputs] = useState({});
-  const [selectedFile, setSelectedFile] = useState(null);
-  const fileInputRef = useRef(null);
 
   
 
   useEffect(() => {
     // console.log("bySubjectVars: ", bySubjectVars);
-    // console.log("vars: ", vars);
+    console.log("vars: ", vars);
     const isCompleted = areAllFieldsFilled(bySubjectVars);
     // console.log("isCompleted: ", isCompleted);
     setShowStudent(isCompleted);
@@ -87,33 +82,10 @@ const StudentListForOneSubject = () => {
     }
 
     setSelectedMarkTypes([]);
-    // if (isCompletedWithoutMarkType) {
-    //   fetchData(createNewAccessToken, "mark-types-by-subject", {
-    //     subject_for_ims_id: bySubjectVars.subject_name_display,
-    //   }).then(setMarkTypes);
-    // }
-
     if (isCompletedWithoutMarkType) {
       fetchData(createNewAccessToken, "mark-types-by-subject", {
         subject_for_ims_id: bySubjectVars.subject_name_display,
-      }).then((data) => {
-        setMarkTypes(data);
-
-        // সবগুলো mark_type initial select
-        if (data?.all_mark_types?.length > 0) {
-          const allTypes = data.all_mark_types.map((mt) => mt.mark_type);
-          setSelectedMarkTypes(allTypes);
-        }
-      });
-    }
-
-
-    ////////////////////////////////// Reset file selection //////////
-
-    // console.log("selectedFile: ", selectedFile)
-    setSelectedFile(null); // state reset
-    if (fileInputRef.current) {
-      fileInputRef.current.value = ""; // file input reset
+      }).then(setMarkTypes);
     }
   }, [bySubjectVars]);
 
@@ -249,123 +221,8 @@ const StudentListForOneSubject = () => {
 
   };
 
-
-  const handleCSVUpload = (event) => {
-    const file = event.target.files[0];
-    if (!file) return;
-    setSelectedFile(file);
-
-    const reader = new FileReader();
-
-    reader.onload = (e) => {
-      const text = e.target.result;
-
-      // লাইন ভেঙে array বানানো
-      const lines = text.split("\n").map((line) => line.trim()).filter(Boolean);
-
-      if (lines.length < 2) {
-        console.error("CSV does not have enough data.");
-        return;
-      }
-
-      // প্রথম লাইন → headers
-      const headers = lines[0].split(",").map((h) => h.trim());
-      // console.log("Headers:", headers);
-
-      // বাকিগুলো → data rows
-      const rows = lines.slice(1).map((line) => {
-        const values = line.split(",").map((v) => v.trim());
-        return headers.reduce((obj, header, i) => {
-          obj[header] = values[i];
-          return obj;
-        }, {});
-      });
-
-      // console.log("Parsed Rows:", rows);
-
-      // এখন roll number দিয়ে student match করব
-      const updatedMarks = {};
-
-      students.forEach((student) => {
-        const row = rows.find(
-          (r) => Number(r.Roll) === Number(student.roll_number)
-        );
-
-        // if (row["Section"] != bySubjectVars.section_name) { // Here section_name is id of section
-        //   alert( bySubjectVars.section_name);
-        //   return 0;
-        // }
-
-        if (row) {
-          updatedMarks[student.id] = {};
-
-          selectedMarkTypes.forEach((markType) => {
-            // console.log("markType: ", markType); 
-            let markTypeMap = markType === "WR"? "Written": markType;
-            updatedMarks[student.id][markType] = row[markTypeMap] ? Number(row[markTypeMap]) : -1;
-          });
-        }else{
-          updatedMarks[student.id] = {};
-
-          selectedMarkTypes.forEach((markType) => { 
-            updatedMarks[student.id][markType] = marks[student.id][markType];
-          });
-        }
-      });
-
-      // console.log("updatedMarks:", updatedMarks);
-      setMarks(updatedMarks);
-    };
-
-    reader.readAsText(file);
-  };
-
-
   return (
     <>
-      <div className="subject-selector-form-container">
-        <div className="subject-selector-form current-session-header">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
-            <SelectFields fields={["class"]} />
-            <SelectFields fields={["group"]} />
-            <SelectFields fields={["section"]} />
-            <SelectFields fields={["exam"]} />
-            <SelectFields fields={["subject"]} />
-            {/* <SelectFields
-            fields={["class", "group", "section", "exam", "subject"]} 
-          /> */}
-
-            <div id="field-selector-form">
-              <div className="form-fields">
-                <div id="option-component" className="border">
-                  <div className="option-label">CSV:</div>
-                  <div className="option-value">
-                    {/* <input
-                      className="w-full"
-                      type="file"
-                      accept=".csv"
-                      onChange={handleCSVUpload}
-                    /> */}
-
-                    <div className="relative">
-                      <input
-                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
-                        type="file"
-                        accept=".csv"
-                        onChange={handleCSVUpload}
-                      />
-                      <div className="w-full px-3 py-2  bg-white text-sm">
-                        {selectedFile ? selectedFile.name : 'Choose file'}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       <MarkTypeCheckboxes
         markTypes={markTypes}
         selectedMarkTypes={selectedMarkTypes}
@@ -449,13 +306,7 @@ const StudentListForOneSubject = () => {
                                   <input
                                     className={`
                                         ${markValue === -1 ? "!text-sm" : ""}
-                                        ${
-                                          invalidInputs[
-                                            `${student.id}_${markType}`
-                                          ]
-                                            ? "!border-red-500 !bg-red-50"
-                                            : ""
-                                        }
+                                        ${invalidInputs[`${student.id}_${markType}`] ? "!border-red-500 !bg-red-50" : ""}
                                         border p-2
                                       `}
                                     type="number"
@@ -476,15 +327,8 @@ const StudentListForOneSubject = () => {
                                         markType,
                                         e.target.value
                                       )
-                                    }
-                                    onBlur={(e) =>
-                                      handleBlur(
-                                        student.id,
-                                        markType,
-                                        e.target.value,
-                                        maxMarks[markType]
-                                      )
-                                    } //studentId,markType, value, max
+                                    } 
+                                    onBlur={(e) => handleBlur(student.id,markType, e.target.value, maxMarks[markType])} //studentId,markType, value, max
                                     ref={(el) => {
                                       if (el) {
                                         if (!inputRefs.current[student.id])
