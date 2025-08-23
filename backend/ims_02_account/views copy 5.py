@@ -346,14 +346,7 @@ class SaveStudents(APIView):
             # new_students = request.data['insertStudents']
             new_students = self.parse_insert_students(request)
             
-            result = add_students(student_info, new_students)
-
-            if result.get("success"):
-                return Response(result, status=status.HTTP_201_CREATED)
-            else:
-                return Response(result, status=status.HTTP_400_BAD_REQUEST)
-            
-            # return Response(add_students(student_info, new_students))
+            return Response(add_students(student_info, new_students))
 
 
         except Exception as e:
