@@ -316,7 +316,7 @@ class SaveStudents(APIView):
 
     def post(self, request):
         try:
-            print("Request Data:", request.data)
+            # print("Request Data:", request.data)
             # Ensure required fields are present
             required_fields = [
                 'year', 'shift', 'class_name', 'group_name_bangla','section_name', 

@@ -79,7 +79,7 @@ class NoticeListAPIView(ListAPIView):
     serializer_class = NoticeSerializer
     pagination_class = NoticePagination
     filter_backends = [DjangoFilterBackend, SearchFilter]
-    search_fields = ['title']
+    search_fields = ['title','content']
 
     def get_queryset(self):
         now = timezone.now()

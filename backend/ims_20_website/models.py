@@ -114,8 +114,7 @@ class Notice(models.Model):
     ]
 
     DISPLAY_CHOICES = [
-        ('all', 'All'),
-        ('homepage', 'Homepage Banner/Marquee'),
+        ('all', 'All'), 
         ('dashboard', 'User Dashboard'),
         ('noticeboard', 'Notice Board Page Only'),
     ]
@@ -137,6 +136,7 @@ class Notice(models.Model):
         max_length=20, choices=DISPLAY_CHOICES, default='noticeboard',
         help_text="Where this notice will be shown"
     )
+    is_marquee = models.BooleanField(default=False)
 
     is_important = models.BooleanField(
         default=False, help_text="Show this notice with priority/highlight"
