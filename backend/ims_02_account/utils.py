@@ -222,6 +222,7 @@ def add_students(student_info, student_list):
     users_to_create_log = []
     students_to_create = []
     failed_students_index = []
+    existing_roll_and_section_students_index = []
 
     institute = Institute.objects.get(id=student_info['institute_id'])
     year_obj = Year.objects.get(id=student_info['year_id'])
@@ -303,14 +304,31 @@ def add_students(student_info, student_list):
             print("User Bulk Create Before", users_to_create_log, len(users_to_create_log)) 
             created_users = User.objects.bulk_create(users_to_create)
             print("User: created_users After", created_users)
-            for student_data, user in zip(students_to_create, created_users):
-                student_data.user = user
+            # for student_data, user in zip(students_to_create, created_users):
+            #     check_roll_and_section = Student.objects.filter(roll_number=student_data.roll_number,section=section_obj )
+            #     if check_roll_and_section.exists():
+            #         existing_roll_and_section_students_index.append(index)
+            #         continue
+            #     student_data.user = user
+            
+            # ✅ Attach users to student_data
+            for index, (student_data, user) in enumerate(zip(students_to_create, created_users)):
+                # Skip if roll_number already exists in this section
+                if Student.objects.filter(
+                    roll_number=student_data.roll_number,
+                    section=section_obj
+                ).exists():
+                    existing_roll_and_section_students_index.append(student_data.roll_number)
+                    continue
+
+                student_data.user = user  # link created user to student
             Student.objects.bulk_create(students_to_create)
 
         return {
             "success": True,
             "inserted_count": len(students_to_create),
             "failed_students_index": failed_students_index,
+            'existing_roll_and_section_students_index': existing_roll_and_section_students_index,
         }
 
     except IntegrityError as e:
@@ -319,7 +337,8 @@ def add_students(student_info, student_list):
         return {
                 "success": False,
                 "inserted_count": len(students_to_create),
-                "failed_students_index": failed_students_index,
+                "failed_students_index": failed_students_index, 
+                'existing_roll_and_section_students_index': existing_roll_and_section_students_index,
             }
     except Exception as e:
         print("Exception: ", e)
@@ -327,5 +346,6 @@ def add_students(student_info, student_list):
         return {
                     "success": False,
                     "inserted_count": len(students_to_create),
-                    "failed_students_index": failed_students_index,
+                    "failed_students_index": failed_students_index, 
+                    'existing_roll_and_section_students_index': existing_roll_and_section_students_index,
                 }

@@ -96,9 +96,9 @@ const AddStudentForm = ({ setIsModalOpen }) => {
         formData // ✅ send as FormData
       );
 
-      console.log("=========================================");
-      console.log("response: ", response);
-      console.log("=========================================");
+      // console.log("=========================================");
+      // console.log("response: ", response);
+      // console.log("=========================================");
 
       // --- 3. Handle response ---
       setFailedToSave(response.failed_students_index || []);
@@ -137,21 +137,96 @@ const AddStudentForm = ({ setIsModalOpen }) => {
           }
         );
       }
-    } catch (err) {
-      console.log("=========================================");
-      console.log("Failed err: ", err); 
-      console.log("========================================="); 
 
-      toast.error(err?.response.data.detail || "Failed to save students", {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      setIsModalOpen(false);
+      if (
+        response.existing_roll_and_section_students_index &&
+        response.existing_roll_and_section_students_index.length > 0
+      ) {
+        toast.error(
+          `এই সারির Roll নম্বরগুলি ইতিমধ্যে ব্যবহৃত হচ্ছে: ${response.data.existing_roll_and_section_students_index.join(
+            ", "
+          )}`,
+          {
+            position: "top-center",
+            autoClose: 10000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
+      }
+
+    } catch (err) {
+      // console.log("=========================================");
+      // console.log("Failed err: ", err); 
+      // console.log("Failed err: ", err.response); 
+      // console.log("Failed err: ", err.response.data); 
+      // console.log("Failed err: ", err.response.data.failed_students_index); 
+      // console.log("Failed err: ", err.response.data.existing_roll_and_section_students_index); 
+      // console.log("Failed err: ", err.response.failed_students_index); 
+      // console.log("========================================="); 
+
+      setFailedToSave(err.response.data.failed_students_index || []);
+
+      if (err.response.data.success) {
+        toast.success(
+          `${err.response.data.inserted_count} জন শিক্ষার্থীর ডাটা সংরক্ষণ করা হয়েছে।`,
+          {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
+      }
+
+      if (
+        err.response.data.failed_students_index &&
+        err.response.data.failed_students_index.length > 0
+      ) {
+        toast.error(
+          `এই সারির মোবাইল নম্বরগুলি ইতিমধ্যে ব্যবহৃত হচ্ছে: ${err.response.data.failed_students_index.join(
+            ", "
+          )}`,
+          {
+            position: "top-center",
+            autoClose: 10000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
+      }
+
+      
+
+      if (
+        err.response.data.existing_roll_and_section_students_index &&
+        err.response.data.existing_roll_and_section_students_index.length > 0
+      ) {
+        toast.error(
+          `এই সারির Roll নম্বরগুলি ইতিমধ্যে ব্যবহৃত হচ্ছে: ${err.response.data.existing_roll_and_section_students_index.join(
+            ", "
+          )}`,
+          {
+            position: "top-center",
+            autoClose: 10000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
+      }
+      // setIsModalOpen(false);
     } finally {
       setIsLoading(false);
     }
@@ -195,8 +270,13 @@ const AddStudentForm = ({ setIsModalOpen }) => {
           else if (key === "picture") student.picture = null;
         });
 
-        // ✅ Check: skip if roll_number is not numeric
-        if (!/^\d+$/.test(student.roll_number)) {
+        // // ✅ Check: skip if roll_number is not numeric
+        // if (!/^\d+$/.test(student.roll_number)) {
+        //   return null; // mark invalid
+        // }
+
+        // ✅ Check: skip if roll_number is not numeric OR name is empty
+        if (!/^\d+$/.test(student.roll_number) || !student.name?.trim()) {
           return null; // mark invalid
         }
 
