@@ -116,12 +116,12 @@ class SliderAdmin(ImageCroppingMixin, admin.ModelAdmin):
 @admin.register(Notice)
 class NoticeAdmin(admin.ModelAdmin):
     list_display = (
-        'title', 'target_audience', 'display_position',
+        'title', 'target_audience', 'display_position','is_marquee',
         'is_important', 'pin_on_top', 'is_published',
         'published_at', 'expire_at'
     )
     list_filter = (
-        'is_important', 'pin_on_top',
+        'is_important', 'pin_on_top','is_marquee',
         'display_position', 'target_audience', 'is_published'
     )
     search_fields = ('title', 'content')
@@ -133,7 +133,7 @@ class NoticeAdmin(admin.ModelAdmin):
             'fields': ('title', 'slug', 'content', 'attachment')
         }),
         ('Visibility', {
-            'fields': ('is_published', 'target_audience', 'display_position', 'expire_at')
+            'fields': ('is_published', 'target_audience', 'display_position', 'is_marquee','expire_at')
         }),
         ('Highlighting', {
             'fields': ('is_important', 'pin_on_top')

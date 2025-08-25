@@ -1,6 +1,6 @@
 # import backend.wsgi
 from core.utils import debug
-
+from collections import Counter
 import os,sys, time
 from django.db.models import Prefetch, Case, When, Value, IntegerField, Sum
 from collections import defaultdict
@@ -219,6 +219,7 @@ def generate_student_id(class_obj, year_obj, group_obj, section_obj, roll_number
 def add_students(student_info, student_list):
     User = get_user_model()
     users_to_create = []
+    users_to_create_log = []
     students_to_create = []
     failed_students_index = []
 
@@ -233,8 +234,20 @@ def add_students(student_info, student_list):
         student['phone_number'] or generate_student_id(class_obj, year_obj, group_obj, section_obj, student['roll_number'])
         for student in student_list
     ]
+    
+    # check duplicate number in one class before save 
+    username_counts = Counter(all_usernames)
+    duplicate_numbers = [username for username, count in username_counts.items() if count > 1]
+    duplicate_numbers_count ={}
+    
+    all_usernames = set(all_usernames)
+    
+    # print("all_usernames: ", all_usernames, len(all_usernames))
 
     existing_usernames = set(User.objects.filter(username__in=all_usernames).values_list("username", flat=True))
+    
+    # existing_usernames.update(duplicate_numbers)
+    # print("existing_usernames after update: ", existing_usernames, len(existing_usernames))
 
     for index, student in enumerate(student_list):
         student_id = generate_student_id(class_obj, year_obj, group_obj, section_obj, student['roll_number'])
@@ -244,9 +257,18 @@ def add_students(student_info, student_list):
         email = student['email'] or f"{username}@gmail.com"
 
         if username in existing_usernames:
+            # print("username: ", username)
             failed_students_index.append(index+1)
             continue
-
+        
+        #Add only first duplicate number
+        if username in duplicate_numbers and username not in duplicate_numbers_count:
+            # print("Duplicate: ", username)
+            duplicate_numbers_count[username] = 1
+            failed_students_index.append(index+1)
+            continue
+        
+        users_to_create_log.append(username)
         student_obj = Student(
             institute=institute,
             year=year_obj,
@@ -278,7 +300,9 @@ def add_students(student_info, student_list):
 
     try:
         with transaction.atomic():
+            print("User Bulk Create Before", users_to_create_log, len(users_to_create_log)) 
             created_users = User.objects.bulk_create(users_to_create)
+            print("User: created_users After", created_users)
             for student_data, user in zip(students_to_create, created_users):
                 student_data.user = user
             Student.objects.bulk_create(students_to_create)
@@ -290,6 +314,18 @@ def add_students(student_info, student_list):
         }
 
     except IntegrityError as e:
-        return {"success": False, "error": f"Integrity error: {str(e)}"}
+        print("Exception IntegrityError: ", e)
+        # return {"success": False, "error": f"Integrity error: {str(e)}"}
+        return {
+                "success": False,
+                "inserted_count": len(students_to_create),
+                "failed_students_index": failed_students_index,
+            }
     except Exception as e:
-        return {"success": False, "error": f"Unexpected error: {str(e)}"}
+        print("Exception: ", e)
+        # return {"success": False, "error": f"Unexpected error: {str(e)}"}
+        return {
+                    "success": False,
+                    "inserted_count": len(students_to_create),
+                    "failed_students_index": failed_students_index,
+                }

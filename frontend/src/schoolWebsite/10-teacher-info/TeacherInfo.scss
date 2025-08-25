@@ -3,7 +3,7 @@
   & {
     // border: 1px solid #898989;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1280px;
   }
 
   .teachers {
@@ -26,8 +26,9 @@
         overflow: hidden;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        max-width: 270px;
-        min-width: 270px;
+        max-width: 295px;
+        min-width: 295px;
+        min-height: 420px;
       }
       @media screen and (max-width: 992px) {
         max-width: initial;
@@ -37,7 +38,7 @@
       &:hover{
         box-shadow: 0 0px 40px rgba(0, 0, 0, 0.05);
         .teacher-image img{
-          transform: scale(1.07);
+          transform: scale(1.05);
         }
       }
 
@@ -49,10 +50,11 @@
           width: 100%;
           height: 100%;
           // width: 300px;
-          max-height: 300px;
+          min-height: 370px;
+          max-height: 370px;
           object-fit: cover;
           transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-          transform: scale(1.02);
+          // transform: scale(1.02);
           @media screen and (max-width: 992px) {
             max-height: 380px;
           }

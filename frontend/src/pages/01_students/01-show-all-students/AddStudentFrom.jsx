@@ -96,9 +96,9 @@ const AddStudentForm = ({ setIsModalOpen }) => {
         formData // ✅ send as FormData
       );
 
-      // console.log("=========================================");
-      // console.log("response: ", response);
-      // console.log("=========================================");
+      console.log("=========================================");
+      console.log("response: ", response);
+      console.log("=========================================");
 
       // --- 3. Handle response ---
       setFailedToSave(response.failed_students_index || []);
@@ -138,9 +138,10 @@ const AddStudentForm = ({ setIsModalOpen }) => {
         );
       }
     } catch (err) {
-      // console.log("=========================================");
-      // console.log("Failed err: ", err); 
-      // console.log("=========================================");
+      console.log("=========================================");
+      console.log("Failed err: ", err); 
+      console.log("========================================="); 
+
       toast.error(err?.response.data.detail || "Failed to save students", {
         position: "top-center",
         autoClose: 5000,
@@ -156,52 +157,7 @@ const AddStudentForm = ({ setIsModalOpen }) => {
     }
   };
 
-  // const handleCSVUpload = (event) => {
-  //   const file = event.target.files[0];
-  //   if (!file) return;
 
-  //   const reader = new FileReader();
-  //   reader.onload = (e) => {
-  //     const text = e.target.result;
-  //     const rows = text
-  //       .trim()
-  //       .split("\n")
-  //       .map((line) => line.split(",")); // if tab-separated
-  //     const headers = rows[0].map((h) => h.trim().toLowerCase());
-
-  //     const studentsFromCSV = rows.slice(1).map((row) => {
-  //       const student = { ...initialStudent };
-  //       row.forEach((value, index) => {
-  //         const key = headers[index];
-  //         const val = value.trim();
-
-  //         // console.log(`Processing key: ${key}, value: ${val}`);
-  //         // Map CSV headers to student fields
-
-  //         if (key === "name") student.name = val;
-  //         else if (key === "name bangla") student.name_bangla = val;
-  //         else if (key === "birth registration number") student.nid = val;  //Birth Registration Number
-  //         else if (key === "father's name") student.fathers_name = val;
-  //         else if (key === "mother's name") student.mothers_name = val;
-  //         else if (key === "roll")student.roll_number = val;
-  //         else if (key === "mobile") student.phone_number = val;
-  //         else if (key === "password") student.password = val;
-  //         else if (key === "dob") student.dob = val;
-  //         else if (key === "email") student.email = val;
-  //         else if (key === "guardian mobile")
-  //           student.guardian_mobile_number = val;
-  //         else if (key === "address") student.address = val;
-  //         else if (key === "picture") student.picture = null; // You can’t upload files from CSV directly
-  //       });
-        
-  //       return student;
-  //     });
-
-  //     setInsertStudents(studentsFromCSV);
-  //     // setInsertStudents((prev) => [...prev, ...studentsFromCSV]);
-  //   };
-  //   reader.readAsText(file);
-  // };
 
   const handleCSVUpload = (event) => {
     const file = event.target.files[0];
