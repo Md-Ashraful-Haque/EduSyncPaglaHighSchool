@@ -253,21 +253,22 @@ const AddStudentForm = ({ setIsModalOpen }) => {
         row.forEach((value, index) => {
           const key = headers[index];
           const val = value.trim();
+          // console.log("val: ", val); 
+          // console.log(key,"===dob: ", key==="dob");
 
-          if (key === "name") student.name = val;
+          if (key === "roll") student.roll_number = val;
+          else if (key === "name") student.name = val;
           else if (key === "name bangla") student.name_bangla = val;
-          else if (key === "birth registration number") student.nid = val;
+          else if (key === "dob") student.dob = val;
           else if (key === "father's name") student.fathers_name = val;
           else if (key === "mother's name") student.mothers_name = val;
-          else if (key === "roll") student.roll_number = val;
           else if (key === "mobile") student.phone_number = val;
-          else if (key === "password") student.password = val;
-          else if (key === "dob") student.dob = val;
-          else if (key === "email") student.email = val;
-          else if (key === "guardian mobile")
-            student.guardian_mobile_number = val;
-          else if (key === "address") student.address = val;
+          else if (key === "brn") student.nid = val;
           else if (key === "picture") student.picture = null;
+          else if (key === "password") student.password = val;
+          else if (key === "email") student.email = val; 
+          else if (key === "guardian mobile") student.guardian_mobile_number = val;
+          else if (key === "address") student.address = val;
         });
 
         // // ✅ Check: skip if roll_number is not numeric
@@ -309,6 +310,9 @@ const AddStudentForm = ({ setIsModalOpen }) => {
 
   return (
     <div className="add-student-form">
+      <h4 className="text-3xl font-extrabold text-center bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 bg-clip-text text-transparent tracking-wide">
+        Add New Student Form
+      </h4>
       <form onSubmit={saveStudents}>
         <div className="data-selector-form">
           <div className="container-fluid">

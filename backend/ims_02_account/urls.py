@@ -12,6 +12,7 @@ urlpatterns = [
     path('students-roll-name/', StudentListView.as_view(), name='student-list'),
     path('all-students/', AllStudentListView.as_view(), name='student-list'),
     path('save-students/', SaveStudents.as_view(), name='student-list'),
+    path('update-students/', UpdateStudentsView.as_view(), name="update-students"),
     
     path('delete-student/<str:student_id>/', DeleteStudentByStudentID.as_view(), name='delete-student-by-id'),
     path('teacher-cards/', TeacherCardListAPIView.as_view(), name='teacher-card-list'),

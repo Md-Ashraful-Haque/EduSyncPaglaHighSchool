@@ -359,6 +359,140 @@ class SaveStudents(APIView):
         except Exception as e:
             return Response({"error": f"An error occurred: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
+
+# views.py
+# from rest_framework.views import APIView
+# from rest_framework.response import Response
+# from rest_framework import status
+from django.shortcuts import get_object_or_404
+from django.contrib.auth import get_user_model
+
+# from .models import Student, Year
+# from .serializers import StudentSerializer
+# from .utils import getUserProfile  # assuming you have this
+# from .services import add_students  # only if still needed
+
+User = get_user_model()
+
+
+class UpdateStudentsView(APIView):
+    permission_classes = [IsAuthenticated] 
+
+    def parse_insert_students(self, request):
+        """Parse incoming form-data with multiple students."""
+        students = []
+        i = 0
+        while True:
+            student = {}
+            has_data = False
+            for key in request.POST:
+                prefix = f"insertStudents[{i}]["
+                if key.startswith(prefix):
+                    field = key[len(prefix):-1]
+                    student[field] = request.POST.get(key)
+                    has_data = True
+
+            for key in request.FILES:
+                prefix = f"insertStudents[{i}]["
+                if key.startswith(prefix):
+                    field = key[len(prefix):-1]
+                    student[field] = request.FILES[key]
+                    has_data = True
+
+            if not has_data:
+                break
+            students.append(student)
+            i += 1
+
+        return students
+
+    def post(self, request):
+        try:
+            # Ensure required fields
+            required_fields = ['year', 'shift', 'class_name', 'group_name_bangla', 'section_name']
+            missing_fields = [field for field in required_fields if field not in request.data]
+            if missing_fields:
+                return Response({"error": f"Missing required fields: {', '.join(missing_fields)}"}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Get user institute
+            userProfile = getUserProfile(request.user)
+            institute_id = userProfile.institute
+
+            # Fetch related models
+            year = get_object_or_404(Year, institute_id=institute_id, year=request.data['year'])
+
+            # Base info
+            student_info = {
+                "institute_id": institute_id.id,
+                "year_id": year.id,
+                "class_instance_id": request.data["class_name"],
+                "group_id": request.data["group_name_bangla"],
+                "section_id": request.data["section_name"],
+            }
+
+            # Parse students
+            students_data = self.parse_insert_students(request)
+
+            # inserted = []
+            updated = []
+            failed = []
+
+            for idx, student_data in enumerate(students_data):
+                # print("student_data: ", student_data)
+                roll_number = student_data.get("roll_number")
+                section_id = student_info["section_id"]
+                
+                student_data["dob"] = student_data.get("dob") or None
+                student_data["picture"] = student_data.get("picture") or None
+
+                if not roll_number:
+                    failed.append(idx + 1)
+                    continue
+
+                try:
+                    # Check if exists
+                    student = Student.objects.filter(
+                        roll_number=roll_number, section_id=section_id
+                    ).first()
+
+                    if student:
+                        # 🔹 Update
+                        serializer = StudentSerializerAllFields(student, data={**student_data, **student_info}, partial=True)
+                        # serializer = StudentSerializer(student, data={**student_data, **student_info}, partial=True)
+                        # print("serializer: ", serializer)
+                        # print("serializer.is_valid(): ", serializer.is_valid())
+                        if serializer.is_valid():
+                            # serializer.save()
+                            try:
+                                instance = serializer.save()
+                                print("Saved:", instance.pk, "-> ",instance.phone_number)
+                                updated.append(serializer.data)
+                            except Exception as e:
+                                print("Save failed:", str(e))
+                                failed.append(idx + 1)
+                        else:
+                            print("❌ Validation failed:", serializer.errors)
+                            failed.append(idx + 1)
+                    else:
+                        print("Not Exist")
+                        failed.append(idx + 1)
+
+                except Exception:
+                    failed.append(idx + 1)
+
+            return Response({
+                "success": True, 
+                "updated_count": len(updated),
+                "failed_students_index": failed,
+            }, status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response({"error": f"An error occurred: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+
+
 class DeleteStudentByStudentID(APIView):
     
     permission_classes = [IsStaffUser]
@@ -427,31 +561,6 @@ class TeacherPermission(APIView):
         }
         
         return Response(data)
-
-
-# class StudentDetailView(APIView):
-#     permission_classes = [AllowAny]
-#     # permission_classes = [IsAuthenticated] 
-#     def get(self, request):
-#         user = request.user
-#         model_name = f"{user.role}_profile"
-#         profile = getattr(user, model_name)
-#         student_id = self.request.query_params.get('studentID')
-        
-#         print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-#         print("student_id: ", student_id)
-#         print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-        
-#         data = { 
-#                 'student_id': student_id,
-#         }
-        
-#         return Response(data)
-# class StudentDetailView(generics.RetrieveUpdateAPIView):
-#     queryset = Student.objects.all()
-#     serializer_class = StudentSerializer
-#     lookup_field = 'student_id'
-
 
 
 from .models import Student, Institute, Year, Class, Group, Section

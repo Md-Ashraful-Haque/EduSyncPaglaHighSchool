@@ -7,13 +7,16 @@ import {
   AdjustmentsVerticalIcon,
   PencilIcon,
   EyeIcon,
-  TrashIcon,
+  TrashIcon,  
+  PencilSquareIcon,
 } from "@heroicons/react/24/solid";
+// import { Plus, Edit3 } from "lucide-react";
 import { useMarksInputBySubjectContext } from "ContextAPI/MarksInputBySubjectContext";
 import { useAppContext } from "ContextAPI/AppContext";
 import { doGetAPIcall, saveFormData } from "Utils/utilsFunctions/UtilFuntions";
 import ReactPaginate from "react-paginate";
 import AddStudentForm from "./AddStudentFrom";
+import UpdateMultipleStudentFrom from "./UpdateMultipleStudentFrom";
 import StudentsListWithSearch from "./StudentsListWithSearch";
 import FullScreenModal from "pageComponents/02_full_screen_window";
 import Loading_1 from "LoadingComponent/loading/Loading_1";
@@ -29,6 +32,14 @@ const DataSelectorFormFields = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); 
   const { createNewAccessToken,vars } = useAppContext();
   const { bySubjectVars, updateBySubjectVars } = useMarksInputBySubjectContext();
+
+  const [modalType, setModalType] = useState(null); 
+  // null | "add" | "update"
+
+  const handleOpenAdd = () => setModalType("add");
+  const handleOpenUpdate = () => setModalType("update");
+  const handleClose = () => setModalType(null);
+
 
   // Extracted fetch logic
   const fetchData = async (page = 1, newItemPerPage) => {
@@ -150,20 +161,68 @@ const DataSelectorFormFields = () => {
                     </div>
                   </div>
                 </div>
+                
 
+                  {/* <div className="w-full sm:w-auto flex justify-center pr-0 sm:pr-4 ">
+                    <button onClick={handleOpenUpdate} disabled={!vars.is_staff}>
+                      <div className="max-h-[48px] border border-blue-50 flex justify-center items-center p-2 px-3 rounded-full hover:!border-blue-800 hover:bg-blue-50 transition-colors">
+                        <div className="border border-blue-500 rounded-full p-1 mr-2">
+                          <PlusIcon className="size-4 text-blue-500" />
+                        </div>
+                        Update Student
+                      </div>
+                    </button>
+                  </div>
 
-                {/* {vars.is_staff &&( */}
                   <div className="w-full sm:w-auto flex justify-center pr-0 sm:pr-4 ">
-                    <button onClick={handleModalClose}  disabled={vars.is_staff? false: true}>
-                      <div className="max-h-[48px] border border-blue-50 flex justify-center items-center p-2 px-3 rounded-full hover:!border-blue-800  hover:bg-blue-50 transition-colors">
+                    <button onClick={handleOpenAdd} disabled={!vars.is_staff}>
+                      <div className="max-h-[48px] border border-blue-50 flex justify-center items-center p-2 px-3 rounded-full hover:!border-blue-800 hover:bg-blue-50 transition-colors">
                         <div className="border border-blue-500 rounded-full p-1 mr-2">
                           <PlusIcon className="size-4 text-blue-500" />
                         </div>
                         Add Student
                       </div>
                     </button>
-                  </div> 
-                {/* )} */}
+                  </div> */}
+
+                  {/* Alternative: Elevated Button Group */}
+                  <div className="mt-0">
+                    {/* <h3 className="text-sm font-medium text-gray-600 mb-3">Elevated Style:</h3> */}
+                    <div className="inline-flex bg-white rounded-xl  border border-gray-100 overflow-hidden">
+                      
+                      <button 
+                        onClick={handleOpenUpdate} 
+                        disabled={!vars.is_staff}
+                        className="group flex items-center px-6 py-1 text-sm font-medium text-gray-700 hover:text-white hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 border-r border-gray-200"
+                      >
+                        <div className="flex items-center space-x-3">
+                          <div className="border border-blue-500 rounded-full p-1.5 group-hover:border-white group-hover:bg-white/20 transition-all duration-300">
+                            <PencilSquareIcon className="w-4 h-4 text-blue-500 group-hover:text-white" />
+                            {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
+                              <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                              <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                            </svg> */}
+
+                          </div>
+                          <span className="font-semibold">Update Student</span>
+                        </div>
+                      </button>
+
+                      <button 
+                        onClick={handleOpenAdd} 
+                        disabled={!vars.is_staff}
+                        className="group flex items-center px-6 py-3 text-sm font-medium text-gray-700 hover:text-white hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                      >
+                        <div className="flex items-center space-x-3">
+                          <div className="border border-blue-500 rounded-full p-1.5 group-hover:border-white group-hover:bg-white/20 transition-all duration-300">
+                            <PlusIcon className="w-4 h-4 text-blue-500 group-hover:text-white" />
+                          </div>
+                          <span className="font-semibold">Add Student</span>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+
 
 
 
@@ -220,11 +279,30 @@ const DataSelectorFormFields = () => {
         </div>
       </div>
 
-      <FullScreenModal isOpen={isModalOpen} onClose={handleModalClose}>
+      {modalType === "add" && (
+          <FullScreenModal isOpen={true} onClose={handleClose}>
+            <AddStudentForm setIsModalOpen={handleClose} />
+          </FullScreenModal>
+        )}
+
+        {modalType === "update" && (
+          <FullScreenModal isOpen={true} onClose={handleClose}>
+            <UpdateMultipleStudentFrom setIsModalOpen={handleClose} />
+          </FullScreenModal>
+        )}
+
+
+      {/* <FullScreenModal isOpen={isModalOpen} onClose={handleModalClose}>
         <AddStudentForm
-        setIsModalOpen={setIsModalOpen} 
-        />
+          setIsModalOpen={setIsModalOpen} 
+        /> 
       </FullScreenModal>
+
+      <FullScreenModal isOpen={isModalOpen} onClose={handleModalClose}> 
+        <UpdateMultipleStudentFrom
+          setIsModalOpen={setIsModalOpen} 
+        />
+      </FullScreenModal> */}
     </>
   );
 };

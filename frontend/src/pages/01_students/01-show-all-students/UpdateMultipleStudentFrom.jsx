@@ -11,7 +11,7 @@ import { saveFormData } from "Utils/utilsFunctions/UtilFuntions";
 import CSVFileInput from "./InputCSVFile";
 
 import Loading_1 from "LoadingComponent/loading/Loading_1";
-
+import { Plus, Trash2, Eye, EyeOff, Upload } from 'lucide-react';
 const initialStudent = {
   name: "",
   name_bangla: "",
@@ -29,7 +29,7 @@ const initialStudent = {
   showPassword: false, // 👈 New field
 };
 
-const AddStudentForm = ({ setIsModalOpen }) => {
+const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
   const { createNewAccessToken } = useAppContext();
 
   const { bySubjectVars, updateBySubjectVars } =
@@ -65,84 +65,6 @@ const AddStudentForm = ({ setIsModalOpen }) => {
     const updated = insertStudents.filter((_, i) => i !== index);
     setInsertStudents(updated);
   };
-
-
-  // const saveStudents = async (e) => {
-  //   e.preventDefault();
-
-  //   setIsLoading(true);
-
-  //   // console.log("Submit Students:", insertStudents);
-  //   // console.log("bySubjectVars:", bySubjectVars);
-
-  //   const requestData = {
-  //     ...bySubjectVars,
-  //     insertStudents,
-  //   };
-
-  //   try {
-  //     const response = await saveFormData(
-  //       createNewAccessToken,
-  //       "save-students",
-  //       requestData
-  //     );
-
-  //     // console.log(response);
-  //     // alert(response.success)
-  //     // alert(response.inserted_count)
-  //     // alert(response.failed_students)
-  //     // alert(response.failed_students_index)
-  //     setFailedToSave(response.failed_students_index);
-  //     // alert(response.message)
-  //     if (response.success) {
-  //       toast.success(
-  //         `${response.inserted_count} জন শিক্ষার্থীর ডাটা সংরক্ষণ করা হয়েছে।`,
-  //         {
-  //           position: "top-center",
-  //           autoClose: 2000,
-  //           hideProgressBar: false,
-  //           closeOnClick: false,
-  //           pauseOnHover: true,
-  //           draggable: true,
-  //           progress: undefined,
-  //         }
-  //       );
-  //     }
-
-  //     if (response.failed_students_index.length > 0) {
-  //       toast.error(
-  //         `এই সারি গুলোর ডাটা সংরক্ষণ করা হয়নি: ${response.failed_students_index.join(
-  //           ", "
-  //         )}`,
-  //         {
-  //           position: "top-center",
-  //           autoClose: 10000,
-  //           hideProgressBar: false,
-  //           closeOnClick: false,
-  //           pauseOnHover: true,
-  //           draggable: true,
-  //           progress: undefined,
-  //         }
-  //       );
-  //     }
-  //   } catch (err) {
-  //     // setError(err.response.data.error || "Failed to save students");
-  //     toast.error(err.response.data.error, {
-  //       position: "top-center",
-  //       autoClose: 10000,
-  //       hideProgressBar: false,
-  //       closeOnClick: false,
-  //       pauseOnHover: true,
-  //       draggable: true,
-  //       progress: undefined,
-  //     });
-  //     setIsModalOpen(false);
-  //     // console.log(response)
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // };
-
   const saveStudents = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -170,16 +92,20 @@ const AddStudentForm = ({ setIsModalOpen }) => {
 
       const response = await saveFormData(
         createNewAccessToken,
-        "save-students",
+        "update-students",
         formData // ✅ send as FormData
       );
+
+      console.log("=========================================");
+      console.log("response: ", response);
+      console.log("=========================================");
 
       // --- 3. Handle response ---
       setFailedToSave(response.failed_students_index || []);
 
       if (response.success) {
         toast.success(
-          `${response.inserted_count} জন শিক্ষার্থীর ডাটা সংরক্ষণ করা হয়েছে।`,
+          `${response.updated_count} জন শিক্ষার্থীর ডাটা আপডেট করা হয়েছে।`,
           {
             position: "top-center",
             autoClose: 2000,
@@ -192,9 +118,14 @@ const AddStudentForm = ({ setIsModalOpen }) => {
         );
       }
 
-      if (response.failed_students_index && response.failed_students_index.length > 0) {
+      if (
+        response.failed_students_index &&
+        response.failed_students_index.length > 0
+      ) {
         toast.error(
-          `এই সারি গুলোর ডাটা সংরক্ষণ করা হয়নি: ${response.failed_students_index.join(", ")}`,
+          `এই সারির শিক্ষার্থীর ডাটা আপডেট করা যায়নি।: ${response.failed_students_index.join(
+            ", "
+          )}`,
           {
             position: "top-center",
             autoClose: 10000,
@@ -206,24 +137,60 @@ const AddStudentForm = ({ setIsModalOpen }) => {
           }
         );
       }
+      
+
     } catch (err) {
-      toast.error(
-        err.response?.data?.error || "Failed to save students",
-        {
-          position: "top-center",
-          autoClose: 10000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        }
-      );
-      setIsModalOpen(false);
+      // console.log("=========================================");
+      // console.log("Failed err: ", err); 
+      // console.log("Failed err: ", err.response); 
+      // console.log("Failed err: ", err.response.data); 
+      // console.log("Failed err: ", err.response.data.failed_students_index); 
+      // console.log("Failed err: ", err.response.data.existing_roll_and_section_students_index); 
+      // console.log("Failed err: ", err.response.failed_students_index); 
+      // console.log("========================================="); 
+
+      setFailedToSave(err.response.data.failed_students_index || []);
+
+      if (err.response.data.success) {
+        toast.success(
+          `${err.response.data.updated_count} জন শিক্ষার্থীর ডাটা সংরক্ষণ করা হয়েছে।`,
+          {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
+      }
+
+      if (
+        err.response.data.failed_students_index &&
+        err.response.data.failed_students_index.length > 0
+      ) {
+        toast.error(
+          `এই সারির শিক্ষার্থীর ডাটা আপডেট করা যায়নি।:: ${err.response.data.failed_students_index.join(
+            ", "
+          )}`,
+          {
+            position: "top-center",
+            autoClose: 10000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
+      } 
+      // setIsModalOpen(false);
     } finally {
       setIsLoading(false);
     }
   };
+
 
 
   const handleCSVUpload = (event) => {
@@ -236,7 +203,8 @@ const AddStudentForm = ({ setIsModalOpen }) => {
       const rows = text
         .trim()
         .split("\n")
-        .map((line) => line.split(",")); // if tab-separated
+        .map((line) => line.split(",")); 
+
       const headers = rows[0].map((h) => h.trim().toLowerCase());
 
       const studentsFromCSV = rows.slice(1).map((row) => {
@@ -245,32 +213,40 @@ const AddStudentForm = ({ setIsModalOpen }) => {
           const key = headers[index];
           const val = value.trim();
 
-          // console.log(`Processing key: ${key}, value: ${val}`);
-          // Map CSV headers to student fields
-
-          if (key === "name") student.name = val;
-          else if (key === "name bangla") student.name_bangla = val;
-          else if (key === "nid") student.nid = val;
-          else if (key === "fathers name") student.fathers_name = val;
-          else if (key === "mothers name") student.mothers_name = val;
-          else if (key === "roll") student.roll_number = val;
-
-          else if (key === "mobile") student.phone_number = val;
-          else if (key === "password") student.password = val;
-          else if (key === "dob") student.dob = val;
-          else if (key === "email") student.email = val;
-          else if (key === "guardian mobile") student.guardian_mobile_number = val;
-          else if (key === "address") student.address = val;
-          else if (key === "picture") student.picture = null; // You can’t upload files from CSV directly
+        if (key === "roll") student.roll_number = val;
+        else if (key === "name") student.name = val;
+        else if (key === "name bangla") student.name_bangla = val;
+        else if (key === "dob") student.dob = val;
+        else if (key === "father's name") student.fathers_name = val;
+        else if (key === "mother's name") student.mothers_name = val;
+        else if (key === "mobile") student.phone_number = val;
+        else if (key === "brn") student.nid = val;
+        else if (key === "picture") student.picture = null;
+        else if (key === "password") student.password = val;
+        else if (key === "email") student.email = val; 
+        else if (key === "guardian mobile") student.guardian_mobile_number = val;
+        else if (key === "address") student.address = val;
         });
+
+        // // ✅ Check: skip if roll_number is not numeric
+        // if (!/^\d+$/.test(student.roll_number)) {
+        //   return null; // mark invalid
+        // }
+
+        // ✅ Check: skip if roll_number is not numeric OR name is empty
+        if (!/^\d+$/.test(student.roll_number) || !student.name?.trim()) {
+          return null; // mark invalid
+        }
+
         return student;
-      });
+      })
+      .filter((s) => s !== null); // remove skipped rows
 
       setInsertStudents(studentsFromCSV);
-      // setInsertStudents((prev) => [...prev, ...studentsFromCSV]);
     };
-    reader.readAsText(file);
+    reader.readAsText(file, "UTF-8");
   };
+
 
   useEffect(() => {
     setInsertStudents((prev) =>
@@ -291,6 +267,9 @@ const AddStudentForm = ({ setIsModalOpen }) => {
 
   return (
     <div className="add-student-form">
+      <h4 className="text-3xl font-extrabold text-center bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 bg-clip-text text-transparent tracking-wide">
+        Update Student Form
+      </h4>
       <form onSubmit={saveStudents}>
         <div className="data-selector-form">
           <div className="container-fluid">
@@ -332,9 +311,9 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                   <SelectFields fields={["class"]} />
                   <SelectFields fields={["group"]} />
                   <SelectFields fields={["section"]} />
-        
+
                   <div className="input-csv-file-for-student">
-                    <CSVFileInput handleCSVUpload={handleCSVUpload}/>
+                    <CSVFileInput handleCSVUpload={handleCSVUpload} />
                     {/* <input
                       type="file"
                       accept=".csv"
@@ -350,54 +329,34 @@ const AddStudentForm = ({ setIsModalOpen }) => {
 
         <div className="student-list">
           <div className="student-table-container">
-            <table className="student-input-table">
+            <table className="student-input-table shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_15px_-4px_rgba(0,0,0,0.1)] !rounded-lg">
               <thead>
                 <tr className="bg-gray-100 text-left">
-                  <th>নাম(ইংরেজি)</th>
-                  <th>নাম(বাংলা) </th>
-                  <th>রোল(ইংরেজি)</th>
-                  <th>NID নম্বর </th>
-                  <th>মোবাইল </th>
-                  {/* <th>মোবাইল নম্বর </th> */}
+                  <th>রোল (ইংরেজি)</th>
+                  <th>ইংরেজি নাম </th>
+                  <th>বাংলা নাম  </th>
+                  <th>জন্ম তারিখ </th>
                   <th>পিতার নাম </th>
                   <th>মাতার নাম </th>
-                  <th>জন্ম তারিখ </th>
-                  {/* <th>ই-মেইল </th>  */}
-                  {/* <th>যোগাযোগের ঠিকানা </th> */}
+                  <th>মোবাইল </th>
+                  <th>Birth Regi নম্বর </th>
                   <th>ছবি</th>
                   <th>Action</th>
+                  {/* <th>ই-মেইল </th>  */}
+                  {/* <th>যোগাযোগের ঠিকানা </th> */}
                 </tr>
               </thead>
+              
               <tbody>
                 {insertStudents.map((student, index) => (
                   <tr
                     key={index}
-                    className={`border-t ${
-                      failedToSave.includes(index) ? "bg-red-100" : ""
+                    className={`border-t  ${
+                      failedToSave.includes(index+1) ? "bg-red-200" : ""
                     }`}
                   >
-                    <td>
-                      <input
-                        type="text"
-                        value={student.name}
-                        onChange={(e) =>
-                          handleStudentChange(index, "name", e.target.value)
-                        }
-                        required
-                        className="name-input"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        value={student.name_bangla}
-                        onChange={(e) =>
-                          handleStudentChange(index, "name_bangla", e.target.value)
-                        }
-                        
-                        className="name-input"
-                      />
-                    </td>
+
+                    {/* Roll Number */}
                     <td>
                       <input
                         type="text"
@@ -410,23 +369,84 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                           )
                         }
                         required
-                        className="roll-input"
-                      />
-                    </td>
-
-                    <td>
-                      <input
-                        type="text"
-                        value={student.nid}
-                        onChange={(e) =>
-                          handleStudentChange(index, "nid", e.target.value)
-                        }
-                        
                         className="name-input"
                       />
                     </td>
-                    {/* ////////////// Mible Number ///////////  */}
+
+                    {/* Name English */}
+                    <td>
+                      <input
+                        type="text"
+                        value={student.name}
+                        onChange={(e) =>
+                          handleStudentChange(index, "name", e.target.value)
+                        }
+                        required
+                        className="name-input"
+                      />
+                    </td>
+
+                    {/* Name Bangla */}
+                    <td>
+                      <input
+                        type="text"
+                        value={student.name_bangla}
+                        onChange={(e) =>
+                          handleStudentChange(
+                            index,
+                            "name_bangla",
+                            e.target.value
+                          )
+                        }
+                        className="name-input"
+                      />
+                    </td>
+
+                    {/* Date of Birth */}
+                    <td>
+                      <input
+                        type="date"
+                        value={student.dob}
+                        onChange={(e) =>
+                          handleStudentChange(index, "dob", e.target.value)
+                        }
+                        className="name-input"
+                      />
+                    </td>
+
+                    {/* Father's Name  */}
+                    <td>
+                      <input
+                        type="text"
+                        value={student.fathers_name}
+                        onChange={(e) =>
+                          handleStudentChange(
+                            index,
+                            "fathers_name",
+                            e.target.value
+                          )
+                        }
+                        className="name-input"
+                      />
+                    </td>
                     
+                    {/* Mother's Name */}
+                    <td>
+                      <input
+                        type="text"
+                        value={student.mothers_name}
+                        onChange={(e) =>
+                          handleStudentChange(
+                            index,
+                            "mothers_name",
+                            e.target.value
+                          )
+                        }
+                        className="name-input"
+                      />
+                    </td>
+
+                    {/* Mobile Number*/}
                     <td>
                       <input
                         type="text"
@@ -438,51 +458,77 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                             e.target.value
                           )
                         }
-                        className="mobile-input"
-                      />
-                    </td>
-                    <td>
-                      <input
-                        type="text"
-                        value={student.fathers_name}
-                        onChange={(e) =>
-                          handleStudentChange(index, "fathers_name", e.target.value)
-                        }
-                        
                         className="name-input"
                       />
                     </td>
 
+                    {/* Birth Regi Number */}
                     <td>
                       <input
                         type="text"
-                        value={student.mothers_name}
+                        value={student.nid}
                         onChange={(e) =>
-                          handleStudentChange(index, "mothers_name", e.target.value)
+                          handleStudentChange(index, "nid", e.target.value)
                         }
-                        
                         className="name-input"
                       />
                     </td>
-                    <td>
-                      <input
-                        type="date"
-                        value={student.dob}
-                        onChange={(e) =>
-                          handleStudentChange(index, "dob", e.target.value)
-                        }
-                      />
+
+                    {/* Picture Upload */} 
+                    <td className="px-3 py-0 relative">
+                      <div className="relative group !cursor-pointer">
+                        <input
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => handleFileChange(index, e.target.files[0])}
+                          className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
+                        />
+
+                        <div
+                          className={`flex items-center justify-center transition-all duration-200 rounded-xl
+                            ${
+                              insertStudents[index].picture
+                                ? "p-0 border-0 hover:border-0 hover:bg-transparent"
+                                : "px-3 py-2 border-2 border-dashed border-gray-300 hover:border-blue-400 hover:bg-blue-50"
+                            }`}
+                        >
+                          {/* Show upload icon if no image */}
+                          {!insertStudents[index].picture && (
+                            <Upload className="w-5 h-5 text-gray-500 hover:text-blue-600" />
+                          )}
+
+                          {/* Image preview */}
+                          {insertStudents[index].picture && (
+                            <div className="relative group">
+                              <img
+                                src={
+                                  typeof insertStudents[index].picture === "object"
+                                    ? URL.createObjectURL(insertStudents[index].picture)
+                                    : insertStudents[index].picture
+                                }
+                                alt="preview"
+                                className="w-10 h-10 object-cover rounded-md"
+                              />
+
+                              {/* Full image on hover */}
+                              <div className="fixed left-1/2 top-1/3 transform -translate-x-1/2 scale-0 group-hover:scale-100 transition-transform duration-200 z-50">
+                                <img
+                                  src={
+                                    typeof insertStudents[index].picture === "object"
+                                      ? URL.createObjectURL(insertStudents[index].picture)
+                                      : insertStudents[index].picture
+                                  }
+                                  alt="full preview"
+                                  className="max-h-96 max-w-xs rounded-lg shadow-lg border border-gray-300"
+                                />
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
                     </td>
 
-                    <td>
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) =>
-                          handleFileChange(index, e.target.files[0])
-                        }
-                      />
-                    </td>
+
 
                     {/* <td className="relative">
                       <input
@@ -506,7 +552,7 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                         {student.showPassword ? "🙈" : "👁️"}
                       </button>
                     </td> */}
-                    
+
                     {/* <td>
                       <input
                         type="email"
@@ -527,12 +573,13 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                         className="input"
                       />
                     </td> */}
-                    
-                    <td>
+
+                    <td >
                       <button
                         type="button"
                         onClick={() => handleRemove(index)}
-                        className="text-red-600 hover:text-red-800"
+                        className="text-red-600 hover:text-red-800 p-3 "
+                        
                       >
                         <TrashIcon className="w-5 h-5" />
                       </button>
@@ -562,9 +609,9 @@ const AddStudentForm = ({ setIsModalOpen }) => {
               <button
                 type="button"
                 onClick={handleAdd}
-                className="bg-blue-500 text-white p-2 !rounded-full hover:bg-blue-600 flex items-center gap-2"
+                className="bg-blue-500 text-white p-2 mt-2 !rounded-full hover:bg-blue-600 flex items-center gap-2"
               >
-                <PlusIcon className="w-5 h-5" />
+                <PlusIcon className="w-8 h-8" />
               </button>
             </div>
           </div>
@@ -574,7 +621,7 @@ const AddStudentForm = ({ setIsModalOpen }) => {
   );
 };
 
-AddStudentForm.propTypes = {
+UpdateMultipleStudentFrom.propTypes = {
   insertStudents: PropTypes.array.isRequired,
   failedToSave: PropTypes.array.isRequired,
   handleStudentChange: PropTypes.func.isRequired,
@@ -586,4 +633,4 @@ AddStudentForm.propTypes = {
   handleChange: PropTypes.func.isRequired,
 };
 
-export default AddStudentForm;
+export default UpdateMultipleStudentFrom;
