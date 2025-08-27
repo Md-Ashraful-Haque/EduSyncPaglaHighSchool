@@ -26,17 +26,7 @@ const StudentTableCell = ({ student }) => {
                 {student.name_bangla}
               </div>
             )}
-          </div>
-          {/* <div className="flex flex-col space-y-0.5 min-w-[200px]">
-            <div className="font-small text-base text-sm font-semibold text-gray-900 leading-tight flex  flex-wrap"> 
-              {student.name}
-            </div>
-            {student.name_bangla && (
-              <div className="text-sm text-gray-500 font-medium">
-                {student.name_bangla}
-              </div>
-            )}
-          </div> */}
+          </div> 
         </div>
       </td>
 

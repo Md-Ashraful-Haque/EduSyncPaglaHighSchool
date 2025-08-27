@@ -20,7 +20,7 @@ jobs:
           username: ${{ secrets.SFTP_USER }}
           key: ${{ secrets.SFTP_PRIVATE_KEY }}
           port: ${{ secrets.SFTP_PORT }}
-          source: "frontend/dist/"  # Adjust if specific files/folders are needed
+          source: "frontend/dist/" 
           target: "/home/nexasoft/paglahighschool.nexasofts.com"
           # source: "."  # Adjust if specific files/folders are needed
           # target: "/home/nexasoft/paglahighschool.nexasofts.com"
