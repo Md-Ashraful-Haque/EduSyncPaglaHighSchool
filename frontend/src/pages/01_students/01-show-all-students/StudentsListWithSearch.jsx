@@ -125,7 +125,7 @@ const StudentsListWithSearch = ({
           onChange={(e) => setSearchTerm(e.target.value)}
         /> */}
       </div>
-      <div className="overflow-hidden rounded-xl border border-gray-200 bg-white mt-4 mb-4 shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_15px_-4px_rgba(0,0,0,0.1)]">
+      <div className="relative overflow-hidden rounded-xl border border-gray-200 bg-white mt-4 mb-4 shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_15px_-4px_rgba(0,0,0,0.1)]">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
@@ -171,7 +171,7 @@ const StudentsListWithSearch = ({
               {filteredStudents.map((student, index) => (
                 <tr
                   key={student.id}
-                  className={`group transition-all duration-200 hover:bg-blue-50/50 ${
+                  className={` group transition-all duration-200 hover:bg-blue-50/50 ${
                     index % 2 === 0 ? "bg-white" : "bg-gray-50/30"
                   }`}
                 >

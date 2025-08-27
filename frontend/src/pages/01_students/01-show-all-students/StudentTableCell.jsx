@@ -43,7 +43,7 @@ const StudentTableCell = ({ student }) => {
       {/* Modal for full-size image */}
       {isModalOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-9999999999"
+          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20"
           onClick={closeModal}
         >
           <div
