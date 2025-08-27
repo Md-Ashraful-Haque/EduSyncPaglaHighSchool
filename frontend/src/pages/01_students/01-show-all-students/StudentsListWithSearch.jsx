@@ -162,7 +162,7 @@ const StudentsListWithSearch = ({
                   শিক্ষার্থীর আইডি
                 </th>
                 {/* Sticky Actions Header */}
-                <th className="sticky right-0 z-10 px-6 py-3 border-bottom text-center text-sm font-semibold text-gray-700 tracking-wide bg-gradient-to-r from-slate-50 to-gray-50 border-l border-gray-200 shadow-[-4px_0_8px_-2px_rgba(0,0,0,0.1)]">
+                <th className="sticky right-0 z-1 px-6 py-3 border-bottom text-center text-sm font-semibold text-gray-700 tracking-wide bg-gradient-to-r from-slate-50 to-gray-50 border-l border-gray-200 shadow-[-4px_0_8px_-2px_rgba(0,0,0,0.1)]">
                   Actions
                 </th>
               </tr>
@@ -230,7 +230,7 @@ const StudentsListWithSearch = ({
                   </td>
                   {/* Sticky Actions Cell */}
                   <td
-                    className={`sticky right-0 z-10 px-6 py-3 border-bottom border-l border-gray-200  shadow-[-4px_0_8px_-2px_rgba(0,0,0,0.1)] ${
+                    className={`sticky right-0 z-1 px-6 py-3 border-bottom border-l border-gray-200  shadow-[-4px_0_8px_-2px_rgba(0,0,0,0.1)] ${
                       index % 2 === 0 ? "bg-white" : "bg-[#fdfdfd] "
                     } group-hover:bg-[#fdfdfd] transition-all duration-200`}
                   >

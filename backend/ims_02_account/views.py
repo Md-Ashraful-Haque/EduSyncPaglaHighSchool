@@ -561,7 +561,7 @@ from .serializers import (
     StudentUdpateSerializer, YearSerializer, ClassSerializer, 
     GroupSerializer, SectionSerializer
 )
-
+from rest_framework.parsers import MultiPartParser, FormParser
 
 class StudentDetailView(generics.RetrieveUpdateAPIView):
     """
@@ -575,12 +575,14 @@ class StudentDetailView(generics.RetrieveUpdateAPIView):
     serializer_class = StudentUdpateSerializer
     lookup_field = 'student_id'
 
+    parser_classes = (MultiPartParser, FormParser)  # ✅ Add this
+    
     def get_object(self):
         student_id = self.kwargs.get('student_id')
         return get_object_or_404(Student, student_id=student_id)
     
     def update(self, request, *args, **kwargs):
-        print(request.data)  # See what React is sending
+        # print(request.data)  # See what React is sending
         return super().update(request, *args, **kwargs)
 
 

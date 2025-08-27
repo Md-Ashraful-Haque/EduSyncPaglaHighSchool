@@ -52,7 +52,7 @@ const Menu = () => {
           {item.children.length > 0 ? (
             <>
               <span>{item.name_bn} ▾</span>
-              
+
               {renderMenuItems(item.children, true)}
             </>
           ) : (
@@ -85,22 +85,23 @@ const Menu = () => {
           )}
         </li>
       ))}
-      
-       {isAuthenticated?(
-          <a href="/admin/" onClick={closeMenu} className="smooth-btn" > 
+
+      {!isSubmenu &&
+        (isAuthenticated ? (
+          <a href="/admin/" onClick={closeMenu} className="smooth-btn">
             ড্যাশবোর্ড
-          </a> 
-        ):(
-            <a href="/login" onClick={closeMenu} className="smooth-btn" > 
-              লগইন
-            </a>
-        )}
+          </a>
+        ) : (
+          <a href="/login" onClick={closeMenu} className="smooth-btn">
+            লগইন
+          </a>
+        ))}
     </ul>
   );
 
   return (
     <>
-      <nav className="custom-navbar container-fluid menu-bg">
+      <nav className="custom-navbar container-fluid menu-bg sticky">
       {/* <nav className="custom-navbar container-fluid menu-bg fixed-top"> */}
         <div className="container">
           <div className="brand"> 

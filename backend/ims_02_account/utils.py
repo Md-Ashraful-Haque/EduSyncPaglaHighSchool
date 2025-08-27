@@ -243,7 +243,7 @@ def add_students(student_info, student_list):
     
     all_usernames = set(all_usernames)
     
-    print("all_usernames: ", all_usernames, len(all_usernames))
+    # print("all_usernames: ", all_usernames, len(all_usernames))
 
     existing_usernames = set(User.objects.filter(username__in=all_usernames).values_list("username", flat=True))
     
@@ -258,13 +258,13 @@ def add_students(student_info, student_list):
         email = student['email'] or f"{username}@gmail.com"
 
         if username in existing_usernames:
-            print("username: ", username)
+            # print("username: ", username)
             failed_students_index.append(index+1)
             continue
         
         #Add only first duplicate number
         if username in duplicate_numbers and username not in duplicate_numbers_count:
-            print("Duplicate: ", username)
+            # print("Duplicate: ", username)
             duplicate_numbers_count[username] = 1
             failed_students_index.append(index+1)
             continue
@@ -302,9 +302,9 @@ def add_students(student_info, student_list):
     try:
         valid_students_to_create = []
         with transaction.atomic():
-            print("User Bulk Create Before", users_to_create_log, len(users_to_create_log)) 
+            # print("User Bulk Create Before", users_to_create_log, len(users_to_create_log)) 
             created_users = User.objects.bulk_create(users_to_create)
-            print("User: created_users After", created_users)
+            # print("User: created_users After", created_users)
             # for student_data, user in zip(students_to_create, created_users):
             #     check_roll_and_section = Student.objects.filter(roll_number=student_data.roll_number,section=section_obj )
             #     if check_roll_and_section.exists():
@@ -315,7 +315,7 @@ def add_students(student_info, student_list):
             # ✅ Attach users to student_data
             for index, (student_data, user) in enumerate(zip(students_to_create, created_users)):
                 # Skip if roll_number already exists in this section
-                print("user: ", user)
+                # print("user: ", user)
                 
                 is_exist_in_section = Student.objects.filter(
                     roll_number=student_data.roll_number,
@@ -327,7 +327,7 @@ def add_students(student_info, student_list):
                 ).exists()
                 
                 if is_exist_in_section or is_exist_overal:
-                    print("student_data.roll_number: ", student_data.roll_number)
+                    # print("student_data.roll_number: ", student_data.roll_number)
                     existing_roll_and_section_students_index.append(student_data.roll_number)
                     failed_students_index.append(index+1)
                     continue
