@@ -145,7 +145,9 @@ const HistoryPage = () => {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-8 py-12">
+      {/* <div className="max-w-6xl mx-auto px-3 md:px-32 py-12"> */}
+        <div className="max-w-6xl mx-auto px-3 md:px-8 py-12">
+      {/* <div className="max-w-6xl mx-auto px-8 py-12"> */}
         {/* Introduction Section */}
         {school.introduction && (
           <HistoryContentSection

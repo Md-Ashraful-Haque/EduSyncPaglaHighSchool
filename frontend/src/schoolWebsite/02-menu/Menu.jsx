@@ -85,51 +85,29 @@ const Menu = () => {
           )}
         </li>
       ))}
-      {/* {isAuthenticated?(
-        <li>
-        <a href="/admin/" onClick={closeMenu}> 
-          ড্যাশবোর্ড
-        </a>
-      </li>
-      ):(
-        <li>
-          <a href="/login" onClick={closeMenu}> 
-            লগইন
-          </a>
-      </li>
-      )} */}
       
-
-
+       {isAuthenticated?(
+          <a href="/admin/" onClick={closeMenu} className="smooth-btn" > 
+            ড্যাশবোর্ড
+          </a> 
+        ):(
+            <a href="/login" onClick={closeMenu} className="smooth-btn" > 
+              লগইন
+            </a>
+        )}
     </ul>
   );
 
   return (
     <>
-      <nav className="custom-navbar container-fluid menu-bg fixed-top">
+      <nav className="custom-navbar container-fluid menu-bg">
+      {/* <nav className="custom-navbar container-fluid menu-bg fixed-top"> */}
         <div className="container">
-          <div className="brand">
-            {/* <a href="/">
-              <img src={instituteInfo.logo_url} alt="" />
-              <h1 className="institute-name"> {instituteInfo.name_in_english}</h1> 
-            </a> */}
-
-            {/* {instituteInfo ? (
-              <a href="/">
-                <img src={instituteInfo.logo_url} alt="Institute Logo" />
-                <h1 className="institute-name">{instituteInfo.name}</h1>
-              </a>
-            ) : (
-              <div className="animate-pulse text-gray-400">
-                Loading institute info...
-              </div>
-            )} */}
-
+          <div className="brand"> 
             <a href="/">
-                <img src={instituteInfo?.logo_url} alt="Institute Logo" />
-                {/* <h1 className="institute-name"> পেঁচুল উচ্চ বিদ্যালয় </h1> */}
-                <h1 className="institute-name">{instituteInfo?.name} </h1>
-              </a>
+              <img src={instituteInfo?.logo_url} alt="Institute Logo" />
+              <h1 className="institute-name">{instituteInfo?.name} </h1>
+            </a>
 
           </div>
 
@@ -138,18 +116,16 @@ const Menu = () => {
           </button>
 
           {renderMenuItems(menuItems)}
-          {isAuthenticated?(
+          {/* {isAuthenticated?(
             // <li>
               <a href="/admin/" onClick={closeMenu} className="smooth-btn" > 
                 ড্যাশবোর্ড
               </a> 
             ):(
-              // <li>
                 <a href="/login" onClick={closeMenu} className="smooth-btn" > 
                   লগইন
                 </a>
-            // </li>
-            )}
+            )} */}
         </div>
       </nav>
 

@@ -16,6 +16,24 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
+    // border: 1px solid;
+    padding: 0px;
+
+
+    .smooth-btn{
+      // padding: 0;
+      
+      @media  (max-width: 576px) {
+        border: none;
+      }
+      margin: 0;
+    }
+
+    .mobile-toggle-and-login{
+      display: flex;
+      // border: 1px solid white;
+    }
+    
   }
 
   .brand {
@@ -24,6 +42,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      
+      @media  (max-width: 576px) {
+        padding: 8px 0px;
+      }
     }
     a {
       text-decoration: none;
@@ -38,17 +60,22 @@
       }
       img {
         width: 56px;
+        @media  (max-width: 576px) {
+          width: 48px;
+        }
       }
 
       h1.institute-name {
         // border: 1px solid;
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         font-weight: 700;
         color: white;
         min-width: 110px;
         padding: 0;
         margin: 0;
-
+        @media  (max-width: 576px) {
+          padding-left: 8px; 
+        }
       }
     }
   }

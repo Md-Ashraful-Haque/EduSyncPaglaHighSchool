@@ -187,17 +187,17 @@ const DataSelectorFormFields = () => {
 
                   {/* Alternative: Elevated Button Group */}
                   <div className="mt-0">
-                    {/* <h3 className="text-sm font-medium text-gray-600 mb-3">Elevated Style:</h3> */}
+                    {/* <h3 className="text-sm font-medium text-gray-600 mb-3">Elevated Style:</h3> */} 
                     <div className="inline-flex bg-white rounded-xl  border border-gray-100 overflow-hidden">
                       
                       <button 
                         onClick={handleOpenUpdate} 
                         // disabled={!vars.is_staff}
-                        className="group flex items-center px-6 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 border-r border-gray-200"
+                        className="group  flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-purple-700 hover:bg-purple-100 hover:from-blue-500 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 border-r border-gray-200 "
                       >
                         <div className="flex items-center space-x-3">
-                          <div className="border border-blue-500 rounded-full p-1.5 group-hover:border-white group-hover:bg-white/20 transition-all duration-300">
-                            <PencilSquareIcon className="w-4 h-4 text-blue-500 group-hover:text-white" /> 
+                          <div className="border border-purple-700 rounded-full p-1.5 group-hover:border-white group-hover:bg-white/20 transition-all duration-300">
+                            <PencilSquareIcon className="w-4 h-4 text-purple-700 group-hover:text-purple-700" /> 
 
                           </div>
                           <span className="font-semibold">Update Student</span>
@@ -207,11 +207,11 @@ const DataSelectorFormFields = () => {
                       <button 
                         onClick={handleOpenAdd} 
                         // disabled={!vars.is_staff}
-                        className="group flex items-center px-6 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                        className="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-purple-700 hover:bg-purple-100 hover:from-blue-500 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
                       >
                         <div className="flex items-center space-x-3">
-                          <div className="border border-blue-500 rounded-full p-1.5 group-hover:border-white group-hover:bg-white/20 transition-all duration-300">
-                            <PlusIcon className="w-4 h-4 text-blue-500 group-hover:text-white" />
+                          <div className="border border-purple-700 rounded-full p-1.5 group-hover:border-white group-hover:bg-white/20 transition-all duration-300">
+                            <PlusIcon className="w-4 h-4 text-purple-700 group-hover:text-purple-700" />
                           </div>
                           <span className="font-semibold">Add Student</span>
                         </div>

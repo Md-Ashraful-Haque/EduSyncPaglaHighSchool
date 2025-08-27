@@ -19,6 +19,8 @@ SECRET_KEY = 'django-insecure-wkdk)+4=im0#6up=^@o-=^hph=k$q7$%dq@yuu_opcj4nt3(qt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 # DEBUG = True
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 20000  # or any number you expect
+
 X_FRAME_OPTIONS = 'ALLOWALL'
 
 # ALLOWED_HOSTS = ['edusync.nexasofts.com','www.edusync.nexasofts.com','0.0.0.0','localhost','192.168.17.168','127.0.0.1', 'ims.nexasofts.com','192.168.1.29','172.24.0.2','192.168.0.165','192.168.249.168','192.168.0.165']

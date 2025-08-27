@@ -7,11 +7,16 @@
   .item {
     display: flex;
     align-items: center;
-    height: 100vh;
+    height: calc(100vh - 90px);
     background-position: center center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
+
+    @media screen and (max-width: 576px) {
+      width: 100vw !important;
+      height: 180px;
+    }
   }
 
   .slider-text {
@@ -64,13 +69,14 @@
     padding: 15px;
     position: absolute;
     right: 130px;
-    bottom: 50px;
+    bottom: 20px;
     display: flex;
     flex-direction: row;
 
-    @media screen and (max-width: 992px) {
+    @media screen and (max-width: 576px) {
       right: 30px;
       bottom: 100px;
+      display: none;
     }
 
     button {
@@ -124,7 +130,7 @@
 
 .slider-container {
   position: relative;
-  height: 100vh;
+  // height: 100vh;
 
   .bg-overlay {
     position: absolute;
@@ -180,9 +186,15 @@
   transition: width 600ms;
   color: white;
   text-shadow: 1px 1px 1px black, 0 0 8px blue, 0 0 0.2em blue;
+  border-right: 8px solid blue;
 
-  @media screen and (max-width: 992px) {
-    font-size: 20px;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // border-right: 8px solid red;
+  @media screen and (max-width: 576px) {
+    font-size: 16px;
+    border-right: 4px solid rgb(255, 0, 0);
     // max-width: 90%;
   }
 
@@ -195,11 +207,17 @@
   white-space: nowrap;
   width: 0;
   transition: width 800ms;
+  padding: 0 12px;
+  @media screen and (max-width: 576px) {
+    padding: 0 8px;
+  }
 }
 
 .cd-words-wrapper b.is-visible {
   opacity: 1;
   width: auto;
+  // border: 8px solid red;
+  // padding: 0 12px;
 }
 
 .cd-words-wrapper b.is-hidden {
@@ -207,21 +225,22 @@
   width: 0;
 }
 
-.cursor {
-  font-size: 32px;
-  font-weight: bolder;
-  border-right: 0.15em solid #d8d9f4;
-  color: white;
-  opacity: 1;
-  animation: point .8s infinite;
-  margin-left: 0px;
-  transform: rotate(-10deg);
 
-  @media screen and (max-width: 992px) {
-    font-size: 20px;
-  }
+// .cursor {
+//   font-size: 32px;
+//   font-weight: bolder;
+//   border-right: 0.15em solid #d8d9f4;
+//   color: white;
+//   opacity: 1;
+//   animation: point .8s infinite;
+//   margin-left: 0px;
+//   transform: rotate(-10deg);
 
-}
+//   @media screen and (max-width: 992px) {
+//     font-size: 20px;
+//   }
+
+// }
 
 @keyframes point {
   0% {
