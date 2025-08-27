@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 // import { Link } from "react-router-dom";
-
+import { Medal } from 'lucide-react';
 import MenuLeftLogo from "./img/result.svg";
 
 import MenuItem from "../sidebarComponents/MenuItem";
@@ -58,7 +58,8 @@ const ResultMenu = ({ menuId }) => {
   return (
     <li>
       <MenuItem
-        menuLeftLogo={MenuLeftLogo}
+        MenuLogo={Medal}
+        // menuLeftLogo={MenuLeftLogo}
         menuName="ফলাফল"
         menuId={menuId}
       />

@@ -5,7 +5,7 @@ import dashboard from "../../assets/04-section/01-dashboard/assets/img/dashboard
 
 // import ResultMenu from './02Result'
 // import StudentInfo from './01StudentInfo'
-
+import { LogOut,LayoutDashboard } from 'lucide-react';
 import {
   ResultMenu,
   StudentInfo,
@@ -35,7 +35,8 @@ const Sidebar = () => {
             } `}
             onClick={() => toggleSubMenu("menu0")}
           >
-            <img src={dashboard} alt="Dashboard logo" />
+            {/* <img src={dashboard} alt="Dashboard logo" /> */}
+            <LayoutDashboard />
             <span className="nav-text">ড্যাশবোর্ড</span>
           </Link>
         </li>
@@ -47,14 +48,15 @@ const Sidebar = () => {
           <Link
             to="/"
             className={`not-caret ${
-              activeSubMenu === "menu0" ? "active" : ""
+              activeSubMenu === "logout" ? "active" : ""
             } `}
             onClick={() =>{
-              toggleSubMenu("menu0");
+              toggleSubMenu("logout");
               logout();
             }}
           >
-            <img src={dashboard} alt="Dashboard logo" />
+            {/* <img src={dashboard} alt="Dashboard logo" /> */}
+            <LogOut />
             <span className="nav-text">লগআউট</span>
           </Link>
         </li>

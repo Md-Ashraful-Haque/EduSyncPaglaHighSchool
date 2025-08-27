@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import MenuLeftLogo from "./img/result.svg";
 import MenuItem from "../sidebarComponents/MenuItem";
 import SubMenuItem from "../sidebarComponents/SubMenuItem";
-
+import { GraduationCap } from 'lucide-react';
 const submenuItems = [
   {
     id: "students-menu-item-1",
@@ -31,7 +31,7 @@ const StudentInfo = ({ menuId }) => {
   return (
     <li>
       <MenuItem
-        menuLeftLogo={MenuLeftLogo}
+        MenuLogo={GraduationCap}
         menuName="শিক্ষার্থীর তালিকা"
         menuId={menuId}
       />
