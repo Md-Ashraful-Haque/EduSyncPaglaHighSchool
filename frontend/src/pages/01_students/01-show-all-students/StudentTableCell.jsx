@@ -9,7 +9,7 @@ const StudentTableCell = ({ student }) => {
 
   return (
     <>
-      <td className="px-6 py-3 border-bottom">
+      <td className="px-2 py-3 border-bottom">
         <div className="flex items-center space-x-3">
           <img
             src={student.picture || manPlaceHolderImage}
@@ -17,8 +17,18 @@ const StudentTableCell = ({ student }) => {
             className="w-10 h-10 rounded-full object-cover shadow-between cursor-pointer hover:shadow-lg transition-shadow duration-200"
             onClick={openModal}
           />
-          <div className="flex flex-col space-y-0.5">
-            <div className="text-base font-semibold text-gray-900 leading-tight">
+          <div className="flex flex-col space-y-0.5 w-[200px]">
+            <div className="font-small text-base text-sm font-semibold text-gray-900 leading-tight"> 
+              {student.name}
+            </div>
+            {student.name_bangla && (
+              <div className="text-sm text-gray-500 font-medium break-words">
+                {student.name_bangla}
+              </div>
+            )}
+          </div>
+          {/* <div className="flex flex-col space-y-0.5 min-w-[200px]">
+            <div className="font-small text-base text-sm font-semibold text-gray-900 leading-tight flex  flex-wrap"> 
               {student.name}
             </div>
             {student.name_bangla && (
@@ -26,7 +36,7 @@ const StudentTableCell = ({ student }) => {
                 {student.name_bangla}
               </div>
             )}
-          </div>
+          </div> */}
         </div>
       </td>
 

@@ -98,26 +98,7 @@ const StudentsListWithSearch = ({
   return (
     <>
       <div className="table-controls">
-        {/* <select
-          className="show-select"
-          value={itemPerPage}
-          onChange={handleItemPerPageChange}
-        >
-          {[10, 20, 30, 40, 50, 60, 70, 100, 110, 120, 200].map((num) => (
-            <option className="!py-4" key={num} value={num}>
-              {num}
-            </option>
-          ))}
-        </select>
-        <span className="students-label">Students</span>
-        <input
-          type="text"
-          className="search-input"
-          placeholder="Search"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        /> */}
-
+        
         <CustomSelect
           value={itemPerPage}
           onChange={handleItemPerPageChange}
@@ -149,13 +130,13 @@ const StudentsListWithSearch = ({
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-200 bg-gradient-to-r from-slate-50 to-gray-50">
-                <th className="px-6 py-3 min-w-[200px] border-bottom text-center text-sm font-semibold text-gray-700 tracking-wide">
+                <th className="px-3 py-3 border-bottom text-center text-sm font-semibold text-gray-700 tracking-wide">
+                  রোল
+                </th>
+                <th className="px-2 py-3 min-w-[200px] border-bottom text-center text-sm font-semibold text-gray-700 tracking-wide">
                   নাম
                 </th>
 
-                <th className="px-4 py-3 border-bottom text-center text-sm font-semibold text-gray-700 tracking-wide">
-                  রোল
-                </th>
                 <th className="px-2 py-3 min-w-[90px] border-bottom text-left text-sm font-semibold text-gray-700 tracking-wide">
                   শ্রেণি
                 </th>
@@ -194,31 +175,17 @@ const StudentsListWithSearch = ({
                     index % 2 === 0 ? "bg-white" : "bg-gray-50/30"
                   }`}
                 >
-                  <StudentTableCell key={student.student_id} student={student} />
                   
-                  <td className="px-4 py-3 border-bottom">
+                  <td className="pl-2 px-3 py-3 border-bottom">
                     <div className="flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full text-sm font-medium text-blue-700">
                       {student.roll_number}
                     </div>
                   </td>
-                  {/* <td className="px-6 py-3 border-bottom">
-                    <div className="flex flex-col space-y-1">
-                      <div className="text-base font-semibold text-gray-900 leading-tight">
-                        <img src={student.picture}  alt="" />
-                        {student.name} 
-                      </div>
-                      {student.name_bangla && (
-                        <div className="text-sm text-gray-600 font-medium">
-                          {student.name_bangla}
-                        </div>
-                      )}
-                    </div>
-                  </td> */}
-
-                  
+                  <StudentTableCell key={student.student_id} student={student} />                  
 
                   <td className="px-2 py-3 border-bottom">
-                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700">
+                    <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700"
+                    title={student.group_name_in_bangla || "-"} >
                       {student.class_name || "-"}
                     </span>
                   </td>

@@ -267,9 +267,21 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
 
   return (
     <div className="add-student-form">
-      <h4 className="text-3xl font-extrabold text-center bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 bg-clip-text text-transparent tracking-wide">
+      <h4 className=" font-extrabold text-center bg-gradient-to-r from-blue-100 via-purple-100 to-pink-900 bg-clip-text text-transparent tracking-wide">
         Update Student Form
       </h4>
+
+      {/* <h4 style={{
+        fontSize: '20px',
+        fontFamily: '"SolaimanLipi", sans-serif',
+        fontWeight: 500,
+        background: 'linear-gradient(to right, #0b002f, #1E33F2)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        textAlign: 'center'
+      }}>
+        Update Student Form
+      </h4> */} 
       <form onSubmit={saveStudents}>
         <div className="data-selector-form">
           <div className="container-fluid">
@@ -334,7 +346,7 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
                 <tr className="bg-gray-100 text-left">
                   <th>রোল (ইংরেজি)</th>
                   <th>ইংরেজি নাম </th>
-                  <th>বাংলা নাম  </th>
+                  <th>বাংলা নাম </th>
                   <th>জন্ম তারিখ </th>
                   <th>পিতার নাম </th>
                   <th>মাতার নাম </th>
@@ -346,16 +358,15 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
                   {/* <th>যোগাযোগের ঠিকানা </th> */}
                 </tr>
               </thead>
-              
+
               <tbody>
                 {insertStudents.map((student, index) => (
                   <tr
                     key={index}
                     className={`border-t  ${
-                      failedToSave.includes(index+1) ? "bg-red-200" : ""
+                      failedToSave.includes(index + 1) ? "bg-red-200" : ""
                     }`}
                   >
-
                     {/* Roll Number */}
                     <td>
                       <input
@@ -429,7 +440,7 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
                         className="name-input"
                       />
                     </td>
-                    
+
                     {/* Mother's Name */}
                     <td>
                       <input
@@ -474,13 +485,15 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
                       />
                     </td>
 
-                    {/* Picture Upload */} 
+                    {/* Picture Upload */}
                     <td className="px-3 py-0 relative">
                       <div className="relative group !cursor-pointer">
                         <input
                           type="file"
                           accept="image/*"
-                          onChange={(e) => handleFileChange(index, e.target.files[0])}
+                          onChange={(e) =>
+                            handleFileChange(index, e.target.files[0])
+                          }
                           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                         />
 
@@ -502,8 +515,11 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
                             <div className="relative group">
                               <img
                                 src={
-                                  typeof insertStudents[index].picture === "object"
-                                    ? URL.createObjectURL(insertStudents[index].picture)
+                                  typeof insertStudents[index].picture ===
+                                  "object"
+                                    ? URL.createObjectURL(
+                                        insertStudents[index].picture
+                                      )
                                     : insertStudents[index].picture
                                 }
                                 alt="preview"
@@ -514,8 +530,11 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
                               <div className="fixed left-1/2 top-1/3 transform -translate-x-1/2 scale-0 group-hover:scale-100 transition-transform duration-200 z-50">
                                 <img
                                   src={
-                                    typeof insertStudents[index].picture === "object"
-                                      ? URL.createObjectURL(insertStudents[index].picture)
+                                    typeof insertStudents[index].picture ===
+                                    "object"
+                                      ? URL.createObjectURL(
+                                          insertStudents[index].picture
+                                        )
                                       : insertStudents[index].picture
                                   }
                                   alt="full preview"
@@ -527,8 +546,6 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
                         </div>
                       </div>
                     </td>
-
-
 
                     {/* <td className="relative">
                       <input
@@ -574,12 +591,11 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
                       />
                     </td> */}
 
-                    <td >
+                    <td>
                       <button
                         type="button"
                         onClick={() => handleRemove(index)}
                         className="text-red-600 hover:text-red-800 p-3 "
-                        
                       >
                         <TrashIcon className="w-5 h-5" />
                       </button>

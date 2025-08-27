@@ -34,7 +34,11 @@ from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 from .models import Teacher
 from .serializers import TeacherCardSerializer
+from django.shortcuts import get_object_or_404
+from django.contrib.auth import get_user_model
 
+
+User = get_user_model()
 
 from .models import *
 from .serializers import StudentSerializer, StudentSerializerAllFields
@@ -360,19 +364,8 @@ class SaveStudents(APIView):
             return Response({"error": f"An error occurred: {str(e)}"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-# views.py
-# from rest_framework.views import APIView
-# from rest_framework.response import Response
-# from rest_framework import status
-from django.shortcuts import get_object_or_404
-from django.contrib.auth import get_user_model
 
-# from .models import Student, Year
-# from .serializers import StudentSerializer
-# from .utils import getUserProfile  # assuming you have this
-# from .services import add_students  # only if still needed
 
-User = get_user_model()
 
 
 class UpdateStudentsView(APIView):

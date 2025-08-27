@@ -192,16 +192,12 @@ const DataSelectorFormFields = () => {
                       
                       <button 
                         onClick={handleOpenUpdate} 
-                        disabled={!vars.is_staff}
-                        className="group flex items-center px-6 py-1 text-sm font-medium text-gray-700 hover:text-white hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 border-r border-gray-200"
+                        // disabled={!vars.is_staff}
+                        className="group flex items-center px-6 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 border-r border-gray-200"
                       >
                         <div className="flex items-center space-x-3">
                           <div className="border border-blue-500 rounded-full p-1.5 group-hover:border-white group-hover:bg-white/20 transition-all duration-300">
-                            <PencilSquareIcon className="w-4 h-4 text-blue-500 group-hover:text-white" />
-                            {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="size-6">
-                              <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
-                              <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
-                            </svg> */}
+                            <PencilSquareIcon className="w-4 h-4 text-blue-500 group-hover:text-white" /> 
 
                           </div>
                           <span className="font-semibold">Update Student</span>
@@ -210,8 +206,8 @@ const DataSelectorFormFields = () => {
 
                       <button 
                         onClick={handleOpenAdd} 
-                        disabled={!vars.is_staff}
-                        className="group flex items-center px-6 py-3 text-sm font-medium text-gray-700 hover:text-white hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                        // disabled={!vars.is_staff}
+                        className="group flex items-center px-6 py-2 text-sm font-medium text-gray-700 hover:text-white hover:bg-gradient-to-r hover:from-blue-500 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
                       >
                         <div className="flex items-center space-x-3">
                           <div className="border border-blue-500 rounded-full p-1.5 group-hover:border-white group-hover:bg-white/20 transition-all duration-300">

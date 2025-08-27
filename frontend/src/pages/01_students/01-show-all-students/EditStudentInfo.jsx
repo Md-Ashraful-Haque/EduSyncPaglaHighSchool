@@ -1,6 +1,8 @@
 // export default EditStudentInfo;
 import { useMarksInputBySubjectContext } from "ContextAPI/MarksInputBySubjectContext";
 import React, { useState, useEffect } from "react";
+import Loading_1 from "LoadingComponent/loading/Loading_1";
+
 import {
   Save,
   Upload,
@@ -276,12 +278,7 @@ const EditStudentInfo = ({ studentId,closeEditStudentData }) => {
   if (loading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="bg-white p-8 rounded-lg shadow-md">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600 text-center">
-            Loading student data...
-          </p>
-        </div>
+        <Loading_1 />
       </div>
     );
   }
