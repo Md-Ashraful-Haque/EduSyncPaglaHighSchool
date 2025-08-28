@@ -48,6 +48,7 @@ class NoticeSerializer(serializers.ModelSerializer):
             'attachment',
             'target_audience',
             'display_position',
+            'is_marquee',
             'is_important',
             'pin_on_top',
             'is_published',

@@ -4,16 +4,7 @@ import axios from "axios";
 import FullScreenModal from "../../pages/00-page-components/02_full_screen_window";
 import NoticeDetails from "../recent/NoticeDetails";
 
-const phrases = [
-  "শিক্ষার আলোয় উজ্জ্বল ভবিষ্যৎ, আমাদের প্রতিশ্রুতি",
-  "জ্ঞান, নৈতিকতা ও উৎকর্ষের পথে আমরা",
-  "আধুনিক শিক্ষা, মূল্যবোধের ভিত্তি",
-  "স্বপ্নকে বাস্তবে রূপ দিতে আমরা সঙ্গী",
-  "শিক্ষার মাধ্যমে গড়ে উঠুক নতুন প্রজন্ম",
-  "মানসম্মত শিক্ষা, সফলতার প্রথম পদক্ষেপ",
-  "শিক্ষা ও সংস্কৃতির মেলবন্ধনে আমরা",
-  "জ্ঞানের আলো ছড়িয়ে দিচ্ছি প্রতিটি মনে",
-];
+
 
 const RecentBulletin = () => {
   const [recentBulletin, setRecentBulletin] = useState([]);
@@ -23,10 +14,12 @@ const RecentBulletin = () => {
 
   useEffect(() => {
     axios
-      .get(`${apiUrl}/notices/?position=homepage&target=all`)
+      // .get(`${apiUrl}/notices/?position=homepage&target=all`)
+      .get(`${apiUrl}/notices/?is_marquee=True`)
       .then((res) => {
         // console.log("res.data.results || res.data: ", res.data);
         const data = res.data.results || res.data; // handles pagination or not
+        console.log("data: ", data);
         if (Array.isArray(data)) {
           setRecentBulletin(data.slice(0, 5)); // show first 5 notices
         }
@@ -60,7 +53,7 @@ const RecentBulletin = () => {
         </div>
 
         {recentBulletin.length === 0 && (
-          <p className="text-sm text-gray-500">কোনো নোটিশ পাওয়া যায়নি</p>
+          <p className="text-sm text-gray-500 w-full p-0 m-0">কোনো নোটিশ পাওয়া যায়নি</p>
         )}
 
         {/* <marquee behavior="scroll" direction="left">

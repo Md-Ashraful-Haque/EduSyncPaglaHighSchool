@@ -5,7 +5,7 @@ const FullScreenModal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="!z-9999999 fixed inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center sm:p-4 font-hind-siliguri modal-overlay z-50 top-0 left-0 right-0 bottom-0">
+    <div className="!z-[9999] fixed inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center sm:p-4 font-hind-siliguri modal-overlay top-0 left-0 right-0 bottom-0">
       <div className="relative w-full h-full bg-white rounded-lg overflow-auto modal-content">
         <button
           onClick={onClose}

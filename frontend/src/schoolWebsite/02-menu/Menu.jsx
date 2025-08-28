@@ -101,7 +101,7 @@ const Menu = () => {
 
   return (
     <>
-      <nav className="custom-navbar container-fluid menu-bg sticky">
+      <nav className="custom-navbar container-fluid menu-bg sticky top-0">
       {/* <nav className="custom-navbar container-fluid menu-bg fixed-top"> */}
         <div className="container">
           <div className="brand"> 
