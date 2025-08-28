@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import MenuListView, SliderListView, ActiveNoticeListAPIView,NoticeDetailAPIView
 from .views import NoticeListAPIView, HistoryOfInstituteListAPIView, ManagingCommitteeListAPIView
-from .views import ContactInformationAPIView, StudentStatisticsListView, InstituteDetailsAPIView
+from .views import ContactInformationAPIView, StudentStatisticsListView, InstituteDetailsAPIView, NoticeMarqueueListAPIView
 
 
 urlpatterns = [
@@ -9,6 +9,7 @@ urlpatterns = [
     path('slides/', SliderListView.as_view(), name='slide-items'),
     path('notices/', ActiveNoticeListAPIView.as_view(), name='notice'),
     path("notices/<slug:slug>/", NoticeDetailAPIView.as_view(), name="notice-detail"),
+    path("notices-marqueue", NoticeMarqueueListAPIView.as_view(), name="notices-marqueue"),
     
     path('all-notices/', NoticeListAPIView.as_view(), name='all_notice_list'),
     

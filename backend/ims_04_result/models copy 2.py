@@ -13,9 +13,18 @@ from django.db.models.functions import Coalesce
 # from ims_03_exam.models import *
 # from django.db.models import Sum
 # constants.py
-
-# studnet should pass individual mark type and total mark from subject pass marks
 COMBINED_SUBJECTS = {
+    #xxxxxxxxxxxxxxxxxxxxxxxx Class Six To Eight
+    "BAN_SIX": {   # Bangla (combined group)
+        "papers": ["6801", "6802"],   # subject codes
+        "mcq_pass": 15,
+        "cq_pass": 35,
+    },
+    "ENG_SIX": {   # English (combined group)
+        "papers": ["6803", "6804"],   # subject codes
+        "mcq_pass": 0,
+        "cq_pass": 50,
+    },
     #xxxxxxxxxxxxxxxxxxxxxxxx Class Nine and Ten
     "BAN_NINE": {   # Bangla (combined group)
         "papers": ["g-91001", "g-91002"],   # subject codes

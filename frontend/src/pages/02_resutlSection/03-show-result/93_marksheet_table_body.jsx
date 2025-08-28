@@ -58,11 +58,31 @@ const MarksheetTableBody = ({
                   ? showBangla(subject.full_marks)
                   : subject.full_marks}
               </td>
-              <td className="py-1 px-2 border !border-indigo-500">
+
+              {/* //////////////////// Pass marks ///////////////////////////////// */}
+
+              {subject.is_displayed_on_marksheet && (
+                // <td  rowSpan={subject.is_combined ? 2 : 1} className="py-1 px-2 border !border-indigo-500">
+                //   {bySubjectVars.isBangla && subject.total_marks >= 0
+                //     ? showBangla(subject.combined_total_marks)
+                //     : subject.combined_total_marks < 0
+                //     ? "-"
+                //     : subject.combined_total_marks}
+                // </td>
+
+                <td rowSpan={subject.is_combined ? 2 : 1} className="py-1 px-2 border !border-indigo-500">
+                  {bySubjectVars.isBangla
+                    ? showBangla(subject.pass_marks)
+                    : subject.pass_marks}
+                </td>
+              )}
+
+
+              {/* <td className="py-1 px-2 border !border-indigo-500">
                 {bySubjectVars.isBangla
                   ? showBangla(subject.pass_marks)
                   : subject.pass_marks}
-              </td>
+              </td> */}
 
               {["WR", "MCQ", "Practical"].map((type) => {
                 const fallbackType = type === "WR" ? "CA" : null;
@@ -101,14 +121,7 @@ const MarksheetTableBody = ({
                     : subject.combined_total_marks}
                 </td>
               )}
-
-              {/* <td className="py-1 px-2 border !border-indigo-500">
-                {bySubjectVars.isBangla && subject.total_marks >= 0
-                  ? showBangla(subject.total_marks)
-                  : subject.total_marks < 0
-                  ? "-"
-                  : subject.total_marks}
-              </td> */}
+              
 
               {/* Show Letter Grade */}
 

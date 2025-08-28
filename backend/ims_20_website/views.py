@@ -115,6 +115,44 @@ class NoticeListAPIView(ListAPIView):
             queryset = queryset.filter(is_marquee=(is_marquee.lower() == "true"))
 
         return queryset
+    
+class NoticeMarqueueListAPIView(ListAPIView):
+    permission_classes = [permissions.AllowAny]
+    serializer_class = NoticeSerializer
+    pagination_class = NoticePagination
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    search_fields = ['title', 'content']
+
+    def get_queryset(self):
+        now = timezone.now()
+
+        # base queryset (active and published)
+        queryset = Notice.objects.filter(
+            is_published=True
+        ).filter(
+            expire_at__isnull=True
+        ) | Notice.objects.filter(
+            is_published=True,
+            expire_at__gt=now
+        )
+
+        print("=====================================is_marquee ====================", is_marquee)
+        # custom filters
+        target = self.request.query_params.get("target")
+        position = self.request.query_params.get("position")
+        is_marquee = self.request.query_params.get("is_marquee")
+
+        if target and target != "all":
+            queryset = queryset.filter(target_audience=target)
+
+        if position and position != "all":
+            queryset = queryset.filter(display_position=position)
+
+        if is_marquee is not None:  # only if explicitly passed
+            print("is_marquee: ",is_marquee)
+            queryset = queryset.filter(is_marquee=(is_marquee.lower() == "true"))
+
+        return queryset
 
 
 
