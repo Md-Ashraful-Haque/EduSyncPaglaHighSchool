@@ -221,8 +221,8 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
         else if (key === "name") student.name = val;
         else if (key === "name bangla") student.name_bangla = val;
         else if (key === "dob") {
-          const date = "2009/01/02";
-          const formattedDate = date.replace(/\//g, "-");
+          // const date = "2009/01/02";
+          const formattedDate = val.replace(/\//g, "-");
           student.dob = formattedDate;
         }
         else if (key === "father's name") student.fathers_name = val;
