@@ -9,7 +9,7 @@ urlpatterns = [
     path('slides/', SliderListView.as_view(), name='slide-items'),
     path('notices/', ActiveNoticeListAPIView.as_view(), name='notice'),
     path("notices/<slug:slug>/", NoticeDetailAPIView.as_view(), name="notice-detail"),
-    path("notices-marqueue", NoticeMarqueueListAPIView.as_view(), name="notices-marqueue"),
+    path("notices-marquee/<slug:slug>/", NoticeMarqueueListAPIView.as_view(), name="notices-marquee"),
     
     path('all-notices/', NoticeListAPIView.as_view(), name='all_notice_list'),
     

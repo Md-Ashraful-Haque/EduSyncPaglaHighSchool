@@ -20,7 +20,7 @@ const DesktopLogin = ( ) => {
                         EduSync
                     </div>
                 </div>
-                <div className="welcome">
+                <div className="welcome pb-4">
                     <h1> Welcome Back!</h1>
                 </div>
                 <div className="login-instruction">

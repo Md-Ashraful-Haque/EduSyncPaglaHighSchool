@@ -122,6 +122,8 @@ class NoticeMarqueueListAPIView(ListAPIView):
     pagination_class = NoticePagination
     filter_backends = [DjangoFilterBackend, SearchFilter]
     search_fields = ['title', 'content']
+    
+    
 
     def get_queryset(self):
         now = timezone.now()

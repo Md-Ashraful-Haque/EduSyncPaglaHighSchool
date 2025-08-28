@@ -5,16 +5,26 @@ import logo from "../../assets/04-section/01-dashboard/assets/img/eduSyncLogo.sv
 import {AdminName} from './adminName/99_index'
 
 import { useAppContext } from '../../ContextAPI/AppContext';
+import { useNavigate } from "react-router-dom"; 
+
+
 
 const MainHeader = ( ) => {
 // const MainHeader = ({ toggleSidebar }) => {
 
-
+    const navigate = useNavigate();
     const { toggleSidebar,  instituteInfo } = useAppContext();
 
   return (
     <>
     <div className="main-header">
+      {/* <button
+          className="pl-8"
+          type="none"
+          onClick={() => navigate("/")}
+      >
+        Site
+      </button> */}
       <a href="/admin">
         <div className="logo-section">
           <div className="logo">

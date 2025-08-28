@@ -15,9 +15,9 @@ const RecentBulletin = () => {
   useEffect(() => {
     axios
       // .get(`${apiUrl}/notices/?position=homepage&target=all`)
-      .get(`${apiUrl}/notices-marqueue/?is_marquee=True`)
+      .get(`${apiUrl}/notices-marquee/?is_marquee=True`)
       .then((res) => {
-        // console.log("res.data.results || res.data: ", res.data);
+        console.log("res.data.results || res.data: ", res.data);
         const data = res.data.results || res.data; // handles pagination or not
         console.log("data: ", data);
         if (Array.isArray(data)) {

@@ -458,7 +458,7 @@ class UpdateStudentsView(APIView):
                             # serializer.save()
                             try:
                                 instance = serializer.save()
-                                print("Saved:", instance.pk, "-> ",instance.phone_number)
+                                # print("Saved:", instance.pk, "-> ",instance.phone_number)
                                 updated.append(serializer.data)
                             except Exception as e:
                                 print("Save failed:", str(e))

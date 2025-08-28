@@ -466,6 +466,8 @@ class StudentSubjectResult(models.Model):
                 # Handle optional subjects (bonus marks rule)
                 if subj.full_marks == 100 and point > 1 and grade != "Fail":
                     total_marks += max(s.total_marks - 40, 0)
+                # elif subj.full_marks == 50 and point > 1 and grade != "Fail":
+                #     total_marks += max(s.total_marks - 20, 0)
             else:
                 # Compulsory subjects: add raw marks
                 total_marks += max(s.total_marks, 0)

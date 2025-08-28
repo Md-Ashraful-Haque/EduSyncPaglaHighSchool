@@ -377,7 +377,7 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                 <tr className="bg-gray-100 text-left">
                   <th>রোল (ইংরেজি)</th>
                   <th>ইংরেজি নাম </th>
-                  <th>বাংলা নাম  </th>
+                  <th>বাংলা নাম </th>
                   <th>জন্ম তারিখ </th>
                   <th>পিতার নাম </th>
                   <th>মাতার নাম </th>
@@ -389,16 +389,17 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                   {/* <th>যোগাযোগের ঠিকানা </th> */}
                 </tr>
               </thead>
-              
+
               <tbody>
                 {insertStudents.map((student, index) => (
                   <tr
                     key={index}
-                    className={`border-t  ${
-                      failedToSave.includes(index+1) ? "bg-red-200" : ""
-                    }`}
+                    className={`border-t ${
+                      index % 2 === 0 ? "" : "bg-gray-300/30"
+                    } ${
+                      failedToSave.includes(index + 1) ? "!bg-red-200" : ""
+                    }  `}
                   >
-
                     {/* Roll Number */}
                     <td>
                       <input
@@ -472,7 +473,7 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                         className="name-input"
                       />
                     </td>
-                    
+
                     {/* Mother's Name */}
                     <td>
                       <input
@@ -490,7 +491,13 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                     </td>
 
                     {/* Mobile Number*/}
-                    <td>
+                    <td
+                      className={`${
+                        failedToSave.includes(index + 1)
+                          ? "text-red-900 text-lg  !bg-red-100"
+                          : ""
+                      }`}
+                    >
                       <input
                         type="text"
                         value={student.phone_number}
@@ -517,13 +524,15 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                       />
                     </td>
 
-                    {/* Picture Upload */} 
+                    {/* Picture Upload */}
                     <td className="px-3 py-0 relative">
                       <div className="relative group !cursor-pointer">
                         <input
                           type="file"
                           accept="image/*"
-                          onChange={(e) => handleFileChange(index, e.target.files[0])}
+                          onChange={(e) =>
+                            handleFileChange(index, e.target.files[0])
+                          }
                           className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
                         />
 
@@ -545,8 +554,11 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                             <div className="relative group">
                               <img
                                 src={
-                                  typeof insertStudents[index].picture === "object"
-                                    ? URL.createObjectURL(insertStudents[index].picture)
+                                  typeof insertStudents[index].picture ===
+                                  "object"
+                                    ? URL.createObjectURL(
+                                        insertStudents[index].picture
+                                      )
                                     : insertStudents[index].picture
                                 }
                                 alt="preview"
@@ -557,8 +569,11 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                               <div className="fixed left-1/2 top-1/3 transform -translate-x-1/2 scale-0 group-hover:scale-100 transition-transform duration-200 z-50">
                                 <img
                                   src={
-                                    typeof insertStudents[index].picture === "object"
-                                      ? URL.createObjectURL(insertStudents[index].picture)
+                                    typeof insertStudents[index].picture ===
+                                    "object"
+                                      ? URL.createObjectURL(
+                                          insertStudents[index].picture
+                                        )
                                       : insertStudents[index].picture
                                   }
                                   alt="full preview"
@@ -570,8 +585,6 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                         </div>
                       </div>
                     </td>
-
-
 
                     {/* <td className="relative">
                       <input
@@ -617,12 +630,11 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                       />
                     </td> */}
 
-                    <td >
+                    <td>
                       <button
                         type="button"
                         onClick={() => handleRemove(index)}
                         className="text-red-600 hover:text-red-800 p-3 "
-                        
                       >
                         <TrashIcon className="w-5 h-5" />
                       </button>

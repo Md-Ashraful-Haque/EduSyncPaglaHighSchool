@@ -66,6 +66,9 @@
           font-size: 24px;
           font-weight: bolder;
           color: $color_1;
+          background: linear-gradient(to right, #0a1153, #1E33F2);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
         }
 
         @include two-mq("font-size", 18, 20, 24);
@@ -204,6 +207,9 @@
             margin: 0px;
             padding-left: 15px;
             font-weight: 700;
+            background: linear-gradient(to right, #0a1153, #1E33F2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
           }
         }
 
