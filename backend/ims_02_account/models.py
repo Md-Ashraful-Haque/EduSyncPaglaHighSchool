@@ -48,6 +48,7 @@ class User(AbstractUser):
             return self.admin_profile.institute
         elif hasattr(self, 'teacher_profile') and self.teacher_profile:
             return self.teacher_profile.institute
+        print("User has no associated institute.")
         raise AttributeError("User has no associated institute.")
 
 

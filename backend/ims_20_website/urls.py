@@ -7,9 +7,10 @@ from .views import ContactInformationAPIView, StudentStatisticsListView, Institu
 urlpatterns = [
     path('menus/', MenuListView.as_view(), name='menu-list'),
     path('slides/', SliderListView.as_view(), name='slide-items'),
-    path('notices/', ActiveNoticeListAPIView.as_view(), name='notice'),
-    path("notices/<slug:slug>/", NoticeDetailAPIView.as_view(), name="notice-detail"),
-    path("notices-marquee/<slug:slug>/", NoticeMarqueueListAPIView.as_view(), name="notices-marquee"),
+    path('notices/', NoticeListAPIView.as_view(), name='notice'),
+    # path('notices/', ActiveNoticeListAPIView.as_view(), name='notice'),
+    path("notices/<str:slug>/", NoticeDetailAPIView.as_view(), name="notice-detail"),
+    path("notices-marquee/", NoticeMarqueueListAPIView.as_view(), name="notices-marquee"),
     
     path('all-notices/', NoticeListAPIView.as_view(), name='all_notice_list'),
     

@@ -17,6 +17,7 @@ urlpatterns = [
     path('delete-student/<str:student_id>/', DeleteStudentByStudentID.as_view(), name='delete-student-by-id'),
     path('teacher-cards/', TeacherCardListAPIView.as_view(), name='teacher-card-list'),
     path('user-access/', TeacherPermission.as_view(), name='user-access'),
+    path('current_user/', current_user_info, name='current_user_info'),
     # path('student-detail-view/<str:student_id>/', StudentDetailView.as_view(), name='student-detail-view'),
     
     # Student CRUD operations

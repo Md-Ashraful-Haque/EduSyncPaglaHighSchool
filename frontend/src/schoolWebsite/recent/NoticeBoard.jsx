@@ -107,12 +107,12 @@ const NoticeBoard = () => {
           <option value="parents">অভিভাবক</option>
         </select>
 
-        <select value={position} onChange={(e) => setPosition(e.target.value)}>
+        {/* <select value={position} onChange={(e) => setPosition(e.target.value)}>
           <option value="all">সকল স্থানে</option>
           <option value="homepage">হোমপেজ</option>
           <option value="dashboard">ড্যাশবোর্ড</option>
           <option value="noticeboard">নোটিশ বোর্ড</option>
-        </select>
+        </select> */}
 
         <button type="submit">ফিল্টার</button>
       </form>

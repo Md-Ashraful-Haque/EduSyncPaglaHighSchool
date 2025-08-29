@@ -689,3 +689,14 @@ def get_institute_full_data(request, institute_id):
             {'error': str(e)}, 
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
+
+@api_view(['GET'])
+def current_user_info(request):
+    user = request.user
+    # print("user: ",user )
+    # print(" user.institute.id: ", user)
+    return Response({
+        "id": user.id,
+        "username": user.username,
+        "institute_id": user.institute.id
+    })

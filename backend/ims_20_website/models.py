@@ -3,13 +3,14 @@
 
 from django.db import models
 from django.utils.text import slugify
+from django.db.models import Max
 from mptt.models import MPTTModel, TreeForeignKey
 from image_cropping import ImageCropField, ImageRatioField
 from django.contrib.auth import get_user_model
 from ims_01_institute.models import *
 from ims_01_institute.models import Institute, Year, Class, Group, Section
 User = get_user_model()
-
+from django.utils import timezone
 class MenuItem(MPTTModel):
     institute = models.ForeignKey(
         Institute,
@@ -133,7 +134,7 @@ class Notice(models.Model):
     )
 
     display_position = models.CharField(
-        max_length=20, choices=DISPLAY_CHOICES, default='noticeboard',
+        max_length=20, choices=DISPLAY_CHOICES, default='all',
         help_text="Where this notice will be shown"
     )
     is_marquee = models.BooleanField(default=False)
@@ -147,7 +148,7 @@ class Notice(models.Model):
     )
 
     is_published = models.BooleanField(default=True)
-    published_at = models.DateTimeField(auto_now_add=True)
+    published_at = models.DateTimeField(default=timezone.now)  
     updated_at = models.DateTimeField(auto_now=True)
     expire_at = models.DateTimeField(blank=True, null=True, help_text="Optional auto-expiry")
 
@@ -164,10 +165,24 @@ class Notice(models.Model):
     def __str__(self):
         return self.title
 
-    def save(self, *args, **kwargs):
-        if not self.slug:
-            self.slug = slugify(self.title)
-        super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     if not self.slug:
+    #         self.slug = slugify(self.title)
+    #     super().save(*args, **kwargs)
+    # def save(self, *args, **kwargs):
+    #     if not self.slug:  # only set slug if not already given
+    #         base_slug = slugify(self.title, allow_unicode=True)
+    #         slug = base_slug
+    #         counter = 1
+
+    #         # Ensure unique slug
+    #         while Notice.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+    #             slug = f"{base_slug}-{counter}"
+    #             counter += 1
+    #         print("======= try to save slug===========", slug)
+    #         self.slug = slug
+    #     print("======= try to save ===========")
+    #     super().save(*args, **kwargs)
 
     def is_active(self):
         from django.utils import timezone

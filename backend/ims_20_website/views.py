@@ -11,7 +11,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import MenuItem, Slider, Notice, ManagingCommittee,StudentStatistics
 from .serializers import MenuItemSerializer, SlideItemSerializer, NoticeSerializer, ManagingCommitteeSerializer,StudentStatisticsSerializer
-
+from rest_framework.decorators import api_view
 from rest_framework import generics  
 from django.utils import timezone
 from django.db.models import Q
@@ -47,7 +47,7 @@ class ActiveNoticeListAPIView(generics.ListAPIView):
     serializer_class = NoticeSerializer
     permission_classes = [permissions.AllowAny]
     pagination_class = None  # ✅ disable pagination
-
+    print(" ================================================ ")
     def get_queryset(self):
         display_position = self.request.query_params.get('position')  # e.g., 'homepage', 'dashboard'
         target = self.request.query_params.get('target')  # e.g., 'students', 'teachers', 'all'
@@ -78,7 +78,50 @@ class NoticeDetailAPIView(generics.RetrieveAPIView):
 
 
 
-class NoticeListAPIView(ListAPIView):
+# class NoticeListAPIView(ListAPIView):
+#     permission_classes = [permissions.AllowAny]
+#     serializer_class = NoticeSerializer
+#     pagination_class = NoticePagination
+#     filter_backends = [DjangoFilterBackend, SearchFilter]
+#     search_fields = ['title', 'content']
+
+#     def get_queryset(self):
+#         now = timezone.now()
+
+#         # base queryset (active and published)
+#         queryset = Notice.objects.filter(
+#             is_published=True,
+#             published_at__gt=now
+#         ).filter(
+#             expire_at__isnull=True
+#         ) | Notice.objects.filter(
+#             is_published=True,
+#             expire_at__gt=now,
+#             published_at__gt=now
+#         )
+
+#         # print("=====================================is_marquee ====================", is_marquee)
+#         # custom filters
+#         target = self.request.query_params.get("target")
+#         position = self.request.query_params.get("position")
+#         # is_marquee = self.request.query_params.get("is_marquee")
+
+#         if target and target != "all":
+#             queryset = queryset.filter(target_audience=target)
+
+#         if position and position != "all":
+#             queryset = queryset.filter(display_position=position)
+            
+
+#         return queryset
+    
+# from django.utils import timezone
+# from django.db.models import Q
+# from rest_framework import generics, permissions
+# from django_filters.rest_framework import DjangoFilterBackend
+# from rest_framework.filters import SearchFilter
+
+class NoticeListAPIView(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
     serializer_class = NoticeSerializer
     pagination_class = NoticePagination
@@ -87,22 +130,20 @@ class NoticeListAPIView(ListAPIView):
 
     def get_queryset(self):
         now = timezone.now()
+        # print(" ================================================ ")
+        # print("now: ", now)
 
-        # base queryset (active and published)
+        # Active & published notices
         queryset = Notice.objects.filter(
-            is_published=True
-        ).filter(
-            expire_at__isnull=True
-        ) | Notice.objects.filter(
             is_published=True,
-            expire_at__gt=now
+            published_at__lte=now   # <= published already
+        ).filter(
+            Q(expire_at__isnull=True) | Q(expire_at__gt=now)  # not expired
         )
 
-        print("=====================================is_marquee ====================", is_marquee)
-        # custom filters
+        # Custom filters
         target = self.request.query_params.get("target")
         position = self.request.query_params.get("position")
-        is_marquee = self.request.query_params.get("is_marquee")
 
         if target and target != "all":
             queryset = queryset.filter(target_audience=target)
@@ -110,18 +151,15 @@ class NoticeListAPIView(ListAPIView):
         if position and position != "all":
             queryset = queryset.filter(display_position=position)
 
-        if is_marquee is not None:  # only if explicitly passed
-            print("is_marquee: ",is_marquee)
-            queryset = queryset.filter(is_marquee=(is_marquee.lower() == "true"))
-
         return queryset
-    
+
+
 class NoticeMarqueueListAPIView(ListAPIView):
     permission_classes = [permissions.AllowAny]
     serializer_class = NoticeSerializer
-    pagination_class = NoticePagination
-    filter_backends = [DjangoFilterBackend, SearchFilter]
-    search_fields = ['title', 'content']
+    # pagination_class = NoticePagination
+    # filter_backends = [DjangoFilterBackend, SearchFilter]
+    # search_fields = ['title', 'content']
     
     
 
@@ -130,29 +168,12 @@ class NoticeMarqueueListAPIView(ListAPIView):
 
         # base queryset (active and published)
         queryset = Notice.objects.filter(
-            is_published=True
-        ).filter(
-            expire_at__isnull=True
-        ) | Notice.objects.filter(
             is_published=True,
-            expire_at__gt=now
-        )
-
-        print("=====================================is_marquee ====================", is_marquee)
-        # custom filters
-        target = self.request.query_params.get("target")
-        position = self.request.query_params.get("position")
-        is_marquee = self.request.query_params.get("is_marquee")
-
-        if target and target != "all":
-            queryset = queryset.filter(target_audience=target)
-
-        if position and position != "all":
-            queryset = queryset.filter(display_position=position)
-
-        if is_marquee is not None:  # only if explicitly passed
-            print("is_marquee: ",is_marquee)
-            queryset = queryset.filter(is_marquee=(is_marquee.lower() == "true"))
+            published_at__lte=now   # <= published already
+        ).filter(
+            Q(expire_at__isnull=True) | Q(expire_at__gt=now)  # not expired
+        ).filter(is_marquee=True)
+        
 
         return queryset
 
@@ -271,3 +292,5 @@ class InstituteDetailsAPIView(APIView):
 
         serializer = InstituteSerializer(institute,  context={'request': request})
         return Response(serializer.data)
+
+

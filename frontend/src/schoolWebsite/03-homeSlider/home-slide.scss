@@ -184,9 +184,10 @@
   font-size: 48px;
   width: 0;
   transition: width 600ms;
+  // color: #fc3468;
   color: white;
-  text-shadow: 1px 1px 1px black, 0 0 8px blue, 0 0 0.2em blue;
-  border-right: 8px solid blue;
+  text-shadow: 1px 1px 1px black, 0 0 8px #3452fc, 0 0 0.2em #fc3468;
+  border-right: 8px solid #fc3468;
 
   // display: flex;
   // justify-content: center;
