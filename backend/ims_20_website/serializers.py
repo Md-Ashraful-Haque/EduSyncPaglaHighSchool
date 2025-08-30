@@ -199,4 +199,20 @@ class InstituteSerializer(serializers.ModelSerializer):
             'introduction', 'history', 'facilities', 'achievements'
         ]
 
+from rest_framework import serializers
+from .models import CardItem, Feature
+
+
+class FeatureSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Feature
+        fields = ["id", "text", "link", "icon", "order","is_active"]
+
+
+class CardItemSerializer(serializers.ModelSerializer):
+    features = FeatureSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = CardItem
+        fields = ["id", "title", "slug", "order","icon", "is_active", "features"]
 

@@ -1,7 +1,9 @@
 from django.urls import path
-from .views import MenuListView, SliderListView, ActiveNoticeListAPIView,NoticeDetailAPIView
-from .views import NoticeListAPIView, HistoryOfInstituteListAPIView, ManagingCommitteeListAPIView
-from .views import ContactInformationAPIView, StudentStatisticsListView, InstituteDetailsAPIView, NoticeMarqueueListAPIView
+# from .views import MenuListView, SliderListView, ActiveNoticeListAPIView,NoticeDetailAPIView
+# from .views import NoticeListAPIView, HistoryOfInstituteListAPIView, ManagingCommitteeListAPIView
+# from .views import ContactInformationAPIView, StudentStatisticsListView, InstituteDetailsAPIView, NoticeMarqueueListAPIView
+from .views import *
+
 
 
 urlpatterns = [
@@ -20,5 +22,6 @@ urlpatterns = [
     path('student-statistics/', StudentStatisticsListView.as_view(), name='student-statistics-list'),
     
     path('institute/<str:code>/', InstituteDetailsAPIView.as_view(), name='institute-details'), 
+    path('card-items/', CardItemListAPIView.as_view(), name='card-items'), 
 
 ]

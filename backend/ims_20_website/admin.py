@@ -113,74 +113,6 @@ class SliderAdmin(ImageCroppingMixin, admin.ModelAdmin):
     image_preview.short_description = 'Preview'
 
 
-# @admin.register(Notice)
-# class NoticeAdmin(admin.ModelAdmin):
-#     list_display = (
-#         'title', 'target_audience','is_marquee',
-#         'is_important', 'pin_on_top', 'is_published',
-#         'published_at', 'expire_at'
-#     )
-#     list_filter = (
-#         'is_important', 'pin_on_top','is_marquee', 'target_audience', 'is_published'
-#     )
-#     search_fields = ('title', 'content')
-#     readonly_fields = ( 'updated_at', )
-#     # readonly_fields = ('published_at', 'updated_at')
-#     # readonly_fields = ('slug', 'updated_at', 'created_by', 'institute')
-#     # prepopulated_fields = {"slug": ("title",)}
-
-#     fieldsets = (
-#         (None, {
-#             'fields': ('title', 'slug', 'content', 'attachment')
-#         }),
-#         ('Visibility', {
-#             'fields': ('is_published', 'target_audience', 'is_marquee','expire_at')
-#         }),
-#         ('Highlighting', {
-#             'fields': ('is_important', 'pin_on_top')
-#         }),
-#         ('Timestamps & Author', {
-#             'fields': ('published_at', 'updated_at', 'created_by', 'institute')
-#         }),
-#     )
-
-#     def get_queryset(self, request):
-#         qs = super().get_queryset(request)
-#         if request.user.is_superuser:
-#             return qs
-#         return qs.filter(institute=request.user.institute)
-
-#     # def get_form(self, request, obj=None, **kwargs):
-#     #     form = super().get_form(request, obj, **kwargs)
-#     #     if not request.user.is_superuser and 'institute' in form.base_fields:
-#     #         form.base_fields['institute'].disabled = True
-#     #         form.base_fields['institute'].required = False
-#     #     return form
-
-#     def get_changeform_initial_data(self, request):
-#         initial = super().get_changeform_initial_data(request)
-#         if not request.user.is_superuser:
-#             initial['institute'] = request.user.institute
-#         return initial
-    
-#     def get_form(self, request, obj=None, **kwargs):
-#         form = super().get_form(request, obj, **kwargs)
-#         if not request.user.is_superuser:
-#             if 'institute' in form.base_fields:
-#                 form.base_fields['institute'].required = False
-#                 form.base_fields['institute'].disabled = True
-#         return form
-
-#     def save_model(self, request, obj, form, change):
-#         if not obj.created_by:
-#             obj.created_by = request.user
-#         if not obj.institute and hasattr(request.user, 'institute'):
-#             obj.institute = request.user.institute
-#         super().save_model(request, obj, form, change)
-    
-    # class Media:
-    #     js = ('admin/js/website/notice_autofill.js',)
-
 from django.contrib import admin
 from django.utils.text import slugify
 from django.core.exceptions import ValidationError
@@ -494,3 +426,87 @@ class HistoryAdmin(ImageCroppingMixin, admin.ModelAdmin):
     list_display = ('institute', 'title', 'show_image')
 admin.site.register(Facility)
 admin.site.register(Achievement)
+
+from django.contrib import admin
+from .models import CardItem, Feature
+
+
+class FeatureInline(admin.TabularInline):  # or StackedInline for more space
+    model = Feature
+    extra = 1  # show 1 empty row by default
+    fields = ("text",  "icon", "order","is_active", "link")
+    ordering = ("order",)
+    # readonly_fields = ("link",)
+
+
+@admin.register(CardItem)
+class CardItemAdmin(admin.ModelAdmin):
+    list_display = ("title", "slug", "order","icon", "is_active", "updated_at")
+    list_filter = ("is_active", "created_at")
+    search_fields = ("title", "slug")
+    # prepopulated_fields = {"slug": ("title",)}
+    ordering = ("order", "title")
+    inlines = [FeatureInline]   # ✅ Features editable inside Card page 
+    list_editable =('order','is_active',  )
+    
+    fieldsets = (
+        (None, {
+            "fields": ("title", "slug", "order","icon", "is_active")
+        }),
+        ("Timestamps", {
+            "fields": ("created_at", "updated_at"),
+            "classes": ("collapse",),
+        }),
+    )
+    readonly_fields = ("created_at", "updated_at")
+    
+    def _get_user_institute(self, user):
+        """Safely return the user's institute or None"""
+        return getattr(user, 'institute', None)
+
+    # Limit queryset for non-superusers
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.is_superuser:
+            return qs
+        user_institute = self._get_user_institute(request.user)
+        if user_institute:
+            return qs.filter(institute=user_institute)
+        return qs.none()
+
+    # Pre-fill readonly fields in the form
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        if not request.user.is_superuser: 
+            if 'institute' in form.base_fields:
+                form.base_fields['institute'].initial = self._get_user_institute(request.user)
+                form.base_fields['institute'].disabled = True
+                form.base_fields['institute'].required = False
+        return form
+    
+    def save_model(self, request, obj, form, change):
+        # Auto-assign created_by
+        # if not getattr(obj, 'created_by_id', None):
+        #     obj.created_by = request.user
+
+        # Auto-assign institute safely using institute_id to avoid errors
+        if not getattr(obj, 'institute_id', None):
+            obj.institute = self._get_user_institute(request.user)
+
+        # Fail gracefully if no institute found
+        if obj.institute is None:
+            raise ValidationError("Cannot save Notice: your user has no associated institute.")
+
+        # Auto-generate slug if not set
+        if not obj.slug and obj.title:
+            base_slug = slugify(obj.title, allow_unicode=True)
+            slug = base_slug
+            counter = 1
+            while CardItem.objects.filter(slug=slug).exclude(pk=obj.pk).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            obj.slug = slug
+
+        super().save_model(request, obj, form, change)
+
+

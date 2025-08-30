@@ -13,9 +13,11 @@ const Menu = () => {
   const {instituteInfo,isAuthenticated } = useAppContext();
   const [menuOpen, setMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [showContactInfo, setShowContactInfo] = useState(false);
-  const [activeSinglePageComponent, setActiveSinglePageComponent] =
-    useState(null);
+
+  const [activeSinglePageComponent, setActiveSinglePageComponent] = useState(null);
+
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
 
@@ -58,8 +60,8 @@ const Menu = () => {
           ) : (
             (() => {
               const cleanedSlug = item.slug.replace(/^\//, "");
-              // console.log("cleanedSlug: ", cleanedSlug);
               const Component = componentMap[cleanedSlug];
+              // console.log("cleanedSlug: ", cleanedSlug);
 
               return Component ? (
                 <a

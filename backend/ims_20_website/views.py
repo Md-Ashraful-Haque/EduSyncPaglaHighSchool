@@ -294,3 +294,12 @@ class InstituteDetailsAPIView(APIView):
         return Response(serializer.data)
 
 
+from rest_framework import generics, permissions
+from .models import CardItem
+from .serializers import CardItemSerializer
+
+
+class CardItemListAPIView(generics.ListAPIView):
+    permission_classes = [permissions.AllowAny]
+    queryset = CardItem.objects.filter(is_active=True).order_by("order")
+    serializer_class = CardItemSerializer

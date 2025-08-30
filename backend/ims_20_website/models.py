@@ -33,6 +33,7 @@ class MenuItem(MPTTModel):
         max_length=150,
         unique=True,
         blank=True,
+        allow_unicode=True,
         help_text="Auto-generated from English or Bengali name"
     )
     url = models.CharField(
@@ -121,7 +122,7 @@ class Notice(models.Model):
     ]
 
     title = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, unique=True, blank=True)
+    slug = models.SlugField(max_length=255, unique=True, blank=True,allow_unicode=True)
     content = models.TextField(help_text="Full notice details")
     attachment = models.FileField(
         upload_to='website/notice-attachments/', blank=True, null=True,
@@ -163,26 +164,7 @@ class Notice(models.Model):
         verbose_name_plural = "Notices"
 
     def __str__(self):
-        return self.title
-
-    # def save(self, *args, **kwargs):
-    #     if not self.slug:
-    #         self.slug = slugify(self.title)
-    #     super().save(*args, **kwargs)
-    # def save(self, *args, **kwargs):
-    #     if not self.slug:  # only set slug if not already given
-    #         base_slug = slugify(self.title, allow_unicode=True)
-    #         slug = base_slug
-    #         counter = 1
-
-    #         # Ensure unique slug
-    #         while Notice.objects.filter(slug=slug).exclude(pk=self.pk).exists():
-    #             slug = f"{base_slug}-{counter}"
-    #             counter += 1
-    #         print("======= try to save slug===========", slug)
-    #         self.slug = slug
-    #     print("======= try to save ===========")
-    #     super().save(*args, **kwargs)
+        return self.title 
 
     def is_active(self):
         from django.utils import timezone
@@ -388,3 +370,94 @@ class Achievement(models.Model):
 
     def __str__(self):
         return f"{self.title} - {self.institute.name}"
+
+
+# from django.db import models
+# from django.utils.text import slugify
+
+
+class CardItem(models.Model):
+    
+    title = models.CharField(
+        max_length=100,
+        unique=True,
+        verbose_name="Card Title",
+        help_text="e.g., আমাদের বিষয়ে, নোটিশ, একাডেমিক"
+    )
+    slug = models.SlugField(
+        max_length=120,
+        unique=True,
+        blank=True,
+        allow_unicode=True,
+        help_text="Auto-generated from title, used for URLs"
+    )
+    order = models.PositiveIntegerField(
+        default=0,
+        help_text="Sorting order of cards"
+    )
+    icon = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        help_text="Optional: React icon component name (e.g., User, BookOpen)"
+    )
+    is_active = models.BooleanField(default=True)
+    institute = models.ForeignKey(Institute, on_delete=models.CASCADE, related_name="CardItem")
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["order", "title"]
+
+    def __str__(self):
+        return self.title
+
+    # def save(self, *args, **kwargs):
+    #     if not self.slug:
+    #         self.slug = slugify(self.title)
+    #     super().save(*args, **kwargs)
+
+
+class Feature(models.Model):
+    card = models.ForeignKey(
+        CardItem,
+        on_delete=models.CASCADE,
+        related_name="features"
+    )
+    text = models.CharField(max_length=150, verbose_name="Feature Text")
+    link =  models.SlugField(
+        max_length=120,
+        unique=True,
+        blank=True,
+        allow_unicode=True,
+        verbose_name="Feature Link",
+        # editable=False,
+        help_text="Auto-generated from link, used for URLs"
+    )
+    
+    icon = models.CharField(
+        max_length=50,
+        blank=True,
+        null=True,
+        help_text="Optional: React icon component name (e.g., User, BookOpen)"
+    )
+    is_active = models.BooleanField(default=True, help_text="Active/Inactive on website")
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ["order"]
+        
+    def save(self, *args, **kwargs):
+        if not self.link and self.text:  # generate from text if link empty
+            base_slug = slugify(self.text, allow_unicode=True)
+            slug = base_slug
+            counter = 1
+            while Feature.objects.filter(link=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{counter}"
+                counter += 1
+            self.link = slug
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.text} ({self.card.title})"
