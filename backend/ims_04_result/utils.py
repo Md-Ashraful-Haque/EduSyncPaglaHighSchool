@@ -75,7 +75,8 @@ def process_student_results_and_update(results, update_result_objects, subject_h
         result.gpa = result.final_gpa #final_gpa is property
         result.gpa_without_optional = result.final_gpa_without_optional #final_gpa without optional property
         result.letter_grade = result.final_grade
-        result.total_fail_subjects = result.failed_subject_count
+        result.total_fail_subjects = result.failed_subject_count_for_tabulation
+        # result.total_fail_subjects = result.failed_subject_count
         # result.total_obtained_marks = total_marks if total_marks >= 0 else 0
         result.total_obtained_marks = result.total_marks_of_student
         update_result_objects.append(result)

@@ -488,15 +488,20 @@ class StudentSubjectResult(models.Model):
             subjects = list(self.subjectforresult.select_related('subject').order_by('subject__serial_number'))
 
             total_compulsory_subjects = self.class_instance.subjectforims.filter(is_optional=False, group=self.group).count()
+            # print("student roll: ", self.student.name, self.student.roll_number)
+            # print("total_compulsory_subjects: ", total_compulsory_subjects)
 
             # Count failed compulsory subjects
             failed_count = sum(
                 1 for s in subjects
                 if not s.subject.is_optional and not s.has_passed_all_mark_types
             )
+            
+            # print("failed_count: ", failed_count)
 
             # If student missed some compulsory subjects, count them as failed
             not_participated = max(0, total_compulsory_subjects - len(subjects))
+            # print("not_participated: ",not_participated )
 
             return failed_count + not_participated
 

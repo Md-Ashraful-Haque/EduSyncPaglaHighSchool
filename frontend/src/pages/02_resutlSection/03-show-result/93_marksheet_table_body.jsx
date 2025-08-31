@@ -86,10 +86,12 @@ const MarksheetTableBody = ({
 
               {["WR", "MCQ", "Practical"].map((type) => {
                 const fallbackType = type === "WR" ? "CA" : null;
+                const fallbackType2 = type === "WR" ? "Theory" : null;
                 const match = subject.marks.find(
                   (m) =>
                     m.mark_type === type ||
-                    (fallbackType && m.mark_type === fallbackType)
+                    (fallbackType && m.mark_type === fallbackType) ||
+                    (fallbackType2 && m.mark_type === fallbackType2)
                 );
 
                 const mark = match ? match.marks : "-";
