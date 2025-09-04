@@ -15,6 +15,23 @@ const StudentInfoForMarksheet = ({ student }) => {
 
       </div>
 
+      <div className="roll_number mb-2 !flex flex-row gap-12 align-center border-b border-dotted border-gray-800 mb-1">
+        <div className=" flex align-center">
+          <div className="label" > {bySubjectVars.isBangla ? "নাম" : "Father's Name"}  </div>: 
+          <div className="text-[18px]  pl-2">
+            {student.student_fathers_name}
+          </div>
+        </div>
+
+        <div className=" flex align-center">
+          <div className="label" > {bySubjectVars.isBangla ? "নাম" : "Mother's Name"}  </div>: 
+          <div className="text-[18px]  pl-2">
+            {student.student_mothers_name}
+          </div>
+        </div>
+
+      </div>
+
       <div className="roll-to-shift flex items-start border-b border-dotted border-gray-800 mb-1">
         <div className="roll_number">
           <div className="label" >{bySubjectVars.isBangla ? "রোল " : "Roll "}  </div>:  {" "}
@@ -70,6 +87,8 @@ const StudentInfoForMarksheet = ({ student }) => {
 StudentInfoForMarksheet.propTypes = {
   student: PropTypes.shape({
     student_name: PropTypes.string,
+    student_fathers_name: PropTypes.string,
+    student_mothers_name: PropTypes.string,
     shift: PropTypes.string,
     year: PropTypes.string,
     roll_number: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

@@ -47,7 +47,7 @@ class ActiveNoticeListAPIView(generics.ListAPIView):
     serializer_class = NoticeSerializer
     permission_classes = [permissions.AllowAny]
     pagination_class = None  # ✅ disable pagination
-    print(" ================================================ ")
+    # print(" ================================================ ")
     def get_queryset(self):
         display_position = self.request.query_params.get('position')  # e.g., 'homepage', 'dashboard'
         target = self.request.query_params.get('target')  # e.g., 'students', 'teachers', 'all'

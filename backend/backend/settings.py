@@ -1,6 +1,12 @@
 from datetime import timedelta
 import os
 from pathlib import Path
+
+
+import builtins
+import inspect
+import sys
+
 # import sys
 # import os
 
@@ -366,3 +372,20 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #     'ims_02_account.users.backends.MobileNumberBackend',  # Path to your custom backend
 #     'django.contrib.auth.backends.ModelBackend',  # Default backend
 # ]
+
+
+
+# Save original print
+_original_print = print
+
+def debug_print(*args, **kwargs):
+    # Get caller frame
+    frame = inspect.currentframe().f_back
+    filename = frame.f_code.co_filename
+    lineno = frame.f_lineno
+    # Show filename:lineno before the actual message
+    prefix = f"[{filename}:{lineno}]"
+    _original_print(prefix, *args, **kwargs, file=sys.stdout)
+
+# Override built-in print
+builtins.print = debug_print

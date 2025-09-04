@@ -85,6 +85,8 @@ class SubjectForResultSerializer(serializers.ModelSerializer):
 
 class ResultSerializer(serializers.ModelSerializer):
     student_name = serializers.CharField(source='student.name')
+    student_fathers_name = serializers.CharField(source='student.fathers_name')
+    student_mothers_name = serializers.CharField(source='student.mothers_name')
     shift = serializers.SerializerMethodField()
     year = serializers.CharField(source='year.year')
     class_name = serializers.CharField(source='student.class_instance.class_name.name_bengali')
@@ -99,7 +101,7 @@ class ResultSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudentSubjectResult
         fields = [
-            'id','shift', 'year', 'student_name','class_name','class_name_in_english', 'roll_number','group_name','group_name_in_bangla', 'section_name', 'section_name_display','gpa','gpa_without_optional', 'letter_grade',
+            'id','shift', 'year', 'student_name','student_fathers_name','student_mothers_name','class_name','class_name_in_english', 'roll_number','group_name','group_name_in_bangla', 'section_name', 'section_name_display','gpa','gpa_without_optional', 'letter_grade',
             'total_obtained_marks', 'total_fail_subjects', 'classwise_merit', 'sectionwise_merit',
             'subjects', 
         ]

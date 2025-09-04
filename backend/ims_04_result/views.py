@@ -252,7 +252,7 @@ class ReturnSavedMarksByStudentRoll(APIView):
             exam_id = request.query_params.get('exam_name')
             subject_id = request.query_params.get('subject_name')
             mark_type_id = request.query_params.get('mark_type_name')
-            print("mark_type_id: ", mark_type_id)
+            # print("mark_type_id: ", mark_type_id)
 
             # Fetch students in the given section
             students = Student.objects.filter(section_id=section_id).select_related("section")
@@ -690,108 +690,6 @@ class ResultAPIView(APIView):
             'all_subject_serializer': all_subject_serializer.data,
         }
         return Response(response_data)
-
-# Marksheet and Tabulation sheet API View
-# class ResultSummaryAPIView(APIView):
-#     def get(self, request):
-        
-#         try:
-#             year = request.query_params.get('year')
-#             exam_name = request.query_params.get('exam_name') 
-#             shift = request.query_params.get('shift')
-#             class_name = request.query_params.get('class_name') 
-            
-#             # debug("========== year ========= ", year)
-#             # debug("========== exam_name ========= ", exam_name)
-#             # debug("========== shift ========= ", shift)
-#             # debug("========== class_name ========= ", class_name)
-            
-#             # debug(" Show Result: ", [year, exam_name,shift,class_name, group,section_type])
-#         except KeyError:
-#             return Response(
-#                 {"message": "Invalid request data"},
-#                 status=status.HTTP_400_BAD_REQUEST
-#             )
-        
-#         userProfile = getUserProfile(request.user)
-#         institute_id = userProfile.institute.id
-        
-#         # debug("userProfile: ", institute_id )
-#         # debug("institute_id",institute_id )
-        
-#         all_groups = Group.objects.filter(institute__id=institute_id,year__year=year,class_instance__id=class_name,class_instance__shift=shift  )
-#         print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx", all_groups)
-#         debug(all_groups)
-#         print("xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx")
-        
-#         BASE ={
-#             'institute__id': institute_id,
-#             'year__year':request.query_params.get('year'),
-#             'class_instance__id':request.query_params.get('class_name'),
-#             'exam': request.query_params.get('exam_name'),  
-#         } 
-        
-#         # debug( " class_type: ", class_type )
-#         # debug(  "section_type: ", section_type,"FILTERS_RESULT: ", FILTERS_RESULT) 
-#         FILTERS_RESULT = {k: v for k, v in BASE.items() if v is not None}
-        
-#         for group in all_groups:
-#             print("Group:", group)
-
-#             FILTERS_RESULT = {
-#                 **BASE,
-#                 'group': group,
-#             }
-
-#             results = StudentSubjectResult.objects.filter(**FILTERS_RESULT)
-
-#             stats = results.aggregate(
-#                 total_examinee=Count("id"),
-#                 appeared=Count("id", filter=Q(total_obtained_marks__gt=0)),
-#                 total_pass=Count("id", filter=Q(total_fail_subjects=0)),
-#                 total_fail=Count("id", filter=Q(total_fail_subjects__gt=0)), 
-#                 grade_a_plus=Count("id", filter=Q(letter_grade="A+")),
-#                 grade_a=Count("id", filter=Q(letter_grade="A")),
-#                 grade_a_minus=Count("id", filter=Q(letter_grade="A-")),
-#                 grade_b=Count("id", filter=Q(letter_grade="B")),
-#                 grade_c=Count("id", filter=Q(letter_grade="C")),
-#                 grade_d=Count("id", filter=Q(letter_grade="D")), 
-#             )
-
-#             print('stats', stats)
-
-        
-#         # ///////////////// this is for marksheet information about institute and exam /////////////////
-#         institute_obj = Institute.objects.get(id=institute_id)
-#         exam_obj = ExamForIMS.objects.get(id=request.query_params.get('exam_name'))
-        
-#         exam_and_institute_info ={
-#             'institute_name': institute_obj.name,
-#             'institute_name_eng': institute_obj.name_in_english,
-#             'signature_of_class_teacher': institute_obj.signature_of_class_teacher,
-#             'signature_of_class_bangla': institute_obj.signature_of_class_bangla,
-#             'signature_of_class_guardian': institute_obj.signature_of_class_guardian,
-#             'signature_of_class_guardian_bangla': institute_obj.signature_of_class_guardian_bangla,
-#             'signature_of_head': institute_obj.signature_of_head,
-#             'signature_of_head_bangla': institute_obj.signature_of_head_bangla,
-#             'exam_name': exam_obj.exam_name,
-#             'exam_name_in_english': exam_obj.exam_name_in_english,
-#             'year': year,
-#             'institute_logo' : request.build_absolute_uri(institute_obj.logo.url) if institute_obj.logo.path else None, 
-#             'class_name': Class.objects.get(id=class_name).class_name.name_bengali if class_name else None,
-#             'education_type': Class.objects.get(id=class_name).class_name.education_type if class_name else None,
-#         }
-        
-#         # debug("exam_and_institute_info: ", exam_and_institute_info)
-        
-        
-#         serializer = ResultSerializer(results, many=True)  
-#         # Combine the serialized data into a single response
-#         response_data = {
-#             'exam_and_institute_info': exam_and_institute_info,
-#             'results': serializer.data,  
-#         }
-#         return Response({})
 
 
 class ResultSummaryAPIView(APIView):

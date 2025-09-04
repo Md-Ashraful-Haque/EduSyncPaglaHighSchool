@@ -269,16 +269,16 @@ def generate_result_using_institue_to_group(INSTITUTE_ID, YEAR, CLASS_NAME, SHIF
 
 
 def generate_result_year_wise(INSTITUTE_ID,YEAR,EXAM_NAME, SHIFT):
-    print(f"\n=== Year-Wise Result has beed generated. {YEAR} {[INSTITUTE_ID,YEAR,EXAM_NAME, SHIFT]}===")  
+    # print(f"\n=== Year-Wise Result has beed generated. {YEAR} {[INSTITUTE_ID,YEAR,EXAM_NAME, SHIFT]}===")  
     try:
         exam = ExamForIMS.objects.filter(id=EXAM_NAME).first()
         
         classes = Class.objects.filter(institute__id=INSTITUTE_ID, year__year=YEAR, shift=SHIFT, examforims=exam).select_related('class_name').prefetch_related('groups') 
-        print("classes from year wise result: ", classes)
+        # print("classes from year wise result: ", classes)
         if not classes.exists():
             return False
         for classObj in classes:
-            print(f"\n=== Class-Wise Result has beed generated{classObj}===")
+            # print(f"\n=== Class-Wise Result has beed generated --- {classObj}===")
             for group in classObj.groups.all():
                 print(f"group: {group}")
                 generate_result_using_institue_to_group(INSTITUTE_ID, YEAR, classObj.class_name.name,SHIFT, group.group_name,EXAM_NAME ) 
@@ -294,7 +294,7 @@ def generate_result_year_wise(INSTITUTE_ID,YEAR,EXAM_NAME, SHIFT):
 
 
 def generate_result_class_wise(institute_id,year,exam, shift, class_id): 
-    print(f"\n=== Class-Wise Result has beed generated. {year} {[institute_id,year,exam, shift,class_id]}===")  
+    # print(f"\n=== Class-Wise Result has beed generated. {year} {[institute_id,year,exam, shift,class_id]}===")  
     try:
         classObj = Class.objects.get(institute__id=institute_id, year__year=year, shift=shift, examforims=exam, id=class_id)
         # debug('classObj', classObj)

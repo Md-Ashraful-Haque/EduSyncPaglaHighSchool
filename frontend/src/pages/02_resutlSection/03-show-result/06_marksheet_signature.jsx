@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 // import schoolLogo from '../../../assets/schoolLogo.png';
 
 const MarksheetSignature = ( {examAndInstituteInfo, bySubjectVars}) => {
+  console.log("examAndInstituteInfo: ", examAndInstituteInfo);
   return (
     <div className="signature">
       <table>
@@ -10,8 +11,8 @@ const MarksheetSignature = ( {examAndInstituteInfo, bySubjectVars}) => {
           <td></td>
           <td></td>
           <td>
-            <span>
-              {/* <img src={headTeacherSignature} alt="School Logo" /> */}
+            <span className='w-full'>
+              <img className='min-w-[100px] max-w-[100px] max-h-[60px]' src={examAndInstituteInfo.signature} alt="Signature of Head" />
             </span>
           </td>
         </tr>

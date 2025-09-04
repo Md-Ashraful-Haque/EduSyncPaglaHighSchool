@@ -76,10 +76,11 @@ def calculate_grade_and_point(total_obtained_marks: int, total_marks_of_subject:
     if total_marks_of_subject <= 0:
         raise ValueError("Total marks of subject must be greater than 0.")
     if total_obtained_marks <= 0:
-        print("total_obtained_marks: ", total_obtained_marks)
+        # print("total_obtained_marks: ", total_obtained_marks)
         return "Fail", 0.0
         raise ValueError("Total obtained marks cannot be negative.")
 
+    # if total_obtained_marks 
     percentage = (total_obtained_marks * 100) / total_marks_of_subject
 
     if not (0 <= percentage <= 100):
@@ -304,33 +305,6 @@ class StudentSubjectResult(models.Model):
             return 0.0
         result = min(5.0, round(total_grade_point / participated_subjects, 2))
         return result
-
-    # @property
-    # def total_marks_of_student(self) -> float:
-    #     """
-    #     Calculate the final GPA for the student, excluding optional subjects.
-    #     Returns:
-    #         float: The GPA, or 0.0 if the student fails any subject or is absent in any compulsory subject.
-    #     """
-    #     # Prefetch all subjects related to the result in order
-    #     subjects = list(
-    #         self.subjectforresult.select_related('subject').order_by('subject__serial_number')
-    #     )
-        
-    #     total_marks = 0
-    #     for s in subjects:
-    #         subj = s.subject
-    #         grade, point = s.grade_and_point  # Assume returns tuple: (str, float)
-    #         if subj.is_optional:
-    #             # total_subjects -= 1  # optional subjects are excluded from required count
-    #             if subj.full_marks == 100 and point > 2:
-    #                 # total_grade_point += point - 2
-    #                 if grade != "Fail":
-    #                     total_marks += max(s.total_marks - 40, 0)
-    #             continue
-    #         total_marks += max(s.total_marks, 0)
-        
-    #     return total_marks
 
     @property
     def final_gpa_without_optional(self) -> float:
@@ -662,7 +636,15 @@ class SubjectForResult(models.Model):
                     0
                 )
             )['total_marks']
-            return total if total is not None else 0
+            total_marks = total if total is not None else 0
+            # ////////////////////////////////////////////////////////////////////////////
+            #//////////////////// +1 if total marks of combile subject 159 /////////////
+            # ////////////////////////////////////////////////////////////////////////////
+            total_marks = 160 if total_marks == 159 else total_marks
+            # //////////////////////////////////////////////////////////////////////////////////
+            # //////////////////////////////////////////////////////////////////////////////////
+            return total_marks
+            # return total if total is not None else 0
         # If not combined, return the individual subject's total marks
         return self.total_marks
     
@@ -683,8 +665,15 @@ class SubjectForResult(models.Model):
                     student_from_result_table=student,
                     subject__subject_name__code__in=rules["papers"]
                 )
-
+                #total obtained marks
                 total_marks = sum(subj.total_marks for subj in combined_subjects)
+                # ////////////////////////////////////////////////////////////////////////////
+                #//////////////////// +1 if total marks of combile subject 159 /////////////
+                # ////////////////////////////////////////////////////////////////////////////
+                total_marks =  160 if total_marks == 159 else total_marks
+                # ////////////////////////////////////////////////////////////////////////////
+                # ////////////////////////////////////////////////////////////////////////////
+                # Full marks of subjects
                 total_full_marks = sum(subj.subject.full_marks for subj in combined_subjects)
 
                 if self.has_passed_all_mark_types:
