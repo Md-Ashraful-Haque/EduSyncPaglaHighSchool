@@ -161,7 +161,8 @@ const MarksheetTableBody = ({
               {/* /////////////////////////////////////////////////////////////////////////////////////////
               /////////////////////////////////// With Adjustment //////////////////////////////////
               ///////////////////////////////////////////////////////////////////////////////////////// */}
-              {["WR", "MCQ", "Practical"].map((type) => {
+              {/* {["WR", "MCQ", "Practical"].map((type) => { */}
+              {['CA', 'Theory','Practical'].map((type) => {
                 const fallbackType = type === "WR" ? "CA" : null;
                 const fallbackType2 = type === "WR" ? "Theory" : null;
                 
@@ -173,23 +174,6 @@ const MarksheetTableBody = ({
                 );
 
                 let mark = match ? match.marks : "-";
-                
-                // Add +1 to written marks based on language pair totals
-                if (type === "WR" && 
-                    mark !== "-" && 
-                    mark !== -1 && 
-                    typeof mark === "number" &&
-                    isFirstPaper(subject)) { // Only adjust first paper to avoid double adjustment
-                  
-                  // Check if this is Bangla and needs adjustment
-                  if ((subject.subject_name?.includes("Bangla") || subject.subject_name_bangla?.includes("বাংলা")) && needsBanglaAdjustment) {
-                    mark = mark + 1;
-                  }
-                  // Check if this is English and needs adjustment
-                  else if ((subject.subject_name?.includes("English") || subject.subject_name_bangla?.includes("ইংরেজি")) && needsEnglishAdjustment) {
-                    mark = mark + 1;
-                  }
-                }
                 
                 const finalMarks = mark === -1 ? "A" : mark;
 
@@ -208,6 +192,18 @@ const MarksheetTableBody = ({
                   </td>
                 );
               })}
+
+              {/* vocational Resutl processing */}
+              {/* {['CA', 'Theory','Practical'].map((type) => {
+                const fallbackType = type === 'WR' ? 'CA' : null;
+                const match = subject.marks.find((m) => m.mark_type === type) || (fallbackType && subject.marks.find((m) => m.mark_type === fallbackType));
+                const mark = match ? (bySubjectVars.isBangla ? showBangla(match.marks) : match.marks) : '-';
+                return (
+                  <td key={type} className="py-1 px-2 border !border-indigo-500">
+                    {mark}
+                  </td>
+                );
+              })} */}
 
               
 
