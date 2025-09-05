@@ -269,7 +269,7 @@ def generate_result_using_institue_to_group(INSTITUTE_ID, YEAR, CLASS_NAME, SHIF
 
 
 def generate_result_year_wise(INSTITUTE_ID,YEAR,EXAM_NAME, SHIFT):
-    print(f"\n=== Year-Wise Result has beed generated. {YEAR} {[INSTITUTE_ID,YEAR,EXAM_NAME, SHIFT]}===")  
+    # print(f"\n=== Year-Wise Result has beed generated. {YEAR} {[INSTITUTE_ID,YEAR,EXAM_NAME, SHIFT]}===")  
     try:
         exam = ExamForIMS.objects.filter(id=EXAM_NAME).first()
         
@@ -278,7 +278,7 @@ def generate_result_year_wise(INSTITUTE_ID,YEAR,EXAM_NAME, SHIFT):
         if not classes.exists():
             return False
         for classObj in classes:
-            print(f"\n=== Class: {classObj.class_name.name}===")
+            # print(f"\n=== Class-Wise Result has beed generated --- {classObj}===")
             for group in classObj.groups.all():
                 print(f"group: {group}")
                 generate_result_using_institue_to_group(INSTITUTE_ID, YEAR, classObj.class_name.name,SHIFT, group.group_name,EXAM_NAME ) 

@@ -460,15 +460,18 @@ class StudentSubjectResult(models.Model):
         try:
             # Fetch all participated subjects (prefetch subject to avoid N+1 queries)
             subjects = list(self.subjectforresult.select_related('subject').order_by('subject__serial_number'))
+            # print("Total Subject: ", len(subjects))
 
             total_compulsory_subjects = self.class_instance.subjectforims.filter(is_optional=False, group=self.group).count()
             # print("student roll: ", self.student.name, self.student.roll_number)
             # print("total_compulsory_subjects: ", total_compulsory_subjects)
 
             # Count failed compulsory subjects
+            # failed_count = sum(
+            #     1 for s in subjects if not s.has_passed_all_mark_types_for_tabulation
+            # )
             failed_count = sum(
-                1 for s in subjects
-                if not s.subject.is_optional and not s.has_passed_all_mark_types
+                1 for s in subjects if not s.subject.is_optional and not s.has_passed_all_mark_types_for_tabulation
             )
             
             # print("failed_count: ", failed_count)
@@ -689,6 +692,20 @@ class SubjectForResult(models.Model):
 
 
     @property
+    def grade_and_point_tabu(self) -> tuple[str, float]:
+        """
+        Calculate grade and point.
+        - For combined subjects (Bangla, English), calculate after summing both papers.
+        - Otherwise, calculate normally.
+        """
+        # --- Default case: non-combined subjects ---
+        if self.has_passed_all_mark_types_for_tabulation:
+            return calculate_grade_and_point(self.total_marks, self.subject.full_marks)
+
+        return "Fail", 0.0
+
+
+    @property
     def has_passed_all_mark_types(self) -> bool:
         """
         Check pass/fail:
@@ -721,6 +738,15 @@ class SubjectForResult(models.Model):
         # --- Default case: non-combined subjects ---
         mark_types = list(self.typewisemarksforsubject.select_related('mark_type'))
         if not mark_types:
+            return self.subject.pass_marks == 0
+        return all(mark_type.is_pass for mark_type in mark_types)
+    
+    @property
+    def has_passed_all_mark_types_for_tabulation(self) -> bool:
+        # --- Default case: non-combined subjects ---
+        mark_types = list(self.typewisemarksforsubject.select_related('mark_type'))
+        if not mark_types:
+            print("Tabu:self.subject.pass_marks ", self.subject.pass_marks)
             return self.subject.pass_marks == 0
         return all(mark_type.is_pass for mark_type in mark_types)
 

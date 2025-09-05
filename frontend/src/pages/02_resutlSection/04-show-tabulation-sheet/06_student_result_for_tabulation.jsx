@@ -44,9 +44,9 @@ const StudentResultForTabulation = ({ singleMarksheetForStudent, indexForColor,r
               <td key={i} className=" ">
                 <span
                   className={` ${
-                    subject.grade_and_point[1] == 0 &&
+                    subject.grade_and_point_tabu[1] == 0 &&
                     subject.total_marks > -1 &&
-                    subject.marks.length === 1
+                    subject.marks.length === 1 && mark.marks < 33
                       ? "underline bg-red-100 text-red-600 rounded-lg"
                       : ""
                   } `}
@@ -69,9 +69,9 @@ const StudentResultForTabulation = ({ singleMarksheetForStudent, indexForColor,r
               {" "}
               <span
                 className={` ${
-                  subject.grade_and_point[1] == 0 && subject.total_marks > -1
+                  subject.grade_and_point_tabu[1] == 0 && subject.total_marks > -1
                     ? "underline bg-red-100 text-red-600 rounded-lg"
-                    : subject.grade_and_point[1] == 5
+                    : subject.grade_and_point_tabu[1] == 5
                     ? "underline bg-green-100 text-green-600 rounded-lg"
                     : ""
                 } `}

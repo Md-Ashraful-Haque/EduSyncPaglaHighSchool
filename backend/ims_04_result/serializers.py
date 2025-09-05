@@ -80,7 +80,7 @@ class SubjectForResultSerializer(serializers.ModelSerializer):
         model = SubjectForResult
         fields = [
             'id','subject_name', 'subject_name_bangla','full_marks', 'pass_marks',
-            'total_marks','combined_total_marks', 'grade_and_point', 'marks','is_optional','is_displayed_on_marksheet','is_combined',
+            'total_marks','combined_total_marks', 'grade_and_point','grade_and_point_tabu', 'marks','is_optional','is_displayed_on_marksheet','is_combined',
         ]
 
 class ResultSerializer(serializers.ModelSerializer):
