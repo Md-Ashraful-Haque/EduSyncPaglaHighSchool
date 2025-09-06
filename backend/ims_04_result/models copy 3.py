@@ -470,25 +470,10 @@ class StudentSubjectResult(models.Model):
             # failed_count = sum(
             #     1 for s in subjects if not s.has_passed_all_mark_types_for_tabulation
             # )
-            failed_count = 0
-            
-            # failed_count = sum(
-            #     1 for s in subjects if not s.subject.is_optional and not s.has_passed_all_mark_types_for_tabulation
-            # )
-            # failed_count_six_to_ten = sum(
-            #     1 for s in subjects if not s.subject.is_optional and s.total_marks < s.subject.pass_marks
-            # )
-            
-            if  6 <= self.student.class_instance.class_name.code <= 8:
-                failed_count = sum(
-                1 for s in subjects if not s.subject.is_optional and s.total_marks < s.subject.pass_marks
-            )
-            else:
-                failed_count = sum(
+            failed_count = sum(
                 1 for s in subjects if not s.subject.is_optional and not s.has_passed_all_mark_types_for_tabulation
             )
             
-            # print("failed_count_six_to_ten: ", failed_count_six_to_ten)
             # print("failed_count: ", failed_count)
 
             # If student missed some compulsory subjects, count them as failed
@@ -763,8 +748,6 @@ class SubjectForResult(models.Model):
         if not mark_types:
             print("Tabu:self.subject.pass_marks ", self.subject.pass_marks)
             return self.subject.pass_marks == 0
-        
-        
         return all(mark_type.is_pass for mark_type in mark_types)
 
 
