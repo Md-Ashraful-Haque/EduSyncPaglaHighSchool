@@ -62,7 +62,7 @@ const TableBody = ({ results, highest_marks, examAndInstituteInfo, expandedRows,
                     : " "
                 }`}
               >
-                { bySubjectVars.isBangla?  showBangla(student.total_fail_subjects) : student.total_fail_subjects}
+                { bySubjectVars.isBangla?  showBangla(student.total_fail_subjects) : student.total_fail_subjects} 
               </span>
             </td>
             <td className="py-2 px-3 ">
