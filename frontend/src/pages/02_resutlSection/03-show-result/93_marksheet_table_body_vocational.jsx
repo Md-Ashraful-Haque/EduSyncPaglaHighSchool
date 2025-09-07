@@ -91,9 +91,7 @@ const MarksheetTableBody = ({
     <tbody style={{ position: "relative" }}>
       {singleMarksheetForStudent.subjects.map(
         (subject, index) =>
-          (subject.total_marks > -1 ||
-            subject.pass_marks == 50 ||
-            !subject.is_optional) && (
+          ((subject.total_marks > -1 || subject.pass_marks == 50) || !subject.is_optional) && (
             <tr
               key={index}
               className={`text-center border  noto-bangla-regular !border-indigo-500 ${

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import MarksheetTableHeader from "./92_marksheet_table_header";
 import MarksheetTableBody from "./93_marksheet_table_body";
 import MarksheetTableHeaderVocational from "./92_marksheet_table_header_vocational";
-import MarksheetTableBodyVocational from "./93_marksheet_table_body_vocational_05-09-2025";
+import MarksheetTableBodyVocational from "./93_marksheet_table_body_vocational";
 // import schoolLogo from "../../../assets/images/eduSyncLogo.svg"; 
 // StudentResult component
 const SubjectTable = ({ singleMarksheetForStudent, highest_marks, examAndInstituteInfo }) => {

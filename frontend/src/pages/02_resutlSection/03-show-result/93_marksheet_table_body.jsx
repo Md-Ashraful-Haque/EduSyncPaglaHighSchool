@@ -21,7 +21,7 @@ const MarksheetTableBody = ({
     )
   );
 
-  // console.log('singleMarksheetForStudent: ', singleMarksheetForStudent);
+  console.log('singleMarksheetForStudent: ', singleMarksheetForStudent);
   // console.log("highest_marks : ", highest_marks);
   const highestMarksMap = useMemo(() => {
     return highest_marks.reduce((acc, item) => {
