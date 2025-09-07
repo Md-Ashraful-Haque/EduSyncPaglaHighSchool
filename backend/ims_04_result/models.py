@@ -261,15 +261,19 @@ class StudentSubjectResult(models.Model):
         
         # debug("total_subjects: ", total_subjects)
         # debug("self.class_instance", self.class_instance)
-
+        # if int(self.student.roll_number) == 3:
+        #     print("\n\n\n Student name and roll section: ",self.student.name, self.student.roll_number, self.section.section_name.name)
         total_grade_point = 0
         participated_subjects = 0
         counted_combined_groups = set()
         for s in subjects:
             subj = s.subject
             grade, point = s.grade_and_point  # Assume returns tuple: (str, float)
+            # if int(self.student.roll_number) == 3:
+            #     print("Subject Name: ", s.subject.subject_name.name, grade, point )
+            # print("grade, point: ", grade, point )
             if subj.is_optional:
-                total_subjects -= 1  # optional subjects are excluded from required count
+                # total_subjects -= 1 
                 if subj.full_marks == 100 and point > 2:
                     total_grade_point += point - 2
                 continue
@@ -285,12 +289,17 @@ class StudentSubjectResult(models.Model):
 
                         total_grade_point += point
                         participated_subjects += 1
+                        # ////////////// total count subject ///////////////////////
+                        total_subjects -= 1
 
                         counted_combined_groups.add(group)
                     break
             else:
                 # --- Default rule: non-combined compulsory subject ---
                 if grade == "Fail":
+                    # if int(self.student.roll_number) == 3:
+                    #     print("subject_name : ",  s.subject.subject_name.name)
+                    #     print("===================== Return Fail ==============")
                     return 0.0
 
                 total_grade_point += point
@@ -301,9 +310,13 @@ class StudentSubjectResult(models.Model):
             
 
         # If not all required subjects were attended
+        # print("participated_subjects < total_subjects", participated_subjects , total_subjects)
         if participated_subjects < total_subjects:
+            # print("==================== Not atted to all Subjects =========================")
             return 0.0
         result = min(5.0, round(total_grade_point / participated_subjects, 2))
+        # if int(self.student.roll_number) == 3:
+        #     print("With OP: ", result)
         return result
 
     @property
@@ -323,15 +336,21 @@ class StudentSubjectResult(models.Model):
         
         # debug("total_subjects: ", total_subjects)
         # debug("self.class_instance", self.class_instance)
-
+        # if int(self.student.roll_number) == 3:
+        #     print("\n\n\nWith Optional Student name and roll section: ",self.student.name, self.student.roll_number, self.section.section_name.name)
         total_grade_point = 0
         participated_subjects = 0
         counted_combined_groups = set()
         for s in subjects:
             subj = s.subject
             grade, point = s.grade_and_point  # Assume returns tuple: (str, float)
+            # if int(self.student.roll_number) == 3:
+            #     print("Subject Name: ", s.subject.subject_name.name, grade, point )
+            # print("grade, point: ", grade, point )
             if subj.is_optional:
-                total_subjects -= 1
+                # total_subjects -= 1 
+                # if subj.full_marks == 100 and point > 2:
+                #     total_grade_point += point - 2
                 continue
             
             subject_code = s.subject.subject_name.code
@@ -345,12 +364,17 @@ class StudentSubjectResult(models.Model):
 
                         total_grade_point += point
                         participated_subjects += 1
+                        # ////////////// total count subject ///////////////////////
+                        total_subjects -= 1
 
                         counted_combined_groups.add(group)
                     break
             else:
                 # --- Default rule: non-combined compulsory subject ---
                 if grade == "Fail":
+                    # if int(self.student.roll_number) == 3:
+                    #     print("subject_name : ",  s.subject.subject_name.name)
+                    #     print("===================== Return Fail ==============")
                     return 0.0
 
                 total_grade_point += point
@@ -361,10 +385,74 @@ class StudentSubjectResult(models.Model):
             
 
         # If not all required subjects were attended
+        # print("participated_subjects < total_subjects", participated_subjects , total_subjects)
         if participated_subjects < total_subjects:
+            # print("==================== Not atted to all Subjects =========================")
             return 0.0
         result = min(5.0, round(total_grade_point / participated_subjects, 2))
+        # if int(self.student.roll_number) == 3:
+        #     print("Without OP: ", result)
         return result
+
+    # @property
+    # def final_gpa_without_optional(self) -> float:
+    #     """
+    #     Calculate the final GPA for the student, excluding optional subjects.
+    #     Returns:
+    #         float: The GPA, or 0.0 if the student fails any subject or is absent in any compulsory subject.
+    #     """
+    #     # Prefetch all subjects related to the result in order
+    #     subjects = list(
+    #         self.subjectforresult.select_related('subject').order_by('subject__serial_number')
+    #     )
+        
+    #     # Count of compulsory (non-optional) subjects for the class
+    #     total_subjects = self.class_instance.subjectforims.filter(is_optional=False, group=self.group).count()
+        
+    #     # debug("total_subjects: ", total_subjects)
+    #     # debug("self.class_instance", self.class_instance)
+
+    #     total_grade_point = 0
+    #     participated_subjects = 0
+    #     counted_combined_groups = set()
+    #     for s in subjects:
+    #         subj = s.subject
+    #         grade, point = s.grade_and_point  # Assume returns tuple: (str, float)
+    #         if subj.is_optional:
+    #             total_subjects -= 1
+    #             continue
+            
+    #         subject_code = s.subject.subject_name.code
+
+    #         # --- Handle combined subjects (Bangla/English) ---
+    #         for group, rules in COMBINED_SUBJECTS.items():
+    #             if subject_code in rules["papers"]:
+    #                 if group not in counted_combined_groups:  # avoid double counting
+    #                     if grade == "Fail":
+    #                         return 0.0
+
+    #                     total_grade_point += point
+    #                     participated_subjects += 1
+
+    #                     counted_combined_groups.add(group)
+    #                 break
+    #         else:
+    #             # --- Default rule: non-combined compulsory subject ---
+    #             if grade == "Fail":
+    #                 return 0.0
+
+    #             total_grade_point += point
+    #             participated_subjects += 1
+
+            
+
+            
+
+    #     # If not all required subjects were attended
+    #     if participated_subjects < total_subjects:
+    #         return 0.0
+    #     result = min(5.0, round(total_grade_point / participated_subjects, 2))
+    #     return result
 
     @property
     def final_gpa_without_optionalOldNotUsed(self) -> float:
