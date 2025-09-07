@@ -15,28 +15,28 @@ const StudentInfoForMarksheet = ({ student }) => {
 
       </div>
 
-    {/* {student.student_fathers_name || student.student_mothers_name &&( */}
+    {(student.student_fathers_name || student.student_mothers_name) &&(
       <div className="roll_number mb-2 !flex flex-row gap-12 align-center border-b border-dotted border-gray-800 mb-1">
-        {/* {student.student_fathers_name && ( */}
+        {student.student_fathers_name && (
         <div className=" flex align-center">
           <div className="label" > {bySubjectVars.isBangla ? "নাম" : "Father's Name"}  </div>: 
           <div className="text-[18px]  pl-2">
             {student.student_fathers_name}
           </div>
         </div>
-        {/* )} */}
+         )} 
 
-        {/* {student.student_mothers_name && ( */}
+         {student.student_mothers_name && ( 
         <div className=" flex align-center">
           <div className="label" > {bySubjectVars.isBangla ? "নাম" : "Mother's Name"}  </div>: 
           <div className="text-[18px]  pl-2">
             {student.student_mothers_name}
           </div>
         </div>
-        {/* )} */}
+          )} 
 
       </div>
-      {/* )} */}
+        )} 
 
       <div className="roll-to-shift flex items-start border-b border-dotted border-gray-800 mb-1">
         <div className="roll_number">
