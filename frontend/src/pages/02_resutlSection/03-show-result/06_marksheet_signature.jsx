@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 // import schoolLogo from '../../../assets/schoolLogo.png';
 
 const MarksheetSignature = ( {examAndInstituteInfo, bySubjectVars}) => {
-  console.log("examAndInstituteInfo: ", examAndInstituteInfo);
+  // console.log("examAndInstituteInfo: ", examAndInstituteInfo);
   return (
     <div className="signature">
       <table>

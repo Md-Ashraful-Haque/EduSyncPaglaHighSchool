@@ -16,7 +16,7 @@ const Marksheet = ({
 
   return (
     <>
-      <div className="single-marksheet ">
+      <div className="single-marksheet  ">
         <div
           style={{
             backgroundImage: `url(${examAndInstituteInfo.institute_logo})`, 

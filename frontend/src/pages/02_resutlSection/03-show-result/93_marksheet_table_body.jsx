@@ -21,7 +21,7 @@ const MarksheetTableBody = ({
     )
   );
 
-  console.log('singleMarksheetForStudent: ', singleMarksheetForStudent);
+  // console.log('singleMarksheetForStudent: ', singleMarksheetForStudent);
   // console.log("highest_marks : ", highest_marks);
   const highestMarksMap = useMemo(() => {
     return highest_marks.reduce((acc, item) => {
@@ -88,7 +88,7 @@ const MarksheetTableBody = ({
   };
 
   return (
-    <tbody style={{ position: "relative" }}>
+    <tbody style={{ position: "relative" }} >
       {singleMarksheetForStudent.subjects.map(
         (subject, index) =>
           (subject.total_marks > -1 ||

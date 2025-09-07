@@ -11,7 +11,7 @@ const MarksheetFooter = ({ showBangla, student }) => {
         className={`footer ${
           student.class_name_in_english === "Ten-Voc" ||
           student.class_name_in_english === "Nine-Voc"
-            ? "print:mb-40"
+            ? "print:mb-20"
             : ""
         }`}
       >
