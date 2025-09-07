@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import SubmitMarksBySubjectView,ReturnSavedMarksByStudentRoll, ResultAPIView, GenerateResult,ReturnAllTypesSavedMarksByStudentRoll
-from .views import SubmitMultipleMarkTypesBySubjectView, ResultSummaryAPIView
+from .views import SubmitMultipleMarkTypesBySubjectView, ResultSummaryAPIView,AdmitCard
 
 urlpatterns = [
     path('submit-marks-by-subject/', SubmitMarksBySubjectView.as_view(), name='submit-marks-by-subject'),
@@ -10,4 +10,5 @@ urlpatterns = [
     path('generate-result/', GenerateResult.as_view(), name='generate-result'),
     path('show-result/', ResultAPIView.as_view(), name='show-result'),
     path('result-summary/', ResultSummaryAPIView.as_view(), name='result-summary'),
+    path('download-admit-card/', AdmitCard.as_view(), name='admit-card'),
 ]

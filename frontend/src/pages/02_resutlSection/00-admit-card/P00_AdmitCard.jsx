@@ -1,12 +1,24 @@
-import "./show_result.scss";
 
+import "./AdmitCard.scss";
+import "./admit_card.scss";
+import React from "react";
 import SelectFields from "pageComponents/SelectFields";
 // import SelectFields from "../00-field_selector/SelectFields";
 import YearSelector from "pageComponents/yearSelector/YearSelector";
 
 import { useMarksInputBySubjectContext } from "ContextAPI/MarksInputBySubjectContext";
-import StudentResult from "./01_result_table";
+// import ResultTable from "./01_result_table";
 import FullScreenModal from "pageComponents/02_full_screen_window";
+// import Marksheet from "./02_marksheet";
+import showBangla from "../../../utils/utilsFunctions/engNumberToBang";
+import schoolLogo from "../../../assets/images/eduSyncLogo.svg";
+import ToggleLanguage from "pageComponents/toggleResult";
+import { generatePDF } from "../../../utils/utilsFunctions/pdfDownload";
+import OpenNewTabWithHeader from "./07_marksheetWithNewTab";
+import { ResultContextAPIProvider } from "ContextAPI/MarksInputBySubjectContext";
+import Loading_1 from "LoadingComponent/loading/Loading_1";
+// import MarksheetTableHeader from "./92_marksheet_table_header";
+import AdmitCardPrinter from "./AdmitCardPrinter";
 
 import { toast } from "react-toastify";
 
@@ -16,18 +28,24 @@ import { useState } from "react";
 
 import ClasswiseOrSectionwise from "pageComponents/classwise-or-sectionwise/ClasswiseOrSectionwise";
 
+// import MeritReportHeader from "./01-merit-report-header";
+// import MeritReportTable from "./02_merit_report_table";
 ////////////////////////////////////////////////////////////////////////////////
-const DataSelectorFormFields = () => {
+const AdmitCard = () => {
   const { createNewAccessToken } = useAppContext();
+  const [students, setStudents] = useState([]); // State for serializer data
+  const [studentsCommonInfo, setStudentsCommonInfo] = useState(null); // State for serializer data
+  const [HeadSignature, setHeadSignature] = useState(null); // State for serializer data
+  const [instituteInfo, setInstituteInfo] = useState(null); // State for serializer data
+
+
   const [examAndInstituteInfo, setExamAndInstituteInfo] = useState({}); // State for serializer data
   const [results, setResults] = useState([]); // State for serializer data
   const [highest_marks, setHighest_marks] = useState([]); // State for serializer data
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleModalClose = () => {
-    // setIsModalOpen(false);
-    // setResults([]); // Clear results on close
-    // setIsModalOpen(true);
     setIsModalOpen(!isModalOpen);
   };
 
@@ -55,7 +73,7 @@ const DataSelectorFormFields = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setIsLoading(true);
     const requestData = {
       ...bySubjectVars,
       year: bySubjectVars.year,
@@ -72,30 +90,21 @@ const DataSelectorFormFields = () => {
     try {
       const response = await doGetAPIcall(
         createNewAccessToken,
-        "show-result",
+        "download-admit-card",
         requestData
       );
-      const successMessage =
-        response.message || "Result Generated Successfully!";
-      setResults(response.results || response); // Store serializer data
-      setHighest_marks(response.highest_marks || response); // Store serializer data
-      setExamAndInstituteInfo(response.exam_and_institute_info || response); // Store serializer data
+
+      // console.log("institute_info: ", response.institute_info);
+      // console.log("student_list: ", response.student_list);
+      // console.log("student_common_info: ", response.student_common_info);
+      // console.log("head_master_signature: ", response.head_master_signature);
+      setInstituteInfo(response.institute_info || response); 
+      setStudents(response.student_list || response); 
+      setStudentsCommonInfo(response.student_common_info || response); 
+      setHeadSignature(response.head_master_signature || response); 
+
 
       setIsModalOpen(!isModalOpen);
-      console.log(response.exam_and_institute_info);
-      // console.log("///////////////////////////// Start response////////////////////////////")
-      // console.log(response)
-      // console.log("////////////////////////////// End response///////////////////////////")
-      // Show success toast message
-      toast.success(successMessage, {
-        position: "top-center",
-        autoClose: 1000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
     } catch (error) {
       // Extract the error message from the backend response
       let errorMessage = "An unexpected error occurred";
@@ -112,14 +121,8 @@ const DataSelectorFormFields = () => {
       } else {
         errorMessage = error.message; // Fallback to error.message if no response data
       }
-
-      console.error(
-        "Error generating Result:",
-        error.response?.data || error.message
-      );
-
       // Show error toast message with the exact backend error
-      toast.error(`Error Generating Result: ${errorMessage}`, {
+      toast.error(`Error: ${errorMessage}`, {
         position: "top-center",
         autoClose: 3000, // Longer duration for errors to ensure readability
         hideProgressBar: false,
@@ -128,14 +131,33 @@ const DataSelectorFormFields = () => {
         draggable: true,
         progress: undefined,
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
+  // Construct filename from first student
+  // const firstStudent = results[0];
+  // const fileName = firstStudent
+  //   ? `${firstStudent.class_name}-${firstStudent.group_name}-${firstStudent.section_name_display}-মার্কশীট.pdf`
+  //   : "marksheets.pdf";
+
+  if (isLoading) {
+    return (
+      <>
+        <div>
+          <Loading_1 />
+        </div>
+      </>
+    );
+  }
+
   return (
-    <> 
+    <div className="generate-result">
       <ClasswiseOrSectionwise
         Option={resultOption}
         updateOption={updateResultOption}
+        heading={"এডমিট কার্ড ডাউনলোড ফর্ম"}
       />
       {/* see result using the form below */}
       <form onSubmit={handleSubmit}>
@@ -156,7 +178,8 @@ const DataSelectorFormFields = () => {
                     >
                       <option value="morning">Morning</option>
                       <option value="day">Day</option>
-                      <option value="evening">Evening</option>
+                      {/* <option value="afternoon">Afternoon</option> */}
+                      {/* <option value="evening">Evening</option> */}
                     </select>
                   </div>
                 </div>
@@ -178,33 +201,58 @@ const DataSelectorFormFields = () => {
               <SelectFields
                 fields={["class", "group", "section", "exam-by-year"]}
               />
-            )} 
-          </div>
+            )}
+          </div> 
           <div className="result-generator-button">
             <button type="submit" className="generate-btn">
-              ফলাফল দেখুন
+              এডমিট কার্ড ডাউনলোড করুন
             </button>
           </div>
         </div>
       </form>
 
-      {results.length > 0 && (
-        <FullScreenModal isOpen={isModalOpen} onClose={handleModalClose}>
-          <StudentResult
-            results={results}
-            highest_marks={highest_marks}
-            examAndInstituteInfo={examAndInstituteInfo}
-            resultOption={resultOption}
-          />
-        </FullScreenModal>
-      )}
-      {/* {results.length > 0 && <StudentResult results={results} />} */}
+      <div className="downloadFullResult">
+        {students.length > 0 && (
+          <React.Fragment>
+            <FullScreenModal isOpen={isModalOpen} onClose={handleModalClose}>
+
+              <AdmitCardPrinter
+                students={students}
+                studentsCommonInfo={studentsCommonInfo}
+                HeadSignature={HeadSignature}
+                instituteInfo={instituteInfo}
+              /> 
+
+              <div className="download-button">
+                <div className="print-button">
+                  <ToggleLanguage /> 
+
+                  <OpenNewTabWithHeader
+                    students={students}
+                    studentsCommonInfo={studentsCommonInfo}
+                    HeadSignature={HeadSignature}
+                    instituteInfo={instituteInfo}
+                  />
+                  {/* <OpenNewTabWithHeader
+                    bySubjectVars={bySubjectVars}
+                    examAndInstituteInfo={examAndInstituteInfo}
+                    firstStudent={firstStudent}
+                    results={results}
+                    highest_marks={highest_marks}
+                  /> */}
+                </div>
+              </div>
+            </FullScreenModal>
+          </React.Fragment>
+        )}
+      </div>
+      {/* {results.length > 0 && <ResultTable results={results} />} */}
 
       {/* </div> */}
-    </>
+    </div>
   );
 };
 
-DataSelectorFormFields.propTypes = {};
+AdmitCard.propTypes = {};
 
-export default DataSelectorFormFields;
+export default AdmitCard;

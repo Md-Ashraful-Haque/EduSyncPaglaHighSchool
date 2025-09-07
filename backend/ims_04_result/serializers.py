@@ -12,7 +12,7 @@ from ims_02_account.models import Student
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Student
-        fields = ['id',]
+        fields = ['id','name', 'name_bangla','fathers_name', 'roll_number','picture', ]
 
 class SubjectHighestMarksSerializer(serializers.ModelSerializer):
     # MarksForType = MarksForTypeSerializer(many=True) 

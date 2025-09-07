@@ -1,10 +1,11 @@
 
-import "./EnterMarksBySubject.scss";
+import "./AdmitCard.scss";
 
-import SelectFields from "../00-result-components/SelectFields";
+import SelectFields from "pageComponents/SelectFields";
 
 // import SubjectSelectorForm from "./NotUsesubjectSelectorForm/SubjectSelectorForm";
-import YearSelector from "./yearSelector/YearSelector";
+// import YearSelector from "./NotUsedyearSelector/YearSelector";
+import YearSelector from "pageComponents/yearSelector/YearSelector";
 
 import { useMarksInputBySubjectContext } from "ContextAPI/MarksInputBySubjectContext";
 // import { useEffect } from "react";
@@ -17,6 +18,7 @@ const DataSelectorFormFields = () => {
     updateBySubjectVars(varName, event.target.value);
     updateBySubjectVars("class_name", "");
   };
+
   
   return (
     <>
@@ -42,7 +44,9 @@ const DataSelectorFormFields = () => {
                           >
                             <option value="morning">Morning</option>
                             <option value="day">Day</option>
-                            <option value="evening">Evening</option>
+                            {/* <option value="afternoon">Afternoon</option> */}
+                            {/* <option value="day">Day</option> */}
+                            {/* <option value="evening">Evening</option> */}
                           </select>
                         </div>
                       </div>
@@ -59,9 +63,28 @@ const DataSelectorFormFields = () => {
                   </div>
                 </div>
               </div>
-              <div className="subject-selector-form current-session-header">
-                <SelectFields fields={["class", "group", "section", "exam", "subject", "type"]}/>
+
+
+              <div className="subject-selector-form-container">
+                <div className="subject-selector-form current-session-header">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+                    <SelectFields fields={["class"]} />
+                    <SelectFields fields={["group"]} />
+                    <SelectFields fields={["section"]} />
+                    <SelectFields fields={["exam"]} />
+                    {/* <SelectFields fields={["subject"]} /> */}
+                    {/* <SelectFields
+                    fields={["class", "group", "section", "exam", "subject"]} 
+                  /> */} 
+                  </div>
+                </div>
               </div>
+              
+              {/* <div className="subject-selector-form current-session-header">
+                <SelectFields fields={["class", "group", "section", "exam", "subject"]}/>
+
+                
+              </div> */}
             </div>
           </div>
         </div>

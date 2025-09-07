@@ -13,7 +13,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
-from .serializers import StudentSubjectResultSerializer, ResultSerializer, SubjectHighestMarksSerializer, SubjectForResultSerializer
+from .serializers import StudentSubjectResultSerializer, ResultSerializer, SubjectHighestMarksSerializer, SubjectForResultSerializer,StudentSerializer
+from ims_01_institute.serializers import InstituteSerializer
 from core.utils import getUserProfile
 from ims_01_institute.models import Institute, Year, Class, MarkTypeForSubject
 from ims_04_result.models import *
@@ -867,4 +868,151 @@ class ResultSummaryAPIView(APIView):
                 {"message": f"An error occurred: {str(e)}"}, 
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+
+# Marksheet and Tabulation sheet API View
+class AdmitCard(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        
+        try:
+            year = request.query_params.get('year')
+            exam_name = request.query_params.get('exam_name') 
+            shift = request.query_params.get('shift')
+            class_name = request.query_params.get('class_name')
+            group = request.query_params.get('group')
+            section = request.query_params.get('section_name')
+            
+            # debug("========== year ========= ", year)
+            debug("========== exam_name ========= ", exam_name)
+            # debug("========== shift ========= ", shift)
+            # debug("========== class_name ========= ", class_name)
+            # debug("========== group ========= ", group)
+            # debug("========== section ========= ", section)
+            
+            # year_type = request.query_params.get('year_type') 
+            class_type = request.query_params.get('class_type') 
+            section_type = request.query_params.get('section_type') 
+            
+            # if year_type == "true" and not all([year, exam_name, shift ]):
+            #     return Response(
+            #         {"message": "Missing required fields: Year, Exam Name or Shift"},
+            #         status=status.HTTP_400_BAD_REQUEST
+            #     )
+            if class_type == "true" and not all([year, exam_name, shift, class_name ]):
+                return Response(
+                    {"message": "Missing required fields: Year, Exam Name, Shift or Class"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            if section_type == "true" and not all([year, exam_name, shift, class_name, group, section ]):
+                # debug([year, exam_name, shift, class_name, group, section ])
+                return Response(
+                    {"message": "Missing required fields: Year, Exam Name, Shift, Class, Groupa and Section"},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            # debug(" Show Result: ", [year, exam_name,shift,class_name, group,section_type])
+        except KeyError:
+            return Response(
+                {"message": "Invalid request data"},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        userProfile = getUserProfile(request.user)
+        institute_id = userProfile.institute.id
+        # institute_name_ban = userProfile.institute.name
+        # institute_name_eng = userProfile.institute.name_in_english
+        # institute_logo = userProfile.institute.institute_logo
+        
+        # debug("userProfile: ", institute_id )
+        # debug("institute_id",institute_id ) 
+        
+        BASE ={
+            'institute__id': institute_id,
+            'year__year':request.query_params.get('year'),
+            
+        }
+        
+        # FILTERS_FOR_YEAR_WISE_RESULT = BASE
+        
+        FILTERS_FOR_CLASS_WISE_RESULT ={
+            **BASE, 
+            'class_instance__id':request.query_params.get('class_name'),
+            # 'exam': request.query_params.get('exam_name'),
+            'group': request.query_params.get('group'),
+        }
+        
+        FILTERS_FOR_SECTION_WISE_RESULT ={
+            **FILTERS_FOR_CLASS_WISE_RESULT,
+            # 'exam': request.query_params.get('exam_name'),
+            # 'group': request.query_params.get('group'),
+            'section': request.query_params.get('section_name'), 
+        }
+        
+        
+        # if  year_type == "true":
+        #     FILTERS_RESULT = FILTERS_FOR_YEAR_WISE_RESULT
+        if class_type  == "true":
+            FILTERS_RESULT = FILTERS_FOR_CLASS_WISE_RESULT
+        else:
+            FILTERS_RESULT = FILTERS_FOR_SECTION_WISE_RESULT 
+        
+        # debug( " class_type: ", class_type )
+        # debug(  "section_type: ", section_type,"FILTERS_RESULT: ", FILTERS_RESULT) 
+        FILTERS_RESULT = {k: v for k, v in FILTERS_RESULT.items() if v is not None}
+        
+        # print("FILTERS_RESULT: ", FILTERS_RESULT)
+        
+        student_list = Student.objects.filter(**FILTERS_RESULT).annotate(
+                roll_number_int=Case(
+                    When(roll_number__regex=r'^\d+$', then=Cast('roll_number', IntegerField())),
+                    default=Value(0),  # Non-numeric values get 0 (or another fallback)
+                    output_field=IntegerField()
+                )
+            ).order_by('roll_number_int')
+        # student_list = Student.objects.filter(institute=1, year__year= 2025, class_instance=71, group=107,section=126)
+        # student_list = Student.objects.filter(**FILTERS_RESULT)
+        
+        # print("student_list: ", student_list) 
+        # print("==============///////////////////////////================") 
+        exam_name = ExamForIMS.objects.get(id=request.query_params.get('exam_name'))
+        student_common_info={}
+        if student_list:
+            first_student = student_list.first()
+            print("first_student: ", first_student)
+            student_common_info = {
+                # 'institute_name_ban':institute_name_ban,
+                # 'institute_name_eng':institute_name_eng,
+                'exam_name':f"{exam_name.exam_name_in_english}-{exam_name.year}",
+                'class': first_student.class_instance.class_name.name,
+                'group': first_student.group.group_name.name,
+                'section': first_student.section.section_name.name, 
+            }
+        # print("student info: ",student_common_info ) 
+        # ///////////////// this is for marksheet information about institute and exam /////////////////
+        institute_obj = Institute.objects.get(id=institute_id) 
+        head_teacher = Teacher.objects.filter(
+            designation='head_teacher', institute=institute_obj
+        ).first()
+
+        if head_teacher and head_teacher.signature:
+            head_teacher_signature = head_teacher.signature.url
+        else:
+            head_teacher_signature = None  # or a default image URL, e.g. "/static/default-signature.png"
+        
+        
+        student_list = StudentSerializer(student_list,many=True)
+        # institute_obj = Institute.objects.get(id=institute_id) 
+        # institute_info = InstituteSerializer(institute_obj,many=True)
+        institute_info = InstituteSerializer(institute_obj, context={'request': request}, many=False)
+        
+        # print('student_list Data================', student_list.data, request.build_absolute_uri(head_teacher_signature) if institute_obj.logo.path else None)
+        
+        # Combine the serialized data into a single response
+        response_data = {
+            'institute_info': institute_info.data, 
+            'student_common_info':student_common_info,
+            'student_list': student_list.data, 
+            'head_master_signature': request.build_absolute_uri(head_teacher_signature) if head_teacher_signature is not None else None,
+            # 'head_master_signature': request.build_absolute_uri(head_teacher_signature) if institute_obj.logo.path else None,
+        }
+        return Response(response_data)
 
