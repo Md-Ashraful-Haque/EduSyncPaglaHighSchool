@@ -883,7 +883,7 @@ class AdmitCard(APIView):
             section = request.query_params.get('section_name')
             
             # debug("========== year ========= ", year)
-            debug("========== exam_name ========= ", exam_name)
+            # debug("========== exam_name ========= ", exam_name)
             # debug("========== shift ========= ", shift)
             # debug("========== class_name ========= ", class_name)
             # debug("========== group ========= ", group)
@@ -983,6 +983,7 @@ class AdmitCard(APIView):
                 # 'institute_name_eng':institute_name_eng,
                 'exam_name':f"{exam_name.exam_name_in_english}-{exam_name.year}",
                 'class': first_student.class_instance.class_name.name,
+                'shift': first_student.class_instance.shift_name,
                 'group': first_student.group.group_name.name,
                 'section': first_student.section.section_name.name, 
             }

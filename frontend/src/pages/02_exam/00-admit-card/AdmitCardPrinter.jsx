@@ -61,12 +61,12 @@ const AdmitCardPrinter = ({
 
       {/* Student Details */}
       <div className="student-details">
-        {studentsCommonInfo?.group && studentsCommonInfo.group !== "N/A" && (
+        {/* {studentsCommonInfo?.group && studentsCommonInfo.group !== "N/A" && (
           <span className="class-item">
             <span className="label">Roll:</span>
             {String(student.roll_number).padStart(2, "0")}
           </span>
-        )}
+        )} */}
 
         <div className="detail-row">
           <span className="label">Name of Student:</span>
@@ -79,6 +79,10 @@ const AdmitCardPrinter = ({
         </div>
 
         <div className="class-info">
+          <span className="class-item">
+            <span className="label">Shift:</span>
+            <span className="value">{studentsCommonInfo?.shift }</span>
+          </span>
           <span className="class-item">
             <span className="label">Class:</span>
             <span className="value">{studentsCommonInfo?.class || "N/A"}</span>
@@ -98,12 +102,13 @@ const AdmitCardPrinter = ({
             </span>
           </span>
 
-          {studentsCommonInfo?.group && studentsCommonInfo.group === "N/A" && (
+          {/* {(studentsCommonInfo?.group && studentsCommonInfo.group === "N/A" && studentsCommonInfo?.class.notInclude(["Nine-Voc","Ten-Voc"]) ) && ( */}
+          {/* {(studentsCommonInfo?.group && studentsCommonInfo.group === "N/A" ) && ( */}
             <span className="class-item">
               <span className="label">Roll:</span>
               {String(student.roll_number).padStart(2, "0")}
             </span>
-          )}
+          {/* )} */}
         </div>
       </div>
 

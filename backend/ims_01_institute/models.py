@@ -75,7 +75,9 @@ class Class(models.Model):
     class_name = models.ForeignKey(ClassName, on_delete=models.SET_NULL, null=True, blank=True, related_name='classes')
     shift = models.CharField(max_length=20, choices=SHIFT_CHOICES)
     
-
+    @property
+    def shift_name(self):
+        return self.get_shift_display()
     def __str__(self):
         return f"{self.class_name.name} ({self.shift})"
         # return f"{self.class_name.name} ({self.year.year} - {self.get_shift_display()} - {self.institute.name})"

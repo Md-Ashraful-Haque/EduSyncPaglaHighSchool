@@ -83,7 +83,7 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   column-gap: 45px;  /* or gap: 20px 40px; */
-  row-gap: 60px;
+  row-gap: 40px;
   max-width: 1200px;
   margin: 0 auto;
   // border: 2px solid #000; 
@@ -264,8 +264,8 @@
 .class-info {
   z-index: 2;
   display: flex;
-  flex-wrap: nowrap;
-  gap: 16px;
+  flex-wrap: wrap;
+  gap: 8px;
   margin-top: 12px;
   // font-size: 15px;
 
