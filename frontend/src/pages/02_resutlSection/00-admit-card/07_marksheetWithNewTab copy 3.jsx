@@ -36,59 +36,33 @@ const OpenNewTabWithHeader = ({
         <!DOCTYPE html>
         <html>
           <head>
-            ${headContent}
             <style>
-              /* Force page size for printing */
-              @page {
-
-                size: A4 portrait;
-                margin: 25px 30px; 
-              }
-
-              html, body {
-                margin: 0;
-                padding: 0;
-                width: 210mm;   /* A4 width */
-                height: 297mm;  /* A4 height */
-                background: #fff;
-              }
-
-              /* Screen preview (optional scaling) */
-              @media screen {
-                body {
-                  transform: scale(0.8);
-                  transform-origin: top left;
-                  margin: 0 auto; /* center preview */
-                }
-              }
-
-              /* Print settings */
               @media print {
+                @page {
+                  margin: 0 !important;
+                }
                 html, body {
-                  width: 210mm;
-                  height: 297mm;
-                  margin: 0;
-                  padding: 0;
-                  background: #fff;
-                  -webkit-print-color-adjust: exact;
-                  print-color-adjust: exact;
+                  margin: 0 !important;
+                  padding: 0 !important;
+                  width: 100%;
+                  height: 100%;
+                  background-color: red !important;
+                  -webkit-print-color-adjust: exact !important;
+                  print-color-adjust: exact !important;
                 }
-
-                .marksheet-header {
+                .single-marksheet {
+                  margin: 0 !important;
+                  padding: 0 !important;
                   width: 100% !important;
-                }
-
-                .school-info {
-                  margin-top: 16px !important;
-                  margin-bottom: 8px !important;
+                  height: 100% !important;
+                  background-color: green !important;
                 }
               }
             </style>
-
           </head>
           <body>
-            <div class="admit-card-container">
-              ${renderedContent}
+            <div class="single-marksheet">
+              jsfkdla jsdafl kjsadlf kjsadflk jasdflk jasdlfkj asdlfkj saldfkj sladkfj lsadkfj lsadkfj lsdf jasldfkj lsadkf j
             </div>
             <script>
               window.onload = function () {
@@ -97,6 +71,7 @@ const OpenNewTabWithHeader = ({
             </script>
           </body>
         </html>
+
       `);
 
       newTab.document.close(); // Ensure the document is finalized

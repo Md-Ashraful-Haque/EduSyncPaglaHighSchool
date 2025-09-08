@@ -13,10 +13,10 @@ const AdmitCardPrinter = ({
   };
 
   const AdmitCard = ({ student }) => (
-    <div className="admit-card">
+    <div className="admit-card" >
       {/* Header with logo and school info */}
       <div className="card-header">
-        <div className="school-info">
+        <div className="card-school-info">
           <div className="logo-section-for-admit">
             {instituteInfo?.logo_url ? (
               <img 

@@ -38,57 +38,77 @@ const OpenNewTabWithHeader = ({
           <head>
             ${headContent}
             <style>
-              /* Force page size for printing */
               @page {
-
+                // size: legal landscape;
                 size: A4 portrait;
-                margin: 25px 30px; 
-              }
+                /* 14in × 8.5in */
+                margin: 32px;
+                margin-bottom: 48px;
+                transform: scale(0.98); 
+                transform-origin: top left center;
 
-              html, body {
-                margin: 0;
-                padding: 0;
-                width: 210mm;   /* A4 width */
-                height: 297mm;  /* A4 height */
-                background: #fff;
-              }
 
-              /* Screen preview (optional scaling) */
-              @media screen {
-                body {
-                  transform: scale(0.8);
-                  transform-origin: top left;
-                  margin: 0 auto; /* center preview */
+                /* Add page number in the bottom-right */
+                @bottom-right {
+                  content: " Page " counter(page) " of "counter(pages);
                 }
+                
+              }
+              body { 
+                  margin: 0px;
+                  padding: 0px;
+                  
+                  @media screen {
+                    transform: scale(0.80); 
+                    transform-origin: top left center;
+                  }
+              } 
+              .tabulation-sheet-container{ 
+                width: 100%;  
+                margin: 12px auto;
+                box-sizing: border-box;
+                padding: 24px;  
+                break-after: page;  
+
+                border-radius: 12px;
+                position: relative;
+                overflow-x: auto;
+                margin-bottom: 128px;
+
               }
 
-              /* Print settings */
               @media print {
-                html, body {
-                  width: 210mm;
-                  height: 297mm;
-                  margin: 0;
-                  padding: 0;
-                  background: #fff;
-                  -webkit-print-color-adjust: exact;
-                  print-color-adjust: exact;
+                @page {
+                  margin: 0 !important; /* remove default print margins */
                 }
-
-                .marksheet-header {
-                  width: 100% !important;
+                body { 
+                  margin: 0px;
+                  padding: 0px;
+                  background-color: red !important;
                 }
+                .tabulation-sheet-container{
+                  overflow: initial;
 
+                }
+                .marksheet-header{
+                  width: 100%; 
+                } 
                 .school-info {
-                  margin-top: 16px !important;
-                  margin-bottom: 8px !important;
+                    margin-top: 16px !important;
+                    margin-bottom: 8px !important;
                 }
               }
-            </style>
 
+
+            </style>
           </head>
           <body>
-            <div class="admit-card-container">
-              ${renderedContent}
+            <div class="generate-result single-marksheet" >
+              <div class="downloadFullResult">
+                <div class="tabulation-sheet download-using-new-tab" >
+                  ${renderedContent}
+                </div>
+              </div>
             </div>
             <script>
               window.onload = function () {
