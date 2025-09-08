@@ -79,13 +79,17 @@ const AdmitCardPrinter = ({
         </div>
 
         <div className="class-info">
+
           <span className="class-item">
-            <span className="label">Shift:</span>
-            <span className="value">{studentsCommonInfo?.shift }</span>
+            <span className="label">Roll:</span>
+            {String(student.roll_number).padStart(2, "0")}
           </span>
+
           <span className="class-item">
-            <span className="label">Class:</span>
-            <span className="value">{studentsCommonInfo?.class || "N/A"}</span>
+            <span className="label">Section:</span>
+            <span className="value">
+              {studentsCommonInfo?.section || "N/A"}
+            </span>
           </span>
 
           {studentsCommonInfo?.group && studentsCommonInfo.group !== "N/A" && (
@@ -96,18 +100,30 @@ const AdmitCardPrinter = ({
           )}
 
           <span className="class-item">
-            <span className="label">Section:</span>
-            <span className="value">
-              {studentsCommonInfo?.section || "N/A"}
-            </span>
+            <span className="label">Class:</span>
+            <span className="value">{studentsCommonInfo?.class || "N/A"}</span>
           </span>
+          
+          <span className="class-item">
+            <span className="label">Shift:</span>
+            <span className="value">{studentsCommonInfo?.shift }</span>
+          </span>
+
+
+          
+
+
+
+          
+
+          
 
           {/* {(studentsCommonInfo?.group && studentsCommonInfo.group === "N/A" && studentsCommonInfo?.class.notInclude(["Nine-Voc","Ten-Voc"]) ) && ( */}
           {/* {(studentsCommonInfo?.group && studentsCommonInfo.group === "N/A" ) && ( */}
-            <span className="class-item">
+            {/* <span className="class-item">
               <span className="label">Roll:</span>
               {String(student.roll_number).padStart(2, "0")}
-            </span>
+            </span> */}
           {/* )} */}
         </div>
       </div>
