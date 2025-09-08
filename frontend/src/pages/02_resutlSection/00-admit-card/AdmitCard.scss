@@ -82,8 +82,8 @@
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  column-gap: 50px;  /* or gap: 20px 40px; */
-  row-gap: 60px;
+  column-gap: 40px;  /* or gap: 20px 40px; */
+  row-gap: 100px;
   max-width: 900px;
   margin: 0 auto;
 }
@@ -92,8 +92,9 @@
 .admit-card {
   border: 2px solid #000;
   background: white;
-  padding: 16px;
-  font-size: 18px;
+  padding: 14px;
+  padding-bottom: 4px;
+  font-size: 17px;
   line-height: 1.4;
   min-height: 280px;
   display: flex;
@@ -101,6 +102,7 @@
   page-break-inside: avoid;
   position: relative;
   z-index: 2;
+  
 
   .logo-watermark {
     // border: 1px solid;
@@ -241,9 +243,11 @@
 .class-info {
   z-index: 2;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 16px;
   margin-top: 12px;
+  font-size: 15px;
+
 }
 
 .class-item {
@@ -253,7 +257,7 @@
 }
 
 .class-item .label {
-  margin-right: 4px;
+  margin-right: 2px;
 }
 
 /* Signature Section */

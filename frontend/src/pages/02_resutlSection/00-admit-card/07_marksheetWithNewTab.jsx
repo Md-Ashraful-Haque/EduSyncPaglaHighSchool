@@ -42,7 +42,7 @@ const OpenNewTabWithHeader = ({
               @page {
 
                 size: A4 portrait;
-                margin: 25px 30px; 
+                margin: 20px 25px; 
               }
 
               html, body {
