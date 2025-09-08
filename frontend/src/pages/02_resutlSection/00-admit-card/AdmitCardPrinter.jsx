@@ -87,7 +87,8 @@ const AdmitCardPrinter = ({
           
           <span className="class-item">
             <span className="label">Roll:</span>
-            <span className="value">{student.roll_number}</span>
+            {/* <span className="value">{student.roll_number}</span> */}
+            {String(student.roll_number).padStart(2, "0")}
           </span>
         </div>
       </div>
@@ -154,7 +155,7 @@ const AdmitCardPrinter = ({
   return (
     <div className="admit-card-printer">
       {/* Print Controls - Hidden when printing */}
-      <div className="no-print controls-section mt-10">
+      <div className="no-print controls-section m-10">
         <h2 className="controls-title">Admit Card Preview</h2> 
         {instituteInfo && studentsCommonInfo && (
           <p className="institute-info">
