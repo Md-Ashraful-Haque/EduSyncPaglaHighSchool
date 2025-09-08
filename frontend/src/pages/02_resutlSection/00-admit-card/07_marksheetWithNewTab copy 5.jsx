@@ -37,7 +37,54 @@ const OpenNewTabWithHeader = ({
         <html>
           <head>
             ${headContent}
-            
+            <style>
+              /* Force page size for printing */
+              @page {
+
+                size: A4 portrait;
+                padding: 5px;
+                margin: 30px 15px; 
+              }
+
+              html, body {
+                margin: 0;
+                padding: 0;
+                width: 210mm;   /* A4 width */
+                height: 297mm;  /* A4 height */
+                background: #fff;
+              }
+
+              /* Screen preview (optional scaling) */
+              @media screen {
+                body {
+                  transform: scale(0.8);
+                  transform-origin: top left;
+                  margin: 0 auto; /* center preview */
+                }
+              }
+
+              /* Print settings */
+              @media print {
+                html, body {
+                  width: 210mm;
+                  height: 297mm;
+                  margin: 0;
+                  padding: 0;
+                  background: #fff;
+                  -webkit-print-color-adjust: exact;
+                  print-color-adjust: exact;
+                }
+
+                .marksheet-header {
+                  width: 100% !important;
+                }
+
+                .school-info {
+                  margin-top: 16px !important;
+                  margin-bottom: 8px !important;
+                }
+              }
+            </style>
 
           </head>
           <body>

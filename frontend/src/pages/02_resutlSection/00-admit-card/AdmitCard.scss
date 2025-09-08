@@ -9,7 +9,7 @@
 
 .admit-card-printer {
   font-family: 'Times New Roman', serif;
-  background: white;
+  background: white; 
 }
 
 /* Controls Section */
@@ -82,18 +82,27 @@
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  column-gap: 50px;  /* or gap: 20px 40px; */
-  row-gap: 100px;
-  max-width: 900px;
+  column-gap: 45px;  /* or gap: 20px 40px; */
+  row-gap: 80px;
+  max-width: 1200px;
   margin: 0 auto;
+  // border: 2px solid #000; 
 }
 
 /* Admit Card Styles */
 .admit-card {
-  border: 2px solid #000;
+  // border: 2px solid #000;       /* inner border */
+  // outline: 4px solid #000;      /* outer border */
+  // outline-offset: 6px;          /* distance between borders */
+
+  border: 2px solid #000;        /* main frame */
+  box-shadow: 0 0 0 4px #fff,    /* gap (white) */
+              0 0 0 6px #000;    /* outer thin frame */
+
   background: white;
-  padding: 14px;
-  padding-bottom: 4px;
+  padding: 12px;
+  margin: 15px;
+  // padding-bottom: 4px;
   font-size: 17px;
   line-height: 1.4;
   min-height: 280px;
@@ -102,6 +111,17 @@
   page-break-inside: avoid;
   position: relative;
   z-index: 2;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 1px dashed #000;  /* modern dashed inner frame */
+    pointer-events: none;
+  }
   
 
   .logo-watermark {
@@ -144,13 +164,13 @@
 .logo-section-for-admit {
   flex-shrink: 0;
   position: absolute;
-  left: -5px;
-  top: 0;
+  left: -3px;
+  top: -8;
 }
 
 .school-logo {
-  width: 48px;
-  height: 48px;
+  width: 64px;
+  height: 64px;
   object-fit: contain;
 }
 
@@ -234,6 +254,7 @@
 .value {
   z-index: 2;
   color: #000;
+  
 }
 
 .italic {
@@ -308,8 +329,35 @@
   page-break-before: always;
 }
 
+
+@page {
+  size: A4 portrait;
+  padding: 0px !important;
+  // margin: 0px !important; 
+  margin: 40px 5px; 
+  
+} 
+
+/* Print settings */
 @media print {
+  html, body {
+    width: 210mm;
+    height: 297mm;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
   .no-print{
     display: none;
+  }
+
+  .marksheet-header {
+    width: 100% !important;
+  }
+  .cards-grid {
+    break-after: page; 
+    height: 100%;
   }
 }

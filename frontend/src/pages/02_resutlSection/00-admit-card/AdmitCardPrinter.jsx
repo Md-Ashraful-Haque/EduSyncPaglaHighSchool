@@ -57,6 +57,11 @@ const AdmitCardPrinter = ({
 
       {/* Student Details */}
       <div className="student-details">
+        <span className="class-item">
+            <span className="label">Roll:</span> 
+            {String(student.roll_number).padStart(2, "0")}
+          </span>
+
         <div className="detail-row">
           <span className="label">Name of Student:</span>
           <span className="value italic">{student.name}</span>
@@ -85,11 +90,10 @@ const AdmitCardPrinter = ({
             <span className="value">{studentsCommonInfo?.section || "N/A"}</span>
           </span>
           
-          <span className="class-item">
-            <span className="label">Roll:</span>
-            {/* <span className="value">{student.roll_number}</span> */}
+          {/* <span className="class-item">
+            <span className="label">Roll:</span> 
             {String(student.roll_number).padStart(2, "0")}
-          </span>
+          </span> */}
         </div>
       </div>
 
