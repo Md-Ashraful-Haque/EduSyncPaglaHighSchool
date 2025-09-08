@@ -57,7 +57,6 @@ const OpenNewTabWithHeader = ({
               body { 
                   margin: 0px;
                   padding: 0px;
-                  
                   @media screen {
                     transform: scale(0.80); 
                     transform-origin: top left center;
@@ -68,8 +67,9 @@ const OpenNewTabWithHeader = ({
                 margin: 12px auto;
                 box-sizing: border-box;
                 padding: 24px;  
-                break-after: page;  
+                break-after: page; 
 
+                border: 1px solid rgb(234, 230, 230);;
                 border-radius: 12px;
                 position: relative;
                 overflow-x: auto;
@@ -78,13 +78,11 @@ const OpenNewTabWithHeader = ({
               }
 
               @media print {
-                @page {
-                  margin: 0 !important; /* remove default print margins */
-                }
-                body { 
+                body {
+                  // border: 1px solid red; 
                   margin: 0px;
                   padding: 0px;
-                  background-color: red !important;
+                  background-color: white !important;
                 }
                 .tabulation-sheet-container{
                   overflow: initial;
