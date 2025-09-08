@@ -82,7 +82,7 @@
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  column-gap: 40px;  /* or gap: 20px 40px; */
+  column-gap: 50px;  /* or gap: 20px 40px; */
   row-gap: 100px;
   max-width: 900px;
   margin: 0 auto;
