@@ -1,4 +1,4 @@
-export { default as P00_AdmitCard } from './00-admit-card/P00_AdmitCard.jsx';
+// export { default as P00_AdmitCard } from './00-admit-card/P00_AdmitCard.jsx';
 export { default as P01_EnterMarksBySubject } from './01-marks-input-by-subject/P01_EnterMarksBySubject';
 export { default as P02_ResultGenerator } from './02-resultGenerator/generate_result'; 
 export { default as P03_ShowResult } from './03-show-result/00_show_result'; 

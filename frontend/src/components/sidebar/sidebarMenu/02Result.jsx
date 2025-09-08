@@ -9,14 +9,6 @@ import SubMenuItem from "../sidebarComponents/SubMenuItem";
 
 const submenuItems = [
   {
-    id: "result-item-0",
-    to: "/admin/admit-card",
-    label: "এডমিট কার্ড",
-    menuType: "result_processing",
-    inputField: "inputField",
-    visibility: ["All"],
-  },
-  {
     id: "result-item-1",
     to: "/admin/enter-marks-by-subject",
     label: "নম্বর ইনপুট করুন",

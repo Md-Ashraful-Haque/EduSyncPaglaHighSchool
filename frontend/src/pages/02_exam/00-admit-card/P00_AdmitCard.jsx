@@ -1,6 +1,5 @@
 
-import "./AdmitCard.scss";
-import "./admit_card.scss";
+import "./AdmitCard.scss"; 
 import React from "react";
 import SelectFields from "pageComponents/SelectFields";
 // import SelectFields from "../00-field_selector/SelectFields";
@@ -205,7 +204,7 @@ const AdmitCard = () => {
           </div> 
           <div className="result-generator-button">
             <button type="submit" className="generate-btn">
-              এডমিট কার্ড ডাউনলোড করুন
+              এডমিট কার্ড দেখুন
             </button>
           </div>
         </div>
@@ -225,7 +224,7 @@ const AdmitCard = () => {
 
               <div className="download-button">
                 <div className="print-button">
-                  <ToggleLanguage /> 
+                  {/* <ToggleLanguage />  */}
 
                   <OpenNewTabWithHeader
                     students={students}

@@ -16,8 +16,7 @@ import AddStudent from "../pages/AddStudent";
 import PageNotFound404 from "../pages/pageNotFound/PageNotFound404";
 
 import { P01_ShowAllStudents } from "../pages/01_students/Z99_index";
-import {
-  P00_AdmitCard,
+import { 
   P01_EnterMarksBySubject,
   P02_ResultGenerator,
   P03_ShowResult,
@@ -25,6 +24,9 @@ import {
   P05_ShowMeritReport,
   P06_MeritSummary,
 } from "../pages/02_resutlSection/Z99_index";
+import {
+  P00_AdmitCard, 
+} from "../pages/02_exam/Z99_ExamIndex";
 
 const AppRoutes = () => {
   const { isAuthenticated, updateVar } = useAppContext();
@@ -76,7 +78,9 @@ const AppRoutes = () => {
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="add-student" element={<AddStudent />} />
         <Route path="show-all-student" element={<P01_ShowAllStudents />} />
+        
         <Route path="admit-card" element={<P00_AdmitCard />} />
+
         <Route path="enter-marks-by-subject" element={<P01_EnterMarksBySubject />} />
         <Route path="generate-result" element={<P02_ResultGenerator />} />
         <Route path="show-result" element={<P03_ShowResult />} />

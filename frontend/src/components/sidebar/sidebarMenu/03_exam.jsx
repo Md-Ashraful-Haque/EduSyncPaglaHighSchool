@@ -6,36 +6,24 @@ import MenuLeftLogo from "./img/result.svg";
 
 import MenuItem from "../sidebarComponents/MenuItem";
 import SubMenuItem from "../sidebarComponents/SubMenuItem";
-
+import { BookOpenCheck } from 'lucide-react';
 const submenuItems = [
   {
-    id: "result-item-1",
-    to: "/enter-marks-by-subject",
-    label: "Enter Marks by Subject",
-  },
-  {
-    id: "result-item-2",
-    to: "/generate-result",
-    label: "Generate Result",
-  },
-  { id: "result-item-3", to: "/create-marksheet", label: "Create Marksheet" },
-  {
-    id: "result-item-4",
-    to: "/create-merit-report",
-    label: "Create Merit Report",
-  },
-  {
-    id: "result-item-5",
-    to: "/create-tabulation-sheet",
-    label: "Create Tabulation Sheet",
+    id: "result-item-0",
+    to: "/admin/admit-card",
+    label: "এডমিট কার্ড",
+    menuType: "result_processing",
+    inputField: "inputField",
+    visibility: ["All"],
   },
 ];
-
+ 
 const ExamMenu = ({ menuId }) => {
   return (
     <li>
       <MenuItem
-        menuLeftLogo={MenuLeftLogo}
+        MenuLogo={BookOpenCheck}
+        // menuLeftLogo={MenuLeftLogo}
         menuName="পরীক্ষা"
         menuId={menuId}
       />

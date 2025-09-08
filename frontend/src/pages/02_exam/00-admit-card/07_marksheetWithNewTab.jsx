@@ -65,7 +65,7 @@ const OpenNewTabWithHeader = ({
 
   return (
     <button onClick={openInNewTab} className="button-1">
-      টেবুলেশনশীট প্রিন্ট করুন
+      প্রিন্ট করুন
     </button>
   );
 };

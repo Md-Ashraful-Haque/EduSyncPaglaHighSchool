@@ -42,6 +42,7 @@ const Sidebar = () => {
         </li>
 
         <StudentInfo menuId="StudentInfo" />
+        <ExamMenu menuId="Exam" />  
         <ResultMenu menuId="ResultMenu" />
 
         <li>
@@ -62,8 +63,8 @@ const Sidebar = () => {
         </li>
 
         {/* <li onClick={logout}>Logout</li> */}
-        {/* <AccountsMenu menuId="Accounts" />  
-          <ExamMenu menuId="Exam" />   */}
+        {/* <AccountsMenu menuId="Accounts" />   */}
+          
       </ul>
     </div>
   );

@@ -48,6 +48,11 @@ const Dashboard = () => {
             <>
               <DashboardButton
                 icon={Settings}
+                label="এডমিট কার্ড ডাউনলোড করুন"
+                onClick={() => navigate("/admin/admit-card")}
+              />
+              <DashboardButton
+                icon={Settings}
                 label="ফলাফল তৈরী করুন"
                 onClick={() => navigate("/admin/generate-result")}
               />
