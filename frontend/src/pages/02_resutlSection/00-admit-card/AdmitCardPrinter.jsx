@@ -122,7 +122,8 @@ const AdmitCardPrinter = ({
             ></div>
           </div>
           <p className="signature-label">
-            {instituteInfo?.signature_of_head || "Signature of Head Master"}
+            {/* {instituteInfo?.signature_of_head || "Signature of Head Master"} */}
+            {"Signature of Head Master"}
           </p>
         </div>
       </div>
