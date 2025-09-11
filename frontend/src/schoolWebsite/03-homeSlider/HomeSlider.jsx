@@ -18,6 +18,7 @@ const SliderCarousel = ({ sliders = [] }) => {
   axios.get(`${apiUrl}/slides/`, { withCredentials: true })
     .then(async (res) => {
       setSlideItems(res.data);
+      // console.log("res.data: Slider", res.data);
 
       await import('owl.carousel/dist/owl.carousel');
 
@@ -100,7 +101,7 @@ const SliderCarousel = ({ sliders = [] }) => {
           key={slide.id || index}
           className="item"
           style={{
-            backgroundImage: `url('${slide.image_url}')`,
+            backgroundImage: `url('${slide.image_cropped_url}')`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             // backgroundColor: "red",

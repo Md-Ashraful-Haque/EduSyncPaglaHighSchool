@@ -1,7 +1,7 @@
 
 from rest_framework import serializers
 from .models import *
-
+from backend.utils import MultiCroppedImageMixin
 
 class StudentSerializer(serializers.ModelSerializer):
     class Meta:
@@ -30,15 +30,21 @@ class StudentSerializerAllFields(serializers.ModelSerializer):
         return obj.section.section_name.name if obj.section else None
 
 
-class TeacherCardSerializer(serializers.ModelSerializer):
+# class TeacherCardSerializer(serializers.ModelSerializer):
+class TeacherCardSerializer(MultiCroppedImageMixin):
     designation_display = serializers.CharField(source='get_designation_display', read_only=True)
-    picture_url = serializers.SerializerMethodField()
-
+    # picture_url = serializers.SerializerMethodField()
+    
     class Meta:
         model = Teacher
+        image_fields = ["picture", "signature"] #picture_cropped_url picture_url
+        crop_sizes = {
+            "picture": (300, 380),      # portrait ratio
+            "signature": (300, 100),    # small ratio
+        }
         fields = [
-            'id', 'name', 'designation', 'designation_display', 'major_subject',
-            'phone_number', 'email',
+            'id', 'name', 'bangla_name','designation', 'designation_display', 'major_subject',
+            'phone_number','is_whatsapp', 'email','designation_bn',
             'dob',
             'joining_date',
             'indexing_of_mpo',
@@ -46,33 +52,46 @@ class TeacherCardSerializer(serializers.ModelSerializer):
             'qualification',
             'address',
             'religion',
-            'blood_group', 'qualification',
-            'picture_url', 'is_visible',
+            'blood_group', 'qualification', 'is_visible',
+            # 'picture_url',
         ]
 
-    def get_picture_url(self, obj):
-        request = self.context.get('request')
-        if obj.picture and request:
-            return request.build_absolute_uri(obj.picture.url)
-        elif obj.picture:
-            return obj.picture.url
-        return None
+    # def get_picture_url(self, obj):
+    #     request = self.context.get('request')
+    #     if obj.picture and request:
+    #         return request.build_absolute_uri(obj.picture.url)
+    #     elif obj.picture:
+    #         return obj.picture.url
+    #     return None
 
 
-# class StudentSerializer(serializers.ModelSerializer):
-#     institute_name = serializers.CharField(source='institute.name', read_only=True)
-#     year = serializers.CharField(source='year.year', read_only=True)
-#     class_name = serializers.CharField(source='class_instance.class_name', read_only=True)
-    
+# class TeacherCardSerializer(serializers.ModelSerializer):
+#     designation_display = serializers.CharField(source='get_designation_display', read_only=True)
+#     picture_url = serializers.SerializerMethodField()
+
 #     class Meta:
-#         model = Student
+#         model = Teacher
 #         fields = [
-#             'student_id', 'name', 'roll_number', 'email', 
-#             'phone_number', 'guardian_mobile_number', 'address',
-#             'dob', 'picture', 'institute', 'year', 'class_instance',
-#             'group', 'section', 'institute_name', 'year', 'class_name'
+#             'id', 'name', 'bangla_name','designation', 'designation_display', 'major_subject',
+#             'phone_number','is_whatsapp', 'email','designation_bn',
+#             'dob',
+#             'joining_date',
+#             'indexing_of_mpo',
+#             'index_number',
+#             'qualification',
+#             'address',
+#             'religion',
+#             'blood_group', 'qualification',
+#             'picture_url', 'is_visible',
 #         ]
-#         read_only_fields = ['student_id']
+
+#     def get_picture_url(self, obj):
+#         request = self.context.get('request')
+#         if obj.picture and request:
+#             return request.build_absolute_uri(obj.picture.url)
+#         elif obj.picture:
+#             return obj.picture.url
+#         return None
 
 
 class ClassNameSerializer(serializers.ModelSerializer):
@@ -116,36 +135,6 @@ class SectionSerializer(serializers.ModelSerializer):
         model = Section
         fields = ['id', 'institute', 'year', 'class_instance', 'group', 'section_name']
 
-
-
-# class StudentSerializer(serializers.ModelSerializer):
-#     institute_name = serializers.CharField(source='institute.name', read_only=True)
-#     year_display = serializers.CharField(source='year.year', read_only=True)
-#     class_name = serializers.CharField(source='class_instance.class_name.name', read_only=True)
-#     group_name = serializers.CharField(source='group.group_name.name', read_only=True)
-#     section_name = serializers.CharField(source='section.section_name.name', read_only=True)
-
-#     class Meta:
-#         model = Student
-#         fields = [
-#             'student_id', 'name', 'roll_number', 'email', 'phone_number',
-#             'guardian_mobile_number', 'address', 'dob', 'picture',
-#             'institute', 'year', 'class_instance', 'group', 'section',
-#             'institute_name', 'year_display', 'class_name',
-#             'group_name', 'section_name'
-#         ]
-#     def validate(self, attrs):
-#         group = attrs.get('group')
-#         class_instance = attrs.get('class_instance')
-#         section = attrs.get('section')
-
-#         if group and class_instance and group.class_instance != class_instance:
-#             raise serializers.ValidationError("Selected group does not belong to the selected class.")
-
-#         if section and group and section.group != group:
-#             raise serializers.ValidationError("Selected section does not belong to the selected group.")
-
-#         return attrs
 
 class StudentUdpateSerializer(serializers.ModelSerializer):
     # Allow FK fields to be updated via IDs

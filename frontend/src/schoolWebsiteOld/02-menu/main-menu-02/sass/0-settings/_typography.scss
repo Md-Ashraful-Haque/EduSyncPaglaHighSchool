@@ -1,0 +1,22 @@
+
+/* $main-menu-font-size       : calc(14px + (16 ) - 14 ) * $screen)); */
+$main-menu-font-size : calc(14px + (20 - 14) * (100vw - 992px)/(3840 - 992));
+$main-menu-btn-font-size : calc(14px + ((20) - 14) * (100vw - 992px)/(3840 - 992));
+$araf-mm-btn-padx : calc(8px + ((16) - 8) * (100vw - 992px)/(3840 - 992));
+$araf-mm-btn-pady : calc(7px + ((14) - 7) * (100vw - 992px)/(3840 - 992));
+
+$araf-main-menu-text-pady : calc(8px + ((28) - 8) * (100vw - 992px)/(3840 - 992));
+$araf-main-menu-text-padx : calc(4px + ((20) - 4) * (100vw - 992px)/(3840 - 992));
+
+$araf-btn-font-size : calc(14px + ((24) - 14) * (100vw - 992px)/(3840 - 992));
+$araf-search-btn-font-size : calc(30px + ((40) - 30) * (100vw - 992px)/(3840 - 992));
+$araf-btn-padx : calc(8px + ((20) - 8) * (100vw - 992px)/(3840 - 992));
+$araf-btn-pady : calc(7px + ((19) - 7) * (100vw - 992px)/(3840 - 992));
+
+$araf-dropdown-menu-width : calc(220px + (320 - 225) * (100vw - 992px)/(3840 - 992));
+$li-minus-width : calc(12px + ((20) - 12) * (100vw - 992px)/(3840 - 992));
+$li-minus-height : calc(1px + ((2) - 1) * (100vw - 992px)/(3840 - 992));
+$li-before-lm : calc(5px + ((12) - 8) * (100vw - 992px)/(3840 - 992));
+
+$li-a-pad-left : calc($li-minus-width + $li-before-lm*1.5);
+$main-menu-height : calc(15px + ((20) - 15) * (100vw - 992px)/(3840 - 992));

@@ -13,86 +13,46 @@ import HistoryContentSection from "./HistoryContentSection";
 import schoolLogo from "../../assets/images/penchulTransWhite.png";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useAppContext } from '../../ContextAPI/AppContext';
+import { useAppContext } from "../../ContextAPI/AppContext";
+
+import InstituteSummary from "./InstituteSummaryMordern";
+import ImageModal from "Components/full_screen_modal/ImageModal.jsx";
+// import InstituteSummary from './InstituteSummary'
 
 const HistoryPage = () => {
   // const [expandedSections, setExpandedSections] = useState({});
- const { instituteInfo } = useAppContext();
+  const { instituteInfo } = useAppContext();
   // Sample school data - replace with your actual data
 
   const [school, setSchool] = useState(null);
 
-  const schoolData = {
-    name: "পেঁচুল উচ্চ বিদ্যালয়",
-    nameEnglish: "Penchul High School",
-    heroImage:
-      "https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2532&q=80",
-    established: "১৯৯৩",
-    location: "পেঁচুল,শেরপুর, বগুড়া, বাংলাদেশ",
-    phone: "০১৭২৪৬২১৬২৮",
-    email: "penchulhighschool2014@gmail.com",
-    totalStudents: "২৪৩",
-    totalTeachers: "১২",
-    facilities: [
-      {
-        icon: BookOpen,
-        title: "আধুনিক লাইব্রেরি",
-        description: "১০০+ বই সহ ডিজিটাল লাইব্রেরি",
-      },
-      {
-        icon: Users,
-        title: "বিজ্ঞান গবেষণাগার",
-        description: "পদার্থ, রসায়ন ও জীববিজ্ঞান ল্যাব",
-      },
-      {
-        icon: Award,
-        title: "খেলাধুলা কমপ্লেক্স",
-        description: "ইনডোর ও আউটডোর খেলার সুবিধা",
-      },
-      {
-        icon: Clock,
-        title: "কম্পিউটার ল্যাব",
-        description: "কম্পিউটার ল্যাবের মাধ্যমে প্রাকটিক্যাল ক্লাস।",
-      },
-    ],
-    achievements: [
-      "জাতীয় শিক্ষা পুরস্কার - ২০২০",
-      "সেরা বিদ্যালয় পুরস্কার - ২০১৯",
-      "পরিবেশ বান্ধব বিদ্যালয় সার্টিফিকেট",
-      "ডিজিটাল বাংলাদেশ পুরস্কার - ২০২১",
-    ],
-  };
-
   const apiUrl = import.meta.env.VITE_API_URL;
-  const instituteCode = "PHS";
-  // useEffect(() => {
-  //   axios.get(`/api/institute/12345/`).then((res) => {
-  //     setSchool(res.data);
-  //   });
-  // }, []);
+  const instituteCode = import.meta.env.VITE_INSTITUTE_CODE;
 
   useEffect(() => {
     axios
-      .get(`${apiUrl}/institute/${instituteCode}/`, {
+      .get(`${apiUrl}/institute-details/${instituteCode}/public/`, {
         withCredentials: true,
       })
       .then((res) => {
         setSchool(res.data);
-        console.log("instituteInfo: ", res.data);
+        // console.log("instituteInfo: ", res.data);
       })
       .catch((err) => console.error("Institute fetch error:", err));
   }, []);
 
   if (!school) return <p>Loading...</p>;
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 mt-16">
+    <div className="min-h-screen mt-8 2xl:max-w-[1280px] 2xl:min-w-[1280px]">
       {/* Hero Section */}
-      <div className="relative h-96 lg:h-[500px] overflow-hidden">
-        <img
-          src={schoolData.heroImage}
-          alt={instituteInfo?.name}
-          className="w-full h-full object-cover"
-        />
+      <div className="relative lg:!max-w-6xl 2xl:max-w-[1280px] 2xl:min-w-[1280px] overflow-hidden">
+        {school.heading_background_image_cropped_url && (
+          <img
+            src={school.heading_background_image_cropped_url}
+            alt={instituteInfo?.name}
+            className="w-full h-full object-cover"
+          />
+        )}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/5 to-transparent"></div>
 
         <div className="absolute bottom-0 left-0 right-0 p-8">
@@ -116,44 +76,19 @@ const HistoryPage = () => {
         </div>
       </div>
 
-      {/* Quick Info Bar */}
-      <div className="bg-white shadow-lg border-t-4 border-blue-500">
-        <div className="max-w-6xl mx-auto px-8 py-6">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-            <div className="flex flex-col items-center">
-              <Calendar className="text-blue-500 mb-2" size={24} />
-              <span className="font-semibold text-gray-900">প্রতিষ্ঠিত</span>
-              <span className="text-gray-600"> ১৯৭৬ </span>
-            </div>
-            <div className="flex flex-col items-center">
-              <Users className="text-green-500 mb-2" size={24} />
-              <span className="font-semibold text-gray-900">শিক্ষার্থী</span>
-              <span className="text-gray-600"> ২৭০০+ </span>
-            </div>
-            <div className="flex flex-col items-center">
-              <BookOpen className="text-purple-500 mb-2" size={24} />
-              <span className="font-semibold text-gray-900">শিক্ষক</span>
-              <span className="text-gray-600"> ৬০+ </span>
-            </div>
-            <div className="flex flex-col items-center">
-              <MapPin className="text-red-500 mb-2" size={24} />
-              <span className="font-semibold text-gray-900">অবস্থান</span>
-              <span className="text-gray-600">{instituteInfo?.address}</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <InstituteSummary school={school} instituteInfo={instituteInfo} />
 
       {/* Main Content */}
       {/* <div className="max-w-6xl mx-auto px-3 md:px-32 py-12"> */}
-        <div className="max-w-6xl mx-auto px-3 md:px-8 py-12">
-      {/* <div className="max-w-6xl mx-auto px-8 py-12"> */}
+      <div className="max-w-6xl 2xl:max-w-full mx-auto  py-8">
+        {/* <div className="max-w-6xl mx-auto px-8 py-12"> */}
         {/* Introduction Section */}
         {school.introduction && (
           <HistoryContentSection
             title={school.introduction.title}
             content={school.introduction.content}
-            image_url={school.introduction.image_url}
+            image_url={school.introduction.image_cropped_url}
+            // image_url={school.introduction.image_url}
             show_image={school.introduction.show_image}
             sectionKey="introduction"
           />
@@ -163,11 +98,11 @@ const HistoryPage = () => {
           <HistoryContentSection
             title={school.history.title}
             content={school.history.content}
-            image_url={school.history.image_url}
+            image_url={school.history.image_cropped_url}
             show_image={school.history.show_image}
             sectionKey="introduction"
           />
-        )} 
+        )}
 
         {/* Facilities Section */}
         <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8 hover:shadow-xl transition-all duration-300">
@@ -176,26 +111,40 @@ const HistoryPage = () => {
               আমাদের সুবিধাসমূহ
             </h2>
             <div className="grid md:grid-cols-2 gap-6">
-              {school.facilities && school.facilities.map((facility, index) => {
-                const IconComponent = Icons[facility.icon] || Icons.HelpCircle;
+              {school.facilities &&
+                school.facilities.map((facility, index) => {
+                  const IconComponent =
+                    Icons[facility.icon] || Icons.HelpCircle;
 
-                return (
-                  <div
-                    key={index}
-                    className="flex items-start space-x-4 p-6 bg-gradient-to-r from-gray-50 to-white rounded-xl border border-gray-200 hover:shadow-md transition-all duration-300"
-                  >
-                    <div className="bg-blue-100 p-3 rounded-full">
-                      <IconComponent className="text-blue-600" size={24} />
+                  return (
+                    <div
+                      key={index}
+                      className="flex items-start space-x-4 p-6 bg-gradient-to-r from-gray-50 to-white rounded-xl border border-gray-200 hover:shadow-md transition-all duration-300"
+                    >
+                      <div className="bg-blue-100 p-3 rounded-full">
+                        <IconComponent className="text-blue-600" size={24} />
+                      </div>
+                      <div className="flex justify-between  w-full">
+                        <div>
+                          <h3 className="font-semibold text-gray-900 mb-2">
+                            {facility.title}
+                          </h3>
+                          <p className="text-gray-600 p-0 m-0">
+                            {facility.description}
+                          </p>
+                        </div>
+
+                        <div className="max-w-[80px] rounded-xl">
+                          {/* <img className="max-w-[80px] rounded-xl" src={facility.image_cropped_url} alt="" /> */}
+                          <ImageModal
+                            image={facility.image_cropped_url}
+                            fullImage={facility.image_url}
+                          />
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <h3 className="font-semibold text-gray-900 mb-2">
-                        {facility.title}
-                      </h3>
-                      <p className="text-gray-600">{facility.description}</p>
-                    </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             </div>
           </div>
         </div>

@@ -746,7 +746,18 @@ class SubjectForResult(models.Model):
             # ////////////////////////////////////////////////////////////////////////////
             #//////////////////// +1 if total marks of combile subject 159 /////////////
             # ////////////////////////////////////////////////////////////////////////////
-            total_marks = 160 if total_marks == 159 else total_marks
+            # total_marks = 160 if total_marks == 159 else total_marks
+            
+            # Fetch adjustment from DB
+            from django.core.cache import cache
+            adjustment_rules = cache.get_or_set(
+                "marks_adjustment_rules",
+                lambda: dict(MarksAdjustment.objects.values_list("target_marks", "adjustment")),
+                300  # cache for 5 minutes
+            )
+
+            if total_marks in adjustment_rules:
+                total_marks += adjustment_rules[total_marks]
             # //////////////////////////////////////////////////////////////////////////////////
             # //////////////////////////////////////////////////////////////////////////////////
             return total_marks
@@ -776,7 +787,17 @@ class SubjectForResult(models.Model):
                 # ////////////////////////////////////////////////////////////////////////////
                 #//////////////////// +1 if total marks of combile subject 159 /////////////
                 # ////////////////////////////////////////////////////////////////////////////
-                total_marks =  160 if total_marks == 159 else total_marks
+                # total_marks =  160 if total_marks == 159 else total_marks
+                # Fetch adjustment from DB
+                from django.core.cache import cache
+                adjustment_rules = cache.get_or_set(
+                    "marks_adjustment_rules",
+                    lambda: dict(MarksAdjustment.objects.values_list("target_marks", "adjustment")),
+                    300  # cache for 5 minutes
+                )
+
+                if total_marks in adjustment_rules:
+                    total_marks += adjustment_rules[total_marks]
                 # ////////////////////////////////////////////////////////////////////////////
                 # ////////////////////////////////////////////////////////////////////////////
                 # Full marks of subjects
@@ -956,3 +977,13 @@ class SubjectHighestMarks(models.Model):
         """String representation of the highest marks record."""
         return f"{self.subject} - {self.highest_marks} (Section: {self.section})"
 
+class MarksAdjustment(models.Model):
+    target_marks = models.IntegerField(unique=True, help_text="When total marks equals this value...")
+    adjustment = models.IntegerField(default=0, help_text="...add this many marks")
+
+    class Meta:
+        verbose_name = "Marks Adjustment"
+        verbose_name_plural = "05 Marks Adjustments"
+
+    def __str__(self):
+        return f"{self.target_marks} → +{self.adjustment}"

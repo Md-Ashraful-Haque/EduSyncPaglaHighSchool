@@ -1,6 +1,9 @@
-from django.urls import path
+from django.urls import path,include
 from .views import SubmitMarksBySubjectView,ReturnSavedMarksByStudentRoll, ResultAPIView, GenerateResult,ReturnAllTypesSavedMarksByStudentRoll
-from .views import SubmitMultipleMarkTypesBySubjectView, ResultSummaryAPIView,AdmitCard
+from .views import SubmitMultipleMarkTypesBySubjectView, ResultSummaryAPIView,AdmitCard,MarksAdjustmentViewSet
+from rest_framework.routers import DefaultRouter
+router = DefaultRouter()
+router.register(r'marks-adjustments', MarksAdjustmentViewSet, basename='marksadjustment')
 
 urlpatterns = [
     path('submit-marks-by-subject/', SubmitMarksBySubjectView.as_view(), name='submit-marks-by-subject'),
@@ -11,4 +14,6 @@ urlpatterns = [
     path('show-result/', ResultAPIView.as_view(), name='show-result'),
     path('result-summary/', ResultSummaryAPIView.as_view(), name='result-summary'),
     path('download-admit-card/', AdmitCard.as_view(), name='admit-card'),
+    # path('marks-adjustments/', MarksAdjustmentViewSet.as_view({'get': 'list'}), name='marks-adjustments'),
+    path('', include(router.urls)),
 ]

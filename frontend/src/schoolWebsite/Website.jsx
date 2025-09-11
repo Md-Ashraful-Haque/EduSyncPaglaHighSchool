@@ -39,7 +39,7 @@ const Website = () => {
     .then((data) => {
       if (data.results && data.results.length > 0) {
         setCard(data.results);
-        console.log("data.results: ", data.results);
+        // console.log("data.results: ", data.results);
       }
     })
     .catch((err) => console.error("Failed to fetch:", err));
@@ -48,38 +48,26 @@ const Website = () => {
 
   return (
     <WebsiteContextAPIProvider>
-      {/* Optional: <Header /> */}
+      {/* Optional:  */}
+      {/* <Header /> */}
       <Menu />
-
-      {/* ✅ Logout/Back-to-login button at top-right */}
-      {/* <div className="text-end px-4 py-2">
-        <button
-          onClick={() => navigate("/")}
-          className="btn btn-outline-primary"
-        >
-          Back to Login
-        </button>
-      </div> */}
-
+      
       <div className="slider-container">
         <SliderHeadline />
         <SliderCarousel />
       </div>
 
       <RecentBulletin />
+      
       <div className="container">
         <div className="site-container">
           <RecentNotice />
+
           <div className="row">
             <div className="col-sm-12 col-md-9">
-              <HistoryOfInstitute />
-              {/* ///////////////////////////////////// */}
-              {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative !items-stretch py-4">
-                
-                {cards.map((card) => (
-                  <CardItem key={card.id} card={card} />
-                ))} 
-              </div> */}
+              
+              <HistoryOfInstitute /> 
+
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-4">
                 {cards.map((card) => (

@@ -35,6 +35,7 @@ const ManagingCommittee = () => {
           // setHistory(data);
           // console.log("data[0]: ", data[0])
           setCommittees(data);
+          // console.log("Managing Committee: ", data);
           // setCommittees(data[0]);
         }
       })

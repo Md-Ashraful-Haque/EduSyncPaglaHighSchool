@@ -21,10 +21,10 @@ const TeacherCard = ({ teacher }) => {
       {/* <div className="team-grid"> */}
       <div className="teacher-card">
         <div className="teacher-image">
-          {teacher.picture_url ? (
+          {teacher.picture_cropped_url ? (
             // <img src={teacher.picture_url} alt={teacher.name} />
             <img
-              src={teacher.picture_url}
+              src={teacher.picture_cropped_url}
               alt={teacher.name}
               onError={(e) => {
                 e.target.onerror = null; // prevent infinite loop in case placeholder also fails

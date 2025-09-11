@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
+import MinimalAnimatedButton from "Components/buttons/MinimalAnimatedButton.jsx";
+
 const HistoryContentSection = ({
   title,
   content,
@@ -12,7 +14,9 @@ const HistoryContentSection = ({
   const isExpanded = expandedSections[sectionKey];
 
   // Split content into paragraphs by <br> or \n
-  const paragraphs = content.split(/<br>|\n/).filter((para) => para.trim() !== '');
+  const paragraphs = content
+    .split(/<br>|\n/)
+    .filter((para) => para.trim() !== "");
 
   // Truncation logic: Accumulate paragraphs up to 450 characters
   let charCount = 0;
@@ -51,49 +55,37 @@ const HistoryContentSection = ({
         <h2 className="text-3xl font-bold text-gray-900 mb-6 border-b-2 border-blue-500 pb-2">
           {title}
         </h2>
-
-        <div className="flex flex-col lg:flex-row gap-8">
+        <div className="relative">
           {show_image && image_url && (
-            <div className="lg:w-1/3">
+            <div className="float-left mr-6 mb-4 w-80">
               <div className="rounded-xl overflow-hidden shadow-md">
                 <img
                   src={image_url}
                   alt={title || "History Image"}
                   className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
-                  onError={(e) => console.error("Image failed to load:", image_url)}
+                  onError={(e) =>
+                    console.error("Image failed to load:", image_url)
+                  }
                 />
               </div>
             </div>
           )}
 
-          <div className={`${show_image && image_url ? "lg:w-2/3" : "w-full"}`}>
-            <div className="text-gray-700 leading-relaxed text-lg mb-6">
-              {displayParagraphs.map((paragraph, index) => (
-                <p key={index} className="mb-4">
-                  {paragraph.trim()}
-                </p>
-              ))}
-            </div>
-
-            {shouldTruncate && (
-              <button
-                onClick={() => toggleSection(sectionKey)}
-                className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-semibold rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
-              >
-                {isExpanded ? (
-                  <>
-                    <ChevronUp className="mr-2" size={20} />
-                    কম দেখুন
-                  </>
-                ) : (
-                  <>
-                    <ChevronDown className="mr-2" size={20} />
-                    বিস্তারিত
-                  </>
-                )}
-              </button>
-            )}
+          <div className="text-gray-700 leading-relaxed text-lg">
+            {displayParagraphs.map((paragraph, index) => (
+              <p key={index} className="mb-4 text-justify">
+                {paragraph.trim()}
+              </p>
+            ))}
           </div>
+
+          {shouldTruncate && (
+            <MinimalAnimatedButton
+              toggleSection={toggleSection}
+              buttonAction={sectionKey}
+              isExpanded={isExpanded}
+            />
+          )}
         </div>
       </div>
     </div>

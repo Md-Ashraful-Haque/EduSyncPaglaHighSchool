@@ -5,7 +5,7 @@
 # from datetime import timezone
 from django.utils import timezone
 from django.db.models import IntegerField, Case, When, Value
-
+from rest_framework.permissions import AllowAny
 from django.db.models.functions import Cast
 from core.utils import debug
 from django.db.models import Count, Q, Avg, Max, Min 
@@ -14,6 +14,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.shortcuts import get_object_or_404
 from .serializers import StudentSubjectResultSerializer, ResultSerializer, SubjectHighestMarksSerializer, SubjectForResultSerializer,StudentSerializer
+from .serializers import MarksAdjustmentSerializer
 from ims_01_institute.serializers import InstituteSerializer
 from core.utils import getUserProfile
 from ims_01_institute.models import Institute, Year, Class, MarkTypeForSubject
@@ -25,6 +26,9 @@ from ims_02_account.models import Student
 
 from collections import defaultdict
 from ims_02_account.utils import  IsStaffUser
+
+from rest_framework.viewsets import ReadOnlyModelViewSet
+from .models import MarksAdjustment 
 
 from .utils import generate_result_year_wise, generate_result_class_wise
 
@@ -1017,3 +1021,9 @@ class AdmitCard(APIView):
         }
         return Response(response_data)
 
+
+
+class MarksAdjustmentViewSet(ReadOnlyModelViewSet):
+    permission_classes = [IsAuthenticated]
+    queryset = MarksAdjustment.objects.all()
+    serializer_class = MarksAdjustmentSerializer

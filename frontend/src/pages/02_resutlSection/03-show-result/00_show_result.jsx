@@ -30,7 +30,7 @@ const EnterMarksBySubject = () => {
 
 
 
-  console.log("results: ", results);
+  // console.log("results: ", results);
 
   const [resultOption, setResultOption] = useState({
     year: true,

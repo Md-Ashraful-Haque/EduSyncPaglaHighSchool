@@ -1,0 +1,82 @@
+@use "sass-mq"as *;
+@use "mainSCSS/color.scss"as *;
+
+.history-of-institute {
+  & {
+    border: 1px solid $gray-90-color;
+    padding: 16px;
+    display: flex;
+  }
+
+  
+
+  .institute-image {
+
+    img {
+      width: 100%;
+      border-radius: 8px;
+    }
+  }
+
+
+
+  .history-text {
+    @media screen and (max-width: 992px) {
+      // border: 1px solid red !important;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    p {
+      & {
+        padding: 8px;
+      }
+
+      @media screen and (max-width: 992px) {
+        margin-top: 8px;
+      }
+
+      &.truncate-multiline-5 {
+        text-align: justify;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 5; // ⬅️ Show only first 5 lines
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: normal;
+        line-height: 1.6; // optional: control line spacing
+        max-height: calc(1.6em * 5); // optional fallback
+      }
+
+    }
+
+    .details-btn {
+      margin-top: 8px;
+    }
+  }
+}
+
+.history-full-window {
+  & {
+    padding: 64px;
+    text-align: justify;
+  }
+
+  @media screen and (max-width: 992px) {
+    padding: 16px;
+    margin-bottom: 48px;
+  }
+
+  .history-text {
+    @media screen and (max-width: 992px) {
+      // border: 1px solid red !important;
+      margin-top: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}

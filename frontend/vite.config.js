@@ -55,6 +55,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'), // Shortcut for 'src'
       'FormFields': path.resolve(__dirname, './src/utils/formFieldsData/FormFields'), // Alias for FormFields
       'ContextAPI': path.resolve(__dirname, './src/ContextAPI'),
+      'Components': path.resolve(__dirname, './src/components'),
       'LoadingComponent': path.resolve(__dirname, './src/components'),
       'Utils': path.resolve(__dirname, './src/utils'),
       'pageComponents': path.resolve(__dirname, './src/pages/00-page-components'),

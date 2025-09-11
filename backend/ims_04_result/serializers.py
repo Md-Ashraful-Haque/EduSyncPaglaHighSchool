@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import StudentSubjectResult,SubjectForResult, TypewiseMarksForSubject, SubjectHighestMarks
+from .models import MarksAdjustment
 from ims_01_institute.models import Group
 
 from ims_02_account.models import Student
@@ -63,6 +64,7 @@ class TypewiseMarksSerializer(serializers.ModelSerializer):
 
 class SubjectForResultSerializer(serializers.ModelSerializer):
     id = serializers.CharField(source='subject.id')
+    subject_code = serializers.CharField(source='subject.subject_name.code')
     subject_name = serializers.CharField(source='subject.subject_name.name')
     subject_name_bangla = serializers.CharField(source='subject.subject_name.name_bengali')
     full_marks = serializers.CharField(source='subject.full_marks')
@@ -79,7 +81,7 @@ class SubjectForResultSerializer(serializers.ModelSerializer):
     class Meta:
         model = SubjectForResult
         fields = [
-            'id','subject_name', 'subject_name_bangla','full_marks', 'pass_marks',
+            'id','subject_code','subject_name', 'subject_name_bangla','full_marks', 'pass_marks',
             'total_marks','combined_total_marks', 'grade_and_point','grade_and_point_tabu', 'marks','is_optional','is_displayed_on_marksheet','is_combined',
         ]
 
@@ -123,3 +125,8 @@ class GroupResultSerializer(serializers.ModelSerializer):
         # This would contain the calculated statistics
         # Implementation depends on your specific requirements
         return {}
+
+class MarksAdjustmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MarksAdjustment
+        fields = ["target_marks", "adjustment"]

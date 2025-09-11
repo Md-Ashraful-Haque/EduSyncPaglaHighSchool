@@ -103,6 +103,7 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'image_cropping',
     'django_filters',
+    "django_cleanup.apps.CleanupConfig", # Delete picture automatically when user delete record from database using admin panel
 ]
 
 MIDDLEWARE = [

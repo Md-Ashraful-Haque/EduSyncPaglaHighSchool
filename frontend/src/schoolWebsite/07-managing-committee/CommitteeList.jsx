@@ -57,7 +57,7 @@ const CommitteeList = ({ committees }) => {
             <div
               className="committee-bg-image"
               style={{
-                backgroundImage: `url(${committee.image_url})`,
+                backgroundImage: `url(${committee.image_cropped_url})`,
               }}
             ></div>
             <div className="name">{committee.name}</div>

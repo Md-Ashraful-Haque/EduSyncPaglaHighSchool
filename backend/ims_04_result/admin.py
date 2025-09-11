@@ -1,6 +1,6 @@
 
 from django.contrib import admin
-from .models import StudentSubjectResult, SubjectForResult, TypewiseMarksForSubject, SubjectHighestMarks
+from .models import StudentSubjectResult, SubjectForResult, TypewiseMarksForSubject, SubjectHighestMarks,MarksAdjustment
 # from .models import StudentSubjectResult, MarksForType, SubjectForResult, TypewiseMarksForSubject
 
 
@@ -178,3 +178,10 @@ class SubjectHighestMarksAdmin(admin.ModelAdmin):
         Optimize queryset to reduce database queries.
         """
         return super().get_queryset(request).select_related('subject', 'section')
+
+@admin.register(MarksAdjustment)
+class MarksAdjustmentAdmin(admin.ModelAdmin):
+    list_display = ("target_marks", "adjustment")
+    list_editable = ("adjustment",)  # allow inline editing of adjustment
+    search_fields = ("target_marks",)
+    ordering = ("target_marks",)

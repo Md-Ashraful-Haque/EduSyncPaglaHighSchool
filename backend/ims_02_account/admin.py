@@ -1,3 +1,4 @@
+from image_cropping import ImageCroppingMixin 
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django_admin_inline_paginator.admin import TabularInlinePaginated
@@ -58,20 +59,21 @@ class TeacherSubjectAssignmentInline(admin.TabularInline):  # or TabularInlinePa
 
 
 # ✅ Admin for Teacher
+# class TeacherAdmin(admin.ModelAdmin):
 @admin.register(Teacher)
-class TeacherAdmin(admin.ModelAdmin):
+class TeacherAdmin(ImageCroppingMixin, admin.ModelAdmin):
     search_fields = ['name', 'phone_number', 'institute__name']
     list_filter = ['institute']
     list_display = [
         'name', 'designation', 'major_subject','phone_number', 'institute',
-        'section', 'blood_group', 'is_visible'
+        'section', 'blood_group', 'is_visible','is_whatsapp'
     ]
 
     fieldsets = [
         ("Basic Information", {
             'fields': [
-                'institute', 'user', 'name', 'designation', 'major_subject',
-                'phone_number', 'email', 'password',
+                'institute', 'user', 'name','bangla_name', 'designation', 'major_subject',
+                'phone_number','is_whatsapp', 'email', 'password',
                 'dob',
                 'joining_date',
                 'indexing_of_mpo',
@@ -90,7 +92,12 @@ class TeacherAdmin(admin.ModelAdmin):
             'fields': ['allow_all_subject','allow_students_info','only_marks_input', 'allow_result_processing']
         }),
         ("Media", {
-            'fields': ['picture', 'signature']
+            "fields": (
+                "picture",
+                "picture_cropped",
+                "signature",
+                "signature_cropped",
+            )
         }),
         ("Timestamps", {
             'fields': ['created_at', 'updated_at'],
