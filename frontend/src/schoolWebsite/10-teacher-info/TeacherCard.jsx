@@ -53,7 +53,7 @@ const TeacherCard = ({ teacher }) => {
               setIsModalOpen(true);
             }}
           >
-            বিস্তারি
+            বিস্তারিত
           </div>
         </div>
       </div>

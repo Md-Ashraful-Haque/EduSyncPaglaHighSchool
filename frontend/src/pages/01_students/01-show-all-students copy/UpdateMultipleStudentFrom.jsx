@@ -96,9 +96,9 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
         formData // ✅ send as FormData
       );
 
-      // console.log("=========================================");
-      // console.log("response: ", response);
-      // console.log("=========================================");
+      console.log("=========================================");
+      console.log("response: ", response);
+      console.log("=========================================");
 
       // --- 3. Handle response ---
       setFailedToSave(response.failed_students_index || []);

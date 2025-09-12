@@ -15,7 +15,7 @@ from django.dispatch import receiver
 from core.utils import create_user_for_profile
 import uuid
 from image_cropping import ImageCropField, ImageRatioField
-from backend.utils import safe_upload_to_teacher_picture, safe_upload_to_teacher_signature
+from backend.utils import safe_upload_to_teacher_picture, safe_upload_to_teacher_signature,safe_upload_to_student_pictures
 
 class User(AbstractUser):
     groups = models.ManyToManyField(
@@ -292,7 +292,10 @@ class Student(models.Model):
     phone_number = models.CharField(max_length=15, unique=True, blank=True)
     guardian_mobile_number = models.CharField(max_length=15, blank=True)
     address = models.TextField(blank=True)
-    picture = models.ImageField(upload_to="student_images/", null=True, blank=True)
+    # picture = models.ImageField(upload_to="student_images/", null=True, blank=True)
+    
+    picture = ImageCropField(upload_to=safe_upload_to_student_pictures, blank=True, null=True)
+    picture_cropped = ImageRatioField('picture', '300x380')    
 
     def __str__(self):
         return f"{self.name} "
@@ -412,7 +415,7 @@ class Staff(models.Model):
 @receiver(post_save, sender=Staff)
 def auto_create_user(sender, instance, created, **kwargs):
     if created and not instance.user:
-        print("signal called.")
+        # print("signal called.")
         # password = make_password(instance.password)  # Hash the password
         create_user_for_profile(instance)
 
@@ -425,3 +428,5 @@ def auto_create_user(sender, instance, created, **kwargs):
 def delete_user_on_admin_delete(sender, instance, **kwargs):
     if instance.user:
         instance.user.delete()
+
+

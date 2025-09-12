@@ -29,7 +29,7 @@ const initialStudent = {
   showPassword: false, // 👈 New field
 };
 
-const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
+const AddStudentForm = ({ setIsModalOpen }) => {
   const { createNewAccessToken } = useAppContext();
 
   const { bySubjectVars, updateBySubjectVars } =
@@ -92,7 +92,7 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
 
       const response = await saveFormData(
         createNewAccessToken,
-        "update-students",
+        "save-students",
         formData // ✅ send as FormData
       );
 
@@ -105,7 +105,7 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
 
       if (response.success) {
         toast.success(
-          `${response.updated_count} জন শিক্ষার্থীর ডাটা আপডেট করা হয়েছে।`,
+          `${response.inserted_count} জন শিক্ষার্থীর ডাটা সংরক্ষণ করা হয়েছে।`,
           {
             position: "top-center",
             autoClose: 2000,
@@ -123,7 +123,7 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
         response.failed_students_index.length > 0
       ) {
         toast.error(
-          `এই সারির শিক্ষার্থীর ডাটা আপডেট করা যায়নি।: ${response.failed_students_index.join(
+          `এই সারির মোবাইল নম্বরগুলি ইতিমধ্যে ব্যবহৃত হচ্ছে: ${response.failed_students_index.join(
             ", "
           )}`,
           {
@@ -137,7 +137,26 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
           }
         );
       }
-      
+
+      if (
+        response.existing_roll_and_section_students_index &&
+        response.existing_roll_and_section_students_index.length > 0
+      ) {
+        toast.error(
+          `এই সারির Roll নম্বরগুলি ইতিমধ্যে ব্যবহৃত হচ্ছে: ${response.data.existing_roll_and_section_students_index.join(
+            ", "
+          )}`,
+          {
+            position: "top-center",
+            autoClose: 10000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
+      }
 
     } catch (err) {
       // console.log("=========================================");
@@ -153,7 +172,7 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
 
       if (err.response.data.success) {
         toast.success(
-          `${err.response.data.updated_count} জন শিক্ষার্থীর ডাটা সংরক্ষণ করা হয়েছে।`,
+          `${err.response.data.inserted_count} জন শিক্ষার্থীর ডাটা সংরক্ষণ করা হয়েছে।`,
           {
             position: "top-center",
             autoClose: 2000,
@@ -171,7 +190,7 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
         err.response.data.failed_students_index.length > 0
       ) {
         toast.error(
-          `এই সারির শিক্ষার্থীর ডাটা আপডেট করা যায়নি।:: ${err.response.data.failed_students_index.join(
+          `এই সারির মোবাইল নম্বরগুলি ইতিমধ্যে ব্যবহৃত হচ্ছে: ${err.response.data.failed_students_index.join(
             ", "
           )}`,
           {
@@ -184,7 +203,29 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
             progress: undefined,
           }
         );
-      } 
+      }
+
+      
+
+      if (
+        err.response.data.existing_roll_and_section_students_index &&
+        err.response.data.existing_roll_and_section_students_index.length > 0
+      ) {
+        toast.error(
+          `এই সারির Roll নম্বরগুলি ইতিমধ্যে ব্যবহৃত হচ্ছে: ${err.response.data.existing_roll_and_section_students_index.join(
+            ", "
+          )}`,
+          {
+            position: "top-center",
+            autoClose: 10000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
+      }
       // setIsModalOpen(false);
     } finally {
       setIsLoading(false);
@@ -212,28 +253,22 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
         row.forEach((value, index) => {
           const key = headers[index];
           const val = value.trim();
+          // console.log("val: ", val); 
+          // console.log(key,"===dob: ", key==="dob");
 
-          
-
-          console.log("val: ", val);
-
-        if (key === "roll") student.roll_number = val;
-        else if (key === "name") student.name = val;
-        else if (key === "name bangla") student.name_bangla = val;
-        else if (key === "dob") {
-          // const date = "2009/01/02";
-          const formattedDate = val.replace(/\//g, "-");
-          student.dob = formattedDate;
-        }
-        else if (key === "father's name") student.fathers_name = val;
-        else if (key === "mother's name") student.mothers_name = val;
-        else if (key === "mobile") student.phone_number = val;
-        else if (key === "brn") student.nid = val;
-        else if (key === "picture") student.picture = null;
-        else if (key === "password") student.password = val;
-        else if (key === "email") student.email = val; 
-        else if (key === "guardian mobile") student.guardian_mobile_number = val;
-        else if (key === "address") student.address = val;
+          if (key === "roll") student.roll_number = val;
+          else if (key === "name") student.name = val;
+          else if (key === "name bangla") student.name_bangla = val;
+          else if (key === "dob") student.dob = val;
+          else if (key === "father's name") student.fathers_name = val;
+          else if (key === "mother's name") student.mothers_name = val;
+          else if (key === "mobile") student.phone_number = val;
+          else if (key === "brn") student.nid = val;
+          else if (key === "picture") student.picture = null;
+          else if (key === "password") student.password = val;
+          else if (key === "email") student.email = val; 
+          else if (key === "guardian mobile") student.guardian_mobile_number = val;
+          else if (key === "address") student.address = val;
         });
 
         // // ✅ Check: skip if roll_number is not numeric
@@ -275,21 +310,9 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
 
   return (
     <div className="add-student-form">
-      <h4 className=" font-extrabold text-center bg-gradient-to-r from-blue-100 via-purple-100 to-pink-900 bg-clip-text text-transparent tracking-wide">
-        Update Student Form
+      <h4 className="text-3xl font-extrabold text-center bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 bg-clip-text text-transparent tracking-wide">
+        Add New Student Form
       </h4>
-
-      {/* <h4 style={{
-        fontSize: '20px',
-        fontFamily: '"SolaimanLipi", sans-serif',
-        fontWeight: 500,
-        background: 'linear-gradient(to right, #0b002f, #1E33F2)',
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
-        textAlign: 'center'
-      }}>
-        Update Student Form
-      </h4> */} 
       <form onSubmit={saveStudents}>
         <div className="data-selector-form">
           <div className="container-fluid">
@@ -371,9 +394,11 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
                 {insertStudents.map((student, index) => (
                   <tr
                     key={index}
-                    className={`border-t  ${
-                      failedToSave.includes(index + 1) ? "bg-red-200" : ""
-                    }`}
+                    className={`border-t ${
+                      index % 2 === 0 ? "" : "bg-gray-300/30"
+                    } ${
+                      failedToSave.includes(index + 1) ? "!bg-red-200" : ""
+                    }  `}
                   >
                     {/* Roll Number */}
                     <td>
@@ -466,7 +491,13 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
                     </td>
 
                     {/* Mobile Number*/}
-                    <td>
+                    <td
+                      className={`${
+                        failedToSave.includes(index + 1)
+                          ? "text-red-900 text-lg  !bg-red-100"
+                          : ""
+                      }`}
+                    >
                       <input
                         type="text"
                         value={student.phone_number}
@@ -645,7 +676,7 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
   );
 };
 
-UpdateMultipleStudentFrom.propTypes = {
+AddStudentForm.propTypes = {
   insertStudents: PropTypes.array.isRequired,
   failedToSave: PropTypes.array.isRequired,
   handleStudentChange: PropTypes.func.isRequired,
@@ -657,4 +688,4 @@ UpdateMultipleStudentFrom.propTypes = {
   handleChange: PropTypes.func.isRequired,
 };
 
-export default UpdateMultipleStudentFrom;
+export default AddStudentForm;

@@ -632,3 +632,47 @@ class ContactCard(models.Model):
     def __str__(self):
         return f"{self.contact_person} ({self.title or 'card'})"
 
+
+# ///////////////////////////////////////////////////////////////////////////////
+# ///////////////////////////////////////////////////////////////////////////////
+# //////////////////////////////// All Signals  /////////////////////////////////
+# ///////////////////////////////////////////////////////////////////////////////
+# from django.db.models.signals import post_delete, pre_save
+# from django.dispatch import receiver
+# from easy_thumbnails.files import get_thumbnailer
+
+# def cleanup_thumbnails(image_field):
+#     """Delete all easy-thumbnails for a given image field."""
+#     if image_field and getattr(image_field, "name", None):
+#         try:
+#             thumbnailer = get_thumbnailer(image_field)
+#             thumbnailer.delete_thumbnails()
+#         except Exception:
+#             pass
+
+# @receiver(post_delete, sender=Slider)
+# @receiver(post_delete, sender=InstituteDetail)
+# @receiver(post_delete, sender=Introduction)
+# @receiver(post_delete, sender=History)
+# @receiver(post_delete, sender=Facility)
+# @receiver(post_delete, sender=ManagingCommittee)
+# def delete_thumbs_on_delete(sender, instance, **kwargs):
+#     cleanup_thumbnails(instance.image)
+
+
+# # Delete thumbnails when image is replaced/cleared
+# @receiver(pre_save, sender=Slider)
+# @receiver(pre_save, sender=InstituteDetail)
+# @receiver(pre_save, sender=Introduction)
+# @receiver(pre_save, sender=History)
+# @receiver(pre_save, sender=Facility)
+# @receiver(pre_save, sender=ManagingCommittee)
+# def delete_thumbs_on_change(sender, instance, **kwargs):
+    if not instance.pk:
+        return
+    try:
+        old = sender.objects.get(pk=instance.pk)
+    except sender.DoesNotExist:
+        return
+    if old.image and old.image != instance.image:
+        cleanup_thumbnails(old.image)

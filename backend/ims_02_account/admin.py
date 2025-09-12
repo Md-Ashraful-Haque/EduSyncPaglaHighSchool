@@ -130,7 +130,7 @@ class TeacherAdmin(ImageCroppingMixin, admin.ModelAdmin):
 
 
 
-class StudentAdmin(admin.ModelAdmin):
+class StudentAdmin(ImageCroppingMixin, admin.ModelAdmin):
     # Fields to enable searching
     search_fields = ['name', 'roll_number', 'phone_number', 'institute__name']
 

@@ -265,6 +265,11 @@ def safe_upload_to_teacher_picture(instance, filename):
     return os.path.join("website/teachers", _make_safe_name(filename))
 
 
+
+def safe_upload_to_student_pictures(instance, filename):
+    return os.path.join("website/student_images", _make_safe_name(filename))
+
+
 def safe_upload_to_teacher_signature(instance, filename):
     return os.path.join("website/teachers-signature", _make_safe_name(filename))
 

@@ -11,14 +11,10 @@ const StudentTableCell = ({ student }) => {
     <>
       <td className="px-2 py-3 border-bottom">
         <div className="flex items-center space-x-3">
-          {/* {(() => {
-            console.log("student:", student);
-            return null;
-          })()} */}
           <img
-            src={student.picture_cropped_url || manPlaceHolderImage}
+            src={student.picture || manPlaceHolderImage}
             alt={`${student.name}'s profile`}
-            className="w-10 h-12 rounded-full object-cover shadow-between cursor-pointer hover:shadow-lg transition-shadow duration-200"
+            className="w-10 h-10 rounded-full object-cover shadow-between cursor-pointer hover:shadow-lg transition-shadow duration-200"
             onClick={openModal}
           />
           <div className="flex flex-col space-y-0.5 w-[200px]">
@@ -51,7 +47,7 @@ const StudentTableCell = ({ student }) => {
               &times;
             </button>
             <img
-              src={student.picture_cropped_url || manPlaceHolderImage }
+              src={student.picture || manPlaceHolderImage }
               alt={`${student.name}'s full profile`}
               className="w-full h-auto max-h-[80vh] object-contain"
             />

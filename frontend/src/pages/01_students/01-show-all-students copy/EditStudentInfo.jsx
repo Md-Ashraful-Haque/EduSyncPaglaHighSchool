@@ -443,9 +443,7 @@ const EditStudentInfo = ({ studentId,closeEditStudentData }) => {
                             name="roll_number"
                             value={formData.roll_number || ""}
                             onChange={handleInputChange}
-                            // required
-                            disabled
-                            readOnly
+                            required
                             placeholder="রোল ইংরেজিতে টাইপ করুন"
                             className="flex-1 px-4 py-3 bg-white text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-0 focus:bg-blue-50/30 transition-colors duration-200"
                           />

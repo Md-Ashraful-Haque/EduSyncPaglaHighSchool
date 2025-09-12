@@ -9,7 +9,8 @@ class StudentSerializer(serializers.ModelSerializer):
         fields = ['id','name','roll_number']  # Include the custom field 
 
 
-class StudentSerializerAllFields(serializers.ModelSerializer):
+# class StudentSerializerAllFields(serializers.ModelSerializer):
+class StudentSerializerAllFields(MultiCroppedImageMixin):
     # year = serializers.CharField(source='year.year')
     class_name = serializers.CharField(source='class_instance.class_name.name_bengali')
     # class_name_in_english = serializers.CharField(source='student.class_instance.class_name.name')
@@ -21,10 +22,14 @@ class StudentSerializerAllFields(serializers.ModelSerializer):
     
     class Meta:
         model = Student
+        image_fields = ["picture", ] #picture_cropped_url picture_url
+        crop_sizes = {
+            "picture": (300, 380),      # portrait ratio 
+        }
         fields = [
             'id', 'institute', 'year', 'class_name', 'group_name_in_bangla', 'section_name_display', 
             'user', 'name', 'name_bangla','fathers_name','mothers_name','nid', 'roll_number', 'student_id', 'dob', 
-            'email', 'phone_number', 'guardian_mobile_number', 'address', 'picture'
+            'email', 'phone_number', 'guardian_mobile_number', 'address', 
         ]
     def get_section_name_display(self, obj):
         return obj.section.section_name.name if obj.section else None
