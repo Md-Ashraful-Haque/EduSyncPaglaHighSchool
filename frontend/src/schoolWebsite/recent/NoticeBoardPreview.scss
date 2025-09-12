@@ -66,7 +66,7 @@
   }
 }
 
-.site-container {
+.site-container { 
   .notice-header {
     // background-color: red;
     background: linear-gradient(-90deg, #138FDE, #006b11);
@@ -91,6 +91,7 @@
       cursor: pointer;
       border: 1px solid $gray-90-color;
       padding: 0;
+      
     }
 
     .notice-row {
@@ -228,6 +229,8 @@
     max-width: 420px;
     min-width: 320px;
     margin: 8px; 
+    font-size: 12px;
+    padding: 1.0rem;
   }
 
   h2 {

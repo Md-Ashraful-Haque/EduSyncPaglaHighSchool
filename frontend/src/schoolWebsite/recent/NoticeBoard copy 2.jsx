@@ -142,11 +142,12 @@ const NoticeBoard = () => {
                     })}
                   </td>
                   <td>
-                    {notice.title}- (
-                    <span style={{ color: "gray" }}> 
-                      {getBanglaAudience(notice.target_audience)}
-                    </span> 
-                    ) 
+                    {notice.title}- ({" "}
+                    <span style={{ color: "gray" }}>
+                      {" "}
+                      {getBanglaAudience(notice.target_audience)}{" "}
+                    </span>{" "}
+                    ){" "}
                   </td>
                   <td>
                     <div
