@@ -114,7 +114,7 @@ const NoticeBoard = () => {
           <option value="noticeboard">নোটিশ বোর্ড</option>
         </select> */}
 
-        <button type="submit">ফিল্টার</button>
+        {/* <button type="submit">ফিল্টার</button> */}
       </form>
 
       {loading ? (

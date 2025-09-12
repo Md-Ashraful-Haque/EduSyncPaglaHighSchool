@@ -21,8 +21,8 @@ const NoticeDetails = ({ notice, onClose }) => {
         </div>
       )} */}
 
-      {notice.attachment && (
-        <NoticeAttachmentPreview attachment={notice.attachment} />
+      {notice.attachment && ( 
+          <NoticeAttachmentPreview attachment={notice.attachment} /> 
       )}
 
 

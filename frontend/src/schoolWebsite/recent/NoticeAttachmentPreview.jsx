@@ -31,7 +31,7 @@ const NoticeAttachmentPreview = ({ attachment }) => {
   // ✅ PDF Preview
   if (isPDFFile(attachment)) {
     return (
-      <div className="mt-4 notice-details-pdf">
+      <div className="mt-4 mb-4 notice-details-pdf">
         <embed
           src={attachment}
           type="application/pdf"

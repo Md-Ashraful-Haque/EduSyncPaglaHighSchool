@@ -151,7 +151,7 @@ const CardItem = ({ card, className }) => {
 
   return (
     <div
-      className={`rounded-lg  border overflow-hidden transform  transition-all duration-300 shadow-sm ${className} bg-gradient-to-br from-white/80 to-gray-100/80`}
+      className={`rounded-lg relative border overflow-hidden transform  transition-all duration-300 shadow-sm ${className} bg-gradient-to-br from-white/80 to-gray-100/80`}
     >
       {/* <div className={`rounded-lg  border overflow-hidden transform  transition-all duration-300 shadow-sm ${className} bg-gradient-to-br from-blue-50 to-gray-100`}> */}
 
@@ -174,7 +174,7 @@ const CardItem = ({ card, className }) => {
 
       {/* Content - Horizontal Layout like original */}
       <div className="p-8 pt-0 h-full ">
-        <div className="flex items-start space-x-8">
+        <div className="flex items-start xl:space-x-8">
           {/* Large Icon Section - Left Side */}
           <div className="flex-shrink-0 relative">
             <div className="absolute z-0 -left-18 -top-25 opacity-50 ">
@@ -259,8 +259,8 @@ const CardItem = ({ card, className }) => {
       {/* </div> */}
 
       {/* Decorative Elements */}
-      <div className="absolute top-10 left-10 w-20 h-20 bg-blue-50 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse"></div>
-      <div className="absolute bottom-10 right-10 w-32 h-32 bg-purple-100 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse animation-delay-2000"></div>
+      <div className="absolute -top-5 -left-5 w-20 h-20 bg-blue-50 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse"></div>
+      <div className="absolute -bottom-5 -right-5 w-32 h-32 bg-purple-100 rounded-full mix-blend-multiply filter blur-xl opacity-10 animate-pulse animation-delay-2000"></div>
 
       {/* {showALlNotice && (
         <FullScreenModal isOpen={isModalOpen} onClose={handleModalClose}> 

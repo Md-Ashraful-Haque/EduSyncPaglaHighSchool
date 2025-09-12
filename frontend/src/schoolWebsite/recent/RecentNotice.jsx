@@ -53,7 +53,7 @@ const NoticeList = () => {
     // updateWebsiteVars('notice',!websiteVars.notice);
   };
   const showAllNotice = () => {
-    console.log("Show all notice" );
+    // console.log("Show all notice" );
     setIsModalOpen(!isModalOpen);
     setShowALlNotice(!showALlNotice);
   };

@@ -51,9 +51,9 @@ const TeacherDetails = ({
     <div className="teacher-card-details bg-gradient-to-br from-green-50 via-green-25 to-transparent">
       <div className="card-header">
         <div className="photo-container">
-          {teacher.picture_url ? (
+          {teacher.picture_cropped_url ? (
             <img
-              src={teacher.picture_url}
+              src={teacher.picture_cropped_url}
               alt={teacher.name}
               onError={(e) => {
                 e.target.onerror = null; // prevent infinite loop in case placeholder also fails

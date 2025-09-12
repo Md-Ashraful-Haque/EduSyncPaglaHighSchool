@@ -11,11 +11,17 @@
     align-items: center;
   }
 
-  @media screen and (max-width: 992px) {
-    margin-top: 12px;
+  @media screen and (max-width: 576px) {
+    margin-top: 12px; 
+    height: initial; 
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column; 
   }
 
-  .recent-bulletin-headin {
+  .recent-bulletin-heading {
     & {
       padding-right: 16px;
       display: flex;
@@ -24,8 +30,11 @@
       height: 100%;
     }
 
-    @media screen and (max-width: 992px) {
-      padding-right: 8px;
+    @media screen and (max-width: 576px) {
+      padding-right: 0px;
+      ine-height: 48px;
+      margin-bottom: 8px;
+      border-bottom: 2px solid rgba(0, 13, 128, 0.9137254902);
     }
 
     h2 {

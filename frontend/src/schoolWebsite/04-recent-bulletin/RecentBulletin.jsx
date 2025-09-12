@@ -188,7 +188,7 @@ const RecentBulletin = () => {
   return (
     <div className="container">
       <div className="slider-separator">
-        <div className="recent-bulletin-headin">
+        <div className="recent-bulletin-heading">
           <h2>সাম্প্রতিক</h2>
         </div>
 

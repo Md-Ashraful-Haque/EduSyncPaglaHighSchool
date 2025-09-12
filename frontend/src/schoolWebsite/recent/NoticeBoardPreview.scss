@@ -118,6 +118,7 @@
           display: flex;
           justify-content: flex-start;
           align-items: center;
+          user-select: none;
         }
 
         @media screen and (max-width: 992px) {
@@ -153,6 +154,7 @@
           justify-content: flex-start;
           align-items: center;
           margin-left: 8px;
+          user-select: none;
         }
 
         span {
@@ -194,15 +196,16 @@
   & {
     // background-color: red;
     padding: 16px;
+    
 
-    border: 10px solid $gray-90-color;
-    border-radius: 12px;
+    // border: 10px solid $gray-90-color;
+    // border-radius: 12px;
 
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 16px;
-  }
+  } 
 
 }
 
@@ -218,6 +221,7 @@
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     font-family: "SolaimanLipi", sans-serif;
+    user-select: none;
   }
 
   @media screen and (max-width: 420px) {
@@ -296,6 +300,7 @@
       justify-content: center;
       align-items: center;
       cursor: pointer;
+      user-select: none;
 
       span {
         margin-left: 8px;
