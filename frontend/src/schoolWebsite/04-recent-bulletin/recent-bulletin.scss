@@ -9,6 +9,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    user-select: none;
   }
 
   @media screen and (max-width: 576px) {
@@ -28,6 +29,7 @@
       justify-content: center;
       align-items: center;
       height: 100%;
+      
     }
 
     @media screen and (max-width: 576px) {

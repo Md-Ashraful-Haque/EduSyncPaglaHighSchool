@@ -8,16 +8,15 @@ import NoticeDetails from "./NoticeDetails";
 
 const getBanglaAudience = (audience) => {
   const map = {
-    all: 'সকল',
-    students: 'শিক্ষার্থী',
-    teachers: 'শিক্ষক',
-    staff: 'কর্মচারি',
-    parents: 'অভিভাবক',
+    all: "সকল",
+    students: "শিক্ষার্থী",
+    teachers: "শিক্ষক",
+    staff: "কর্মচারি",
+    parents: "অভিভাবক",
   };
 
   return map[audience] || audience;
 };
-
 
 const NoticeBoard = () => {
   const [notices, setNotices] = useState([]);
@@ -124,7 +123,7 @@ const NoticeBoard = () => {
           <table>
             <thead>
               <tr>
-                <th>ক্রমিক</th>
+                <th className="hidden md:table-cell" >ক্রমিক</th>
                 <th>তারিখ</th>
                 <th>শিরোনাম</th>
                 <th>বিস্তারিত</th>
@@ -133,7 +132,7 @@ const NoticeBoard = () => {
             <tbody>
               {notices.map((notice, index) => (
                 <tr key={notice.id}>
-                  <td>{(page - 1) * 10 + index + 1}</td>
+                  <td className="hidden md:table-cell">{(page - 1) * 10 + index + 1}</td>
                   <td>
                     {new Date(notice.published_at).toLocaleDateString("bn-BD", {
                       day: "2-digit",
@@ -141,7 +140,14 @@ const NoticeBoard = () => {
                       year: "numeric",
                     })}
                   </td>
-                  <td>{notice.title}- ( <span style={{color: "gray"}}> {getBanglaAudience(notice.target_audience)} </span> ) </td>
+                  <td>
+                    {notice.title}- ({" "}
+                    <span style={{ color: "gray" }}>
+                      {" "}
+                      {getBanglaAudience(notice.target_audience)}{" "}
+                    </span>{" "}
+                    ){" "}
+                  </td>
                   <td>
                     <div
                       className="show-single-notice"

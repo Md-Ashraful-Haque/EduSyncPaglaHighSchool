@@ -224,9 +224,10 @@
     user-select: none;
   }
 
-  @media screen and (max-width: 420px) {
+  @media screen and (max-width: 576px) {
     max-width: 420px;
     min-width: 320px;
+    margin: 8px; 
   }
 
   h2 {
@@ -286,6 +287,10 @@
       padding: 10px;
       border: 1px solid #ddd;
       text-align: left;
+
+      // @media screen and (max-width: 576px) { 
+      //   font-size: 14px;
+      // }
     }
 
 
