@@ -153,7 +153,7 @@ const NoticeBoard = () => {
                       className="show-single-notice"
                       onClick={() => handleNoticeClick(notice.slug)}
                     >
-                      <EyeIcon className="w-5 h-5" />
+                      <EyeIcon className="w-5 h-5 hidden md:block" />
                       <span>দেখুন</span>
                     </div>
                   </td>
