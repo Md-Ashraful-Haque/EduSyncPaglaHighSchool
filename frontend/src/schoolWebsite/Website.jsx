@@ -78,7 +78,7 @@ const Website = () => {
               </div>
 
             </div>
-            <div className="col-sm-12 col-md-3">
+            <div className="col-sm-12 col-md-3 ">
               <ManagingCommittee />
             </div>
           </div>

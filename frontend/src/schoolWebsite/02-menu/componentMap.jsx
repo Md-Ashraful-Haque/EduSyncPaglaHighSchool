@@ -7,6 +7,7 @@ import TeacherInfo from "../10-teacher-info/TeacherInfo";
 
 import HistoryContent from "../06-history-of-institute/HistoryOfInstitute"; 
 import HistoryPage from "../06-history-of-institute/HistoryPage"; 
+import ManagingCommitteePage from '../07-managing-committee/ManagingCommitteePage'
 
 export const componentMap = {
   "contact-address": ContactInfo,
@@ -14,7 +15,7 @@ export const componentMap = {
   "school-history": HistoryPage,
   "number-of-students-studying": StudentStatistics,
   "notices": NoticeBoard,
-  "managing-committee": NoticeBoard,
+  "managing-committee": ManagingCommitteePage,
   "staff": NoticeBoard,
   "photo-gallery": NoticeBoard,
   "video-gallery": NoticeBoard,
@@ -26,6 +27,6 @@ export const componentMap = {
   "admission-information": NoticeBoard,
   "download-admit-card": NoticeBoard,
   "online-admission": NoticeBoard, 
-  "offline-admission-form": NoticeBoard, 
+  "offline-admission-form": NoticeBoard,
   
 };

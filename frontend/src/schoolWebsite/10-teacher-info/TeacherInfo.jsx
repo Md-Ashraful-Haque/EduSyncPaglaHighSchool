@@ -14,7 +14,8 @@ const TeacherInfo = () => {
   const [searchQuery, setSearchQuery] = useState("");
 
   const apiUrl = import.meta.env.VITE_API_URL;
-  const instituteId = "PHS";
+  const instituteId = import.meta.env.VITE_INSTITUTE_CODE;
+  // const instituteId = "PHS";
 
   useEffect(() => {
     axios

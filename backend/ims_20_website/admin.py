@@ -8,7 +8,7 @@ from unidecode import unidecode
 from django.core.exceptions import ValidationError
 from django.contrib import admin
 from .models import InstituteDetail, Introduction, History, Facility, Achievement
-
+from .admin_mixins import InstituteAdminMixin
 
 # admin.site.register(MenuItem, DraggableMPTTAdmin)
 from django.contrib import admin
@@ -16,7 +16,9 @@ from mptt.admin import DraggableMPTTAdmin
 from django.utils.text import slugify
 from .models import MenuItem
 
-
+# ///////////////////////////////////////////////////////////////////////////////
+# //////////////////////////////// MenuItem ////////////////////////////
+# ///////////////////////////////////////////////////////////////////////////////
 @admin.register(MenuItem)
 class MenuItemAdmin(DraggableMPTTAdmin):
     list_display = (
@@ -70,7 +72,9 @@ class MenuItemAdmin(DraggableMPTTAdmin):
             obj.slug = slugify(base, allow_unicode=True)
         super().save_model(request, obj, form, change)
 
-
+# ///////////////////////////////////////////////////////////////////////////////
+# //////////////////////////////// Slider ////////////////////////////
+# ///////////////////////////////////////////////////////////////////////////////
 @admin.register(Slider)
 class SliderAdmin(ImageCroppingMixin, admin.ModelAdmin):
     list_display = ("title", "slide_number", "institute", "image_preview")
@@ -126,7 +130,9 @@ from django.utils.text import slugify
 from django.core.exceptions import ValidationError
 from .models import Notice
 
-
+# ///////////////////////////////////////////////////////////////////////////////
+# //////////////////////////////// Notice ////////////////////////////
+# ///////////////////////////////////////////////////////////////////////////////
 @admin.register(Notice)
 class NoticeAdmin(admin.ModelAdmin):
     list_display = (
@@ -237,76 +243,154 @@ class NoticeAdmin(admin.ModelAdmin):
 
         super().save_model(request, obj, form, change)
 
+# ///////////////////////////////////////////////////////////////////////////////
+# //////////////////////////////// ManagingCommittee ////////////////////////////
+# ///////////////////////////////////////////////////////////////////////////////
+# @admin.register(ManagingCommittee)
+# class ManagingCommitteeAdmin(ImageCroppingMixin, admin.ModelAdmin):
+#     list_display = (
+#         "title",
+#         "name",
+#         "designation",
+#         "institute",
+#         "short_message",
+#         "order",
+#         "image_preview",
+#     )
+#     list_filter = ("designation",)
+#     search_fields = ("title", "name", "designation", "message")
+#     readonly_fields = ("image_preview",)
+#     fields = (
+#         "institute",
+#         "title",
+#         "name",
+#         "show_image_on_sidebar",
+#         "designation",
+#         "image",
+#         "image_cropped",
+#         "message",
+#         "order",
+#         "image_preview",
+#     )
 
-@admin.register(ManagingCommittee)
-class ManagingCommitteeAdmin(ImageCroppingMixin, admin.ModelAdmin):
-    list_display = (
-        "title",
-        "name",
-        "designation",
-        "institute",
-        "short_message",
-        "order",
-        "image_preview",
-    )
-    list_filter = ("designation",)
-    search_fields = ("title", "name", "designation", "message")
-    readonly_fields = ("image_preview",)
+#     def get_queryset(self, request):
+#         qs = super().get_queryset(request)
+#         if request.user.is_superuser:
+#             return qs
+#         return qs.filter(institute=request.user.institute)
+
+#     def get_form(self, request, obj=None, **kwargs):
+#         form = super().get_form(request, obj, **kwargs)
+#         if not request.user.is_superuser:
+#             form.base_fields["institute"].disabled = True
+#             form.base_fields["institute"].required = False
+#         return form
+
+#     def get_changeform_initial_data(self, request):
+#         """Set the default institute for new entries."""
+#         initial = super().get_changeform_initial_data(request)
+#         if not request.user.is_superuser:
+#             initial["institute"] = request.user.institute
+#         return initial
+
+#     def save_model(self, request, obj, form, change):
+#         if not request.user.is_superuser:
+#             obj.institute = request.user.institute
+#         super().save_model(request, obj, form, change)
+
+#     def image_preview(self, obj):
+#         if obj.image:
+#             return format_html(
+#                 '<img src="{}" style="max-height: 120px;" />', obj.image.url
+#             )
+#         return "No image"
+
+#     image_preview.short_description = "Image Preview"
+
+#     def short_message(self, obj):
+#         return (obj.message[:75] + "...") if len(obj.message) > 75 else obj.message
+
+#     short_message.short_description = "Message Snippet"
+
+#     from django.contrib import admin
+from django.contrib import admin
+from .models import ManagingCommittee, ManagingCommitteeMember
+
+
+class ManagingCommitteeMemberInline(ImageCroppingMixin,admin.StackedInline):
+    model = ManagingCommitteeMember
+    extra = 1
+    ordering = ["order"]
     fields = (
-        "institute",
+        "order",
         "title",
         "name",
-        "show_image_on_sidebar",
-        "designation",
+        "designation", 
         "image",
         "image_cropped",
         "message",
-        "order",
-        "image_preview",
+        "mobile",
+        "email",
+        "address",
+        "social_facebook",
+        "social_linkedin",
+        "social_twitter",
+        "show_image_on_sidebar",
     )
 
-    def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        if request.user.is_superuser:
-            return qs
-        return qs.filter(institute=request.user.institute)
 
-    def get_form(self, request, obj=None, **kwargs):
-        form = super().get_form(request, obj, **kwargs)
-        if not request.user.is_superuser:
-            form.base_fields["institute"].disabled = True
-            form.base_fields["institute"].required = False
-        return form
+@admin.register(ManagingCommittee)
+class ManagingCommitteeAdmin(ImageCroppingMixin,InstituteAdminMixin,admin.ModelAdmin):
+    list_display = (
+        "institute", 
+        "formation_date",
+        "expiry_date",
+        "total_members",
+        "approved_by",
+        "active",
+    )
+    list_filter = ("institute", "active")
+    search_fields = ("institute__name", "approved_by")
+    date_hierarchy = "formation_date"
+    inlines = [ManagingCommitteeMemberInline]
 
-    def get_changeform_initial_data(self, request):
-        """Set the default institute for new entries."""
-        initial = super().get_changeform_initial_data(request)
-        if not request.user.is_superuser:
-            initial["institute"] = request.user.institute
-        return initial
+    fieldsets = (
+        (
+            "Committee Information",
+            {
+                "fields": (
+                    "institute", 
+                    "description",
+                    "total_members",
+                    "formation_date",
+                    "expiry_date",
+                    "approved_by",
+                    "active",
+                )
+            },
+        ),
+        (
+            "Documents",
+            {
+                "fields": (
+                    "pdf_document",
+                    "image_document",
+                    "image_document_cropped",
+                ),
+                "classes": ("collapse",),
+            },
+        ),
+        (
+            "Additional Notes",
+            {"fields": ("notes",)},
+        ),
+    )
+    class Media:
+        js = ("admin/js/filter_year_to_section_and_student.js",)
 
-    def save_model(self, request, obj, form, change):
-        if not request.user.is_superuser:
-            obj.institute = request.user.institute
-        super().save_model(request, obj, form, change)
-
-    def image_preview(self, obj):
-        if obj.image:
-            return format_html(
-                '<img src="{}" style="max-height: 120px;" />', obj.image.url
-            )
-        return "No image"
-
-    image_preview.short_description = "Image Preview"
-
-    def short_message(self, obj):
-        return (obj.message[:75] + "...") if len(obj.message) > 75 else obj.message
-
-    short_message.short_description = "Message Snippet"
-
-    from django.contrib import admin
-
-
+# ///////////////////////////////////////////////////////////////////////////////
+# //////////////////////////////// StudentStatistics ////////////////////////////
+# ///////////////////////////////////////////////////////////////////////////////
 @admin.register(StudentStatistics)
 class StudentStatisticsAdmin(admin.ModelAdmin):
     list_display = (
@@ -346,6 +430,10 @@ class StudentStatisticsAdmin(admin.ModelAdmin):
             except AttributeError:
                 pass
         return initial
+    def save_model(self, request, obj, form, change): # it need for: form.base_fields["institute"].disabled = True
+        if not request.user.is_superuser:
+            obj.institute = request.user.institute
+        super().save_model(request, obj, form, change)
 
     def total_students(self, obj):
         return obj.boys + obj.girls
@@ -359,7 +447,9 @@ class StudentStatisticsAdmin(admin.ModelAdmin):
 from django.contrib import admin
 from .models import CardItem, Feature
 
-
+# ///////////////////////////////////////////////////////////////////////////////
+# //////////////////////////////// CardItem ////////////////////////////
+# ///////////////////////////////////////////////////////////////////////////////
 class FeatureInline(admin.TabularInline):  # or StackedInline for more space
     model = Feature
     extra = 1  # show 1 empty row by default

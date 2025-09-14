@@ -224,12 +224,12 @@ class MultiCroppedImageMixin(serializers.ModelSerializer):
                     box = tuple(int(float(coord)) for coord in box_str.split(","))
                     if len(box) == 4:
                         opts["box"] = box
-                        print(f"[DEBUG] Cropping {field} with box={box} and size={size}")
+                        # print(f"[DEBUG] Cropping {field} with box={box} and size={size}")
                 except Exception as e:
                     print(f"[DEBUG] Invalid box format for {field}: {box_str}, error: {e}")
             else:
                 opts["crop"] = False
-                print(f"[DEBUG] No valid crop for {field}, resizing proportionally to {size}")
+                # print(f"[DEBUG] No valid crop for {field}, resizing proportionally to {size}")
 
             url = get_thumbnailer(image).get_thumbnail(opts).url
             return self._absolute_url(url)

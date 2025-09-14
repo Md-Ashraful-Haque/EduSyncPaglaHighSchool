@@ -16,7 +16,7 @@ from ims_02_account.models import Teacher
 from ims_02_account.serializers import TeacherCardSerializer
 from rest_framework import serializers
 from .models import CardItem, Feature
-
+from .models import ManagingCommitteeMember
 # ims_01_institute_detail/api/serializers.py
 from django.conf import settings
 from rest_framework import serializers
@@ -110,26 +110,110 @@ class NoticeSerializer(serializers.ModelSerializer):
 # ////////////////////////////////////////////////////////////////////////////////////////////
 # /////////////////////////////// { ManagingCommittee  Serializer  ///////////////////////////
 # ////////////////////////////////////////////////////////////////////////////////////////////
-class ManagingCommitteeSerializer(MultiCroppedImageMixin):
+# class ManagingCommitteeSerializer(MultiCroppedImageMixin):
 
+#     class Meta:
+#         model = ManagingCommittee
+#         image_fields = [
+#             "image",
+#         ]
+#         crop_sizes = {
+#             "image": (300, 370),  # widescreen ratio
+#         }
+#         fields = [
+#             "id",
+#             "title",
+#             "name",
+#             "designation",
+#             "message",
+#             "institute",
+#         ]
+
+# serializers.py
+# from rest_framework import serializers
+
+
+class CommitteeMemberSerializer(MultiCroppedImageMixin):
     class Meta:
-        model = ManagingCommittee
-        image_fields = [
-            "image",
-        ]
+        model = ManagingCommitteeMember
+        image_fields =['image',]
         crop_sizes = {
             "image": (300, 370),  # widescreen ratio
         }
         fields = [
             "id",
+            "committee",
             "title",
             "name",
-            "designation",
+            "designation", 
             "message",
-            "institute",
+            "mobile",
+            "email",
+            "social_facebook",
+            "social_linkedin",
+            "social_twitter",
         ]
 
 
+# from rest_framework import serializers
+# from .models import ManagingCommittee, ManagingCommitteeMember
+
+
+# class ManagingCommitteeMemberSerializer(serializers.ModelSerializer):
+#     image_url = serializers.SerializerMethodField()
+#     image_cropped_url = serializers.SerializerMethodField()
+
+#     class Meta:
+#         model = ManagingCommitteeMember
+#         fields = [
+#             'id', 'title', 'name', 'designation', 'image_url', 'image_cropped_url',
+#             'message', 'mobile', 'email', 'address', 'social_facebook',
+#             'social_linkedin', 'social_twitter', 'show_image_on_sidebar', 'order'
+#         ]
+
+#     def get_image_url(self, obj):
+#         if obj.image:
+#             request = self.context.get('request')
+#             if request:
+#                 return request.build_absolute_uri(obj.image.url)
+#             return obj.image.url
+#         return None
+
+#     def get_image_cropped_url(self, obj):
+#         if obj.image_cropped:
+#             request = self.context.get('request')
+#             if request:
+#                 return request.build_absolute_uri(obj.image_cropped.url)
+#             return obj.image_cropped.url
+#         return None
+
+
+class ManagingCommitteeSerializer(MultiCroppedImageMixin):
+    members = CommitteeMemberSerializer(many=True, read_only=True)
+    institute_name = serializers.CharField(source='institute.name', read_only=True)
+    pdf_document_url = serializers.SerializerMethodField()
+    # image_document_url = serializers.SerializerMethodField()
+    # image_document_cropped_url = serializers.SerializerMethodField()
+
+    class Meta:
+        model = ManagingCommittee
+        image_fields =["image_document",]
+        
+        fields = [
+            'id', 'institute_name', 'description', 'total_members',
+            'formation_date', 'expiry_date', 'approved_by', 'active',
+            'pdf_document_url', 
+            'notes', 'members'
+        ]
+
+    def get_pdf_document_url(self, obj):
+        if obj.pdf_document:
+            request = self.context.get('request')
+            if request:
+                return request.build_absolute_uri(obj.pdf_document.url)
+            return obj.pdf_document.url
+        return None 
+    
 # ////////////////////////////////////////////////////////////////////////////////////////////
 # /////////////////////////////// { Student Statistics Serializer  ///////////////////////////
 # ////////////////////////////////////////////////////////////////////////////////////////////

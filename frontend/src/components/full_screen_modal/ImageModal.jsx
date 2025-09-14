@@ -29,7 +29,7 @@ const ImageModal = ({ image, fullImage=null, altText=null }) => {
       {/* Modal for full-size image */}
       {(isModalOpen && fullImage) && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20 "
+          className="fixed p-4 inset-0 bg-black bg-opacity-50 flex items-center justify-center z-20 "
           onClick={closeModal}
         >
           <div
@@ -45,7 +45,7 @@ const ImageModal = ({ image, fullImage=null, altText=null }) => {
             <img
               src={fullImage}
               alt={altText}
-              className="w-full h-auto max-h-[80vh] object-contain"
+              className="w-full h-auto max-h-[80vh] object-contain !rounded-lg"
             />
           </div>
         </div>

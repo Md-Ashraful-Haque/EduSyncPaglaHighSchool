@@ -24,7 +24,7 @@ const ManagingCommittee = () => {
 
     // setLoading(true);
     axios
-      .get(`${apiUrl}/managing-committee/`, {
+      .get(`${apiUrl}/active-committee-members/`, {
         params: {
           institute: instituteId, // pass institute ID here
         },

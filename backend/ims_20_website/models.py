@@ -457,33 +457,116 @@ class Feature(models.Model):
 # ///////////////////////////////////////////////////////////////////////////////
 # //////////////////////////////// ManagingCommittee ////////////////////////////
 # ///////////////////////////////////////////////////////////////////////////////
-
+ 
 class ManagingCommittee(models.Model):
     institute = models.ForeignKey(
         Institute,
         on_delete=models.CASCADE,
-        related_name="managingcommittee",  # Unique related_name for institute
+        related_name="managing_committees",
         verbose_name="Institute",
+    ) 
+    description = models.TextField(
+        blank=True,
+        null=True,
+        help_text="কমিটির সংক্ষিপ্ত বিবরণ / উদ্দেশ্য",
     )
-    title = models.CharField(max_length=200)
-    name = models.CharField(max_length=200)
-    designation = models.CharField(max_length=200)
-    image = ImageCropField(upload_to=safe_upload_to_website_committee, blank=True, null=True)  # Notice: ImageCropField
+    total_members = models.PositiveIntegerField(
+        verbose_name="কমিটিতে সদস্য সংখ্যা",blank=True, null=True
+    )
+    formation_date = models.DateField(verbose_name="কমিটি গঠনের তারিখ",blank=True, null=True)
+    expiry_date = models.DateField(verbose_name="কমিটির মেয়াদ শেষ হওয়ার তারিখ",blank=True, null=True)
+    approved_by = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        verbose_name="অনুমোদনকারী কর্তৃপক্ষ",
+        help_text="যেমন: শিক্ষা বোর্ড, শিক্ষা মন্ত্রণালয়",
+    )
+    active = models.BooleanField(
+        default=True,
+        verbose_name="বর্তমান কমিটি?",
+    )
+    pdf_document = models.FileField(
+        upload_to=safe_upload_to_website_committee, blank=True, null=True, 
+        verbose_name="কমিটি অনুমোদন নথি",
+    )
+    image_document = ImageCropField(
+        upload_to=safe_upload_to_website_committee, blank=True, null=True,
+    )
+    image_document_cropped = ImageRatioField("image_document", "800x1120") 
+    notes = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name="অতিরিক্ত মন্তব্য",
+    )
+
+    class Meta:
+        verbose_name = "06_Managing_Committee"
+        verbose_name_plural = "06 Managing Committees"
+        ordering = ["-formation_date"]
+
+    def __str__(self):
+        formation_year = self.formation_date.year if self.formation_date else ""
+        expiry_year = self.expiry_date.year if self.expiry_date else ""
+        return f"{self.institute.name} ({formation_year} – {expiry_year})"
+
+
+class ManagingCommitteeMember(models.Model):
+    committee = models.ForeignKey(
+        ManagingCommittee,
+        on_delete=models.CASCADE,
+        related_name="members",
+        verbose_name="Managing Committee",
+    )
+    title = models.CharField(max_length=200, verbose_name="শিরোনাম/পদবি (যেমন: সভাপতি)")
+    name = models.CharField(max_length=200, verbose_name="নাম")
+    designation = models.CharField(max_length=200, verbose_name="দায়িত্ব (যেমন: সদস্য)") 
+    image = ImageCropField(
+        upload_to=safe_upload_to_website_committee, blank=True, null=True, 
+        verbose_name="ছবি",
+    )
     image_cropped = ImageRatioField("image", "300x370")
-    message = models.TextField(help_text="Enter Message", blank=True, null=True)
+    message = models.TextField(
+        help_text="সংক্ষিপ্ত বার্তা বা বক্তব্য",
+        blank=True,
+        null=True,
+    )
+    mobile = models.CharField(
+        max_length=20,
+        blank=True,
+        null=True,
+        verbose_name="মোবাইল নম্বর",
+    )
+    email = models.EmailField(
+        max_length=200,
+        blank=True,
+        null=True,
+        verbose_name="ইমেইল",
+    )
+    address = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        verbose_name="ঠিকানা",
+    )
+    social_facebook = models.URLField(blank=True, null=True, verbose_name="Facebook")
+    social_linkedin = models.URLField(blank=True, null=True, verbose_name="LinkedIn")
+    social_twitter = models.URLField(blank=True, null=True, verbose_name="Twitter")
     show_image_on_sidebar = models.BooleanField(default=True)
     order = models.PositiveIntegerField()
 
     class Meta:
-        # app_label = 'pages'
-        verbose_name = "06_Managing_Committee"
-        verbose_name_plural = "06 Managing Committee"
         ordering = ["order"]
+        verbose_name = "Committee Member"
+        verbose_name_plural = "Committee Members"
 
     def __str__(self):
-        return self.title
+        return f"{self.name} ({self.designation})"
 
-
+# ///////////////////////////////////////////////////////////////////////////////
+# ///////////////////////////////////////////////////////////////////////////////
+# //////////////////////////////// StudentStatistics ////////////////////////////
+# ///////////////////////////////////////////////////////////////////////////////
 class StudentStatistics(models.Model):
     """Model to store the result of a student for a specific exam across subjects."""
 
@@ -552,6 +635,7 @@ class StudentStatistics(models.Model):
             )
         ]
         unique_together = ("group", "section")
+        
         verbose_name = "08 Student Statistics"
         verbose_name_plural = "08 Student Statistics"
 
