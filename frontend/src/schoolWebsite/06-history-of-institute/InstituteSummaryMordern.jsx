@@ -10,15 +10,15 @@ const InstituteSummary = ({school,instituteInfo}) => {
       {/* Top accent border with gradient */}
       <div className="h-1 bg-gradient-to-r from-blue-500 via-green-500 via-purple-500 to-red-500"></div>
       
-      <div className="relative max-w-6xl mx-auto px-8 py-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div className="relative max-w-6xl mx-auto px-2 md:px-8 py-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:!gap-8 text-center">
           {/* Established */}
           <div className="group flex flex-col items-center p-4 rounded-xl bg-white/70 backdrop-blur-sm shadow-lg border border-blue-200/30 hover:shadow-xl hover:scale-105 transition-all duration-300 hover:bg-blue-50/50">
             <div className="p-3 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full shadow-lg mb-3 group-hover:shadow-xl transition-shadow duration-300">
               <Calendar className="text-white" size={24} />
             </div>
             <span className="font-bold text-slate-800 text-sm mb-1">প্রতিষ্ঠিত</span>
-            <span className="text-slate-600 font-semibold text-lg">{school.established_year}</span>
+            <span className="text-slate-600 font-semibold  ">{school.established_year}</span>
           </div>
 
           {/* Students */}
@@ -27,7 +27,7 @@ const InstituteSummary = ({school,instituteInfo}) => {
               <Users className="text-white" size={24} />
             </div>
             <span className="font-bold text-slate-800 text-sm mb-1">শিক্ষার্থী</span>
-            <span className="text-slate-600 font-semibold text-lg">{school.total_students}</span>
+            <span className="text-slate-600 font-semibold  ">{school.total_students}</span>
           </div>
 
           {/* Teachers */}
@@ -36,7 +36,7 @@ const InstituteSummary = ({school,instituteInfo}) => {
               <BookOpen className="text-white" size={24} />
             </div>
             <span className="font-bold text-slate-800 text-sm mb-1">শিক্ষক</span>
-            <span className="text-slate-600 font-semibold text-lg">{school.total_teachers}</span>
+            <span className="text-slate-600 font-semibold  ">{school.total_teachers}</span>
           </div>
 
           {/* Location - Larger */}
@@ -45,7 +45,7 @@ const InstituteSummary = ({school,instituteInfo}) => {
               <MapPin className="text-white" size={24} />
             </div>
             <span className="font-bold text-slate-800 text-sm mb-2">অবস্থান</span>
-            <span className="text-slate-600 font-semibold text-lg leading-tight max-w-full " title={instituteInfo?.address}>
+            <span className="text-slate-600 font-semibold   leading-tight max-w-full " title={instituteInfo?.address}>
               {instituteInfo?.address}
             </span>
           </div>

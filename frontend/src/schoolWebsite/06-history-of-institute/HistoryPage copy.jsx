@@ -43,14 +43,14 @@ const HistoryPage = () => {
 
   if (!school) return <p>Loading...</p>;
   return (
-    <div className=" p-3 min-h-screen mt-8 2xl:max-w-[1280px] 2xl:min-w-[1280px]">
+    <div className="min-h-screen mt-8 2xl:max-w-[1280px] 2xl:min-w-[1280px]">
       {/* Hero Section */}
-      <div className="relative  lg:!max-w-6xl 2xl:max-w-[1280px] 2xl:min-w-[1280px] overflow-hidden">
+      <div className="relative lg:!max-w-6xl 2xl:max-w-[1280px] 2xl:min-w-[1280px] overflow-hidden">
         {school.heading_background_image_cropped_url && (
           <img
             src={school.heading_background_image_cropped_url}
             alt={instituteInfo?.name}
-            className="w-full h-full min-h-[200px] object-cover"
+            className="w-full h-full object-cover"
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/5 to-transparent"></div>
@@ -66,7 +66,7 @@ const HistoryPage = () => {
             </div>
           </div>
           <div className="max-w-6xl mx-auto">
-            <h1 className="!text-xl md:!text-4xl font-bold text-white mb-1 drop-shadow-lg text-center">
+            <h1 className="text-xl md:text-6xl font-bold text-white mb-1 drop-shadow-lg text-center">
               {instituteInfo?.name}
             </h1>
             <p className="text-xl lg:text-2xl text-gray-200 font-medium drop-shadow text-center">

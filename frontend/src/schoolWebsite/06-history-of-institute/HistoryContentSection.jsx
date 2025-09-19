@@ -57,7 +57,7 @@ const HistoryContentSection = ({
         </h2>
         <div className="relative">
           {show_image && image_url && (
-            <div className="float-left mr-6 mb-4 w-80">
+            <div className="float-left mr-6 mb-4 w-full md:w-80">
               <div className="rounded-xl overflow-hidden shadow-md">
                 <img
                   src={image_url}
