@@ -343,6 +343,7 @@ class ManagingCommitteeMemberInline(ImageCroppingMixin,admin.StackedInline):
 class ManagingCommitteeAdmin(ImageCroppingMixin,InstituteAdminMixin,admin.ModelAdmin):
     list_display = (
         "institute", 
+        "show_in_website",
         "formation_date",
         "expiry_date",
         "total_members",
@@ -360,6 +361,7 @@ class ManagingCommitteeAdmin(ImageCroppingMixin,InstituteAdminMixin,admin.ModelA
             {
                 "fields": (
                     "institute", 
+                    "show_in_website",
                     "description",
                     "total_members",
                     "formation_date",
@@ -674,7 +676,7 @@ class ContactCardInline(admin.StackedInline):
 
 @admin.register(ContactPage)
 class ContactPageAdmin(admin.ModelAdmin):
-    list_display = ("title", "institute", "updated_at")
+    list_display = ( "institute", "title", "updated_at")
     list_filter = ("institute",)
     search_fields = ("title", "institute__name")
     prepopulated_fields = {"slug": ("title",)}

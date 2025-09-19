@@ -72,7 +72,7 @@ class TeacherAdmin(ImageCroppingMixin, admin.ModelAdmin):
     fieldsets = [
         ("Basic Information", {
             'fields': [
-                'institute', 'user', 'name','bangla_name', 'designation', 'major_subject',
+                'institute', 'user', 'name','bangla_name', 'designation','order', 'major_subject',
                 'phone_number','is_whatsapp', 'email', 'password',
                 'dob',
                 'joining_date',
@@ -84,7 +84,6 @@ class TeacherAdmin(ImageCroppingMixin, admin.ModelAdmin):
                 'section',
                 'nid',
                 'address',
-                'order',
                 'is_visible',
             ]
         }),

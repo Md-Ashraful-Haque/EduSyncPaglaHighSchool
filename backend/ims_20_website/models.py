@@ -147,7 +147,7 @@ class Notice(models.Model):
 
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True, blank=True, allow_unicode=True)
-    content = models.TextField(help_text="Full notice details") 
+    content = models.TextField(help_text="Full notice details",blank=True, null=True) 
     attachment = models.FileField(
         upload_to=safe_upload_to_notice_attachments,
         blank=True,
@@ -485,6 +485,10 @@ class ManagingCommittee(models.Model):
     active = models.BooleanField(
         default=True,
         verbose_name="বর্তমান কমিটি?",
+    )
+    show_in_website = models.BooleanField(
+        default=True,
+        verbose_name="ওয়েবসাইটে দেখতে চান?",
     )
     pdf_document = models.FileField(
         upload_to=safe_upload_to_website_committee, blank=True, null=True, 

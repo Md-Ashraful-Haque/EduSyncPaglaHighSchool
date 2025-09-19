@@ -19,6 +19,8 @@ import {
 } from "lucide-react";
 import ImageModal from "../../components/full_screen_modal/ImageModal";
 
+import avatar from "./../../assets/images/avatar.png";
+
 const ManagingCommitteeListView = () => {
   const [data, setData] = useState({
     active_committees: [],
@@ -132,8 +134,8 @@ const ManagingCommitteeListView = () => {
       <div className="bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200 overflow-hidden">
         <div className="flex flex-col sm:flex-row">
           {/* Member Image */}
-          {(member.image_cropped_url || member.image_url) && (
-            <div className="flex-shrink-0  p-2 ">
+          <div className="flex-shrink-0  p-2 ">
+            {member.image_cropped_url || member.image_url ? (
               <img
                 src={member.image_cropped_url || member.image_url}
                 alt={member.name}
@@ -142,8 +144,17 @@ const ManagingCommitteeListView = () => {
                   e.target.style.display = "none";
                 }}
               />
-            </div>
-          )}
+            ) : (
+              <img
+                src={avatar}
+                alt="No Image"
+                className="w-full h-[385px] sm:h-[275px] object-cover rounded-md"
+                onError={(e) => {
+                  e.target.style.display = "none";
+                }}
+              />
+            )}
+          </div>
 
           {/* Member Details */}
           <div className="flex-1 p-6">
@@ -263,30 +274,42 @@ const ManagingCommitteeListView = () => {
 
               {/* Committee Info */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Calendar size={16} className="text-blue-600" />
-                  <span>
-                    <strong>গঠন:</strong>{" "}
-                    <span className=" px-2 py-1 rounded-full bg-green-100 text-green-800">  {formatDate(committee.formation_date)} </span>
-                    
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Calendar size={16} className="text-red-600" />
-                  <span>
-                    <strong>মেয়াদ শেষ:</strong>{" "}
-                    <span className=" px-2 py-1 rounded-full bg-red-100 text-red-800"> {formatDate(committee.expiry_date)} </span>
-                    
-                  </span>
-                </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Users size={16} className="text-green-600" />
-                  <span>
-                    <strong>মোট সদস্য:</strong>{" "}
-                    <span className=" px-2 py-1 rounded-full bg-green-100 text-green-800"> {committee.total_members} </span>
-                     
-                  </span>
-                </div>
+                {committee.formation_date && (
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <Calendar size={16} className="text-blue-600" />
+                    <span>
+                      <strong>গঠন:</strong>{" "}
+                      <span className=" px-2 py-1 rounded-full bg-green-100 text-green-800">
+                        {" "}
+                        {formatDate(committee.formation_date)}{" "}
+                      </span>
+                    </span>
+                  </div>
+                )}
+                {committee.expiry_date && (
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <Calendar size={16} className="text-red-600" />
+                    <span>
+                      <strong>মেয়াদ শেষ:</strong>{" "}
+                      <span className=" px-2 py-1 rounded-full bg-red-100 text-red-800">
+                        {" "}
+                        {formatDate(committee.expiry_date)}{" "}
+                      </span>
+                    </span>
+                  </div>
+                )}
+                {committee.total_members && (
+                  <div className="flex items-center gap-2 text-sm text-gray-600">
+                    <Users size={16} className="text-green-600" />
+                    <span>
+                      <strong>মোট সদস্য:</strong>{" "}
+                      <span className=" px-2 py-1 rounded-full bg-green-100 text-green-800">
+                        {" "}
+                        {committee.total_members}{" "}
+                      </span>
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
             {/* Committee Document Image */}
@@ -438,7 +461,7 @@ const ManagingCommitteeListView = () => {
             <CheckCircle className="text-green-600" size={28} />
             <h2 className="text-3xl font-bold text-gray-900">
               বর্তমান সক্রিয় কমিটি
-               {/* ({data.active_committees.length}) */}
+              {/* ({data.active_committees.length}) */}
             </h2>
           </div>
           <div className="space-y-8">

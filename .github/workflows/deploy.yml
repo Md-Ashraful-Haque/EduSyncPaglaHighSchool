@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: Secrets for EduSyncWithSite for uploading changes into cPanel  # Add environment
+    environment: Secrets for jidc  # Add environment
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -23,6 +23,6 @@ jobs:
           # source: "frontend/dist/" 
           # target: "/home/nexasoft/paglahighschool.nexasofts.com"
           source: "."  # Adjust if specific files/folders are needed
-          target: "/home/nexasoft/paglahighschool.nexasofts.com"
+          target: "/home/nexasoft/jidc.edu.bd"
           strip_components: 0
           debug: true

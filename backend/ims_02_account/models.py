@@ -80,9 +80,19 @@ class Teacher(models.Model):
         ("assistant_head_teacher", "Assistant Head Teacher"),
         ("head_teacher", "Head Teacher"),
         ("lecturer", "Lecturer"),
+        ("demonstrator", "Demonstrator"),
+        ("senior_lecturer", "Senior Lecturer"),
         ("assistant_professor", "Assistant Professor"),
         ("professor", "Professor"),
         ("principal", "Principal"),
+        ("lab_assistant", "Lab Assistant"),
+        ("office_assistant", "Office Assistant"),
+        ("office_assistant_cum_typist", "Office Assistant Cum Typist"),
+        ("assistant_librarian", "Assistant Librarian"),
+        ("mali", "Mali"),
+        ("nanny", "Nanny"),
+        ("4th_grade_employee", "4th Grade Employee"),
+        ("Cleaner", "Cleaner"),
     ]
     BLOOD_GROUP_CHOICES = [
         ("A+", "A+"),
@@ -111,10 +121,21 @@ class Teacher(models.Model):
         "assistant_teacher": "সহকারী শিক্ষক",
         "assistant_head_teacher": "সহকারী প্রধান শিক্ষক",
         "head_teacher": "প্রধান শিক্ষক",
-        "lecturer": "লেকচারার",
+        "lecturer": "প্রভাষক",
+        "demonstrator": "প্রদর্শক",
+        "senior_lecturer": "জেষ্ঠ্য প্রভাষক",
         "assistant_professor": "সহকারী অধ্যাপক",
         "professor": "অধ্যাপক",
         "principal": "প্রিন্সিপাল",
+        
+        "lab_assistant": "ল্যাব সহকারী",
+        "office_assistant": "অফিস-সহকারী",
+        "office_assistant_cum_typist": "অফিস অ্যাসিস্ট্যান্ট কাম-টাইপিস্ট",
+        "assistant_librarian": "সহকারী গ্রন্থাগারিক",
+        "mali": "মালি",
+        "nanny": "আয়া",
+        "4th_grade_employee": "৪র্থ শ্রেনি কর্মচারী", 
+        "Cleaner": "পরিচ্ছন্নতাকর্মী", 
     }
     institute = models.ForeignKey(
         Institute, on_delete=models.CASCADE, related_name="Teachers"
@@ -142,9 +163,8 @@ class Teacher(models.Model):
 
     designation = models.CharField(
         max_length=50,
-        choices=DESIGNATION_CHOICES,
-        default="assistant_teacher",
-        verbose_name="Designation",
+        choices=DESIGNATION_CHOICES, 
+        verbose_name="Designation", null=True, blank=True
     )
 
     # picture = models.ImageField(upload_to="teacher_picture/", null=True, blank=True)
@@ -193,7 +213,7 @@ class Teacher(models.Model):
         "Section",
         max_length=20,
         choices=SECTION_CHOICES,
-        default="Non-MPO",
+        default="MPO",
         null=True,
         blank=True,
     )

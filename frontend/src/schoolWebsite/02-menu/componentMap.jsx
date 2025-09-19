@@ -16,7 +16,7 @@ export const componentMap = {
   "number-of-students-studying": StudentStatistics,
   "notices": NoticeBoard,
   "managing-committee": ManagingCommitteePage,
-  "staff": NoticeBoard,
+  "staff": TeacherInfo,
   "photo-gallery": NoticeBoard,
   "video-gallery": NoticeBoard,
   "permission-and-recognition-of-teaching-in-the-institution": NoticeBoard,

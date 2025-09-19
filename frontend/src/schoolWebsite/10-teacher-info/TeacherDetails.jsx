@@ -1,5 +1,6 @@
 import React from "react";
 import manPlaceHolderImage from "./../../assets/images/avatar-1.png";
+import avatar from "./../../assets/images/avatar.png";
 import {
   User,
   Phone,
@@ -62,8 +63,14 @@ const TeacherDetails = ({
             />
           ) : (
             <div className="no-photo">
-              <User size={40} />
-              <span>No Photo</span>
+              <img
+                src={avatar}
+                alt="No Photo"
+                onError={(e) => {
+                  e.target.onerror = null; // prevent infinite loop in case placeholder also fails
+                  e.target.src = manPlaceHolderImage;
+                }}
+              />
             </div>
           )}
         </div>

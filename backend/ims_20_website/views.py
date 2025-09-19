@@ -286,8 +286,8 @@ class ManagingCommitteeListView(generics.ListAPIView):
         queryset = self.get_queryset()
 
         # Split active vs inactive committees
-        active_committees = queryset.filter(active=True)
-        inactive_committees = queryset.filter(active=False)
+        active_committees = queryset.filter(active=True,show_in_website=True)
+        inactive_committees = queryset.filter(active=False,show_in_website=True)
 
         # Serialize them separately
         active_serializer = self.get_serializer(active_committees, many=True)
