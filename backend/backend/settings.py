@@ -50,6 +50,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 # ]
 CSRF_TRUSTED_ORIGINS = [
     'https://ims.nexasofts.com',
+    'https://jidc.edu.bd',
     'https://paglahighschool.edu.bd',
     'https://paglahighschool.nexasofts.com',
     'http://ims.nexasofts.com:3002',
@@ -333,6 +334,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
+#////////////////////////////////////////////////////////////////////////////////////////////
+#/////////////////////////////// Local Development Setting ///////////////////////////////
+#////////////////////////////////////////////////////////////////////////////////////////////
+
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
@@ -343,23 +348,18 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 
-# =========================Development Environment============================
-#STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static') 
+#////////////////////////////////////////////////////////////////////////////////////////////
+#/////////////////////////////// Production / Server ///////////////////////////////
+#////////////////////////////////////////////////////////////////////////////////////////////
+# STATIC_URL = '/ims/static/'
+# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
 
-#MEDIA_FILE  = os.path.join(os.path.dirname(BASE_DIR), 'static')
-#MEDIA_ROOT  = os.path.join(MEDIA_FILE, 'media')
-#MEDIA_URL   = '/media/'  # django-storages
-#=====================================================
+# MEDIA_URL = '/ims/media/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-#====================== Production ===============================
-# STATIC_URL = '/static_media_file/'
-# STATIC_ROOT = os.path.join(BASE_DIR, 'static_media_file') 
-
-# MEDIA_FILE  = os.path.join(os.path.dirname(BASE_DIR), 'static_media_file')
-# MEDIA_ROOT  = os.path.join(MEDIA_FILE, 'media')
-# MEDIA_URL   = '/media/'  # django-storages
-#=====================================================
 
 
 
