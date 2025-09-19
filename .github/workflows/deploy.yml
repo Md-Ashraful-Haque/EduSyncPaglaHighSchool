@@ -8,7 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: Secrets for jidc  # Add environment
+    environment: Secrets for EduSyncWithSite for uploading changes into cPanel  # Add environment
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
