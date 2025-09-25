@@ -416,8 +416,7 @@ class Feature(models.Model):
     )
     text = models.CharField(max_length=150, verbose_name="Feature Text")
     link = models.SlugField(
-        max_length=120,
-        unique=True,
+        max_length=120, 
         blank=True,
         allow_unicode=True,
         verbose_name="Feature Link",

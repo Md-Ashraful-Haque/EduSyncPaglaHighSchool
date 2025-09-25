@@ -30,9 +30,9 @@
         min-width: 295px;
         min-height: 420px;
       }
-      @media screen and (max-width: 992px) {
+      @media screen and (min-width: 576px) and (max-width: 1080px) {
         max-width: initial;
-        width: 100%;
+        width: 49%;  
       }
 
       &:hover{
@@ -55,8 +55,11 @@
           object-fit: cover;
           transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
           // transform: scale(1.02);
-          @media screen and (max-width: 992px) {
-            max-height: 380px;
+          @media screen and (min-width: 576px) and (max-width: 1080px) {
+            max-width: initial;
+            width: 100%;  
+            min-height: 550px;
+            max-height: 450px;
           }
         }
       }

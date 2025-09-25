@@ -18,6 +18,13 @@
     flex-wrap: wrap; 
     padding: 0px;
 
+    @media  screen and (min-width: 576px) and (max-width: 1080px) {
+      justify-content: center;
+      padding-top: 24px;
+      padding-bottom: 16px;
+      max-width: 100% !important;
+    }
+
 
     .smooth-btn{
       // padding: 0;
@@ -25,7 +32,7 @@
         margin: 0;
       }
       
-      @media  (max-width: 576px) {
+      @media screen and (max-width: 576px) {
         border: none;
       }
     }
@@ -77,6 +84,10 @@
         @media  (max-width: 576px) {
           padding-left: 8px; 
         }
+        @media  screen and (min-width: 576px) and (max-width: 1080px) {
+          padding-left: 8px; 
+          font-size: 2rem;
+        }
       }
     }
   }
@@ -102,7 +113,7 @@
     list-style: none;
     margin: 0;
     padding-right: 1rem;
-    @media screen and (min-width: 576px) and (max-width: 1018px) {
+    @media screen and (min-width: 576px) and (max-width: 1080px) {
       min-width: 120px;
       padding-top: 16px;
       padding-bottom: 16px;
@@ -114,7 +125,7 @@
       // border: 1px solid red;
       min-width: 100px;
       
-      @media screen and (min-width: 576px) and (max-width: 1018px) {
+      @media screen and (min-width: 576px) and (max-width: 1080px) {
         min-width: 120px;
       }
 
@@ -127,6 +138,9 @@
         text-transform: uppercase;
         font-size: 0.9rem;
         display: flex;
+        @media  screen and (min-width: 576px) and (max-width: 1080px) {
+          font-size: 1.3rem;
+        }
 
         &:hover {
           color: #fdffe4;
@@ -147,6 +161,7 @@
         list-style: none;
         min-width: 260px;
         padding: 16px 0;
+        z-index: 999;
 
         li {
           white-space: nowrap;
@@ -398,6 +413,10 @@
     background: white;
     color: black;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  @media  screen and (min-width: 576px) and (max-width: 1080px) {
+    font-size: 1.3rem;
+    max-height: 55px;
   }
 
   &:active {
