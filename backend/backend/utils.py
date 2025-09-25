@@ -33,122 +33,6 @@ from easy_thumbnails.files import get_thumbnailer
 import urllib
 
 
-# import urllib.parse
-# from rest_framework import serializers
-# from easy_thumbnails.files import get_thumbnailer 
-
-# class MultiCroppedImageMixin(serializers.ModelSerializer):
-#     """
-#     Mixin for multiple image fields:
-#     - <field>_url → original image
-#     - <field>_cropped_url → user-selected crop, resized proportionally
-#     Requirements:
-#     - Define `Meta.image_fields = ["picture", "signature", ...]`.
-#     - Each image field should have a corresponding <image>_cropped ImageRatioField.
-#     """
-
-#     def __init__(self, *args, **kwargs):
-#         super().__init__(*args, **kwargs)
-
-#         image_fields = getattr(self.Meta, "image_fields", None)
-#         if not image_fields or not isinstance(image_fields, (list, tuple)):
-#             raise ValueError("You must define Meta.image_fields as a list of field names")
-
-#         self._image_fields = image_fields
-
-#         # Add SerializerMethodFields dynamically
-#         for field in image_fields:
-#             self.fields[f"{field}_url"] = serializers.SerializerMethodField()
-#             self.fields[f"{field}_cropped_url"] = serializers.SerializerMethodField()
-
-#     # -----------------------------
-#     # Helper: build absolute URL
-#     # -----------------------------
-#     def _absolute_url(self, relative_url):
-#         if not relative_url:
-#             return None
-#         decoded_url = urllib.parse.unquote(relative_url)
-#         request = self.context.get("request")
-#         if request:
-#             return request.build_absolute_uri(decoded_url)
-#         return decoded_url
-
-#     # -----------------------------
-#     # Original image
-#     # -----------------------------
-#     def _get_image_url(self, obj, field):
-#         try:
-#             image = getattr(obj, field, None)
-#             if image:
-#                 return self._absolute_url(image.url)
-#         except Exception as e:
-#             print(f"[ERROR] _get_image_url({field}) failed:", e)
-#         return None
-
-#     # -----------------------------
-#     # Cropped & resized image
-#     # -----------------------------
-#     def _get_image_cropped_url(self, obj, field, target_width=None):
-#       """
-#       Returns the thumbnail URL using the user's selected crop box.
-#       - Maintains the ratio defined in <field>_cropped.
-#       - If no crop selected, resizes proportionally.
-#       """
-#       try:
-#           image = getattr(obj, field, None)
-#           if not image:
-#               print(f"[DEBUG] No image found for {field}")
-#               return None
-
-#           crop_field_name = f"{field}_cropped"
-#           box_str = getattr(obj, crop_field_name, None)
-
-#           # Determine target size based on crop ratio
-#           ratio_width = ratio_height = None
-#           field_obj = obj._meta.get_field(crop_field_name)
-#           if hasattr(field_obj, "aspect_ratio"):
-#               ratio_width, ratio_height = field_obj.aspect_ratio
-
-#           if ratio_width and ratio_height and target_width:
-#               target_height = int(target_width * ratio_height / ratio_width)
-#               size = (target_width, target_height)
-#           else:
-#               size = (300, 380)  # fallback
-
-#           opts = {"crop": True, "size": size, "upscale": True}
-
-#           # Parse box manually: "x1,y1,x2,y2"
-#           if box_str and isinstance(box_str, str) and "," in box_str:
-#               try:
-#                   box = tuple(int(float(coord)) for coord in box_str.split(","))
-#                   if len(box) == 4:
-#                       opts["box"] = box
-#                       print(f"[DEBUG] Cropping {field} with box={box} and size={size}")
-#               except Exception as e:
-#                   print(f"[DEBUG] Invalid box format for {field}: {box_str}, error: {e}")
-#           else:
-#               opts["crop"] = False
-#               print(f"[DEBUG] No valid crop for {field}, resizing proportionally to {size}")
-
-#           url = get_thumbnailer(image).get_thumbnail(opts).url
-#           return self._absolute_url(url)
-
-#       except Exception as e:
-#           print(f"[ERROR] _get_image_cropped_url({field}) failed:", e)
-#           return None
-
-#     # -----------------------------
-#     # Dynamic binding for SerializerMethodField
-#     # -----------------------------
-#     def __getattr__(self, name):
-#         for field in getattr(self, "_image_fields", []):
-#             if name == f"get_{field}_url":
-#                 return lambda obj: self._get_image_url(obj, field)
-#             if name == f"get_{field}_cropped_url":
-#                 return lambda obj: self._get_image_cropped_url(obj, field)
-#         return super().__getattr__(name)
-
-
 class MultiCroppedImageMixin(serializers.ModelSerializer):
     """
     Mixin for multiple image fields:
@@ -207,7 +91,7 @@ class MultiCroppedImageMixin(serializers.ModelSerializer):
         try:
             image = getattr(obj, field, None)
             if not image:
-                print(f"[DEBUG] No image found for {field}")
+                # print(f"[DEBUG] No image found for {field}")
                 return None
 
             crop_field_name = f"{field}_cropped"

@@ -24,3 +24,6 @@ db.sqlite3  # Your SQLite database
 
 #Ignore any additional folders you want to exclude
 docs/
+media_Pagla
+media_JIDC
+media_Penchul
