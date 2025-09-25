@@ -38,6 +38,14 @@ $background-color_1: #f2ffc0;
     .result-list {
       max-width: 1320px;
 
+      @media screen and ( max-width: 576px) {
+        max-width: 400px;
+      }
+
+      @media screen and (min-width: 576px) and (max-width: 1080px) {
+        max-width: 960px;
+      }
+
       @include mq($from: xxlarge) {
         width: 1400px;
       }
