@@ -19,6 +19,7 @@ from .views import (
     ManagingCommitteeListView, 
     StudentStatisticsListView,
     CardItemListAPIView,
+    InstituteApprovalInfoByCodeAPIView,
 )
 
 
@@ -46,6 +47,8 @@ urlpatterns = [
 
     # Custom route for contact pages by institute_code
     path("contact-pages/<str:institute_code>/", ContactPageViewSet.as_view({"get": "retrieve"}), name="contact-page-by-code"),
+    # path('approvals/', InstituteApprovalInfoDetailAPIView.as_view(), name='approvals-detail'),
+    path('approvals/<str:institute_code>/', InstituteApprovalInfoByCodeAPIView.as_view(), name='approvals-by-code'),
 
     path("", include(router.urls)),
 ]

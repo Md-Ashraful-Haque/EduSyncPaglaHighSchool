@@ -63,24 +63,8 @@ const Website = () => {
         <div className="site-container">
           <RecentNotice />
 
-          <div className="row">
-            {/* <div className="col-12 col-lg-8 col-xxl-9">
-              
-              <HistoryOfInstitute /> 
-
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-4">
-                {cards.map((card) => (
-                  <div key={card.id} className="flex flex-col h-full">
-                    <CardItem card={card} className="flex-1" />
-                  </div>
-                ))}
-              </div>
-
-            </div>
-            <div className="col-12 col-lg-4 col-xxl-3">
-              <ManagingCommittee />
-            </div> */}
+          <div className="row"> 
+            
             <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr] lg:grid-cols-[3fr_1fr] gap-4">
               <div>
                 <HistoryOfInstitute />

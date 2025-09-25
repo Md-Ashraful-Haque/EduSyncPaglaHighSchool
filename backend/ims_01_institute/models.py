@@ -6,6 +6,7 @@ class Institute(models.Model):
     name = models.CharField(max_length=255)
     name_in_english = models.CharField(max_length=255)
     institute_code = models.CharField(max_length=255, unique=True)
+    institute_eiin = models.CharField(max_length=255,null=True, blank=True )
     address = models.TextField()
     mobile_number = models.CharField(max_length=15)
     email = models.EmailField(unique=True)

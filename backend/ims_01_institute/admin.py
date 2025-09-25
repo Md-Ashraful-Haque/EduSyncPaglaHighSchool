@@ -5,7 +5,7 @@ from .models import *
 
 class InstituteAdmin(admin.ModelAdmin):
     search_fields = ['mobile_number__icontains', 'name__icontains', 'email__icontains']
-    list_display = ['institute_code', 'name', 'mobile_number', 'email']
+    list_display = ['institute_code', 'name', 'institute_eiin','mobile_number', 'email']
 
 
 admin.site.register(Institute, InstituteAdmin)

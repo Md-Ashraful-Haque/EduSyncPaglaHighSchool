@@ -246,73 +246,7 @@ class NoticeAdmin(admin.ModelAdmin):
 # ///////////////////////////////////////////////////////////////////////////////
 # //////////////////////////////// ManagingCommittee ////////////////////////////
 # ///////////////////////////////////////////////////////////////////////////////
-# @admin.register(ManagingCommittee)
-# class ManagingCommitteeAdmin(ImageCroppingMixin, admin.ModelAdmin):
-#     list_display = (
-#         "title",
-#         "name",
-#         "designation",
-#         "institute",
-#         "short_message",
-#         "order",
-#         "image_preview",
-#     )
-#     list_filter = ("designation",)
-#     search_fields = ("title", "name", "designation", "message")
-#     readonly_fields = ("image_preview",)
-#     fields = (
-#         "institute",
-#         "title",
-#         "name",
-#         "show_image_on_sidebar",
-#         "designation",
-#         "image",
-#         "image_cropped",
-#         "message",
-#         "order",
-#         "image_preview",
-#     )
 
-#     def get_queryset(self, request):
-#         qs = super().get_queryset(request)
-#         if request.user.is_superuser:
-#             return qs
-#         return qs.filter(institute=request.user.institute)
-
-#     def get_form(self, request, obj=None, **kwargs):
-#         form = super().get_form(request, obj, **kwargs)
-#         if not request.user.is_superuser:
-#             form.base_fields["institute"].disabled = True
-#             form.base_fields["institute"].required = False
-#         return form
-
-#     def get_changeform_initial_data(self, request):
-#         """Set the default institute for new entries."""
-#         initial = super().get_changeform_initial_data(request)
-#         if not request.user.is_superuser:
-#             initial["institute"] = request.user.institute
-#         return initial
-
-#     def save_model(self, request, obj, form, change):
-#         if not request.user.is_superuser:
-#             obj.institute = request.user.institute
-#         super().save_model(request, obj, form, change)
-
-#     def image_preview(self, obj):
-#         if obj.image:
-#             return format_html(
-#                 '<img src="{}" style="max-height: 120px;" />', obj.image.url
-#             )
-#         return "No image"
-
-#     image_preview.short_description = "Image Preview"
-
-#     def short_message(self, obj):
-#         return (obj.message[:75] + "...") if len(obj.message) > 75 else obj.message
-
-#     short_message.short_description = "Message Snippet"
-
-#     from django.contrib import admin
 from django.contrib import admin
 from .models import ManagingCommittee, ManagingCommitteeMember
 
@@ -694,3 +628,45 @@ class ContactCardAdmin(admin.ModelAdmin):
     list_filter = ("is_active", "page")
     search_fields = ("contact_person",)
     ordering = ("page", "order")
+
+
+#////////////////////////////////////////////////////////////////////////////////////////////
+#/////////////////////////////// TITLE ///////////////////////////////
+#////////////////////////////////////////////////////////////////////////////////////////////
+
+from django.contrib import admin
+from image_cropping import ImageCroppingMixin
+from .models import InstituteApprovalInfo
+
+@admin.register(InstituteApprovalInfo)
+class InstituteApprovalInfoAdmin(ImageCroppingMixin, admin.ModelAdmin):
+    list_display = (
+        "institute",
+        "issue_date",
+        "authority_en",
+        "authority_bn",
+        "created_at",
+    )
+    list_filter = ("issue_date", "authority_en")
+    search_fields = (
+        "institute__name",
+        "institute__institute_code",
+        "authority_en",
+        "authority_bn",
+    )
+    readonly_fields = ("created_at", "updated_at",)
+    fieldsets = (
+        (None, {
+            "fields": (
+                "institute",
+                "issue_date",
+                "authority_bn",
+                "authority_en",
+                "image",
+                "image_cropped",
+            )
+        }),
+        ("Timestamps", {
+            "fields": ("created_at", "updated_at")
+        }),
+    )

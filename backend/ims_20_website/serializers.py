@@ -1,10 +1,12 @@
 from rest_framework import serializers
 from ims_01_institute.models import Institute
+from ims_01_institute.serializers import InstituteSerializer
 from .models import (
     MenuItem,
     Slider,
     Notice,
     ManagingCommittee,
+    InstituteApprovalInfo,
 )
 from .models import StudentStatistics
 from easy_thumbnails.files import get_thumbnailer
@@ -107,31 +109,10 @@ class NoticeSerializer(serializers.ModelSerializer):
         return obj.is_active()  # this should be defined as a method in your model
 
 
+
 # ////////////////////////////////////////////////////////////////////////////////////////////
 # /////////////////////////////// { ManagingCommittee  Serializer  ///////////////////////////
 # ////////////////////////////////////////////////////////////////////////////////////////////
-# class ManagingCommitteeSerializer(MultiCroppedImageMixin):
-
-#     class Meta:
-#         model = ManagingCommittee
-#         image_fields = [
-#             "image",
-#         ]
-#         crop_sizes = {
-#             "image": (300, 370),  # widescreen ratio
-#         }
-#         fields = [
-#             "id",
-#             "title",
-#             "name",
-#             "designation",
-#             "message",
-#             "institute",
-#         ]
-
-# serializers.py
-# from rest_framework import serializers
-
 
 class CommitteeMemberSerializer(MultiCroppedImageMixin):
     class Meta:
@@ -153,40 +134,6 @@ class CommitteeMemberSerializer(MultiCroppedImageMixin):
             "social_linkedin",
             "social_twitter",
         ]
-
-
-# from rest_framework import serializers
-# from .models import ManagingCommittee, ManagingCommitteeMember
-
-
-# class ManagingCommitteeMemberSerializer(serializers.ModelSerializer):
-#     image_url = serializers.SerializerMethodField()
-#     image_cropped_url = serializers.SerializerMethodField()
-
-#     class Meta:
-#         model = ManagingCommitteeMember
-#         fields = [
-#             'id', 'title', 'name', 'designation', 'image_url', 'image_cropped_url',
-#             'message', 'mobile', 'email', 'address', 'social_facebook',
-#             'social_linkedin', 'social_twitter', 'show_image_on_sidebar', 'order'
-#         ]
-
-#     def get_image_url(self, obj):
-#         if obj.image:
-#             request = self.context.get('request')
-#             if request:
-#                 return request.build_absolute_uri(obj.image.url)
-#             return obj.image.url
-#         return None
-
-#     def get_image_cropped_url(self, obj):
-#         if obj.image_cropped:
-#             request = self.context.get('request')
-#             if request:
-#                 return request.build_absolute_uri(obj.image_cropped.url)
-#             return obj.image_cropped.url
-#         return None
-
 
 class ManagingCommitteeSerializer(MultiCroppedImageMixin):
     members = CommitteeMemberSerializer(many=True, read_only=True)
@@ -269,70 +216,7 @@ class CardItemSerializer(serializers.ModelSerializer):
         model = CardItem
         fields = ["id", "title", "slug", "order", "icon", "is_active", "features"]
 
-
-# ////////////////////////////////////////////////////////////////////////////////////////////
-# /////////////////////////////// { About Us Page } ///////////////////////////////
-# ////////////////////////////////////////////////////////////////////////////////////////////
-# class CroppedImageMixin(serializers.ModelSerializer):
-#     """
-#     Adds two read-only fields:
-#       - image_url: absolute URL to original image (or None)
-#       - image_cropped_url: absolute URL to cropped thumbnail (or None)
-
-#     Fixes filename issues with commas in crop boxes by decoding %2C.
-#     """
-
-#     image_url = serializers.SerializerMethodField(read_only=True)
-#     image_cropped_url = serializers.SerializerMethodField(read_only=True)
-
-#     def _absolute_url(self, relative_url):
-#         """
-#         Return an absolute URL that matches the actual file on disk.
-#         Decodes %2C → ',' so Apache/cPanel can serve the file.
-#         """
-#         if not relative_url:
-#             return None
-
-#         # Decode %2C (and any other encoded chars) to match the file on disk
-#         decoded_url = urllib.parse.unquote(relative_url)
-
-#         request = self.context.get("request")
-#         if request:
-#             return request.build_absolute_uri(decoded_url)
-#         return decoded_url
-
-#     def get_image_url(self, obj):
-#         try:
-#             if obj.image:
-#                 return self._absolute_url(obj.image.url)
-#         except Exception:
-#             pass
-#         return None
-
-#     def get_image_cropped_url(self, obj):
-#         try:
-#             if not obj.image:
-#                 return None
-
-#             # Get the cropping box from the model
-#             box = getattr(obj, "cropping", None)
-
-#             opts = {"size": (660, 520), "crop": True}
-#             if box:
-#                 opts["box"] = box
-
-#             # Generate the thumbnail URL
-#             url = get_thumbnailer(obj.image).get_thumbnail(opts).url
-
-#             # Decode URL so Apache can find the file
-#             return self._absolute_url(url)
-
-#         except Exception:
-#             return None
-
-
-# ---------- Child serializers ----------
-
+ 
 
 class IntroductionSerializer(MultiCroppedImageMixin):
     class Meta:
@@ -409,26 +293,7 @@ class AchievementSerializer(serializers.ModelSerializer):
 
 
 # ---------- Parent / aggregated ----------
-
-
-# class InstituteDetailListSerializer(serializers.ModelSerializer):
-#     institute_id = serializers.IntegerField(source="institute.id", read_only=True)
-#     institute_name = serializers.CharField(source="institute.name", read_only=True)
-
-#     class Meta:
-#         model = InstituteDetail
-#         fields = [
-#             "id",
-#             "institute_id",
-#             "institute_name",
-#             "established_year",
-#             "total_students",
-#             "total_teachers",
-#             "created_at",
-#             "updated_at",
-#         ]
-
-
+ 
 class InstituteDetailPublicSerializer(MultiCroppedImageMixin):
     """
     Full public payload with nested read-only sections for React.
@@ -471,107 +336,7 @@ class InstituteDetailPublicSerializer(MultiCroppedImageMixin):
             "show_image",
         ]
 
-
-# class InstituteDetailPublicSerializer(serializers.ModelSerializer):
-#     """
-#     Full public payload with nested read-only sections for React.
-#     """
-
-#     institute_id = serializers.IntegerField(source="institute.id", read_only=True)
-#     institute_name = serializers.CharField(source="institute.name", read_only=True)
-
-#     # --- New fields for heading background ---
-#     heading_background_image_url = serializers.SerializerMethodField()
-#     heading_background_image_cropped_url = serializers.SerializerMethodField()
-
-#     introduction = IntroductionSerializer(read_only=True)
-#     history = HistorySerializer(read_only=True)
-#     facilities = FacilitySerializer(many=True, read_only=True)
-#     achievements = AchievementSerializer(many=True, read_only=True)
-
-#     def _absolute_url(self, relative_url):
-#         request = self.context.get("request")
-#         if request and relative_url:
-#             # Decode %2C (and any other encoded chars) to match the file on disk
-#             decoded_url = urllib.parse.unquote(relative_url)
-#             return request.build_absolute_uri(decoded_url)
-#         return relative_url
-
-#     def get_heading_background_image_url(self, obj):
-#         try:
-#             # print("DEBUG heading_background_image:", obj.heading_background_image)
-#             if obj.heading_background_image:
-#                 return self._absolute_url(obj.heading_background_image.url)
-#         except Exception:
-#             pass
-#         return None
-
-#     def get_heading_background_image_cropped_url(self, obj):
-#         try:
-#             if not obj.heading_background_image:
-#                 return None
-#             box = getattr(obj, "cropping", None)
-#             opts = {"size": (1400, 600), "crop": True}
-#             if box:
-#                 opts["box"] = box
-#             url = get_thumbnailer(obj.heading_background_image).get_thumbnail(opts).url
-#             return self._absolute_url(url)
-#         except Exception:
-#             return None
-
-#     class Meta:
-#         model = InstituteDetail
-#         fields = [
-#             "id",
-#             "institute_id",
-#             "institute_name",
-#             "established_year",
-#             "total_students",
-#             "total_teachers",
-#             "introduction",
-#             "history",
-#             "facilities",
-#             "achievements",
-#             "created_at",
-#             "updated_at",
-#             # heading background
-#             "heading_background_image_url",
-#             "heading_background_image_cropped_url",
-#             "show_image",
-#         ]
-
-
-# ---------- Direct serializers for editing Intro/History ----------
-
-
-# class IntroductionWriteSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Introduction
-#         fields = [
-#             "id",
-#             "institute_detail",
-#             "title",
-#             "content",
-#             "image",
-#             "cropping",
-#             "show_image",
-#         ]
-
-
-# class HistoryWriteSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = History
-#         fields = [
-#             "id",
-#             "institute_detail",
-#             "title",
-#             "content",
-#             "image",
-#             "cropping",
-#             "show_image",
-#         ]
-
-
+ 
 # ////////////////////////////////////////////////////////////////////////////////////////////
 # /////////////////////////////// {Contact Card Serializer } ///////////////////////////////
 # ////////////////////////////////////////////////////////////////////////////////////////////
@@ -660,3 +425,28 @@ class ContactPageSerializer(serializers.ModelSerializer):
                     ContactCard.objects.create(page=instance, **card_dict)
 
         return instance
+
+
+# ////////////////////////////////////////////////////////////////////////////////////////////
+# /////////////////////////////// { InstituteApprovalInfoSerializer Serializer  ///////////////////////////////////////
+# ////////////////////////////////////////////////////////////////////////////////////////////
+
+class InstituteApprovalInfoSerializer(MultiCroppedImageMixin):
+    # institute_name = serializers.CharField(source='institute.name', read_only=True)
+    institute = InstituteSerializer(read_only=True)
+    class Meta:
+        model = InstituteApprovalInfo
+        image_fields =["image",]
+        crop_sizes = {
+            "image": (800,1120),  # widescreen ratio
+        }
+        fields = [
+            "id",
+            "institute",
+            "issue_date",
+            "authority_bn",
+            "authority_en",  
+            "created_at",
+            "updated_at",
+        ]
+    

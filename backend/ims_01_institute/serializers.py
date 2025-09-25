@@ -94,7 +94,7 @@ class InstituteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Institute
         fields = [
-            'id', 'name', 'name_in_english', 'institute_code', 'address',
+            'id', 'name', 'name_in_english', 'institute_code','institute_eiin', 'address',
             'mobile_number', 'email', 'logo_url', 'picture_url',
             'signature_of_class_teacher', 'signature_of_class_bangla',
             'signature_of_class_guardian', 'signature_of_class_guardian_bangla',

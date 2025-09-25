@@ -1,5 +1,6 @@
 import axios from "axios";
 
+
 export const areAllFieldsFilled = (vars) => {
   // Check if all fields are filled (not null, undefined, or an empty string)
   return Object.values(vars).every(

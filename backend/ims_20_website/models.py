@@ -11,6 +11,7 @@ from django.utils import timezone
 from backend.utils import (
     safe_upload_to_notice_attachments,
     safe_upload_to_website_committee,
+    safe_upload_to_website_institute_approval,
 )
 from unidecode import unidecode
 
@@ -457,7 +458,7 @@ class Feature(models.Model):
 # ///////////////////////////////////////////////////////////////////////////////
 # //////////////////////////////// ManagingCommittee ////////////////////////////
 # ///////////////////////////////////////////////////////////////////////////////
- 
+
 class ManagingCommittee(models.Model):
     institute = models.ForeignKey(
         Institute,
@@ -720,3 +721,40 @@ class ContactCard(models.Model):
     def __str__(self):
         return f"{self.contact_person} ({self.title or 'card'})"
 
+# ////////////////////////////////////////////////////////////////////////////////////////////
+# /////////////////////////////// Institute Approval Docs ///////////////////////////////
+# ////////////////////////////////////////////////////////////////////////////////////////////
+
+
+class InstituteApprovalInfo(models.Model):
+    institute = models.ForeignKey(
+        "ims_01_institute.Institute", on_delete=models.CASCADE, related_name="documents"
+    )
+
+    # Issue date
+    issue_date = models.DateField(
+        blank=True, null=True, verbose_name="Issue Date (English)"
+    )
+    # Issuing authority
+    authority_bn = models.CharField(
+        max_length=255, verbose_name="প্রদানকারী কর্তৃপক্ষ (বাংলা)"
+    )
+    authority_en = models.CharField(max_length=255, verbose_name="Authority (English)")
+    image = ImageCropField(
+        upload_to=safe_upload_to_website_institute_approval,
+        blank=True,
+        null=True,
+    )
+    image_cropped = ImageRatioField("image", "800x1120")
+
+    # Auto timestamps
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Institute Document"
+        verbose_name_plural = "Institute Approval Info"
+        ordering = ["-issue_date"]
+
+    def __str__(self):
+        return f"{self.institute.name} - {self.issue_date}"

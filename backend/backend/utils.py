@@ -286,3 +286,6 @@ def safe_upload_to_website_slides(instance, filename):
 
 def safe_upload_to_website_committee(instance, filename):
     return os.path.join("website/committee-image", _make_safe_name(filename))
+
+def safe_upload_to_website_institute_approval(instance, filename):
+    return os.path.join("website/institute-approval-image", _make_safe_name(filename))

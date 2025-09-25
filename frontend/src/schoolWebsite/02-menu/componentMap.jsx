@@ -5,9 +5,10 @@ import StudentStatistics from "../09-student-statistics/StudentStatistics";
 import NoticeBoard from "../recent/NoticeBoard";
 import TeacherInfo from "../10-teacher-info/TeacherInfo";
 
-import HistoryContent from "../06-history-of-institute/HistoryOfInstitute"; 
+// import HistoryContent from "../06-history-of-institute/HistoryOfInstitute"; 
 import HistoryPage from "../06-history-of-institute/HistoryPage"; 
 import ManagingCommitteePage from '../07-managing-committee/ManagingCommitteePage'
+import InstituteApproval from "../12-institute-approval/InstituteApproval"; 
 
 export const componentMap = {
   "contact-address": ContactInfo,
@@ -19,7 +20,7 @@ export const componentMap = {
   "staff": TeacherInfo,
   "photo-gallery": NoticeBoard,
   "video-gallery": NoticeBoard,
-  "permission-and-recognition-of-teaching-in-the-institution": NoticeBoard,
+  "permission-and-recognition-of-teaching-in-the-institution": InstituteApproval,
   "category-wise-approved-branch-information": NoticeBoard,
   "our-faculty": TeacherInfo,
   "routine": NoticeBoard,

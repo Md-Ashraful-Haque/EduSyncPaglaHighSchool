@@ -101,6 +101,7 @@ from .models import (
     History,
     Facility,
     Achievement,
+    InstituteApprovalInfo,
 )
 from .serializers import (
     MenuItemSerializer,
@@ -113,6 +114,7 @@ from .serializers import (
     ContactPageSerializer,
     ContactCardSerializer,
     InstituteDetailPublicSerializer,
+    InstituteApprovalInfoSerializer,
     HistorySerializer,
 )
 
@@ -445,3 +447,17 @@ class ContactCardViewSet(viewsets.ModelViewSet):
         if page_id:
             qs = qs.filter(page__id=page_id)
         return qs
+
+
+
+#////////////////////////////////////////////////////////////////////////////////////////////
+#/////////////////////////////// Intititute Approval Info ///////////////////////////////
+#////////////////////////////////////////////////////////////////////////////////////////////
+class InstituteApprovalInfoByCodeAPIView(generics.RetrieveAPIView):
+    permission_classes = [permissions.AllowAny]
+    queryset = InstituteApprovalInfo.objects.all()
+    serializer_class = InstituteApprovalInfoSerializer
+
+    def get_object(self):
+        institute_code = self.kwargs['institute_code']
+        return self.queryset.get(institute__institute_code=institute_code)
