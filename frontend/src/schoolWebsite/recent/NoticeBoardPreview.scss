@@ -67,6 +67,10 @@
 }
 
 .site-container { 
+  &{
+    max-width: 1100px;
+    margin: auto;
+  }
   .notice-header {
     // background-color: red;
     background: linear-gradient(-90deg, #138FDE, #006b11);

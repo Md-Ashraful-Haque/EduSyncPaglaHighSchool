@@ -7,15 +7,18 @@ import FullScreenModal from "pageComponents/02_full_screen_window";
 import ContactInfo from "schoolWebsite/08-contact-info/ContactInfo";
 import { componentMap } from "./componentMap";
 import { useAppContext } from "ContextAPI/AppContext";
-
+import { ChevronDown } from "lucide-react";
 
 const Menu = () => {
-  const {instituteInfo,isAuthenticated } = useAppContext();
+  const { instituteInfo, isAuthenticated } = useAppContext();
   const [menuOpen, setMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [showContactInfo, setShowContactInfo] = useState(false);
+
   const [activeSinglePageComponent, setActiveSinglePageComponent] =
     useState(null);
+
   const toggleMenu = () => setMenuOpen(!menuOpen);
   const closeMenu = () => setMenuOpen(false);
 
@@ -51,15 +54,17 @@ const Menu = () => {
         >
           {item.children.length > 0 ? (
             <>
-              <span>{item.name_bn} ▾</span>
-              
+              <span>
+                {item.name_bn} <ChevronDown className="w-4 h-4 " />
+              </span>
+
               {renderMenuItems(item.children, true)}
             </>
           ) : (
             (() => {
               const cleanedSlug = item.slug.replace(/^\//, "");
-              // console.log("cleanedSlug: ", cleanedSlug);
               const Component = componentMap[cleanedSlug];
+              // console.log("cleanedSlug: ", cleanedSlug);
 
               return Component ? (
                 <a
@@ -85,59 +90,37 @@ const Menu = () => {
           )}
         </li>
       ))}
-      {isAuthenticated?(
-        <li>
-        <a href="/admin/" onClick={closeMenu}> 
-          ড্যাশবোর্ড
-        </a>
-      </li>
-      ):(
-        <li>
-          <a href="/login" onClick={closeMenu}> 
+
+      {!isSubmenu &&
+        (isAuthenticated ? (
+          <a href="/admin/" onClick={closeMenu} className="smooth-btn">
+            ড্যাশবোর্ড
+          </a>
+        ) : (
+          <a href="/login" onClick={closeMenu} className="smooth-btn">
             লগইন
           </a>
-      </li>
-      )}
-      
-
-
+        ))}
     </ul>
   );
 
   return (
     <>
-      <nav className="custom-navbar container-fluid menu-bg fixed-top">
+      <nav className="custom-navbar container-fluid menu-bg sticky top-0">
+        {/* <nav className="custom-navbar container-fluid menu-bg fixed-top"> */}
         <div className="container">
           <div className="brand">
-            {/* <a href="/">
-              <img src={instituteInfo.logo_url} alt="" />
-              <h1 className="institute-name"> {instituteInfo.name_in_english}</h1> 
-            </a> */}
-
-            {/* {instituteInfo ? (
-              <a href="/">
-                <img src={instituteInfo.logo_url} alt="Institute Logo" />
-                <h1 className="institute-name">{instituteInfo.name}</h1>
-              </a>
-            ) : (
-              <div className="animate-pulse text-gray-400">
-                Loading institute info...
-              </div>
-            )} */}
-
             <a href="/">
-                <img src={instituteInfo?.logo_url} alt="Institute Logo" />
-                {/* <h1 className="institute-name"> পেঁচুল উচ্চ বিদ্যালয় </h1> */}
-                <h1 className="institute-name">{instituteInfo?.name} </h1>
-              </a>
-
+              <img src={instituteInfo?.logo_url} alt="Institute Logo" />
+              <h1 className="institute-name">{instituteInfo?.name} </h1>
+            </a>
           </div>
 
           <button className="toggle-button" onClick={toggleMenu}>
             ☰
           </button>
 
-          {renderMenuItems(menuItems)}
+          {renderMenuItems(menuItems)} 
         </div>
       </nav>
 

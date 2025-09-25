@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import "./website.scss";
 
 import Header from "./01-header/Header";
-import Menu from "./02-menu/Menu";
+import Menu from "./02-menu/Menu_new";
 import SliderCarousel from "./03-homeSlider/HomeSlider";
 import SliderHeadline from "./03-homeSlider/SliderHeadline";
 import RecentBulletin from "./04-recent-bulletin/RecentBulletin";
@@ -59,12 +59,12 @@ const Website = () => {
 
       <RecentBulletin />
       
-      <div className="container">
+      <div className="container-fluid">
         <div className="site-container">
           <RecentNotice />
 
           <div className="row">
-            <div className="col-sm-12 col-md-9">
+            {/* <div className="col-12 col-lg-8 col-xxl-9">
               
               <HistoryOfInstitute /> 
 
@@ -78,9 +78,27 @@ const Website = () => {
               </div>
 
             </div>
-            <div className="col-sm-12 col-md-3 ">
+            <div className="col-12 col-lg-4 col-xxl-3">
               <ManagingCommittee />
+            </div> */}
+            <div className="grid grid-cols-1 sm:grid-cols-[2fr_1fr] lg:grid-cols-[3fr_1fr] gap-4">
+              <div>
+                <HistoryOfInstitute />
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 py-4">
+                  {cards.map((card) => (
+                    <div key={card.id} className="flex flex-col h-full">
+                      <CardItem card={card} className="flex-1" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <ManagingCommittee />
+              </div>
             </div>
+
           </div>
         </div>
       </div>

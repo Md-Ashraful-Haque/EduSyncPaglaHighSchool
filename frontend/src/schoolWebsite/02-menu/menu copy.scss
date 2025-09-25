@@ -96,7 +96,7 @@
   }
 
   .menu {
-    display: flex;
+    display: flex !important;
     flex-wrap: wrap;
 
     list-style: none;
