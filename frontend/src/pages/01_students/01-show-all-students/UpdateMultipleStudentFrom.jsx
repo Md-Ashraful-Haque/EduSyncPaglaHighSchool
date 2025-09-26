@@ -619,7 +619,7 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
                   Save Students
                 </button>
 
-                <button
+                {/* <button
                   type="button"
                   onClick={() => setShowAllPasswords((prev) => !prev)}
                   className="button-1"
@@ -627,7 +627,7 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
                   {showAllPasswords
                     ? "Hide All Passwords"
                     : "Show All Passwords"}
-                </button>
+                </button> */}
               </div>
 
               <button
