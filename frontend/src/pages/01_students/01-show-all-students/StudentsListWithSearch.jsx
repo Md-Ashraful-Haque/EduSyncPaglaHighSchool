@@ -130,7 +130,7 @@ const StudentsListWithSearch = ({
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-200 bg-gradient-to-r from-slate-50 to-gray-50">
-                <th className="px-3 py-3 border-bottom text-center text-sm font-semibold text-gray-700 tracking-wide">
+                <th className="px-2 py-2 sm:px-3 sm:py-3  border-bottom text-center text-sm font-semibold text-gray-700 tracking-wide">
                   রোল
                 </th>
                 <th className="px-2 py-3 min-w-[200px] border-bottom text-center text-sm font-semibold text-gray-700 tracking-wide">
@@ -176,7 +176,7 @@ const StudentsListWithSearch = ({
                   }`}
                 >
                   
-                  <td className="pl-2 px-3 py-3 border-bottom">
+                  <td className="px-2 py-2 sm:px-3 sm:py-3 border-bottom">
                     <div className="flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full text-sm font-medium text-blue-700">
                       {student.roll_number}
                     </div>

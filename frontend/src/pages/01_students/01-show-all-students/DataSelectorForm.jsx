@@ -125,7 +125,7 @@ const DataSelectorFormFields = () => {
         <div className="data-selector-form">
           <div className="container-fluid">
             <div className="row">
-              <div className="flex flex-wrap gap-4 justify-between items-center p-2">
+              <div className="flex flex-wrap gap-4 justify-center xl:justify-between items-center p-2">
                 <div className="flex flex-wrap justify-center gap-1 py-2">
                   <div id="field-selector-form">
                     <div id="option-component">
@@ -177,7 +177,7 @@ const DataSelectorFormFields = () => {
                             <PencilSquareIcon className="w-4 h-4 text-purple-700 group-hover:text-purple-700" /> 
 
                           </div>
-                          <span className="font-semibold">Update Student</span>
+                          <span className="font-semibold text-xs lg:text-sm ">Update Student</span>
                         </div>
                       </button>
 
@@ -190,7 +190,7 @@ const DataSelectorFormFields = () => {
                           <div className="border border-purple-700 rounded-full p-1.5 group-hover:border-white group-hover:bg-white/20 transition-all duration-300">
                             <PlusIcon className="w-4 h-4 text-purple-700 group-hover:text-purple-700" />
                           </div>
-                          <span className="font-semibold">Add Student</span>
+                          <span className="font-semibold text-xs lg:text-sm">Add Student</span>
                         </div>
                       </button>
                     </div>
