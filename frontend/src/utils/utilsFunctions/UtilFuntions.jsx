@@ -19,8 +19,8 @@ export function markTypeBangla(markType) {
   const mapping = {
     "Objective (MCQ)": "এমসিকিউ",
     "Theory": "তাত্ত্বিক",
-    "Practical": "ব্যাবহারিক",
-    "Written(CQ)": "লিখিত (সিকিউ)",
+    "Practical": "ব্যবহারিক",
+    "Written(CQ)": "সিকিউ", 
     "Continuous Assessment": "ধারাবাহিক মূল্যায়ন",
     "Class Test": "ক্লাস টেস্ট",
     "Annual Exam": "বার্ষিক পরীক্ষা",

@@ -346,7 +346,7 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
           <div className="student-table-container">
             <table className="student-input-table shadow-[0_10px_15px_-3px_rgba(0,0,0,0.1),0_4px_15px_-4px_rgba(0,0,0,0.1)] !rounded-lg">
               <thead>
-                <tr className="bg-gray-100 text-left">
+                <tr className="bg-gray-100 text-left text-xs">
                   <th>রোল (ইংরেজি)</th>
                   <th>ইংরেজি নাম </th>
                   <th>বাংলা নাম </th>

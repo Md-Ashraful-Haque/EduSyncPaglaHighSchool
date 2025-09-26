@@ -386,7 +386,7 @@ const StudentListForOneSubject = () => {
                   <div className="col-1 d-none d-md-block">
                     <div className="heading serial-no">ক্রমিক নং</div>
                   </div>
-                  <div className="col-6 col-md-3">
+                  <div className="col-7 col-md-4">
                     <div className="heading name-heading">নাম</div>
                   </div>
                   <div className="col-2 col-md-1">
@@ -407,11 +407,6 @@ const StudentListForOneSubject = () => {
                   ) : (
                     <p>No mark types found.</p>
                   )}
-
-                  <div className="col-1 col-md-1">
-                    <div className="heading">মোট</div>
-                  </div>
-
                 </div>
 
                 {/* <form onSubmit={handleSubmit}> */}
@@ -432,7 +427,7 @@ const StudentListForOneSubject = () => {
                             {String(index + 1).padStart(2, "0")}
                           </div>
                         </div>
-                        <div className="col-6 col-md-3">
+                        <div className="col-7 col-md-4">
                           <div className={`heading name-heading ${rowClass}`}>
                             {student.name}
                           </div>
@@ -451,9 +446,6 @@ const StudentListForOneSubject = () => {
                                 <div
                                   className={`heading marks-heading ${rowClass}`}
                                 >
-
-
-
                                   <input
                                     className={`
                                         ${markValue === -1 ? "!text-sm" : ""}
@@ -503,54 +495,10 @@ const StudentListForOneSubject = () => {
                                       }
                                     }}
                                   />
-
-
-
                                 </div>
                               </div>
                             ) : null
                         )}
-                        {/* <div className="col-2 col-md-1">
-                          <div className={`heading  ${rowClass}`}>
-                            {
-                              Object.entries(studentMarks)
-                                .filter(([markType]) => selectedMarkTypes.includes(markType))
-                                .reduce((sum, [, markValue]) => {
-                                  const num = Number(markValue);
-                                  return sum + (isNaN(num) || num === -1 ? 0 : num);
-                                }, 0)
-                            }
-                          </div>
-                        </div> */}
-
-                        {/* /////////////////////////////////////////////////////////////////////////
-                        ///////////////////////////////////////////////////////////////////////// */}
-                        <div className="col-2 col-md-1">
-                          {(() => {
-                            const sum = Object.entries(studentMarks)
-                              .filter(([markType]) => selectedMarkTypes.includes(markType))
-                              .reduce((acc, [, markValue]) => {
-                                const num = Number(markValue);
-                                return acc + (isNaN(num) || num === -1 ? 0 : num);
-                              }, 0);
-
-                            // check special cases
-                            const highlightRed = [39, 49, 59, 69, 79].includes(sum) || sum < 33;
-                            // console.log("===========highlightRed: ", highlightRed);
-                            return (
-                              <div
-                                className={`heading ${
-                                  highlightRed ? "!bg-red-100 !text-red-700" : "!bg-green-100 !text-green-700"
-                                }`}
-                              >
-                                {sum} 
-                              </div>
-                            );
-                          })()}
-                        </div>
-
-                        {/* /////////////////////////////////////////////////////////////////////////
-                        ///////////////////////////////////////////////////////////////////////// */}
                       </div>
                     );
                   })}

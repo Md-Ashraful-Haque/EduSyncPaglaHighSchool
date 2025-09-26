@@ -32,9 +32,8 @@ const MarkTypeCheckboxes = ({ markTypes,selectedMarkTypes, setSelectedMarkTypes 
                 checked={isSelected}
                 onChange={() => handleCheckboxChange(type.mark_type)}
               />
-              {/* {type.mark_type_display} */}
-               {/* ({type.max_marks} marks) */}
-              {type.mark_type =="WR"? "CQ": type.mark_type}
+              {type.mark_type_display} ({type.max_marks} marks)
+              {/* {type.mark_type} */}
             </label>
           );
         })
