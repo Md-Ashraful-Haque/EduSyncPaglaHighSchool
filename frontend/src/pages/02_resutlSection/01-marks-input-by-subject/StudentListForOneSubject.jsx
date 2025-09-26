@@ -382,7 +382,7 @@ const StudentListForOneSubject = () => {
           <div className="section-wise-student-marks-entry">
             <div className="marks-entry-for-one-subject">
               <div className="container-fluid overflow-auto">
-                <div className="row flex-nowrap !min-w-[624px]">
+                <div className="row flex-nowrap !min-w-[564px]">
                   <div className="col-1 d-none d-md-block">
                     <div className="heading serial-no">ক্রমিক নং</div>
                   </div>
@@ -415,7 +415,7 @@ const StudentListForOneSubject = () => {
                 </div>
 
                 {/* <form onSubmit={handleSubmit}> */}
-                <form onSubmit={handleSubmitForSaveOrUpdateMarks} className="!min-w-[600px] mb-32 ">
+                <form onSubmit={handleSubmitForSaveOrUpdateMarks} className="!min-w-[540px] mb-32 ">
                   {students.map((student, index) => {
                     const isEven = index % 2 === 0;
                     const rowClass = isEven ? "data-even" : "data-odd";
