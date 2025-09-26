@@ -323,9 +323,9 @@ const StudentListForOneSubject = () => {
 
   return (
     <>
-      <div className="subject-selector-form-container">
+      <div className="subject-selector-form-container p-2">
         <div className="subject-selector-form current-session-header">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 m-2 sm:!m-4 xl:!m-8">
             <SelectFields fields={["class"]} />
             <SelectFields fields={["group"]} />
             <SelectFields fields={["section"]} />
@@ -382,8 +382,8 @@ const StudentListForOneSubject = () => {
           <div className="section-wise-student-marks-entry">
             <div className="marks-entry-for-one-subject">
               <div className="container-fluid overflow-auto">
-                <div className="row flex-nowrap !min-w-[564px]">
-                  <div className="col-1 d-none d-md-block">
+                 <div className="row flex-nowrap !min-w-[574px]"> {/*/////////////////////////////// */}
+                  <div className="col-1 d-none d-lg-block">
                     <div className="heading serial-no">ক্রমিক নং</div>
                   </div>
                   <div className="col-6 col-md-3">
@@ -408,14 +408,14 @@ const StudentListForOneSubject = () => {
                     <p>No mark types found.</p>
                   )}
 
-                  <div className="col-1 col-md-1">
+                  <div className="col-1 col-md-2 col-lg-1">
                     <div className="heading">মোট</div>
                   </div>
 
                 </div>
 
                 {/* <form onSubmit={handleSubmit}> */}
-                <form onSubmit={handleSubmitForSaveOrUpdateMarks} className="!min-w-[540px] mb-32 ">
+                <form onSubmit={handleSubmitForSaveOrUpdateMarks} className="!min-w-[550px] mb-32 ">
                   {students.map((student, index) => {
                     const isEven = index % 2 === 0;
                     const rowClass = isEven ? "data-even" : "data-odd";
@@ -427,7 +427,7 @@ const StudentListForOneSubject = () => {
 
                     return (
                       <div key={student.id} className="row flex-nowrap">
-                        <div className="col-1 d-none d-md-block">
+                        <div className="col-1 d-none d-lg-block">
                           <div className={`heading serial-no ${rowClass}`}>
                             {String(index + 1).padStart(2, "0")}
                           </div>
@@ -512,7 +512,7 @@ const StudentListForOneSubject = () => {
                         )} 
                         {/* /////////////////////////////////////////////////////////////////////////
                         ///////////////////////////////////////////////////////////////////////// */}
-                        <div className="col-1 col-md-1">
+                        <div className="col-1 col-md-2 col-lg-1">
                           {(() => {
                             const sum = Object.entries(studentMarks)
                               .filter(([markType]) => selectedMarkTypes.includes(markType))
