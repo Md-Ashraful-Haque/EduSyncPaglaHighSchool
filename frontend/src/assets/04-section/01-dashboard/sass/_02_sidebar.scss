@@ -31,6 +31,7 @@
       border: 1px solid rgb(218, 222, 255);
       border-radius: 10px;  
       box-sizing: border-box;
+      
       // background: linear-gradient(to right, red, blue);
       // margin: auto 20px;
       // @include three-mqr("margin-top", 50, 50, 63, 64, 64, 80);
@@ -269,7 +270,7 @@
       // left: auto; // Remove the left positioning
       // right: 0; // Position the sidebar on the right for mobile
       width: 100%;
-      transform: translateX(-100%); // Default hidden state for right-side sidebar
+      transform: translateX(-110%); // Default hidden state for right-side sidebar
       // transform: translateX(-400px); // Default hidden state for right-side sidebar
       
       &.hidden {
@@ -283,12 +284,14 @@
       &{
         padding: 0;
         // margin-bottom: 100px;
-        min-height: 400px !important;
+        min-height: 92vh !important;
+        // min-height: 400px !important;
         border: 1px solid rgb(218, 202, 255);
 
         display: flex;
         flex-direction: column;
         justify-content: space-between;
+        width: 94% !important;
       }
       &>ul {
         &{

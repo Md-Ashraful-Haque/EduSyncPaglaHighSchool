@@ -9,8 +9,8 @@ const TableHeader = ({ bySubjectVars }) => {
       <tr className="bg-gradient-to-r from-blue-500 to-purple-600 text-white text-center hind-siliguri-regular">
         <th className="py-2 px-3 ">{bySubjectVars.isBangla? "নাম": "Name" }</th>
         <th className="py-2 px-3 ">{bySubjectVars.isBangla? "রোল": "Roll" }</th>
-        <th className="py-2 px-3 ">{bySubjectVars.isBangla? "ক্লাস মেধা": "Merit(Classwise)" }</th>
-        <th className="py-2 px-3 ">{bySubjectVars.isBangla? "শাখা মেধা": "Merit(Sectionwise)" }</th>
+        <th className="py-2 px-3 ">{bySubjectVars.isBangla? "ক্লাস মেধা": "Merit (Classwise)" }</th>
+        <th className="py-2 px-3 ">{bySubjectVars.isBangla? "শাখা মেধা": "Merit (Sectionwise)" }</th>
         <th className="py-2 px-3 ">{bySubjectVars.isBangla? "বিভাগ": "Group" }</th>
         <th className="py-2 px-3 ">{bySubjectVars.isBangla? "শাখা": "Section" }</th>
         <th className="py-2 px-3 ">{bySubjectVars.isBangla? "জিপিএ": "GPA" }</th>

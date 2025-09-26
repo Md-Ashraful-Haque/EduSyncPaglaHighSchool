@@ -9,11 +9,11 @@ const FullScreenModal = ({ isOpen, onClose, children }) => {
       <div className="relative w-full h-full bg-white rounded-lg overflow-auto modal-content">
         <button
           onClick={onClose}
-          className="close-button floating sm:top-8 sm:right-32 print:hidden z-1000  p-2 border !rounded-full"
+          className="close-button floating sm:top-8 sm:right-32 print:hidden z-1000  border !rounded-full"
           aria-label="Close modal"
           // className="close-button floating fixed top-2 right-3 sm:top-8 sm:right-10 print:hidden z-1000  p-2 border rounded-sm"
         >
-          <XMarkIcon className="h-6 w-6" /> {/* Fixed w-4 to w-6 */}
+          <XMarkIcon className="h-7 w-7" /> 
         </button>
         
 

@@ -126,7 +126,7 @@ const DataSelectorFormFields = () => {
           <div className="container-fluid">
             <div className="row">
               <div className="flex flex-wrap gap-4 justify-between items-center p-2">
-                <div className="flex flex-wrap justify-center gap-4 p-2">
+                <div className="flex flex-wrap justify-center gap-1 py-2">
                   <div id="field-selector-form">
                     <div id="option-component">
                       <div className="option-label !border-0 bg-none bg-transparent">
@@ -162,29 +162,6 @@ const DataSelectorFormFields = () => {
                   </div>
                 </div>
                 
-
-                  {/* <div className="w-full sm:w-auto flex justify-center pr-0 sm:pr-4 ">
-                    <button onClick={handleOpenUpdate} disabled={!vars.is_staff}>
-                      <div className="max-h-[48px] border border-blue-50 flex justify-center items-center p-2 px-3 rounded-full hover:!border-blue-800 hover:bg-blue-50 transition-colors">
-                        <div className="border border-blue-500 rounded-full p-1 mr-2">
-                          <PlusIcon className="size-4 text-blue-500" />
-                        </div>
-                        Update Student
-                      </div>
-                    </button>
-                  </div>
-
-                  <div className="w-full sm:w-auto flex justify-center pr-0 sm:pr-4 ">
-                    <button onClick={handleOpenAdd} disabled={!vars.is_staff}>
-                      <div className="max-h-[48px] border border-blue-50 flex justify-center items-center p-2 px-3 rounded-full hover:!border-blue-800 hover:bg-blue-50 transition-colors">
-                        <div className="border border-blue-500 rounded-full p-1 mr-2">
-                          <PlusIcon className="size-4 text-blue-500" />
-                        </div>
-                        Add Student
-                      </div>
-                    </button>
-                  </div> */}
-
                   {/* Alternative: Elevated Button Group */}
                   <div className="mt-0">
                     {/* <h3 className="text-sm font-medium text-gray-600 mb-3">Elevated Style:</h3> */} 
@@ -225,7 +202,7 @@ const DataSelectorFormFields = () => {
               </div>
             </div>
             <div className="row">
-              <div className="px-[40px] w-full flex justify-center">
+              <div className="px-[40px] w-full flex justify-center ">
                 <div className="max-w-[900px] border-0 sm:border border-blue-50 flex flex-wrap gap-4 justify-center items-center py-[32px] px-[40px] rounded-lg">
                   <SelectFields fields={["class"]} />
                   <SelectFields fields={["group"]} />

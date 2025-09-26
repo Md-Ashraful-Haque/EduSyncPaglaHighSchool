@@ -13,8 +13,8 @@
 }
 
 .data-selector-form {
-  & {
-    // border: 1px solid red;
+  @media screen and (min-width: 576px) and (max-width: 1080px) {
+    font-size: 0.6rem;
   }
 
   #field-selector-form {
@@ -109,6 +109,11 @@
     margin: 20px auto;
     padding: 0px 20px; 
     overflow-x: auto; // Enable horizontal scrolling if needed
+  }
+  // @media screen and (min-width: 576px) and (max-width: 1080px) {
+  @media screen and (max-width: 576px){
+    font-size: 0.6rem;
+    padding: 0px; 
   }
 
   .table-controls {
@@ -281,6 +286,7 @@
     justify-content: center;
     gap: 5px;
     margin-top: 10px;
+    flex-wrap: wrap;
 
     .pagination-btn {
       padding: 5px 10px;

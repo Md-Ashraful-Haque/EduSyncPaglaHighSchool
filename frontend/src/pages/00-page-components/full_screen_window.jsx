@@ -20,7 +20,7 @@ const FullScreenModalWindow = ({ children }) => {
           className="fixed top-8 right-10 text-gray-600 hover:text-gray-800 print:hidden z-1000 bg-white p-2"
           aria-label="Close modal"
         >
-          <XMarkIcon className="h-6 w-6" /> {/* Fixed w-4 to w-6 */}
+          <XMarkIcon className="h-6 w-6" /> 
         </button>
         
 
