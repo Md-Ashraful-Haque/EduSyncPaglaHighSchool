@@ -170,7 +170,7 @@ const DataSelectorFormFields = () => {
                       <button 
                         onClick={handleOpenUpdate} 
                         // disabled={!vars.is_staff}
-                        className="group  flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-purple-700 hover:bg-purple-100 hover:from-blue-500 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 border-r border-gray-200 "
+                        className="group  flex items-center px-2 sm:px-3 py-2 text-sm font-medium text-gray-700 hover:text-purple-700 hover:bg-purple-100 hover:from-blue-500 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 border-r border-gray-200 "
                       >
                         <div className="flex items-center space-x-3">
                           <div className="border border-purple-700 rounded-full p-1.5 group-hover:border-white group-hover:bg-white/20 transition-all duration-300">
@@ -184,7 +184,7 @@ const DataSelectorFormFields = () => {
                       <button 
                         onClick={handleOpenAdd} 
                         // disabled={!vars.is_staff}
-                        className="group flex items-center px-3 py-2 text-sm font-medium text-gray-700 hover:text-purple-700 hover:bg-purple-100 hover:from-blue-500 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                        className="group flex items-center px-2 sm:px-3 py-2 text-sm font-medium text-gray-700 hover:text-purple-700 hover:bg-purple-100 hover:from-blue-500 hover:to-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
                       >
                         <div className="flex items-center space-x-3">
                           <div className="border border-purple-700 rounded-full p-1.5 group-hover:border-white group-hover:bg-white/20 transition-all duration-300">
