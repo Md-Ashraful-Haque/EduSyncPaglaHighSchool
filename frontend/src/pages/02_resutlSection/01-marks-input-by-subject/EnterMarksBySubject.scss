@@ -183,6 +183,7 @@
         }
 
         .heading {
+          
           border: 1px solid $roll-border-color;
           height: gs(60);
           min-height: 44px;
@@ -225,7 +226,7 @@
         }
 
         .serial-no {
-          border-top-left-radius: 10px;
+          // border-top-left-radius: 10px;
 
           @include mq($until: large) {
             display: none;

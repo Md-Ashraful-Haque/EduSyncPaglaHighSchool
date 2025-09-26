@@ -381,8 +381,8 @@ const StudentListForOneSubject = () => {
 
           <div className="section-wise-student-marks-entry">
             <div className="marks-entry-for-one-subject">
-              <div className="container-fluid">
-                <div className="row">
+              <div className="container-fluid overflow-auto">
+                <div className="row flex-nowrap !min-w-[624px]">
                   <div className="col-1 d-none d-md-block">
                     <div className="heading serial-no">ক্রমিক নং</div>
                   </div>
@@ -415,7 +415,7 @@ const StudentListForOneSubject = () => {
                 </div>
 
                 {/* <form onSubmit={handleSubmit}> */}
-                <form onSubmit={handleSubmitForSaveOrUpdateMarks}>
+                <form onSubmit={handleSubmitForSaveOrUpdateMarks} className="!min-w-[600px]">
                   {students.map((student, index) => {
                     const isEven = index % 2 === 0;
                     const rowClass = isEven ? "data-even" : "data-odd";
@@ -426,7 +426,7 @@ const StudentListForOneSubject = () => {
                     // console.log("studentMarks", studentMarks);
 
                     return (
-                      <div key={student.id} className="row">
+                      <div key={student.id} className="row flex-nowrap">
                         <div className="col-1 d-none d-md-block">
                           <div className={`heading serial-no ${rowClass}`}>
                             {String(index + 1).padStart(2, "0")}
@@ -509,23 +509,10 @@ const StudentListForOneSubject = () => {
                                 </div>
                               </div>
                             ) : null
-                        )}
-                        {/* <div className="col-2 col-md-1">
-                          <div className={`heading  ${rowClass}`}>
-                            {
-                              Object.entries(studentMarks)
-                                .filter(([markType]) => selectedMarkTypes.includes(markType))
-                                .reduce((sum, [, markValue]) => {
-                                  const num = Number(markValue);
-                                  return sum + (isNaN(num) || num === -1 ? 0 : num);
-                                }, 0)
-                            }
-                          </div>
-                        </div> */}
-
+                        )} 
                         {/* /////////////////////////////////////////////////////////////////////////
                         ///////////////////////////////////////////////////////////////////////// */}
-                        <div className="col-2 col-md-1">
+                        <div className="col-1 col-md-1">
                           {(() => {
                             const sum = Object.entries(studentMarks)
                               .filter(([markType]) => selectedMarkTypes.includes(markType))
