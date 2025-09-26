@@ -311,7 +311,7 @@ const AddStudentForm = ({ setIsModalOpen }) => {
   return (
     <div className="add-student-form">
       <h4 className="text-3xl font-extrabold text-center bg-gradient-to-r from-blue-600 via-purple-500 to-pink-500 bg-clip-text text-transparent tracking-wide">
-        Add New Student Form
+        নতুন শিক্ষার্থী সংযুক্ত করার ফর্ম
       </h4>
       <form onSubmit={saveStudents}  className="!w-[400px] sm:!w-full" >
         <div className="data-selector-form">
@@ -585,51 +585,6 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                         </div>
                       </div>
                     </td>
-
-                    {/* <td className="relative">
-                      <input
-                        type={student.showPassword ? "text" : "password"}
-                        value={student.password}
-                        onChange={(e) =>
-                          handleStudentChange(index, "password", e.target.value)
-                        }
-                        className="input pr-10"
-                      />
-                      <button
-                        type="button"
-                        className="absolute right-2 top-1/2 transform -translate-y-1/2 text-sm text-gray-600"
-                        onClick={() => {
-                          const updated = [...insertStudents];
-                          updated[index].showPassword =
-                            !updated[index].showPassword;
-                          setInsertStudents(updated);
-                        }}
-                      >
-                        {student.showPassword ? "🙈" : "👁️"}
-                      </button>
-                    </td> */}
-
-                    {/* <td>
-                      <input
-                        type="email"
-                        value={student.email}
-                        onChange={(e) =>
-                          handleStudentChange(index, "email", e.target.value)
-                        }
-                        className="input"
-                      />
-                    </td> */}
-                    {/* <td>
-                      <input
-                        type="text"
-                        value={student.address}
-                        onChange={(e) =>
-                          handleStudentChange(index, "address", e.target.value)
-                        }
-                        className="input"
-                      />
-                    </td> */}
-
                     <td>
                       <button
                         type="button"
@@ -641,26 +596,27 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                     </td>
                   </tr>
                 ))}
+
+                {/* <tr>
+                  <td>
+                    <div className="mr-2 mb-16 flex justify-end gap-4 p-2"> 
+                      <button
+                        type="button"
+                        onClick={handleAdd}
+                        className="bg-blue-500 text-white p-2 mt-2 !rounded-full hover:bg-blue-600 flex items-center gap-2"
+                      >
+                        <PlusIcon className="w-8 h-8" />
+                      </button>
+                    </div>
+                  </td>
+                </tr> */}
+
               </tbody>
             </table>
-
-            <div className="mr-2 flex justify-end gap-4 p-2">
-              <div className="print-button">
-                <button type="submit" className="button-1">
-                  Save Students
-                </button>
-
-                {/* <button
-                  type="button"
-                  onClick={() => setShowAllPasswords((prev) => !prev)}
-                  className="button-1"
-                >
-                  {showAllPasswords
-                    ? "Hide All Passwords"
-                    : "Show All Passwords"}
-                </button> */}
-              </div>
-
+            
+            
+            
+            <div className="mr-2 mb-16 flex justify-end gap-4 p-2"> 
               <button
                 type="button"
                 onClick={handleAdd}
@@ -669,6 +625,13 @@ const AddStudentForm = ({ setIsModalOpen }) => {
                 <PlusIcon className="w-8 h-8" />
               </button>
             </div>
+
+            <div className="print-button">
+              <button type="submit" className="button-1">
+                সংরক্ষণ করুন
+              </button> 
+            </div>
+
           </div>
         </div>
       </form>

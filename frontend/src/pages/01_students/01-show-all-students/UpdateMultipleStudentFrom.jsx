@@ -11,7 +11,7 @@ import { saveFormData } from "Utils/utilsFunctions/UtilFuntions";
 import CSVFileInput from "./InputCSVFile";
 
 import Loading_1 from "LoadingComponent/loading/Loading_1";
-import { Plus, Trash2, Eye, EyeOff, Upload } from 'lucide-react';
+import { Plus, Trash2, Eye, EyeOff, Upload } from "lucide-react";
 const initialStudent = {
   name: "",
   name_bangla: "",
@@ -137,17 +137,15 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
           }
         );
       }
-      
-
     } catch (err) {
       // console.log("=========================================");
-      // console.log("Failed err: ", err); 
-      // console.log("Failed err: ", err.response); 
-      // console.log("Failed err: ", err.response.data); 
-      // console.log("Failed err: ", err.response.data.failed_students_index); 
-      // console.log("Failed err: ", err.response.data.existing_roll_and_section_students_index); 
-      // console.log("Failed err: ", err.response.failed_students_index); 
-      // console.log("========================================="); 
+      // console.log("Failed err: ", err);
+      // console.log("Failed err: ", err.response);
+      // console.log("Failed err: ", err.response.data);
+      // console.log("Failed err: ", err.response.data.failed_students_index);
+      // console.log("Failed err: ", err.response.data.existing_roll_and_section_students_index);
+      // console.log("Failed err: ", err.response.failed_students_index);
+      // console.log("=========================================");
 
       setFailedToSave(err.response.data.failed_students_index || []);
 
@@ -184,14 +182,12 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
             progress: undefined,
           }
         );
-      } 
+      }
       // setIsModalOpen(false);
     } finally {
       setIsLoading(false);
     }
   };
-
-
 
   const handleCSVUpload = (event) => {
     const file = event.target.files[0];
@@ -203,58 +199,57 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
       const rows = text
         .trim()
         .split("\n")
-        .map((line) => line.split(",")); 
+        .map((line) => line.split(","));
 
       const headers = rows[0].map((h) => h.trim().toLowerCase());
 
-      const studentsFromCSV = rows.slice(1).map((row) => {
-        const student = { ...initialStudent };
-        row.forEach((value, index) => {
-          const key = headers[index];
-          const val = value.trim();
+      const studentsFromCSV = rows
+        .slice(1)
+        .map((row) => {
+          const student = { ...initialStudent };
+          row.forEach((value, index) => {
+            const key = headers[index];
+            const val = value.trim();
 
-          
+            console.log("val: ", val);
 
-          console.log("val: ", val);
+            if (key === "roll") student.roll_number = val;
+            else if (key === "name") student.name = val;
+            else if (key === "name bangla") student.name_bangla = val;
+            else if (key === "dob") {
+              // const date = "2009/01/02";
+              const formattedDate = val.replace(/\//g, "-");
+              student.dob = formattedDate;
+            } else if (key === "father's name") student.fathers_name = val;
+            else if (key === "mother's name") student.mothers_name = val;
+            else if (key === "mobile") student.phone_number = val;
+            else if (key === "brn") student.nid = val;
+            else if (key === "picture") student.picture = null;
+            else if (key === "password") student.password = val;
+            else if (key === "email") student.email = val;
+            else if (key === "guardian mobile")
+              student.guardian_mobile_number = val;
+            else if (key === "address") student.address = val;
+          });
 
-        if (key === "roll") student.roll_number = val;
-        else if (key === "name") student.name = val;
-        else if (key === "name bangla") student.name_bangla = val;
-        else if (key === "dob") {
-          // const date = "2009/01/02";
-          const formattedDate = val.replace(/\//g, "-");
-          student.dob = formattedDate;
-        }
-        else if (key === "father's name") student.fathers_name = val;
-        else if (key === "mother's name") student.mothers_name = val;
-        else if (key === "mobile") student.phone_number = val;
-        else if (key === "brn") student.nid = val;
-        else if (key === "picture") student.picture = null;
-        else if (key === "password") student.password = val;
-        else if (key === "email") student.email = val; 
-        else if (key === "guardian mobile") student.guardian_mobile_number = val;
-        else if (key === "address") student.address = val;
-        });
+          // // ✅ Check: skip if roll_number is not numeric
+          // if (!/^\d+$/.test(student.roll_number)) {
+          //   return null; // mark invalid
+          // }
 
-        // // ✅ Check: skip if roll_number is not numeric
-        // if (!/^\d+$/.test(student.roll_number)) {
-        //   return null; // mark invalid
-        // }
+          // ✅ Check: skip if roll_number is not numeric OR name is empty
+          if (!/^\d+$/.test(student.roll_number) || !student.name?.trim()) {
+            return null; // mark invalid
+          }
 
-        // ✅ Check: skip if roll_number is not numeric OR name is empty
-        if (!/^\d+$/.test(student.roll_number) || !student.name?.trim()) {
-          return null; // mark invalid
-        }
-
-        return student;
-      })
-      .filter((s) => s !== null); // remove skipped rows
+          return student;
+        })
+        .filter((s) => s !== null); // remove skipped rows
 
       setInsertStudents(studentsFromCSV);
     };
     reader.readAsText(file, "UTF-8");
   };
-
 
   useEffect(() => {
     setInsertStudents((prev) =>
@@ -276,7 +271,7 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
   return (
     <div className="add-student-form">
       <h4 className=" font-extrabold text-center bg-gradient-to-r from-blue-100 via-purple-100 to-pink-900 bg-clip-text text-transparent tracking-wide">
-        Update Student Form
+        শিক্ষার্থীর তথ্য আপডেট ফর্ম
       </h4>
 
       {/* <h4 style={{
@@ -289,8 +284,8 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
         textAlign: 'center'
       }}>
         Update Student Form
-      </h4> */} 
-      <form onSubmit={saveStudents} className="!w-[400px] sm:!w-full" >
+      </h4> */}
+      <form onSubmit={saveStudents} className="!w-[400px] sm:!w-full">
         <div className="data-selector-form">
           <div className="container-fluid">
             <div className="row">
@@ -613,13 +608,22 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
               </tbody>
             </table>
 
-            <div className="mr-2 flex justify-end gap-4 p-2">
-              <div className="print-button">
-                <button type="submit" className="button-1">
-                  Save Students
-                </button>
+            <div className="mr-2  mb-16  flex justify-end gap-4 p-2">
+              <button
+                type="button"
+                onClick={handleAdd}
+                className="bg-blue-500 text-white p-2 mt-2 !rounded-full hover:bg-blue-600 flex items-center gap-2"
+              >
+                <PlusIcon className="w-8 h-8" />
+              </button>
+            </div>
 
-                {/* <button
+            <div className="print-button">
+              <button type="submit" className="button-1">
+                সংরক্ষণ করুন
+              </button>
+
+              {/* <button
                   type="button"
                   onClick={() => setShowAllPasswords((prev) => !prev)}
                   className="button-1"
@@ -628,15 +632,6 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
                     ? "Hide All Passwords"
                     : "Show All Passwords"}
                 </button> */}
-              </div>
-
-              <button
-                type="button"
-                onClick={handleAdd}
-                className="bg-blue-500 text-white p-2 mt-2 !rounded-full hover:bg-blue-600 flex items-center gap-2"
-              >
-                <PlusIcon className="w-8 h-8" />
-              </button>
             </div>
           </div>
         </div>
