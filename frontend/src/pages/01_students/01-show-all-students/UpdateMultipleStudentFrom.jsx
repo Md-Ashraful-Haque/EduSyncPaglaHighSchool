@@ -290,12 +290,12 @@ const UpdateMultipleStudentFrom = ({ setIsModalOpen }) => {
       }}>
         Update Student Form
       </h4> */} 
-      <form onSubmit={saveStudents}>
+      <form onSubmit={saveStudents} className="!w-[400px] sm:!w-full" >
         <div className="data-selector-form">
           <div className="container-fluid">
             <div className="row">
               <div className="flex flex-wrap justify-center items-center p-2">
-                <div className="flex flex-wrap justify-center gap-4 p-2">
+                <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-4 p-2">
                   <div id="field-selector-form">
                     <div id="option-component">
                       <div className="option-label !border-0 bg-none bg-transparent">

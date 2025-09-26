@@ -17,7 +17,7 @@ const CSVFileInput = ({ handleCSVUpload }) => {
 
   return (
     <>
-      <div className="flex items-center gap-2">
+      <div className="flex items-center justify-center gap-2">
         <label htmlFor="csv-upload">
           <span className="flex items-center cursor-pointer bg-blue-500 text-white gap-2 p-2.5 rounded hover:bg-blue-600 transition-colors">
             <DocumentArrowUpIcon className="w-5 h-5 flex-shrink-0" /> {fileName}
