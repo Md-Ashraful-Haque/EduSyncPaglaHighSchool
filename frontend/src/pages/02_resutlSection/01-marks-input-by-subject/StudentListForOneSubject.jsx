@@ -415,7 +415,7 @@ const StudentListForOneSubject = () => {
                 </div>
 
                 {/* <form onSubmit={handleSubmit}> */}
-                <form onSubmit={handleSubmitForSaveOrUpdateMarks} className="!min-w-[600px]">
+                <form onSubmit={handleSubmitForSaveOrUpdateMarks} className="!min-w-[600px] mb-32 ">
                   {students.map((student, index) => {
                     const isEven = index % 2 === 0;
                     const rowClass = isEven ? "data-even" : "data-odd";
@@ -542,8 +542,10 @@ const StudentListForOneSubject = () => {
                     );
                   })}
                   {vars.is_staff && (
-                    <div className="save-button">
-                      <button type="submit"> সংরক্ষণ করুন </button>
+                    <div className="print-button">
+                      <div className="save-button">
+                        <button type="submit"> সংরক্ষণ করুন </button>
+                      </div>
                     </div>
                   )}
                 </form>
