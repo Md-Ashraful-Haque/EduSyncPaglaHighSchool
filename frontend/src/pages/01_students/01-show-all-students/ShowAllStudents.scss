@@ -1,0 +1,333 @@
+@use "../../../assets/03-common-sass/essentials"as *;
+
+
+@use "sass-mq"as *;
+
+.main-wrap-container{
+  & {
+    min-height: calc(100vh - 63px - 30px);
+    border-radius: gs(12);
+    padding: gs(20);
+    background-color: white;
+  }
+}
+
+.data-selector-form {
+  @media screen and (min-width: 576px) and (max-width: 1080px) {
+    font-size: 0.6rem;
+  }
+  
+  #field-selector-form {
+    // width: 200px !important;
+
+    #option-component {
+      // width: 100px !important;
+      min-width: auto;
+
+      .option-value.year-selector {
+
+
+        &>select,
+        &>.shift-section select {
+          border-radius: 5px;
+
+          @include mq($from: medium) {
+            min-width: auto;
+            width: 90px !important;
+            height: 40px;
+          }
+        }
+      }
+
+    }
+  }
+}
+
+.add-student-form {
+  h4 {
+    &{
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-top: 2rem;
+      font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      letter-spacing: -0.025em;
+      position: relative;
+    }
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      opacity: 0.1;
+      filter: blur(20px);
+      z-index: -1;
+      border-radius: 10px;
+    }
+  }
+  form {
+    & {
+      width: 100% !important;
+      padding: 32px !important;
+    }
+  }
+
+  .input-csv-file-for-student{
+    &{
+      // border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: #f9f9f9; 
+      // padding: 10px;
+    }
+    input{
+      border: 1px solid #ccc;
+      padding: 8px;
+      border-radius: 4px;
+      width: 100%;
+      box-sizing: border-box;
+      background-color: white;
+      color: #333;
+      font-size: 16px;
+      transition: border-color 0.2s ease; 
+      margin: 0px !important;
+
+    }
+  }
+}
+
+.student-table-container {
+  &{
+    max-width: 100%;
+    margin: 20px auto;
+    padding: 0px 20px; 
+    overflow-x: auto;
+  }
+  // @media screen and (min-width: 576px) and (max-width: 1080px) {
+  @media screen and (max-width: 576px){
+    font-size: 0.6rem;
+    padding: 0px; 
+  }
+
+  .table-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    margin: 10px; 
+
+    .show-select {
+      padding: 8px 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+ 
+    }
+
+    .students-label {
+      margin: 0 10px;
+    }
+
+    .search-input {
+      padding: 8px 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 200px;
+    }
+  }
+
+  .student-table {
+    & {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+
+
+    th {
+      background-color: #1e40af;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      border: 1px solid #1e40af;
+    }
+
+    td {
+      padding: 8px;
+      text-align: center;
+      border: 1px solid #ddd;
+      width: fit-content;
+    }
+
+    .even-row {
+      background-color: #e6ffe6; // Light green for even rows
+    }
+
+    .odd-row {
+      background-color: white; // White for odd rows
+    }
+
+    .action-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+
+      .action-icon {
+        & {
+          width: 30px;
+          height: 30px;
+
+          cursor: pointer;
+          transition: color 0.2s;
+        }
+
+        // border: 1px solid red;
+        // margin: 5px;
+        // @media screen and (min-width: 1400px) {
+        //   width: 35px;
+        //   height: 35px;
+
+        // }
+
+        &.edit {
+          color: #3b82f6;
+        }
+
+        &.view {
+          color: #10b981;
+        }
+
+        &.delete {
+          color: #ef4444;
+        }
+
+        &:hover {
+          opacity: 0.8;
+          color: black
+        }
+      }
+    }
+
+  }
+
+  .student-input-table {
+    & {
+      width: 100%;
+      border-collapse: collapse;
+      // margin-bottom: 20px;
+      font-size: 15px;
+    }
+
+
+    th {
+      background-color: #1e40af;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      // border: 1px solid #1e40af;
+      // width: 50px !important; 
+    }
+
+    td {
+      & {
+        text-align: center;
+        border: 1px solid #b5bac9;
+        background-color: transparent;
+        
+      }
+
+
+      input {
+        & {
+          width: 100%;
+          padding: 5px 8px;
+          box-sizing: border-box;
+          // border: 1px solid #ddd;
+          background-color: transparent;
+          
+        }
+
+        &.name-input {
+          // width: 160px !important;
+          min-height: 50px;
+          height: 100% !important;
+          // margin: 5px;
+        }
+
+        &.roll-input {
+          width: 50px !important;
+        }
+      }
+    }
+
+    .even-row {
+      background-color: #e6ffe6; // Light green for even rows
+    }
+
+    .odd-row {
+      background-color: white; // White for odd rows
+    }
+
+    .print-button {
+      justify-content: flex-start; 
+    }
+
+  }
+
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+
+    .pagination-btn {
+      padding: 5px 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background-color: white;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover:not(:disabled) {
+        background-color: #f3f4f6;
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+        color: #9ca3af;
+        border-color: #d1d5db;
+      }
+
+      &.active {
+        background-color: #1e40af;
+        color: white;
+        border-color: #1e40af;
+      }
+    }
+  }
+
+  .loading {
+    text-align: center;
+    padding: 20px;
+    color: #4b5563;
+  }
+
+  .error {
+    text-align: center;
+    padding: 20px;
+    color: #dc2626;
+  }
+}
+
+.Toastify__toast-container{
+  position: fixed;  
+  z-index: 999999999;
+}

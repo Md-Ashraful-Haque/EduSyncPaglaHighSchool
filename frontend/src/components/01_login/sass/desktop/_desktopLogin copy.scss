@@ -1,0 +1,269 @@
+@use "../../../../assets/03-common-sass/essentials"as *;
+
+#ims-login-page {
+
+  // .heading {
+  //   color: blue;
+  // }
+
+  .login-container {
+    * {
+      // border: 1px solid rgb(30, 0, 255);
+    }
+
+    & {
+      height: 100vh;
+      // border: 1px solid rgb(30, 0, 255);
+      display: flex;
+
+    }
+
+    .login-left {
+      & {
+        border: 1px solid rgb(56, 11, 180);
+        width: 50%;
+        min-height: sizew_1319(620,880);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
+        
+      }
+      @include two-mq("min-height",610,610, 880);
+
+      .login-left-content {
+        & {
+          // border: 1px solid rgb(0, 255, 119);
+          width: calc(100% - 180px);
+          margin-left: 180px;
+          color: #2E1460;
+          height: 95%;
+
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+        }
+
+        .edusync-logo {
+          & {
+            display: flex;
+            align-items: center;
+            justify-items: center;
+            margin-bottom: sizew_1319(28,40);
+            // @include two-mqd("margin-bottom", ,40px);
+          }
+
+          img {
+            width: sizew_1319(50,70);
+          }
+
+          .logo-text {
+            padding-left: 10px;
+            font-family: "Mulish";
+            font-size: sizew_1319(25,35);
+            // @include two-mqd("font-size", ,35px);
+            font-weight: 900;
+            color: #1E33F2;
+          }
+        }
+
+        .welcome {
+
+          // border: 1px solid rgb(0, 255, 119);
+          h1 {
+            font-family: Muli;
+            font-size: sizew_1319(28,40);
+            // @include two-mqd("font-size", ,40px);
+            font-weight: 800;
+            line-height: sizew_1319(21,20);;
+            // @include two-mqd("line-height", ,30px);
+
+          }
+
+        }
+
+        .login-instruction {
+
+          // border: 1px solid rgb(0, 255, 119);
+          & {
+            margin-bottom: sizew_1319(53,75);
+            // @include two-mqd("margin-bottom", ,75px);
+          }
+
+          h2 {
+            font-family: Muli;
+            font-size: sizew_1319(17,24);
+            // @include two-mqd("font-size", ,24px);
+            font-weight: bold;
+            line-height: 0;
+            // @include two-mqd("line-height", ,24px);
+          }
+        }
+
+        .login-form {
+          & {
+            max-width: sizew_1319(342,480);
+          }
+
+          form {
+            & {}
+
+            .mobile-number {
+
+              &{
+                display: flex;
+              flex-direction: column;
+              // border: 2px solid #2061ED;  
+
+              border-radius: 12px;
+              padding: sizew_1319(8,10);
+              padding-left: sizew_1319(15,20);
+              margin-bottom: sizew_1319(20,40);
+              font-family: "Mulish";
+              font-size: sizew_1319(12,16);
+              font-weight: 100;
+
+              // padding: 4px; /* Border width */
+              background: linear-gradient(white, white) padding-box, linear-gradient(to right, #B5BBC9, rgba(181, 187, 201, 0.5)) border-box;
+              border-radius: 12px;
+              border: 2px solid transparent;
+              transition: all 5000s ease-in-out;
+              }
+
+              /* Apply styles when input inside is focused */
+              &:focus-within,
+              &:hover {
+                background: linear-gradient(white, white) padding-box, linear-gradient(to right, #2061ED, rgba(32, 97, 237, 0.5)) border-box;
+              }
+
+              span {
+                color: rgba(46, 20, 96, 0.5);
+              }
+
+              .input-box {
+                position: relative;
+
+                input {
+                  width: 100%;
+                  height: sizew_1319(21,30);
+                  border: 0px;
+                  font-size: sizew_1319(18,20);
+                  font-weight: bold;
+                  outline: none;
+                  background-color: white;
+
+                  &:-webkit-autofill {
+                    background-color: #fff !important;
+                    /* Set your desired background color */
+                    color: #000 !important;
+                    /* Set your desired text color */
+                    transition: background-color 5000s ease-in-out 0s;
+                    /* Prevent blinking */
+                  }
+
+                  &:focus {
+                    color: #2061ED !important;
+                    background: linear-gradient(white, white) padding-box, linear-gradient(to right, #2061ED, rgba(32, 97, 237, 0.5)) border-box;
+                  }
+                }
+
+                .clear-btn {
+                  position: absolute;
+                  right: -5px;
+                  top: -6px;
+                  padding: 8px sizew_1319(10,15);
+                  border: 1px solid transparent;
+                  transition: all 100ms ease-in-out;
+
+                  &:hover {
+                    color: #2061ED;
+                    // border: 1px solid #2061ED; 
+                  }
+                }
+              }
+
+            }
+
+            .Password {
+              // margin-bottom: 40px;
+            }
+
+            .remember-and-forgot-password {
+              & {
+                display: flex;
+                justify-content: space-between;
+
+                margin-bottom: sizew_1319(28,40);
+                font-family: Muli;
+                font-weight: bold;
+                font-size: sizew_1319(16,18);
+                
+              }
+
+              .remember {
+                #remember-me {
+                  margin-right: sizew_1319(7,10);;
+                }
+              }
+
+              .forgot-password {
+                a {
+                  text-decoration: none;
+
+                }
+              }
+
+            }
+
+            button.submit-button {
+              & {
+                padding: sizew_1319(17,20) sizew_1319(50,70);
+                border-radius: sizew_1319(8,12);
+                background-color: #2061ED;
+
+                color: white;
+                font-family: Muli;
+                font-weight: bold;
+                font-size: 18px;
+
+                cursor: pointer;
+                transition: all 300ms ease-in-out;
+              }
+
+              &:hover {
+                background-color: #0044d6;
+              }
+
+            }
+          }
+        }
+
+      }
+
+      .copy-right {
+        & {
+          
+          border: 1px solid #8620ED;
+          height: 5%;
+          margin-left: 180px;
+          margin-bottom: 20px;
+          font-size: sizew_1319(10,14);
+
+          display: flex;
+          align-items: flex-end;
+        }
+      }
+
+    }
+
+    .login-right {
+      & {
+        border: 1px solid red;
+        width: 50%;
+        height: 100%;
+      }
+    }
+  }
+
+}

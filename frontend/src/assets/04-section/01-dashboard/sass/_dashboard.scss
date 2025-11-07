@@ -1,0 +1,41 @@
+@use "../../../03-common-sass/essentials"as *;
+
+@use "./00_variable"as *;
+
+body{
+  background-color: $bg !important;
+  font-family: "SolaimanLipi", sans-serif;
+}
+.layout {
+
+  & {
+    position: relative;
+    height: 100%;
+    // border: 1px solid green; 
+  }
+
+
+  div {
+    scrollbar-width: thin;
+  }
+
+  span {
+    scrollbar-width: thin;
+  }
+
+  ol {
+    scrollbar-width: thin;
+  }
+
+  ul {
+    scrollbar-width: thin;
+  }
+
+
+
+
+  .left-sidebar.hidden+.wrap {
+    margin-left: 0;
+    width: 100%; 
+  } 
+}

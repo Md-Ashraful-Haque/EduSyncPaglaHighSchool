@@ -1,0 +1,49 @@
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@rollup/plugin-inject": "^5.0.5",
+    "@vitejs/plugin-react": "4.3.4",
+    "axios": "^1.7.9",
+    "bootstrap": "^5.3.3",
+    "dotenv": "16.4.7",
+    "html2canvas": "^1.4.1",
+    "html2canvas-pro": "^1.5.11",
+    "jquery": "^3.7.1",
+    "jspdf": "^3.0.1",
+    "lucide-react": "^0.525.0",
+    "owl.carousel": "^2.3.4",
+    "react": "19.0.0",
+    "react-dom": "19.0.0",
+    "react-paginate": "^8.3.0",
+    "react-router-dom": "7.1.3",
+    "react-to-print": "^3.2.0",
+    "react-toastify": "^11.0.5",
+    "sass": "1.83.0",
+    "sass-mq": "7.0.0-beta.1",
+    "webfontloader": "1.6.28"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.17.0",
+    "@types/react": "19.0.2",
+    "@types/react-dom": "19.0.2",
+    "@vitejs/plugin-react-swc": "3.7.2",
+    "babel-plugin-react-compiler": "19.0.0-beta-decd7b8-20250118",
+    "eslint": "9.17.0",
+    "eslint-plugin-react": "7.37.2",
+    "eslint-plugin-react-compiler": "19.0.0-beta-decd7b8-20250118",
+    "eslint-plugin-react-hooks": "5.1.0",
+    "eslint-plugin-react-refresh": "0.4.18",
+    "globals": "15.14.0",
+    "vite": "6.0.11"
+  }
+}

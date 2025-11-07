@@ -1,0 +1,29 @@
+# Python
+*.pyc
+*.pyo
+__pycache__/
+*.env
+venv
+
+# Node.js
+node_modules/ 
+.vite/
+.git
+# Docker
+*.log
+*.pid
+db.sqlite3  # Your SQLite database
+*.sqlite3
+# OS/IDE-specific
+.DS_Store
+*.swp
+*.swo
+.idea/
+.vscode/
+
+
+#Ignore any additional folders you want to exclude
+docs/
+media_Pagla
+media_JIDC
+media_Penchul

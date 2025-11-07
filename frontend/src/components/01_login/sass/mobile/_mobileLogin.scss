@@ -1,0 +1,298 @@
+@use "../../../../assets/03-common-sass/essentials"as *;
+@use "sass-mq"as *;
+
+@include mq($until: medium) {
+  #ims-login-page {
+
+    // .heading {
+    //   color: blue;
+    // }
+    & {
+      display: flex;
+      justify-content: center;
+      // min-height: 100vh;
+    }
+
+
+    .login-container {
+      * {
+        // border: 1px solid rgb(30, 0, 255);
+      }
+
+      & {
+        // min-height: 90%;
+        width: 100%;
+        // border: 1px solid rgb(30, 0, 255);
+        padding-top: 50px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        position: relative;
+        z-index: 1;
+
+      }
+
+      .login-left {
+        & {
+          // border: 1px solid rgb(56, 11, 180);
+          width: 100% !important;
+          // min-height: gs(880);
+
+          position: relative;
+
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          box-sizing: border-box;
+          position: relative;
+          z-index: 1;
+        }
+
+
+        .login-left-content {
+          & {
+            // border: 1px solid rgb(0, 255, 119);
+            width: 100%;
+            // margin-left: 180px;
+            color: #2E1460;
+            height: 95%;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+          }
+
+          .edusync-logo {
+            & {
+              display: flex;
+
+              align-items: center;
+              justify-items: center;
+              margin-bottom: gsm(50);
+
+            }
+
+            img {
+              width: 64px;
+            }
+
+            .logo-text {
+              padding-left: gsm(5);
+              font-family: "Mulish";
+              font-size: 24px;
+              font-weight: 900;
+              color: #1E33F2;
+            }
+          }
+
+          .welcome {
+
+            // border: 1px solid rgb(0, 255, 119);
+            h1 {
+              font-family: Muli;
+              font-size: gsm(30);
+              font-weight: 800;
+              line-height: 0;
+              // line-height: gs(30);
+
+            }
+
+          }
+
+          .login-instruction {
+
+            // border: 1px solid rgb(0, 255, 119);
+            & {
+              margin-bottom: gsm(50);
+            }
+
+            h2 {
+              font-family: Muli;
+              font-size: gsm(18);
+              font-weight: bold;
+              // line-height: 0;
+            }
+          }
+
+          .login-form {
+            & {
+              width: 100%;
+            }
+
+            form {
+              & {
+                // border: 2px solid #2061ED;  
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+              }
+
+              .mobile-number {
+                width: gsm(290);
+                display: flex;
+                flex-direction: column;
+                // border: 2px solid #2061ED;  
+
+                border-radius: 12px;
+                padding: gsm(5);
+                padding-left: gsm(20);
+                margin-bottom: gsm(25);
+                font-family: Muli;
+                font-size: gsm(16);
+                font-weight: 100;
+
+                // padding: 4px; /* Border width */
+                background: linear-gradient(white, white) padding-box, linear-gradient(to right, #B5BBC9, rgba(181, 187, 201, 0.5)) border-box;
+                border-radius: 12px;
+                border: 2px solid transparent;
+                transition: all 5000s ease-in-out;
+
+                /* Apply styles when input inside is focused */
+                &:focus-within,
+                &:hover {
+                  background: linear-gradient(white, white) padding-box, linear-gradient(to right, #2061ED, rgba(32, 97, 237, 0.5)) border-box;
+                }
+
+                span {
+                  color: rgba(46, 20, 96, 0.5);
+                }
+
+                .input-box {
+                  position: relative;
+
+                  input {
+                    width: 100%;
+                    height: gsm(30);
+                    border: 0px;
+                    font-size: gsm(20);
+                    font-weight: bold;
+                    outline: none;
+                    background-color: white;
+
+                    &:-webkit-autofill {
+                      background-color: #fff !important;
+                      /* Set your desired background color */
+                      color: #000 !important;
+                      /* Set your desired text color */
+                      transition: background-color 5000s ease-in-out 0s;
+                      /* Prevent blinking */
+                    }
+
+                    &:focus {
+                      color: #2061ED !important;
+                      background: linear-gradient(white, white) padding-box, linear-gradient(to right, #2061ED, rgba(32, 97, 237, 0.5)) border-box;
+                    }
+                  }
+
+                  .clear-btn {
+                    position: absolute;
+                    right: -5px;
+                    top: -6px;
+                    padding: gsm(8) gsm(15);
+                    border: 1px solid transparent;
+                    transition: all 100ms ease-in-out;
+
+                    &:hover {
+                      color: #2061ED;
+                      // border: 1px solid #2061ED; 
+                    }
+                  }
+                }
+
+              }
+
+              .Password {
+                // margin-bottom: 40px;
+              }
+
+              .remember-and-forgot-password {
+                & {
+                  display: flex;
+                  justify-content: center;
+
+                  margin-bottom: gsm(40);
+                  font-family: Muli;
+                  font-weight: bold;
+                  font-size: gsm(16);
+                }
+
+                .remember {
+                  & {
+                    display: none;
+                  }
+                }
+
+                .forgot-password {
+                  a {
+                    text-decoration: none;
+
+                  }
+                }
+
+              }
+
+              .form-button {
+                & {
+                  // border: 2px solid #2061ED;  
+                  width: 100%;
+                  display: flex;
+                  justify-content: center;
+                }
+
+                button.submit-button {
+                  & {
+                    // border: 2px solid #2061ED;  
+                    padding: gsm(15) gs(100);
+                    ;
+                    border-radius: gsm(8);
+                    background-color: #2061ED;
+                    width: gsm(150);
+                    color: white;
+                    font-family: Muli;
+                    font-weight: bold;
+                    font-size: gsm(18);
+
+                    cursor: pointer;
+                    transition: all 300ms ease-in-out;
+                  }
+
+                  &:hover {
+                    background-color: #0044d6;
+                  }
+
+                }
+              }
+
+              p {
+                // color: red;
+                padding: 15px;
+                border: 1px solid;
+                text-align: center;
+              }
+            }
+          }
+
+        }
+
+
+
+      }
+
+      
+
+    } 
+
+  }
+}
+
+.mobile-login {
+
+  // display: none;
+  @include mq($from: medium) {
+
+    display: none !important;
+  }
+}

@@ -1,0 +1,18 @@
+name,name_bengali,class_name,code,mark_type,max_marks,pass_marks,serial_number
+Bangla First Paper,বাংলা প্রথম পত্র,Six-Eight,6801,MCQ,30,10,1
+Bangla First Paper,বাংলা প্রথম পত্র,Six-Eight,6801,WR,70,23,2
+Bangla Second Paper,বাংলা দ্বিতীয় পত্র,Six-Eight,6802,MCQ,15,5,1
+Bangla Second Paper,বাংলা দ্বিতীয় পত্র,Six-Eight,6802,WR,35,12,2
+English First Paper,ইংরেজি প্রথম পত্র,Six-Eight,6803,WR,100,33,1
+English Second Paper,ইংরেজি দ্বিতীয় পত্র,Six-Eight,6804,WR,50,17,1
+Mathematics,গণিত,Six-Eight,6805,MCQ,30,10,1
+Mathematics,গণিত,Six-Eight,6805,WR,70,23,2
+Science,বিজ্ঞান,Six-Eight,6806,MCQ,30,10,1
+Science,বিজ্ঞান,Six-Eight,6806,WR,70,23,2
+Religion,ধর্ম,Six-Eight,6809,MCQ,30,10,1
+Religion,ধর্ম,Six-Eight,6809,WR,70,23,2
+ICT,তথ্য ও যোগাযোগ প্রযুক্তি,Six-Eight,6808,Practical,25,8,1
+ICT,তথ্য ও যোগাযোগ প্রযুক্তি,Six-Eight,6808,WR,25,7,2
+Bangladesh and Global Studies,বাংলাদেশ ও বিশ্বপরিচয়,Six-Eight,6807,MCQ,30,10,1
+Bangladesh and Global Studies,বাংলাদেশ ও বিশ্বপরিচয়,Six-Eight,6807,WR,70,23,2
+Agriculture Studies,কৃষিশিক্ষা,Six-Eight,6810,CA,50,0,1

@@ -1,0 +1,161 @@
+
+.teacher-section {
+  & {
+    // border: 1px solid #898989;
+    width: 100%;
+    max-width: 1280px;
+  }
+
+  .teachers {
+    & {
+      // gap: 16px;
+      // display: grid;
+      // grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      // border: 1px solid #d31919;
+      display: flex;
+      gap: 16px;
+      margin-top: 50px;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+    }
+
+    .teacher-card {
+      & {
+        border: 1px solid #c1b5ec;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        max-width: 295px;
+        min-width: 295px;
+        min-height: 420px;
+      }
+      @media screen and (min-width: 576px) and (max-width: 1080px) {
+        max-width: initial;
+        width: 49%;  
+      }
+
+      &:hover{
+        box-shadow: 0 0px 40px rgba(0, 0, 0, 0.05);
+        .teacher-image img{
+          transform: scale(1.05);
+        }
+      }
+
+      .teacher-image {
+
+        transition: transform 0.4s ease;
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: 100%;
+          // width: 300px;
+          min-height: 370px;
+          max-height: 370px;
+          object-fit: cover;
+          transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          // transform: scale(1.02);
+          @media screen and (min-width: 576px) and (max-width: 1080px) {
+            max-width: initial;
+            width: 100%;  
+            min-height: 550px;
+            max-height: 450px;
+          }
+        }
+      }
+
+      .member-info {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        h5 {
+          font-size: 16px;
+          font-weight: 700;
+        }
+
+        .position {
+          // border: 1px solid red;
+          background-color: rgb(59 130 246 / .5);
+          padding: 4px 8px;
+          border-radius: 100px;
+          font-size: 12px; 
+          --tw-border-opacity: 1;
+          border-color: rgb(167 243 208 / var(--tw-border-opacity, 1));
+          --tw-bg-opacity: 1;
+          background-color: rgb(209 250 229 / var(--tw-bg-opacity, 1));
+
+
+        }
+ 
+          .contact-item {
+            &{
+              display: flex;
+              align-items: center;
+              margin-top: 8px;
+              // margin-bottom: 16px;
+              padding: 8px 16px;
+              background: rgba(255, 255, 255, 0.08);
+              border-radius: 12px;
+              border: 1px solid rgba(154, 148, 148, 0.1);
+              transition: all 0.3s ease;
+            }
+
+            &:hover {
+              background: rgba(255, 255, 255, 0.15);
+              transform: translateY(-2px);
+              box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            }
+            &.details-btn{
+              background-color: rgb(59 130 246 / 4%);
+            }
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+
+            .icon {
+              margin-right: 12px; 
+              color: rgba(165, 231, 211, 0.9);
+              // flex-shrink: 0;
+            }
+
+            .text {
+              font-size: 14px;
+              // color: rgba(255, 255, 255, 0.95);
+              flex: 1;
+              word-break: break-all;
+
+            }
+
+            &.phone-item {
+              & {
+                cursor: pointer;
+              }
+
+              .whatsapp-badge {
+                display: flex;
+                align-items: center;
+                background: #25D366;
+                color: white;
+                padding: 4px 8px;
+                border-radius: 12px;
+                font-size: 12px;
+                font-weight: 500;
+                margin-left: 8px;
+                box-shadow: 0 2px 4px rgba(37, 211, 102, 0.3);
+
+                svg {
+                  margin-right: 4px;
+                }
+              }
+            }
+          } 
+
+      }
+    }
+  }
+}
+

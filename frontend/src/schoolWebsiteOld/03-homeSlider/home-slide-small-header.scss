@@ -1,0 +1,287 @@
+@use "../../assets//03-common-sass//essentials"as *;
+// @use "./00_variable"as *;
+@use "sass-mq"as *;
+
+.owl-carousel {
+  & {
+    position: relative;
+    z-index: 1;
+    height: 232px;
+  }
+
+  .item {
+    display: flex;
+    align-items: center;
+    height: 232px;
+
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+  }
+
+  .slider-text {
+    .subtitle {
+      border: 1px solid red;
+      font-size: 24px;
+      color: white !important;
+
+      // margin-bottom: 15px;
+
+      display: flex;
+      width: 474px;
+      flex-direction: column;
+      align-items: flex-start;
+
+      border-radius: 100px;
+      padding-left: 10px;
+      background: linear-gradient(90deg, rgba(5, 232, 58, 0.2) 0%, rgba(153, 153, 153, 0.2) 30%, rgba(121, 121, 121, 0) 67.26%);
+      backdrop-filter: blur(2px);
+    }
+
+    .title {
+      // font-size: 48px;
+      // font-weight: 300;
+      color: white;
+      // margin-bottom: 15px; 
+
+      /* material-theme/slider-text/slider-text */
+      font-family: Poppins;
+      font-size: 48px;
+      font-style: normal;
+      font-weight: 300;
+      line-height: normal;
+    }
+
+    div.descriptin {}
+
+    .call-to-action {
+      margin-top: 25px;
+    }
+  }
+
+  .owl-nav {
+    // border: 1px solid rgb(255, 255, 255);
+    // padding: 15px;
+
+    // background-color: rgba(255, 255, 255, 0.3) !important;
+    // backdrop-filter: blur(10px);
+
+    padding: 15px;
+    position: absolute;
+    right: 130px;
+    bottom: 50px;
+    display: flex;
+    flex-direction: row;
+
+    @media screen and (max-width: 992px) {
+      right: 30px;
+      bottom: 100px;
+    }
+
+    button {
+      margin: 10px;
+
+      border: 1px solid #ffffff !important;
+      width: 50px;
+      height: 50px;
+      font-size: 16px;
+      border-radius: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(255, 255, 255, 0.9) !important;
+      backdrop-filter: blur(10px);
+      opacity: .9;
+
+      @media screen and (max-width: 992px) {
+        width: 50px;
+        height: 50px;
+      }
+
+      &:hover {
+        // @include green-gradient-hover;
+        opacity: 1;
+      }
+
+
+      &.owl-prev,
+      &.owl-next {
+        // padding: 20px !important;
+        // border: 1px solid red !important;
+        // width: 65px;
+        // height: 65px; 
+        // border-radius: 100%;
+      }
+
+    }
+  }
+
+
+}
+
+
+///////////////// Smooth Text Effect CSS ////////////////
+// .job {
+//   font-size: 45px;
+//   color: #333;
+//   white-space: nowrap;
+// }
+
+.slider-container {
+  position: relative;
+  height: 232px;
+
+  .bg-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(1, 1, 25);
+    z-index: 11;
+    opacity: 0.9;
+  }
+
+  // .slider-animation-text {
+  //   position: absolute;
+  //   left: 25%;
+  //   top: 50%;
+  //   z-index: 12;
+
+  //   @media screen and (max-width: 992px) {
+  //     left: 30px;
+  //     top: 50%;
+  //   }
+  // }
+  .slider-animation-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 12;
+    text-align: center;
+
+    @media screen and (max-width: 992px) {
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+
+}
+
+
+.cd-headline {
+  display: inline-block;
+}
+
+.cd-words-wrapper {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  vertical-align: top;
+  height: 1.5em;
+  font-size: 48px;
+  width: 0;
+  transition: width 600ms;
+  color: white;
+  text-shadow: 1px 1px 1px black, 0 0 8px blue, 0 0 0.2em blue;
+  border-right: 8px solid rgb(255, 255, 255);
+
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // border-right: 8px solid red;
+  @media screen and (max-width: 992px) {
+    font-size: 20px;
+    // max-width: 90%;
+  }
+
+}
+
+.cd-words-wrapper b {
+  position: absolute;
+  top: 0;
+  left: 0;
+  white-space: nowrap;
+  width: 0;
+  transition: width 800ms;
+  padding: 0 12px;
+}
+
+.cd-words-wrapper b.is-visible {
+  opacity: 1;
+  width: auto;
+  // border: 8px solid red;
+  // padding: 0 12px;
+}
+
+.cd-words-wrapper b.is-hidden {
+  opacity: 0;
+  width: 0;
+}
+
+// .cursor {
+//   font-size: 50px;
+//   font-weight: bolder;
+//   border-right: 0.15em solid #d8d9f4;
+//   color: white;
+//   opacity: 1;
+//   animation: point .8s infinite;
+//   margin-left: 8px;
+//   // margin-top: -15px;
+//   transform: rotate(-10deg);
+
+//   @media screen and (max-width: 992px) {
+//     font-size: 20px;
+//   }
+
+// }
+
+@keyframes point {
+  0% {
+    opacity: 1
+  }
+
+  50% {
+    opacity: 0
+  }
+
+  100% {
+    opacity: 1
+  }
+}
+
+.institute-name-and-logo {
+  & {
+    position: absolute;
+    left: 15%;
+    top: 40%;
+    z-index: 11;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+  }
+
+
+  .institute-logo {
+    width: 56px;
+
+    @include mq($until: medium) {
+      width: 40px;
+    } 
+  }
+
+  .institute-name {
+    color: white;
+    text-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+    font-size: 40px;
+
+    @media screen and (max-width: 768px) {
+      font-size: 22px;
+
+    }
+  }
+
+}

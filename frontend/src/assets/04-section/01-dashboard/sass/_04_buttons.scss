@@ -1,0 +1,206 @@
+.button-1 {
+  padding: 12px 15px;
+  min-width: 130px;
+  min-height: 44px;
+  border: 1px solid #1E33F2;
+  border-radius: 100px;
+  background-color: #1E33F2;
+  color: white;
+  font-weight: 500;
+  font-family: "SolaimanLipi", sans-serif;
+  transition: all 300ms ease-in-out;
+
+	@media screen and (max-width: 576px) {
+		min-width: 90px !important;
+		padding: 0;
+		font-size: 0.6rem;
+	}
+	@media screen and (min-width: 576px) and (max-width: 1080px) {
+		min-width: 90px !important;
+		padding: 0;
+		font-size: 0.7rem;
+	}
+  &:hover {
+    background-color: white;
+    color: #2e2e2e;
+    box-shadow: 0 2px 8px rgba(99, 99, 99, 0.2);
+  }
+}
+
+
+
+
+.button-1-inv {
+  text-align: center;
+  padding: 12px 15px;
+  min-width: 130px;
+  min-height: 44px;
+  border: 1px solid #1E33F2;
+  border-radius: 100px;
+  background-color: white;
+  color: #2e2e2e;
+  font-weight: 500;
+  font-family: "SolaimanLipi", sans-serif;
+  transition: all 300ms ease-in-out;
+
+  &:hover {
+    background-color: #1E33F2;
+    color: white;
+    box-shadow: 0 2px 8px rgba(99, 99, 99, 0.2);
+  }
+}
+
+.button-1-inv-sm {
+  text-align: center;
+  padding: 8px 12px;
+  min-width: 130px;
+  min-height: 44px;
+  border: 1px solid #1E33F2;
+  border-radius: 100px;
+  background-color: white;
+  color: #2e2e2e;
+  font-weight: 500;
+  font-family: "SolaimanLipi", sans-serif;
+  transition: all 300ms ease-in-out;
+
+  &:hover {
+    background-color: #1E33F2;
+    color: white;
+    box-shadow: 0 2px 8px rgba(99, 99, 99, 0.2);
+  }
+}
+
+$color_1: white;
+$color_2: #374151;
+$border-color_1: rgba(0, 0, 0, 0.2);
+
+/* Modal variant - top right corner */
+/* Floating variant - bottom right for better mobile reach */
+/* Mobile optimizations */
+/* Touch device optimizations */
+/* Print styles */
+/* High contrast mode */
+/* Reduced motion */
+.close-button {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: rgba(255, 255, 255, 0.95);
+	backdrop-filter: blur(10px);
+	border: 2px solid rgba(0, 0, 0, 0.1);
+	border-radius: 50%;
+	cursor: pointer;
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+	z-index: 9999;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+	color: $color_1;
+	&:hover {
+		background: rgba(255, 255, 255, 1);
+		transform: scale(1.05);
+		box-shadow: 0 6px 25px rgba(0, 0, 0, 0.2);
+		border-color: $border-color_1;
+	}
+	&:active {
+		transform: scale(0.95);
+		transition: all 0.1s ease;
+	}
+	&:focus {
+		outline: none;
+		box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5), 0 4px 20px rgba(0, 0, 0, 0.15);
+	}
+}
+.close-button.modal {
+	top: 16px;
+	right: 16px;
+	width: 44px;
+	height: 44px;
+}
+.close-button.floating {
+	bottom: 24px;
+	right: 24px;
+	width: 56px;
+	height: 56px;
+
+	background: linear-gradient(135deg, #ef4444, #dc2626);
+	border: none;
+	box-shadow: 0 8px 32px rgba(239, 68, 68, 0.4);
+	@media screen and (min-width: 576px) and (max-width: 1080px) {
+		width: 80px;
+		height: 80px;
+	}
+	&:hover {
+		background: linear-gradient(135deg, #dc2626, #b91c1c);
+		transform: scale(1.1);
+		box-shadow: 0 12px 40px rgba(239, 68, 68, 0.5);
+	}
+	.icon {
+		color: $color_1;
+		width: 28px;
+		height: 28px;
+	}
+}
+.icon {
+	width: 24px;
+	height: 24px;
+	color: $color_2;
+	transition: color 0.2s ease;
+}
+@media (max-width: 768px) {
+	.close-button.modal {
+		top: 12px;
+		right: 12px;
+		width: 48px;
+		height: 48px;
+	}
+	.close-button.floating {
+		bottom: 5px;
+		right: 4px;
+		width: 60px;
+		height: 60px;
+		.icon {
+			width: 30px;
+			height: 30px;
+		}
+	}
+	.icon {
+		width: 26px;
+		height: 26px;
+	}
+}
+@media (hover: none) and (pointer: coarse) {
+	.close-button {
+		min-width: 48px;
+		min-height: 48px;
+		&:hover {
+			transform: none;
+		}
+		&:active {
+			background: rgba(0, 0, 0, 0.1);
+		}
+	}
+}
+@media print {
+	.close-button {
+		display: none !important;
+	}
+}
+@media (prefers-contrast: high) {
+	.close-button {
+		background: white;
+		border: 3px solid black;
+		&:focus {
+			box-shadow: 0 0 0 3px yellow;
+		}
+	}
+}
+@media (prefers-reduced-motion: reduce) {
+	.close-button {
+		transition: none;
+		&:hover {
+			transform: none;
+		}
+	}
+}

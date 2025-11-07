@@ -1,0 +1,69 @@
+// @use "../../../../assets/"as *;
+@use "../../../../assets/03-common-sass/essentials"as *;
+
+
+$label_bg_color: #E4D3FF;
+$select_form_value_border_color: #D2C5FF;
+
+#option-component{
+  &{
+    // border: 1px solid red;
+    position: relative;
+    display:  flex;
+    justify-content: center;
+    align-items: center;
+    // margin: gs(10) gs(25);
+    width: 100%; 
+    min-width: 250px;
+    max-width: 524px;
+    height: 44px;
+    
+    // flex-wrap: wrap;
+  }
+
+  .option-label{
+    background-color: $label_bg_color;
+    min-width: 60px; 
+    height: 100%;
+    padding: gs(5);
+    // margin: gs(10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // margin-right: gs(20);
+    margin-right: 0px;
+    border-radius: 5px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    font-family: "SolaimanLipi", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+
+    border: 1px solid $select_form_value_border_color;
+    border-right: 0px;
+  }
+
+  .option-value { 
+    width: 100%;
+    
+    select{
+      position: relative;
+      font-family: "SolaimanLipi", sans-serif;
+      font-weight: 400;
+      background-color: transparent;
+      width: 100%;
+      min-width: 120px; 
+      // min-width: 150px; 
+      height: 44px;
+      // padding: gs(5); 
+      border-radius: 5px;
+  
+      border-top-left-radius: 0px;
+      border-bottom-left-radius: 0px;
+      border: 1px solid $select_form_value_border_color;
+      outline: none; 
+      padding: 0px 5px;   
+    } 
+  }
+  
+}

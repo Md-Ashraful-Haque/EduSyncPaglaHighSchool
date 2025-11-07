@@ -1,0 +1,29 @@
+name,name_bengali,class_name,code,mark_type,max_marks,pass_marks,serial_number
+Bangla,বাংলা,Voc-Nine-Ten,voc-91,CA,40,0,1
+Bangla,বাংলা,Voc-Nine-Ten,voc-91,Theory,60,20,2
+English,ইংরেজি,Voc-Nine-Ten,voc-92,CA,40,0,1
+English,ইংরেজি,Voc-Nine-Ten,voc-92,Theory,60,20,2
+Mathematics,গণিত,Voc-Nine-Ten,voc-93,CA,40,0,1
+Mathematics,গণিত,Voc-Nine-Ten,voc-93,Theory,60,20,2
+BGS,বিজিএস,Voc-Nine-Ten,voc-94,CA,20,0,1
+BGS,বিজিএস,Voc-Nine-Ten,voc-94,Theory,30,10,2
+Physics,পদার্থবিজ্ঞান,Voc-Nine-Ten,voc-95,CA,20,0,1
+Physics,পদার্থবিজ্ঞান,Voc-Nine-Ten,voc-95,Theory,30,10,2
+Physics,পদার্থবিজ্ঞান,Voc-Nine-Ten,voc-95,Practical,25,0,3
+Chemistry,রসায়ন,Voc-Nine-Ten,voc-96,CA,20,0,1
+Chemistry,রসায়ন,Voc-Nine-Ten,voc-96,Theory,30,10,2
+Chemistry,রসায়ন,Voc-Nine-Ten,voc-96,Practical,25,0,3
+Trade-1,ট্রেড-১,Voc-Nine-Ten,voc-97,CA,40,0,1
+Trade-1,ট্রেড-১,Voc-Nine-Ten,voc-97,Theory,60,20,2
+Trade-2,ট্রেড-২,Voc-Nine-Ten,voc-98,CA,40,0,1
+Trade-2,ট্রেড-২,Voc-Nine-Ten,voc-98,Theory,60,20,2
+Religion,ধর্ম,Voc-Nine-Ten,voc-99,CA,40,0,1
+Religion,ধর্ম,Voc-Nine-Ten,voc-99,Theory,60,20,2
+Physical Education,শারীরিক শিক্ষা,Voc-Nine-Ten,voc-910,Practical,50,17,1
+Eng. Drawing,ইঞ্জিনিয়ারিং ড্রইং,Voc-Nine,voc-911,Practical,50,17,1
+Self Employment,আত্ম-কর্মসংস্থান,Voc-Ten,voc-1011,CA,20,0,1
+Self Employment,আত্ম-কর্মসংস্থান,Voc-Ten,voc-1011,Theory,30,10,2
+Computer Application,কম্পিউটার এপ্লিকেশন,Voc-Nine-Ten,voc-912,Practical,50,17,1
+Agriculture,কৃষি,Voc-Nine-Ten,voc-913,CA,30,0,1
+Agriculture,কৃষি,Voc-Nine-Ten,voc-913,Theory,45,0,2
+Agriculture,কৃষি,Voc-Nine-Ten,voc-913,Practical,25,0,3

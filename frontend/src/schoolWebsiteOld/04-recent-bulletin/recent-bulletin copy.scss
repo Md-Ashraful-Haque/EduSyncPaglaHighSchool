@@ -1,0 +1,116 @@
+@use "mainSCSS/color.scss"as *;
+
+.slider-separator {
+  & {
+    height: 48px;
+    margin-top: 8px;
+    z-index: 1;
+    position: relative;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  @media screen and (max-width: 992px) {
+    margin-top: 12px;
+  }
+
+  .recent-bulletin-headin {
+
+    // background: linear-gradient(-90deg, #a4dcff, #006b11);
+    // padding: 0 16px;
+    & {
+      padding-right: 16px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+
+    @media screen and (max-width: 992px) {
+      padding-right: 8px;
+    }
+
+    h2 {
+      font-size: 20px;
+      padding: 0;
+      margin: 0;
+      // color: white;
+      background: linear-gradient(to right, #0b002f, $primary-color);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      @media screen and (max-width: 992px) {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .bulletin-text-and-separator {
+    & {
+      display: flex;
+    }
+
+    .bulletin-text {
+      cursor: pointer;
+      color: $menu-bg-color;
+
+      span {
+        padding: 0 24px;
+      }
+
+      &:hover {
+        color: $primary-color;
+      }
+    }
+
+  }
+
+  .marquee-container {
+    overflow: hidden;
+    white-space: nowrap;
+    width: 100%;
+    &:hover .marquee {
+      animation-play-state: paused; // stop when hover
+    }
+  }
+
+  .marquee {
+    display: flex;
+    animation: scroll 7s linear infinite;
+    animation-play-state: running; // default state
+  }
+
+  .marquee-content {
+    display: flex;
+  }
+
+  .bulletin-text {
+    & {
+      padding: 0 1rem;
+      cursor: pointer;
+      white-space: nowrap;
+      color: $menu-bg-color;
+    }
+
+    &:hover {
+      color: $primary-color;
+    }
+  }
+
+  /* Animation */
+  @keyframes scroll {
+    0% {
+      transform: translateX(100%);
+    }
+
+    100% {
+      transform: translateX(-60%);
+    }
+  }
+
+
+
+
+}

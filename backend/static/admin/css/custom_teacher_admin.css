@@ -1,0 +1,4 @@
+/* static/admin/css/custom_teacher_admin.css */
+td.field-subject > .related-widget-wrapper select {
+    max-width: 200px !important;
+}

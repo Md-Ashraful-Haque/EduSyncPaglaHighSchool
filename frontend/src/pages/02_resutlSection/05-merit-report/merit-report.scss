@@ -1,0 +1,20 @@
+@use "../../../assets/03-common-sass/essentials"as *;
+@use "sass-mq"as *;
+
+
+.marksheet-header {
+  width: 100%;
+}
+
+
+
+#merit-school-info {
+  .school-info {
+    margin-top: 20px;
+
+    img {
+      left: 0px;
+      width: 70px;
+    }
+  }
+}

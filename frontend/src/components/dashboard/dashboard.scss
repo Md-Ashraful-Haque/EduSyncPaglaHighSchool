@@ -1,0 +1,13 @@
+@use "../../assets/03-common-sass/essentials"as *;
+
+
+@use "sass-mq"as *;
+
+.dashboard-wrap{
+  &{
+    min-height: calc(100vh - 63px - 30px);
+    border-radius: gs(12);
+      padding: gs(20);
+      background-color: white;
+  }
+}

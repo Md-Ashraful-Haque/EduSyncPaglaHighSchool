@@ -1,0 +1,386 @@
+@use "../../../assets/03-common-sass/essentials"as *;
+@use "sass-mq"as *;
+
+// Color variables
+$current-session-border-color: #D2C5FF;
+$current-session-heading-color: #1E33F2;
+$form-border-color: #9989FF;
+$mark-entry-header-bg-color: #F1EBFF;
+$mark-entry-header-color: #090086;
+$roll-border-color: #9897FF;
+$student-even-data-bg: #E8E5FF;
+$student-odd-data-bg: #EFEFEF;
+$background-color_1: #f2ffc0;
+
+// Global box-sizing
+* {
+  box-sizing: border-box;
+}
+
+.modal-overlay {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.modal-content {
+  border-radius: 0.5rem;
+  // overflow: hidden;
+
+  >div {
+    border-radius: inherit;
+  }
+
+  .result-list-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    .result-list {
+      max-width: 1320px;
+
+      @include mq($from: xxlarge) {
+        width: 1400px;
+      }
+
+      .downloadFullResult {
+        // border: 1px solid red;
+        // margin-top: 32px;
+        text-align: center;
+
+        .download-button {
+          margin: 16px 0;
+          text-align: center;
+          position: fixed;
+          bottom: 16px;
+          left: 50%;
+          transform: translateX(-50%);
+          display: flex;
+          gap: 16px;
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.single-marksheet {
+  &{
+    margin-top: 0px;
+    // border: 1px solid red;
+    // border-radius: 12px;
+
+    overflow: hidden;
+    padding: 30px 150px;
+    align-self: center;
+    justify-self: center;
+    max-width: 100%;
+    position: relative;
+  }
+
+
+
+  .student-info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 16px;
+    
+    .roll_number{
+      min-width: 180px;
+      display: flex;
+      .label{
+        min-width: 70px; 
+        font-weight: 700;
+      }
+    }
+
+
+    .class_name,
+    .group_name,
+    .section
+    {
+      min-width: 180px;
+      display: flex;
+      padding-right: 16px;
+      .label{
+        min-width: 70px; 
+        font-weight: 700;
+      }
+    }
+
+  }
+
+  .signature {
+    margin-top: 50px;
+
+    table {
+      width: 100%;
+      justify-self: center;
+
+      th {
+        border: none;
+      }
+
+      td {
+        text-align: center;
+
+        span {
+          display: flex;
+          justify-content: center;
+          width: 100%;
+          position: relative;
+
+          img {
+            margin-bottom: 10px;
+            width: 60px;
+            height: auto;
+          }
+
+          .signature-top-dot {
+            border-top: 1px solid black;
+            width: fit-content;
+            padding: 5px 10px;
+          }
+        }
+      }
+    }
+  }
+}
+
+#notTen {
+  margin-top: 8px;
+
+  @media print {
+    font-size: 12px !important;
+  }
+
+  .result-table {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap; // Allow wrapping to prevent overflow
+    justify-content: space-between;
+    position: relative;
+
+    .result-box {
+      &{
+        height: 30px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+        // border: 1px solid #183169;
+        padding: 20px 4px;
+      }
+      &.gpa,
+      &.letter-grade,
+      &.rank {
+        .text {
+          background-color: $background-color_1;
+          border-radius: 8px 0 0 8px;
+          border: 1px solid #183169;
+          border-right: 0;
+          padding: 5px 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-width: 120px;
+        }
+
+        .value {
+          border-radius: 0 8px 8px 0;
+          border: 1px solid #183169;
+          padding: 5px 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-family: "Noto Sans Bengali", sans-serif !important;
+          font-weight: 400;
+          font-style: normal;
+          min-width: 50px;
+        }
+      }
+    }
+  }
+}
+
+.marksheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0px;
+  width: 100%;
+  position: relative;
+
+  .school-info {
+    text-align: center;
+    color: #183169;
+    margin-bottom: 25px;
+    position: relative;
+
+    img {
+      position: absolute;
+      left: -110px;
+      top: -1px;
+      width: 100px;
+      height: auto;
+      // border-radius: 100px;
+      // border: 1px solid #ccc;
+
+      @media print {
+        width: 100px;
+      }
+    }
+  }
+
+  .grading-table {
+    position: absolute;
+    right: 0;
+    top: 15px;
+    font-size: 9px;
+    border-collapse: collapse;
+
+    th,
+    td {
+      border: 1px solid #ccc;
+      padding: 0 5px;
+      text-align: center;
+
+      @media print {
+        padding: 0 3px;
+        font-size: 8px; // Reduce font size for print
+      }
+    }
+
+    th {
+      padding: 5px;
+    }
+  }
+}
+
+// Print-specific styles
+@page {
+  size: A4 portrait; // Explicitly set to portrait
+  margin: 0;
+
+  margin: 8px 24px 0px 24px;
+  // margin-bottom: 48px;
+  transform: scale(0.98); 
+  transform-origin: top left center; 
+  // border: 1px double #000;
+  border-radius: 12px; 
+}
+
+
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  body {
+    // border: 1px solid red;
+
+    // transform: scale(.90);       /* Adjust the scale factor */
+    // transform-origin:center;  /* Prevent shifting */
+    margin: 0px;
+    padding: 0px;
+    background-color: white !important;
+    // max-width: 190mm;  
+
+  }
+
+  .wrap {
+    margin-top: auto !important;
+  }
+
+  .modal-overlay {
+    padding: 0 !important;
+
+  }
+
+  .modal-content {
+    border-radius: 0 !important;
+  }
+
+
+  table th,
+  table td {
+    padding: 2px 3px;
+  }
+  table thead th{
+    font-size: 11px !important;
+  }
+
+  .print-button {
+    display: none;
+  }
+
+  .marksheet-header {
+    &{
+      margin-top: 15px;
+    }
+    .school-info {
+      // img {
+      //   // border: 1px solid #ccc;
+      //   top: -1px;
+      //   left: -40px;
+      // }
+    }
+  }
+
+  .single-marksheet {
+    margin: 0px;
+    // padding: 60px 15px;
+    padding: 8px;
+    padding-top: 0px;
+    break-after: page;
+
+    page-break-after: always !important;
+    break-before: page !important;
+    break-after: page !important;
+    break-inside: avoid !important;
+
+    // border: 1px solid rgb(234, 230, 230);
+    // border-radius: 12px;
+
+    table{
+      #highest-marks{
+        font-size: 11px !important;
+      }
+    }
+    .signature{
+      margin-top: 50px !important;
+    }
+
+  }
+
+  .single-marksheet,
+  .result-table,
+  .marksheet-header {
+    width: 100%;
+    max-width: 190mm;
+  }
+
+  // .fontSize-10{
+  //   font-size: 10px;
+  // }
+
+}
+
+
+
+///////////////////////////////////////////
+///////////////////////////////////////////
+///////////////////////////////////////////
+/////////////////////////////////////////// 

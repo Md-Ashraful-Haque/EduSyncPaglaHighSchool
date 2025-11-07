@@ -1,0 +1,31 @@
+
+VITE_API_URL=https://localhost:8013/api
+#VITE_API_URL=https://edusync.nexasofts.com/api
+
+
+
+
+
+
+
+
+
+
+
+
+# VITE_API_URL=https://192.168.0.165:8013/api
+# VITE_API_URL=https://192.168.1.29:8013/api
+# VITE_API_URL=https://192.168.17.168:8013/api #My Mobile IP address
+# VITE_API_URL=https://192.168.249.168:8013/api #My Mobile IP address
+
+
+# VITE_API_URL=https://ims.nexasofts.com:8013/api 
+
+# VITE_API_URL=https://192.168.1.29:8014/api
+
+# VITE_API_URL=https://192.168.1.29/api
+# VITE_API_URL=https://localhost:8014/api
+# VITE_API_URL=http://192.168.17.168:8014/api
+# VITE_API_URL=http://localhost:8014/api
+
+

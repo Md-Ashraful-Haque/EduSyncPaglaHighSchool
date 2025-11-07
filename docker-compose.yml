@@ -1,0 +1,56 @@
+services:
+  backend_with_web:
+    image: edusync_backend_drsg:v1.0.0
+    build:
+      context: ./backend
+    volumes:
+      - ./backend:/app
+      - ./certs:/app/certs
+    ports:
+      - "8017:8017"
+    networks:
+      - edusync-network
+    extra_hosts:
+      - "localhost:127.0.0.1"
+      - "ims.nexasofts.com:127.0.0.1"
+      - "ims.nexasofts.com:192.168.17.168"
+
+  frontend_with_web:
+    image: edusync_frontend_drsg:v1.0.0
+    build:
+      context: ./frontend
+    volumes:
+      - ./frontend:/app
+      - ./certs:/app/certs
+    ports:
+      - "3002:3002"
+    networks:
+      - edusync-network
+    extra_hosts:
+      - "localhost:127.0.0.1"
+      - "ims.nexasofts.com:127.0.0.1"
+      - "ims.nexasofts.com:192.168.17.168"
+      # - "ims.nexasofts.com:10.42.0.1"
+    depends_on:
+      - backend_with_web
+    command: npm run dev  # Start Vite dev server for live reloading
+
+  nginx:
+    image: nginx:1.27.3
+    container_name: nginx_pagla
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./certs:/etc/nginx/certs
+      - ./backend/static:/app/static
+      - ./backend/media:/app/media
+    ports:
+      - "8018:80"    # HTTP
+      - "443:443"    # HTTPS
+    networks:
+      - edusync-network
+    depends_on:
+      - backend_with_web
+
+networks:
+  edusync-network:
+    driver: bridge

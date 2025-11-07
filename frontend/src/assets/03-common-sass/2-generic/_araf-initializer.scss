@@ -1,0 +1,26 @@
+// ((((((((((((((((((((((((((((((((((()))))))))))))))))))))))))))))))))))
+
+html, body
+{
+    // height: 100%;
+    // min-height: 100%;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "SolaimanLipi", sans-serif !important;
+    font-style: normal;
+    // font-family: 'muli','Times New Roman', Times, serif;
+    @media  screen and (min-width: 576px) and (max-width: 1080px) {
+        font-size: 1.05rem; 
+    }
+    
+}
+
+button{
+    border: none;
+}
+// ((((((((((((((((((((((((((((((((((()))))))))))))))))))))))))))))))))))
+
+*{
+    box-sizing: border-box;
+}
