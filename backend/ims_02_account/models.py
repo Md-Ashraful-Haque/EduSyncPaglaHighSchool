@@ -288,7 +288,7 @@ class TeacherEducation(models.Model):
         blank=True,
         null=True,
     )
-    image_cropped = ImageRatioField("image", "800x1120",verbose_name="Certificate Cropped")
+    image_cropped = ImageRatioField("image", "3508x2480",verbose_name="Certificate Cropped")
 
     class Meta:
         verbose_name = "Educational Qualification"
