@@ -32,5 +32,5 @@ urlpatterns = [
     # Alternative: Get all data at once
     path('institute-full-data/<int:institute_id>/', get_institute_full_data, name='institute-full-data'),
     path('teachers/', AllTeacherListView.as_view(), name='teacher-list'),
-    path('teachers/<int:pk>/', SingleTeacherView.as_view(), name='teacher-detail'),
+    path('teachers/<int:pk>/', SingleTeacherView.as_view(), name='teacher-detail'), 
 ]

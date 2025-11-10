@@ -23,7 +23,7 @@ export default function TeacherDownloadButton({ showText,details, teacherId = nu
           `teachers/${teacherId}`, // Single teacher endpoint
           {}
         );
-        console.log(response);
+        // console.log(response);
         setTeachers([response]); // Wrap in array for print-loop
       } else {
         // ✅ Fetch all teachers
@@ -65,8 +65,8 @@ export default function TeacherDownloadButton({ showText,details, teacherId = nu
           </div>
           {showText && (
             <span className="font-semibold text-xs lg:text-sm">
-              {loading ? "Loading..." : teacherId ? "" : details ? "ডাউনলোড করুন" : "সংক্ষিপ্ত"} 
-              {/* {loading ? "Loading..." : teacherId ? "" : details ? "বিস্তারিত" : "সংক্ষিপ্ত"}  */}
+              {/* {loading ? "Loading..." : teacherId ? "" : details ? "ডাউনলোড করুন" : "সংক্ষিপ্ত"}  */}
+              {loading ? "Loading..." : teacherId ? "" : details ? "বিস্তারিত" : "সংক্ষিপ্ত"} 
             </span>
           )}
         </div>

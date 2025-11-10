@@ -279,6 +279,7 @@ class TeacherEducation(models.Model):
     result = models.CharField(max_length=10, blank=True, null=True)
     passing_year = models.PositiveIntegerField(blank=True, null=True)
     roll = models.CharField(max_length=50, blank=True, null=True)
+    ntrca_batch = models.CharField(max_length=30, blank=True, null=True)
     duration = models.CharField(max_length=10, blank=True, null=True)  # e.g. "4 Years"
 
     image = ImageCropField(

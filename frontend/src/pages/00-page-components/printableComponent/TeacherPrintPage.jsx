@@ -192,7 +192,7 @@ const TeacherPrintPage = forwardRef(({ teachers,instituteInfo }, ref) => (
           {t.educations && t.educations.length > 0 && (
             <div>
               <h6 className="text-sm font-bold text-gray-900 mb-3 pb-1 border-b border-gray-300">
-                EDUCATIONAL BACKGROUND
+                EDUCATIONAL QUALIFICATION
               </h6>
               <table className="w-full text-xs border border-gray-300">
                 <thead>
@@ -201,7 +201,7 @@ const TeacherPrintPage = forwardRef(({ teachers,instituteInfo }, ref) => (
                       Examination
                     </th>
                     <th className="border border-gray-300 px-3 py-2 text-left font-semibold text-gray-900">
-                      Board/Institute
+                      Study Center/Campus
                     </th>
                     <th className="border border-gray-300 px-3 py-2 text-left font-semibold text-gray-900">
                       Group/Subject
@@ -213,7 +213,10 @@ const TeacherPrintPage = forwardRef(({ teachers,instituteInfo }, ref) => (
                       Year
                     </th>
                     <th className="border border-gray-300 px-3 py-2 text-center font-semibold text-gray-900">
-                      Roll
+                      Roll/ID
+                    </th>
+                    <th className="border border-gray-300 px-3 py-2 text-center font-semibold text-gray-900">
+                      NTRCA Batch
                     </th>
                     <th className="border border-gray-300 px-3 py-2 text-center font-semibold text-gray-900">
                       Duration
@@ -240,6 +243,9 @@ const TeacherPrintPage = forwardRef(({ teachers,instituteInfo }, ref) => (
                       </td>
                       <td className="border border-gray-300 px-3 py-2 text-center text-gray-800">
                         {edu.roll || "-"}
+                      </td>
+                      <td className="border border-gray-300 px-3 py-2 text-center text-gray-800">
+                        {edu.ntrca_batch || "-"}
                       </td>
                       <td className="border border-gray-300 px-3 py-2 text-center text-gray-800">
                         {edu.duration || "-"}

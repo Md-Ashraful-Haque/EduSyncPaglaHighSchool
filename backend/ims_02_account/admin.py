@@ -71,6 +71,7 @@ class TeacherEducationInline(ImageCroppingMixin, admin.StackedInline):  # You ma
         "result",
         "passing_year",
         "roll",
+        "ntrca_batch",
         "duration",
         "image",
         "image_cropped",

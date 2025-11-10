@@ -183,7 +183,7 @@ const DataSelectorFormFields = () => {
                       </button> */}
 
                       <TeacherDownloadButton showText={true} details={true}/>
-                      {/* <TeacherDownloadButton showText={true} details={false}/> */}
+                      <TeacherDownloadButton showText={true} details={false}/>
 
                       {/* <button 
                         onClick={handleOpenAdd} 
@@ -192,11 +192,12 @@ const DataSelectorFormFields = () => {
                       >
                         <div className="flex items-center space-x-3">
                           <div className="border border-purple-700 rounded-full p-1.5 group-hover:border-white group-hover:bg-white/20 transition-all duration-300">
-                            <ArrowDownTrayIcon className="w-4 h-4 text-purple-700 group-hover:text-purple-700" />
+                            <PlusIcon className="w-4 h-4 text-purple-700 group-hover:text-purple-700" />
                           </div>
-                          <span className="font-semibold text-xs lg:text-sm"> সংক্ষিপ্ত </span>
+                          <span className="font-semibold text-xs lg:text-sm"> শিক্ষক যুক্ত করুন </span>
                         </div>
                       </button> */}
+
                     </div>
                   </div>
 

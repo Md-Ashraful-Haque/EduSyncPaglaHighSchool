@@ -72,7 +72,7 @@ class TeacherEducationSerializer(serializers.ModelSerializer):
         model = TeacherEducation
         fields = [
             'id', 'examination', 'examination_name', 'board_or_institute',
-            'group_or_subject', 'result', 'passing_year', 'roll', 'duration',
+            'group_or_subject', 'result', 'passing_year', 'roll', 'ntrca_batch','duration',
             'image', 'image_cropped'
         ]
 
