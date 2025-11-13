@@ -16,8 +16,16 @@ const submenuItems = [
     inputField: "inputField",
     visibility: ["All"],
   },
+  {
+    id: "result-item-1",
+    to: "/admin/seat-plan",
+    label: "সিট প্ল্যান",
+    menuType: "result_processing",
+    inputField: "inputField",
+    visibility: ["All"],
+  },
 ];
- 
+
 const ExamMenu = ({ menuId }) => {
   return (
     <li>

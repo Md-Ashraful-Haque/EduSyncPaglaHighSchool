@@ -25,6 +25,7 @@ import {
 } from "../pages/02_resutlSection/Z99_index";
 import {
   P00_AdmitCard, 
+  P01_SeatPlan,
 } from "../pages/02_exam/Z99_ExamIndex";
 import { P01_ShowAllStudents } from "../pages/01_students/Z99_index"; 
 import { P01_ShowAllTeachers } from "../pages/00_teachers/Z99_index";
@@ -82,6 +83,7 @@ const AppRoutes = () => {
         <Route path="show-all-student" element={<P01_ShowAllStudents />} />
         
         <Route path="admit-card" element={<P00_AdmitCard />} />
+        <Route path="seat-plan" element={<P01_SeatPlan />} />
 
         <Route path="enter-marks-by-subject" element={<P01_EnterMarksBySubject />} />
         <Route path="generate-result" element={<P02_ResultGenerator />} />
