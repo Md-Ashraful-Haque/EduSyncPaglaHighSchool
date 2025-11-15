@@ -66,7 +66,7 @@ const SeatPlanPrinter = ({
 
         <div className="detail-row">
           <span className="label">Name of Student:</span>
-          <span className="value italic">{student.name}</span>
+          <span className="value-italic">{student.name}</span>
         </div> 
         <div className="seat-plan-class-info">
 
