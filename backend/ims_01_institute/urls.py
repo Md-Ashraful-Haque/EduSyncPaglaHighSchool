@@ -19,6 +19,7 @@ urlpatterns = [
     path('groups-admin/', get_groups_by_class, name='get_groups_by_class'),
     path('sections-admin/', get_sections_by_group, name='get_sections_by_group'),
     path('subject-admin/', get_subject_by_section, name='get_subject_by_section'),
+    path('subject-by-group/', get_subject_by_group, name='get_subject_by_group'),
     path('institute-info/', InstituteInfoAPIView.as_view(), name='institute-info'),
     path('mark-types-by-subject/', MarkTypesBySubject.as_view(), name='mark-types-by-subject'),
 ]

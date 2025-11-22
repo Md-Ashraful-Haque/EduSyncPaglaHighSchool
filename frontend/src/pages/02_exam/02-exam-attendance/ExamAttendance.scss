@@ -1,0 +1,200 @@
+@use "../../../assets/03-common-sass/essentials"as *;
+@use "sass-mq"as *;
+/* ========== Page Wrapper ========== */
+
+.exam-attendance-wrapper {
+  background: white;
+  font-family: "Kalpurush", "SolaimanLipi", Arial, sans-serif;
+}
+
+.exam-attendance-page {
+  // width: 210mm;
+  min-height: 297mm;
+  padding: 20mm;
+  // margin: auto;
+  background: white;
+  position: relative;
+}
+
+/* ========== Header ========== */
+
+.exam-attendance-header {
+  text-align: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #000;
+  padding-bottom: 10px;
+}
+.exam-attendance-school-info {
+  // border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .exam-attendance-school-name-logo {
+    width: 100%;
+    // border: 1px solid rgb(19, 219, 96);
+    display: flex;
+    justify-content: center;
+    .exam-attendance-school-name {
+      position: relative;
+      // border: 1px solid rgb(37, 8, 168);
+      width: fit-content;
+
+      .exam-attendance-logo-box {
+        position: absolute;
+        left: -88px;
+        top: 0px; 
+      }
+    }
+  }
+
+
+}
+
+
+.exam-attendance-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.exam-attendance-logo-placeholder {
+  width: 80px;
+  height: 80px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ========== School Info ========== */
+
+.exam-attendance-school-name {
+  font-size: 40px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.exam-attendance-school-address {
+  font-size: 16px;
+  margin: 4px 0;
+}
+
+.exam-attendance-exam-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.exam-attendance-form-title {
+  font-size: 18px;
+  margin-top: 6px;
+  font-weight: bold;
+  span{
+    border: 1px solid black;
+    border-radius: 100px;
+    padding: 4px 12px 0px;
+    width: fit-content;
+  }
+}
+
+/* ========== Student Info ========== */
+
+.exam-attendance-student-info {
+  font-size: 17px;
+  margin-top: 18px;
+  line-height: 1.6;
+
+  .exam-attendance-std-details-container{
+    display: flex;
+    .exam-attendance-std-details{
+      display: flex;
+      min-width: 50px;
+      padding: 0px 8px;
+      .dotted-underline {
+        text-decoration: underline dotted;
+        text-underline-offset: 4px;  // space between text & underline
+        font-style: italic;  
+        font-weight: 700;
+        font-size: 18px;
+        margin-top: -2px;
+      }
+      span{
+        font-weight: 700;
+        padding-right: 8px;
+
+      }
+    }
+  }
+  
+}
+
+/* ========== Table Styling ========== */
+
+.exam-attendance-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 18px;
+  font-size: 16px;
+}
+
+.exam-attendance-table th,
+.exam-attendance-table td {
+  border: 1px solid #000;
+  padding: 12px 8px;
+}
+
+.exam-attendance-table th {
+  text-align: center;
+  font-weight: bold;
+}
+
+// ==================== Signature ====================
+
+// .exam-attendance-page {
+//   position: relative;
+//   height: 1123px; // A4 height in px (for 96dpi screens)
+//   padding-bottom: 120px; // space so table doesn't overlap footer
+//   page-break-after: always;
+// }
+
+.exam-attendance-footer {
+  // border: 1px solid red;
+  position: absolute;
+  bottom: 0px;        // distance from bottom of page
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 60px;
+}
+
+.signature-box {
+  text-align: center;
+}
+
+.signature-line {
+  border-top: 1px solid #000;
+  width: 160px;
+  margin: 0 auto 5px auto;
+}
+
+/* ========== Page Break ========== */
+
+.exam-attendance-page-break {
+  page-break-after: always;
+}
+
+/* ========== Print Mode ========== */
+
+@media print {
+  .exam-attendance-page {
+    width: 210mm;
+    min-height: 297mm; 
+
+    margin: 0;
+    padding: 6mm 10mm !important;
+    page-break-after: always;
+  }
+}

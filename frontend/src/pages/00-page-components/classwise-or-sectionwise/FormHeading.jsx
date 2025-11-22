@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 
 
-const FormHeading = ({  heading }) => {
+const FormHeading = ({  heading, groupwise="ক্লাস ভিত্তিক" }) => {
   return (
     <div className="container-fluid">
         <div className="result-type-selector">
@@ -12,7 +12,7 @@ const FormHeading = ({  heading }) => {
             <button 
               className="active"
             >
-              ক্লাস ভিত্তিক 
+              {groupwise}
             </button> 
           </div>
         </div>
@@ -23,6 +23,7 @@ const FormHeading = ({  heading }) => {
 
 FormHeading.propTypes = { 
   heading: PropTypes.func.isRequired,
+  groupwise: PropTypes.func.isRequired,
 };  
 
 export default FormHeading;

@@ -24,8 +24,10 @@ import {
   P06_MeritSummary,
 } from "../pages/02_resutlSection/Z99_index";
 import {
+  P00_CreateExamRoutine,
   P00_AdmitCard, 
   P01_SeatPlan,
+  P02_ExamAttendance,
 } from "../pages/02_exam/Z99_ExamIndex";
 import { P01_ShowAllStudents } from "../pages/01_students/Z99_index"; 
 import { P01_ShowAllTeachers } from "../pages/00_teachers/Z99_index";
@@ -82,8 +84,10 @@ const AppRoutes = () => {
         <Route path="show-all-teacher" element={<P01_ShowAllTeachers />} />
         <Route path="show-all-student" element={<P01_ShowAllStudents />} />
         
+        {/* <Route path="create-exam-routine" element={<P00_CreateExamRoutine />} /> */}
         <Route path="admit-card" element={<P00_AdmitCard />} />
         <Route path="seat-plan" element={<P01_SeatPlan />} />
+        <Route path="exam-attendance" element={<P02_ExamAttendance />} />
 
         <Route path="enter-marks-by-subject" element={<P01_EnterMarksBySubject />} />
         <Route path="generate-result" element={<P02_ResultGenerator />} />
@@ -91,6 +95,11 @@ const AppRoutes = () => {
         <Route path="show-tabulation-sheet" element={<P04_ShowTabulationSheet />} />
         <Route path="show-merit-report" element={<P05_ShowMeritReport />} />
         <Route path="show-merit-summary" element={<P06_MeritSummary />} />
+        <Route path="*" element={<PageNotFound404 />} />
+      </Route>
+      <Route path="/routine" element={<ProtectedRoute><RootLayout /></ProtectedRoute>}>
+        <Route index element={<Navigate to="dashboard" />} />
+        <Route path="create-exam-routine" element={<P00_CreateExamRoutine />} />
         <Route path="*" element={<PageNotFound404 />} />
       </Route>
     </Routes>

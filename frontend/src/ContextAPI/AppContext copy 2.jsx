@@ -1,6 +1,6 @@
 /*eslint no-unused-vars: ["error", { "caughtErrors": "none" }]*/
 
-import { createContext, useState, useContext, useEffect, useCallback} from "react";
+import { createContext, useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import axios from "axios"; 
 import { doGetAPIcall } from "Utils/utilsFunctions/UtilFuntions";
@@ -95,54 +95,32 @@ export const ContextAPIProvider = ({ children }) => {
     !!localStorage.getItem("accessToken") // Check token in localStorage
   );
 
-  // const login = (token) => {
-  //   localStorage.setItem("accessToken", token);
-  //   setIsAuthenticated(true);
-  // };
-
-  // const logout = async () => {
-  //   try {
-  //     // Send a request to the backend to invalidate the refresh token
-  //     await axios.post(
-  //       `${import.meta.env.VITE_API_URL}/logout/`,
-  //       {},
-  //       { withCredentials: true }
-  //     );
-
-  //     // Clear the accessToken from localStorage
-  //     localStorage.removeItem("accessToken");
-
-  //     // Update app state to reflect logged-out status
-  //     setIsAuthenticated(false);
-
-  //     // Redirect to login (optional)
-  //     // window.location.href = '/';
-  //   } catch (error) {
-  //     console.error("Error during logout:", error);
-  //   }
-  // };
-
-  const login = useCallback((token) => {
+  const login = (token) => {
     localStorage.setItem("accessToken", token);
     setIsAuthenticated(true);
-  }, []);
+  };
 
-  const logout = useCallback(async () => {
+  const logout = async () => {
     try {
+      // Send a request to the backend to invalidate the refresh token
       await axios.post(
         `${import.meta.env.VITE_API_URL}/logout/`,
         {},
         { withCredentials: true }
       );
 
+      // Clear the accessToken from localStorage
       localStorage.removeItem("accessToken");
+
+      // Update app state to reflect logged-out status
       setIsAuthenticated(false);
 
+      // Redirect to login (optional)
+      // window.location.href = '/';
     } catch (error) {
       console.error("Error during logout:", error);
     }
-  }, []);
-
+  };
 
   const handleTokenExpiration = async (setSchoolData = null, apiUrl = null) => {
     try {
@@ -173,43 +151,10 @@ export const ContextAPIProvider = ({ children }) => {
     }
   };
 
-  // const createNewAccessToken = async () => {
-  //   try {
-  //     const refreshAPIurl = `${import.meta.env.VITE_API_URL}/token/refresh/`;
-  //     // axios.defaults.withCredentials = true;
-
-  //     const response = await axios.post(
-  //       refreshAPIurl,
-  //       {},
-  //       { withCredentials: true }
-  //     );
-
-  //     login(response.data.access);
-  //   } catch (err) {
-  //     logout(); // Logout user and clear localStorage and cookies
-  //   }
-  // };
-
-  // import { useCallback } from "react";
-
-// const createNewAccessToken = useCallback(async () => {
-//   try {
-//     const refreshAPIurl = `${import.meta.env.VITE_API_URL}/token/refresh/`;
-
-//     const response = await axios.post(
-//       refreshAPIurl,
-//       {},
-//       { withCredentials: true }
-//     );
-
-//     login(response.data.access);
-//   } catch (err) {
-//     logout();
-//   }
-// }, [login, logout]);
-  const createNewAccessToken = useCallback(async () => {
+  const createNewAccessToken = async () => {
     try {
       const refreshAPIurl = `${import.meta.env.VITE_API_URL}/token/refresh/`;
+      // axios.defaults.withCredentials = true;
 
       const response = await axios.post(
         refreshAPIurl,
@@ -218,13 +163,10 @@ export const ContextAPIProvider = ({ children }) => {
       );
 
       login(response.data.access);
-
     } catch (err) {
-      logout();
+      logout(); // Logout user and clear localStorage and cookies
     }
-  }, [login, logout]);
-
-
+  };
 
   const [activeSubMenu, setActiveSubMenu] = useState(null);
   const toggleSubMenu = (menuId) => {

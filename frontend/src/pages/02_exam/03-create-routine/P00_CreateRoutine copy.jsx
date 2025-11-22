@@ -1,5 +1,5 @@
 
-import "./SeatPlan.scss"; 
+import "./CreateRoutine.scss"; 
 import React from "react";
 import SelectFields from "pageComponents/SelectFields";
 // import SelectFields from "../00-field_selector/SelectFields";
@@ -13,11 +13,11 @@ import showBangla from "../../../utils/utilsFunctions/engNumberToBang";
 import schoolLogo from "../../../assets/images/eduSyncLogo.svg";
 import ToggleLanguage from "pageComponents/toggleResult";
 import { generatePDF } from "../../../utils/utilsFunctions/pdfDownload";
-import OpenNewTabWithHeader from "./SeatPlanNewTab";
+import OpenNewTabWithHeader from "./ExamAttendanceNewTab";
 import { ResultContextAPIProvider } from "ContextAPI/MarksInputBySubjectContext";
 import Loading_1 from "LoadingComponent/loading/Loading_1";
 // import MarksheetTableHeader from "./92_marksheet_table_header";
-import SeatPlanPrinter from "./SeatPlanPrinter";
+import SeatPlanPrinter from "./ExamAttendancePrinter";
 
 import { toast } from "react-toastify";
 
@@ -26,11 +26,12 @@ import { useAppContext } from "ContextAPI/AppContext";
 import { useState } from "react";
 
 import ClasswiseOrSectionwise from "pageComponents/classwise-or-sectionwise/ClasswiseOrSectionwise";
+import FormHeading from "pageComponents/classwise-or-sectionwise/FormHeading";
 
 // import MeritReportHeader from "./01-merit-report-header";
 // import MeritReportTable from "./02_merit_report_table";
 ////////////////////////////////////////////////////////////////////////////////
-const SeatPlan = () => {
+const CreateExamRoutine = () => {
   const { createNewAccessToken } = useAppContext();
   const [students, setStudents] = useState([]); // State for serializer data
   const [studentsCommonInfo, setStudentsCommonInfo] = useState(null); // State for serializer data
@@ -43,6 +44,7 @@ const SeatPlan = () => {
   const [highest_marks, setHighest_marks] = useState([]); // State for serializer data
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  
 
   const handleModalClose = () => {
     setIsModalOpen(!isModalOpen);
@@ -153,10 +155,11 @@ const SeatPlan = () => {
 
   return (
     <div className="generate-result">
-      <ClasswiseOrSectionwise
+      <FormHeading
         Option={resultOption}
         updateOption={updateResultOption}
-        heading={"সিট প্লান কার্ড ডাউনলোড ফর্ম"}
+        heading={"পরীক্ষার রুটিন তৈরির ফর্ম"}
+        groupwise={"বিভাগ"}
       />
       {/* see result using the form below */}
       <form onSubmit={handleSubmit}>
@@ -194,17 +197,11 @@ const SeatPlan = () => {
               </div>
             </div>
 
-            {resultOption.class ? (
-              <SelectFields fields={["class", "group", "exam-by-year"]} />
-            ) : (
-              <SelectFields
-                fields={["class", "group", "section", "exam-by-year"]}
-              />
-            )}
+            <SelectFields fields={["class", "group", "exam-by-year"]} />
           </div> 
           <div className="result-generator-button">
             <button type="submit" className="generate-btn">
-              সিট প্ল্যান দেখুন
+              পরীক্ষার রুটিন তৈরী করুন
             </button>
           </div>
         </div>
@@ -252,6 +249,6 @@ const SeatPlan = () => {
   );
 };
 
-SeatPlan.propTypes = {};
+CreateExamRoutine.propTypes = {};
 
-export default SeatPlan;
+export default CreateExamRoutine;

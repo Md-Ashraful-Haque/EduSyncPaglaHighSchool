@@ -490,7 +490,33 @@ def get_subject_by_section(request):
     # print(" Non Enter into if ")
     return Response([])
 
-
+@api_view(['GET'])
+def get_subject_by_group(request):
+    # print("==============================================")
+    institute_id = request.GET.get('institute_id') 
+    
+    year_id = request.GET.get('year_id')
+    class_instance_id = request.GET.get('class_instance_id')
+    group_id = request.GET.get('group_id')
+    # institute_id: 1,
+    # year_id: bySubjectVars.year,
+    # class_instance_id: bySubjectVars.class_name,
+    # group_id: bySubjectVars.group_name_bangla,
+    # print("///////////", institute_id, year_id, class_instance_id, group_id, "///////////////////")
+    if institute_id and year_id and class_instance_id and group_id:
+        
+        # print("/////////// Before: " , "///////////////////")
+        subjects = SubjectForIMS.objects.filter(
+            institute=institute_id,
+            year__year=year_id,
+            class_instance=class_instance_id,
+            group=group_id
+        )
+        # print("/////////// After: ", subjects , "///////////////////")
+        serializer = SubjectSerializer(subjects, many=True)
+        return Response(serializer.data)
+    print(" Non Enter into if ")
+    return Response([])
 
 class InstituteInfoAPIView(APIView):
     permission_classes = [AllowAny]

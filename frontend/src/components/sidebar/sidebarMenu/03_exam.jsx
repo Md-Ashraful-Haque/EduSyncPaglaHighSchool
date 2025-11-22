@@ -7,23 +7,43 @@ import MenuLeftLogo from "./img/result.svg";
 import MenuItem from "../sidebarComponents/MenuItem";
 import SubMenuItem from "../sidebarComponents/SubMenuItem";
 import { BookOpenCheck } from 'lucide-react';
+
+
 const submenuItems = [
   {
     id: "result-item-0",
-    to: "/admin/admit-card",
-    label: "এডমিট কার্ড",
+    to: "/routine/create-exam-routine",
+    label: "পরীক্ষার রুটিন তৈরী করুন",
     menuType: "result_processing",
     inputField: "inputField",
     visibility: ["All"],
   },
   {
     id: "result-item-1",
-    to: "/admin/seat-plan",
-    label: "সিট প্ল্যান",
+    to: "/admin/admit-card", // Link for  Pages/Routes/AppRoutes
+    label: "এডমিট কার্ড",
     menuType: "result_processing",
     inputField: "inputField",
     visibility: ["All"],
   },
+  {
+    id: "result-item-2",
+    to: "/admin/seat-plan",
+    label: "পরীক্ষার সিট প্ল্যান",
+    menuType: "result_processing",
+    inputField: "inputField",
+    visibility: ["All"],
+  },
+  {
+    id: "result-item-3",
+    to: "/admin/exam-attendance",
+    label: "পরীক্ষার উপস্থিতি কার্ড",
+    menuType: "result_processing",
+    inputField: "inputField",
+    visibility: ["All"],
+  },
+
+  
 ];
 
 const ExamMenu = ({ menuId }) => {

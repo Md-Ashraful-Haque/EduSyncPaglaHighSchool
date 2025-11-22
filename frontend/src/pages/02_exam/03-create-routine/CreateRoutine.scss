@@ -1,0 +1,185 @@
+.routine-form {
+  margin-top: 25px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 20px;
+  border: 1px solid rgb(218, 222, 255);
+  min-width: 310px;
+
+  .routine-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 12px;
+
+    thead {
+      tr {
+        background: linear-gradient(90deg, #6a11cb, #8e2de2);
+        color: #fff;
+
+        th {
+          padding: 14px 20px;
+          text-align: center;
+          font-size: 16px;
+          font-weight: 600;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        background: #faf7ff;
+        border-radius: 12px;
+        box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.07);
+
+        td {
+          padding: 12px 18px;
+        }
+      }
+    }
+  }
+
+  .btn-add {
+    margin-top: 15px;
+    border: none;
+    background: transparent;
+    font-size: 16px;
+    color: #7b2ff7;
+    font-weight: 500;
+    cursor: pointer;
+
+    &:hover {
+      color: #4e00c2;
+      transform: translateY(-2px);
+    }
+  }
+}
+
+/* ------------------------- */
+/* INPUT WITH ICON */
+/* ------------------------- */
+
+.input-with-icon {
+  position: relative;
+  
+  .icon {
+    position: absolute;
+    top: 50%;
+    left: 14px;
+    transform: translateY(-50%);
+    color: #8e2de2;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    z-index: 3; /* Ensures icon is on top */
+  }
+
+  select,
+  input[type="date"],
+  input[type="time"] {
+    width: 100%;
+    padding: 12px 14px;
+    padding-left: 40px !important;
+    border-radius: 10px;
+    border: 1.5px solid #d4c2ff;
+    font-size: 15px;
+
+
+    &:focus {
+      border-color: #8e2de2;
+      box-shadow: 0 0 0 2px rgba(142, 45, 226, 0.2);
+      outline: none;
+    }
+  }
+}
+
+/* Enable native picker */
+input[type="date"],
+input[type="time"] {
+  pointer-events: auto !important;
+  padding-right: 0 !important;
+}
+// input[type="date"]::-webkit-inner-spin-button,
+// input[type="date"]::-webkit-clear-button,
+// input[type="date"]::-webkit-datetime-edit-fields-wrapper {
+//   margin: 0 !important;
+//   padding: 0 !important;
+// }
+/* Hide default icons */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  
+  opacity: 1;
+  cursor: pointer;
+  // visibility: hidden;
+  display: none;
+  // margin-right: -10px !important; 
+}
+/* Remove default icon + its reserved space */
+// input[type="date"]::-webkit-calendar-picker-indicator {
+//   opacity: 0 !important;
+//   width: 0 !important;
+//   margin-right: -10px !important;
+//   padding: 0 !important;
+// }
+
+input[type="date"] {
+  // padding-right: 0 !important;   /* remove max padding */
+  // background-position: right 0px center !important;
+} 
+
+
+
+
+/* Delete button */
+.delete-btn {
+  background: #ffe5e5;
+  border: none;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: #d00000;
+  cursor: pointer;
+
+  &:hover {
+    background: #ffcccc;
+    transform: scale(1.05);
+  }
+}
+
+/* ------------------------------------------------------ */
+/* MOBILE RESPONSIVE */
+/* ------------------------------------------------------ */
+
+@media (max-width: 768px) {
+  .routine-form {
+    padding: 12px;
+
+    .routine-table {
+      thead {
+        display: none;
+      }
+
+      tbody tr {
+        display: block;
+        padding: 14px;
+        margin-bottom: 12px;
+
+        td {
+          display: flex;
+          flex-direction: column;
+
+          &::before {
+            content: attr(data-label);
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #6a11cb;
+          }
+        }
+      }
+    }
+
+    .btn-add {
+      width: 100%;
+      text-align: center;
+    }
+  }
+}
