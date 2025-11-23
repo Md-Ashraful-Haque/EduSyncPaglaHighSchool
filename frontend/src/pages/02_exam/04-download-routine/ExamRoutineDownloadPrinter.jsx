@@ -1,7 +1,8 @@
-// ExamAttendancePrinter.jsx
+// ExamRoutineDownloadPrinter.jsx
 import React from "react";
 
 import showBangla from "../../../utils/utilsFunctions/engNumberToBang";
+import formatTime12h from "../../../utils/utilsFunctions/UtilFuntions";
 
 
 function getBanglaDayName(dateString) {
@@ -20,7 +21,7 @@ function getBanglaDayName(dateString) {
 
   return banglaDays[dayIndex] || "";
 }
-const ExamAttendancePrinter = ({
+const ExamRoutineDownloadPrinter = ({
   students = [],
   studentsCommonInfo = null,
   HeadSignature = null,
@@ -35,37 +36,22 @@ const ExamAttendancePrinter = ({
 
 
   return (
-    <div className="exam-attendance-wrapper">
-      {students.map((student, index) => (
-        <div className="exam-attendance-page" key={index}>
+    <div className="exam-routine-download-wrapper">
+      <div className="exam-routine-download-page" >
           {/* ===== Header ===== */}
-          <div className="exam-attendance-header">
-            {/* <div className="exam-attendance-logo-box">
-              {instituteInfo?.logo_url ? (
-                <img
-                  src={instituteInfo.logo_url}
-                  alt="School Logo"
-                  className="exam-attendance-logo"
-                />
-              ) : (
-                <div className="exam-attendance-logo-placeholder">
-                  {instituteInfo?.institute_code || "LOGO"}
-                </div>
-              )}
-            </div> */}
-
-            <div className="exam-attendance-school-info">
-              <div className="exam-attendance-school-name-logo">
-                <h1 className="exam-attendance-school-name">
-                  <div className="exam-attendance-logo-box">
+          <div className="exam-routine-download-header"> 
+            <div className="exam-routine-download-school-info">
+              <div className="exam-routine-download-school-name-logo">
+                <h1 className="exam-routine-download-school-name">
+                  <div className="exam-routine-download-logo-box">
                     {instituteInfo?.logo_url ? (
                       <img
                         src={instituteInfo.logo_url}
                         alt="School Logo"
-                        className="exam-attendance-logo"
+                        className="exam-routine-download-logo"
                       />
                     ) : (
-                      <div className="exam-attendance-logo-placeholder">
+                      <div className="exam-routine-download-logo-placeholder">
                         {instituteInfo?.institute_code || "LOGO"}
                       </div>
                     )}
@@ -74,8 +60,8 @@ const ExamAttendancePrinter = ({
                 </h1>
               </div>
 
-              <p className="exam-attendance-school-address">
-                {instituteInfo?.address || "ঠিকানা"} 
+              <p className="exam-routine-download-school-address">
+                {instituteInfo?.address || "ঠিকানা"} <br />
                 {instituteInfo?.website &&(
                   <div>
                     ওয়েবসাইট: <a href="www.paglahighschool.edu.bd">{instituteInfo?.website}</a>
@@ -83,54 +69,46 @@ const ExamAttendancePrinter = ({
                 )}
               </p>
 
-              <h2 className="exam-attendance-exam-name">
+              <h2 className="exam-routine-download-exam-name">
                 {studentsCommonInfo?.exam_name || "পরীক্ষার নাম"}-
                 {showBangla(studentsCommonInfo?.year) || "Year"} ইং
               </h2>
 
-              <h3 className="exam-attendance-form-title">
-                <span>শিক্ষার্থী হাজিরা তথ্য</span>
+              <h3 className="exam-routine-download-form-title">
+                <span>পরীক্ষার রুটিন</span>
               </h3>
             </div>
           </div>
 
           {/* ===== Student Info ===== */}
-          <div className="exam-attendance-student-info">
-            {/* <p>
-              <strong>শিক্ষার্থীর নাম:</strong> {student.name}
-            </p> */}
-            <div className="exam-attendance-std-details-container">
-              <div className="exam-attendance-std-details">
+          <div className="exam-routine-download-student-info"> 
+            {/* <div className="exam-routine-download-std-details-container">
+              <div className="exam-routine-download-std-details">
                 <span> শিক্ষার্থীর নাম: </span>
                 <div className="dotted-underline">
-                  {student.name}
+                  Name
                 </div>
               </div>
-            </div>
+            </div> */}
 
-            <div className="exam-attendance-std-details-container">
-              <div className="exam-attendance-std-details">
+            <div className="exam-routine-download-std-details-container">
+              <div className="exam-routine-download-std-details">
                 <span> শ্রেণি: </span> {studentsCommonInfo?.class}
-              </div>
-
-              <div className="exam-attendance-std-details">
-                <span> রোল:</span> { showBangla(student.roll_number)}
-              </div>
+              </div> 
 
               {studentsCommonInfo?.section && (
-                <div className="exam-attendance-std-details">
+                <div className="exam-routine-download-std-details">
                   <span> সেকশন:</span> {studentsCommonInfo?.section}
                 </div>
               )}
               {studentsCommonInfo?.group && (
-                <div className="exam-attendance-std-details">
-                  {/* <span> গ্রুপ:</span> {studentsCommonInfo?.group} */}
+                <div className="exam-routine-download-std-details"> 
                   <span> গ্রুপ:</span> {studentsCommonInfo?.group_name_bengali}
                 </div>
               )}
               
               {studentsCommonInfo?.shift && (
-                <div className="exam-attendance-std-details">
+                <div className="exam-routine-download-std-details">
                   <span> শিফট:</span> {studentsCommonInfo?.shift}
                 </div>
               )}
@@ -138,32 +116,33 @@ const ExamAttendancePrinter = ({
           </div>
 
           {/* ===== Routine Table ===== */}
-          <table className="exam-attendance-table">
+          <table className="exam-routine-download-table">
             <thead>
               <tr>
                 <th>তারিখ</th>
                 <th>বার</th>
                 <th>বিষয়ের নাম</th>
                 {/* <th>বিষয় ও বিষয় কোড</th> */}
-                <th style={{ minWidth: "150px" }}>পরীক্ষার্থীর স্বাক্ষর</th>
-                <th style={{ minWidth: "150px" }}>কক্ষ প্রত্যাবকের স্বাক্ষর</th>
+                <th >শুরুর সময়</th>
+                <th >শেষের সময়</th>
               </tr>
             </thead>
 
             <tbody>
               {examRoutine?.map((item, i) => (
                 <tr key={i}>
-                  <td>{showBangla(item.exam_date)}</td>
-                  <td> {getBanglaDayName(item.exam_date)} </td>
-                  <td>{item.subject_name}</td>
-                  <td> </td>
-                  <td></td>
+                  <td style={{textAlign:"center"}} >{showBangla(item.exam_date)}</td>
+                  <td style={{textAlign:"center"}} > {getBanglaDayName(item.exam_date)} </td>
+                  <td >{item.subject_name}</td>
+                  <td style={{textAlign:"center"}} > {showBangla(formatTime12h(item.start_time))} </td>
+                  <td style={{textAlign:"center"}} > {showBangla(formatTime12h(item.end_time))} </td>
+                  {/* <td style={{textAlign:"center"}} >{showBangla(item.end_time)}</td> */}
                 </tr>
               ))}
             </tbody>
           </table>
 
-          <div className="exam-attendance-footer">
+          {/* <div className="exam-routine-download-footer">
             <div className="signature-box">
               <div className="signature-line"></div>
               <div>পরীক্ষা নিয়ন্ত্রক</div>
@@ -173,14 +152,13 @@ const ExamAttendancePrinter = ({
               <div className="signature-line"></div>
               <div>প্রধান শিক্ষক</div>
             </div>
-          </div>
+          </div> */}
 
           
-          <div className="exam-attendance-page-break" />
+          <div className="exam-routine-download-page-break" />
         </div>
-      ))}
     </div>
   );
 };
 
-export default ExamAttendancePrinter;
+export default ExamRoutineDownloadPrinter;

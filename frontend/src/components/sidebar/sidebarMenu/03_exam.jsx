@@ -1,8 +1,10 @@
+
+//////////////////////////////////////////
+// Link for   Routes/AppRoutes
+//////////////////////////////////////////
+
 import PropTypes from "prop-types";
-
-// import { Link } from "react-router-dom";
-
-import MenuLeftLogo from "./img/result.svg";
+// import MenuLeftLogo from "./img/result.svg";
 
 import MenuItem from "../sidebarComponents/MenuItem";
 import SubMenuItem from "../sidebarComponents/SubMenuItem";
@@ -20,7 +22,7 @@ const submenuItems = [
   },
   {
     id: "result-item-1",
-    to: "/admin/admit-card", // Link for  Pages/Routes/AppRoutes
+    to: "/admin/admit-card", // Link for   Routes/AppRoutes
     label: "এডমিট কার্ড",
     menuType: "result_processing",
     inputField: "inputField",
@@ -38,6 +40,14 @@ const submenuItems = [
     id: "result-item-3",
     to: "/admin/exam-attendance",
     label: "পরীক্ষার উপস্থিতি কার্ড",
+    menuType: "result_processing",
+    inputField: "inputField",
+    visibility: ["All"],
+  },
+  {
+    id: "result-item-4",
+    to: "/routine/exam-routine-download",
+    label: "পরীক্ষার রুটিন ডাউনলোড",
     menuType: "result_processing",
     inputField: "inputField",
     visibility: ["All"],

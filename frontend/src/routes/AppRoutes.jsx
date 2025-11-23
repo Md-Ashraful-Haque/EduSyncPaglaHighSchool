@@ -28,6 +28,7 @@ import {
   P00_AdmitCard, 
   P01_SeatPlan,
   P02_ExamAttendance,
+  P03_ExamRoutineDownload,
 } from "../pages/02_exam/Z99_ExamIndex";
 import { P01_ShowAllStudents } from "../pages/01_students/Z99_index"; 
 import { P01_ShowAllTeachers } from "../pages/00_teachers/Z99_index";
@@ -100,6 +101,7 @@ const AppRoutes = () => {
       <Route path="/routine" element={<ProtectedRoute><RootLayout /></ProtectedRoute>}>
         <Route index element={<Navigate to="dashboard" />} />
         <Route path="create-exam-routine" element={<P00_CreateExamRoutine />} />
+        <Route path="exam-routine-download" element={<P03_ExamRoutineDownload />} />
         <Route path="*" element={<PageNotFound404 />} />
       </Route>
     </Routes>

@@ -1,4 +1,4 @@
-// ExamAttendancePrinter.jsx
+// ExamRoutineDownloadPrinter.jsx
 import React from "react";
 
 import showBangla from "../../../utils/utilsFunctions/engNumberToBang";
@@ -20,7 +20,7 @@ function getBanglaDayName(dateString) {
 
   return banglaDays[dayIndex] || "";
 }
-const ExamAttendancePrinter = ({
+const ExamRoutineDownloadPrinter = ({
   students = [],
   studentsCommonInfo = null,
   HeadSignature = null,
@@ -39,21 +39,7 @@ const ExamAttendancePrinter = ({
       {students.map((student, index) => (
         <div className="exam-attendance-page" key={index}>
           {/* ===== Header ===== */}
-          <div className="exam-attendance-header">
-            {/* <div className="exam-attendance-logo-box">
-              {instituteInfo?.logo_url ? (
-                <img
-                  src={instituteInfo.logo_url}
-                  alt="School Logo"
-                  className="exam-attendance-logo"
-                />
-              ) : (
-                <div className="exam-attendance-logo-placeholder">
-                  {instituteInfo?.institute_code || "LOGO"}
-                </div>
-              )}
-            </div> */}
-
+          <div className="exam-attendance-header"> 
             <div className="exam-attendance-school-info">
               <div className="exam-attendance-school-name-logo">
                 <h1 className="exam-attendance-school-name">
@@ -75,12 +61,7 @@ const ExamAttendancePrinter = ({
               </div>
 
               <p className="exam-attendance-school-address">
-                {instituteInfo?.address || "ঠিকানা"} 
-                {instituteInfo?.website &&(
-                  <div>
-                    ওয়েবসাইট: <a href="www.paglahighschool.edu.bd">{instituteInfo?.website}</a>
-                  </div>
-                )}
+                {instituteInfo?.address || "ঠিকানা"}
               </p>
 
               <h2 className="exam-attendance-exam-name">
@@ -183,4 +164,4 @@ const ExamAttendancePrinter = ({
   );
 };
 
-export default ExamAttendancePrinter;
+export default ExamRoutineDownloadPrinter;

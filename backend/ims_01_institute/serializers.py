@@ -95,7 +95,7 @@ class InstituteSerializer(serializers.ModelSerializer):
         model = Institute
         fields = [
             'id', 'name', 'name_in_english', 'institute_code','institute_eiin', 'address',
-            'mobile_number', 'email', 'logo_url', 'picture_url',
+            'mobile_number', 'email', 'website', 'logo_url', 'picture_url',
             'signature_of_class_teacher', 'signature_of_class_bangla',
             'signature_of_class_guardian', 'signature_of_class_guardian_bangla',
             'signature_of_head', 'signature_of_head_bangla',

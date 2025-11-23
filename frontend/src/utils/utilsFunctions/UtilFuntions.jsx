@@ -29,6 +29,22 @@ export function markTypeBangla(markType) {
   return mapping[markType] || markType; // fallback to original if not found
 }
 
+const formatTime12h = (timeString) => {
+  if (!timeString) return "";
+
+  // Handle "HH:MM" or "HH:MM:SS"
+  const [hour, minute] = timeString.split(":");
+
+  const date = new Date();
+  date.setHours(hour, minute);
+
+  return date.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+}
+export default formatTime12h;
 
 /**
  * Reusable function to save form data to the API

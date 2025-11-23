@@ -2,7 +2,7 @@ import { renderToString } from "react-dom/server";
 import PropTypes from "prop-types";
 // import TabulationSheetWithNewTab from "./03_tabulation_sheet_with_new_tab"; 
 import { ResultContextAPIProvider } from "ContextAPI/MarksInputBySubjectContext";
-import ExamAttendancePrinter from "./ExamAttendancePrinter";
+import ExamRoutineDownloadPrinter from "./ExamRoutineDownloadPrinter";
 const OpenNewTabWithHeader = ({
   students,
   studentsCommonInfo,
@@ -13,12 +13,12 @@ const OpenNewTabWithHeader = ({
   const openInNewTab = () => {
     // Get the current page's head content (includes CSS, JS, meta tags, etc.)
     const headContent = document.head.innerHTML;
-
+    
     // Render the TabulationSheet component to static HTML
 
     const renderedContent = renderToString(
       <ResultContextAPIProvider  >
-        <ExamAttendancePrinter
+        <ExamRoutineDownloadPrinter
           students={students}
           studentsCommonInfo={studentsCommonInfo}
           HeadSignature={HeadSignature}
@@ -47,9 +47,9 @@ const OpenNewTabWithHeader = ({
               ${renderedContent}
             </div>
             <script>
-            document.title = "ExamAttendance_${studentsCommonInfo?.year}_${studentsCommonInfo?.shift}_${studentsCommonInfo?.class}_${studentsCommonInfo?.section}_${studentsCommonInfo?.group_name_bengali} ";
-              
+              document.title = "ExamRoutine_${studentsCommonInfo?.year}_${studentsCommonInfo?.shift}_${studentsCommonInfo?.class}_${studentsCommonInfo?.section}_${studentsCommonInfo?.group_name_bengali} ";
               window.onload = function () {
+
                 window.print();
               };
             </script>

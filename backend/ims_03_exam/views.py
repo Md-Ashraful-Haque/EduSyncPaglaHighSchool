@@ -145,9 +145,9 @@ class ExamAttendanceView(APIView):
         class_id = request.query_params.get("class_name")
         group_id = request.query_params.get("group_name_bangla")
         section_id = request.query_params.get("section_name")
-        print("=============================")
-        print(request.query_params)
-        print("=============================")
+        # print("=============================")
+        # print(request.query_params)
+        # print("=============================")
         
         # <QueryDict: {'year': ['2025'], 'shift': ['morning'], 'class_name': ['78'], 'group_name_bangla': ['120'], 'section_name': ['163'], 'exam_name': ['2'], 'subject_name_display': [''], 'isBangla': ['false'], 'mark_type_display': [''], 'group': ['120'], 'year_type': ['false'], 'class_type': ['false'], 'section_type': ['true']}>
 
