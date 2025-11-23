@@ -146,7 +146,7 @@ const ExamAttendancePrinter = ({
                 <th>বিষয়ের নাম</th>
                 {/* <th>বিষয় ও বিষয় কোড</th> */}
                 <th style={{ minWidth: "150px" }}>পরীক্ষার্থীর স্বাক্ষর</th>
-                <th style={{ minWidth: "150px" }}>কক্ষ প্রত্যাবকের স্বাক্ষর</th>
+                <th style={{ minWidth: "150px" }}>কক্ষ প্রত্যবেক্ষকের স্বাক্ষর</th>
               </tr>
             </thead>
 
