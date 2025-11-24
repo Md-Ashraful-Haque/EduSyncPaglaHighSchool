@@ -63,9 +63,9 @@ class ExamRoutineCreateSerializer(serializers.Serializer):
 
         for order, item in enumerate(routines):
             subject = SubjectForIMS.objects.get(id=item["subject_id"])
-            print("==============================")
-            print("item: ", item)
-            print("==============================")
+            # print("==============================")
+            # print("item: ", item)
+            # print("==============================")
 
             routine_objects.append(
                 ExamRoutine(
@@ -116,5 +116,6 @@ class ExamRoutineListSerializer(serializers.ModelSerializer):
             'exam_date',
             'start_time',
             'end_time',
+            'is_published',
             'order'
         ]

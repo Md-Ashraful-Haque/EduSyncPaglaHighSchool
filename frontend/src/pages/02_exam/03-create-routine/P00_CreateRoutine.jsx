@@ -229,8 +229,12 @@ const CreateExamRoutine = () => {
               start_time: r.start_time,
               end_time: r.end_time,
             }))
-          );
 
+          );
+          // console.log("==========================");
+          // console.log("result[0].is_published: ", result[0].is_published);
+          // console.log("==========================");
+          setPublish(result[0].is_published);
           setSelectedSubjects(result.map((r) => r.subject_id));
         } else {
           // No previous routine
