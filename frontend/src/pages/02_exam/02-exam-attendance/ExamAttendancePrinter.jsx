@@ -20,6 +20,7 @@ function getBanglaDayName(dateString) {
 
   return banglaDays[dayIndex] || "";
 }
+
 const ExamAttendancePrinter = ({
   students = [],
   studentsCommonInfo = null,
@@ -89,7 +90,7 @@ const ExamAttendancePrinter = ({
               </h2>
 
               <h3 className="exam-attendance-form-title">
-                <span>শিক্ষার্থী হাজিরা তথ্য</span>
+                <span>শিক্ষার্থী হাজিরা শীট</span>
               </h3>
             </div>
           </div>
@@ -153,8 +154,8 @@ const ExamAttendancePrinter = ({
             <tbody>
               {examRoutine?.map((item, i) => (
                 <tr key={i}>
-                  <td>{showBangla(item.exam_date)}</td>
-                  <td> {getBanglaDayName(item.exam_date)} </td>
+                  <td style={{textAlign:"center"}} >{showBangla(item.exam_date)}</td>
+                  <td style={{textAlign:"center"}}> {getBanglaDayName(item.exam_date)} </td>
                   <td>{item.subject_name}</td>
                   <td> </td>
                   <td></td>

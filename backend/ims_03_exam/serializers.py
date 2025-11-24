@@ -23,6 +23,7 @@ class ExamRoutineCreateSerializer(serializers.Serializer):
     exam_id = serializers.IntegerField()
     class_instance_id = serializers.IntegerField()
     group_id = serializers.IntegerField()
+    publish = serializers.BooleanField(default=False)   # 👈 ADD THIS
     routines = RoutineItemSerializer(many=True)
 
     def validate(self, data):
@@ -48,6 +49,7 @@ class ExamRoutineCreateSerializer(serializers.Serializer):
         exam = validated_data["exam"]
         class_instance = validated_data["class_instance"]
         group = validated_data["group"]
+        publish = validated_data.get("publish", False)
         routines = validated_data["routines"]
 
         # OPTIONAL: Delete old routines first
@@ -61,6 +63,9 @@ class ExamRoutineCreateSerializer(serializers.Serializer):
 
         for order, item in enumerate(routines):
             subject = SubjectForIMS.objects.get(id=item["subject_id"])
+            print("==============================")
+            print("item: ", item)
+            print("==============================")
 
             routine_objects.append(
                 ExamRoutine(
@@ -71,6 +76,7 @@ class ExamRoutineCreateSerializer(serializers.Serializer):
                     exam_date=item["exam_date"],
                     start_time=item["start_time"],
                     end_time=item["end_time"],
+                    is_published=publish,
                     order=order + 1,  # auto ordering
                 )
             )

@@ -60,5 +60,6 @@ admin.site.register(ExamForIMS, ExamForIMSAdmin)
 
 @admin.register(ExamRoutine)
 class ExamRoutineAdmin(admin.ModelAdmin):
-    list_display = ('exam','class_instance','group','subject','exam_date','start_time')
+    list_display = ('exam','is_published','class_instance','group','subject','exam_date','start_time')
     list_filter = ('exam','class_instance','group')
+    list_editable =('is_published',)

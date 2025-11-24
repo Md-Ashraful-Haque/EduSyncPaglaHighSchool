@@ -77,6 +77,7 @@ class ExamByYearListView(APIView):
 
 @api_view(["POST"])
 def create_exam_routine(request):
+    # print("request: ", request.data)
     serializer = ExamRoutineCreateSerializer(data=request.data)
 
     if serializer.is_valid():

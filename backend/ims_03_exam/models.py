@@ -70,6 +70,7 @@ class ExamRoutine(models.Model):
     exam_day = models.CharField(max_length=50, blank=True, null=True)
     start_time = models.TimeField(blank=True, null=True)
     end_time = models.TimeField(blank=True, null=True)
+    is_published = models.BooleanField(default=False, verbose_name="Published")
     order = models.PositiveIntegerField(default=0, help_text="Order in timetable")
 
     class Meta:

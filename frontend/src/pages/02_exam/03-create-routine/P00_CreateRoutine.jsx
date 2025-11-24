@@ -11,9 +11,10 @@ import { toast } from "react-toastify";
 import { doGetAPIcall, saveFormData } from "Utils/utilsFunctions/UtilFuntions";
 import { useMarksInputBySubjectContext } from "ContextAPI/MarksInputBySubjectContext";
 import { useAppContext } from "ContextAPI/AppContext";
-
+import { Save, Upload } from "lucide-react";
 import { BookOpen, Calendar, Clock, Trash2 } from "lucide-react";
-
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 // ==================================================================
 // Routine Row Component — Clean + Clickable Icons
@@ -47,19 +48,34 @@ const RoutineRow = ({ index, row, updateRoutine, subjects, deleteRow }) => {
       {/* DATE */}
       <td data-label="তারিখ">
         <div className="input-with-icon">
-          <Calendar
+          {/* <Calendar
             className="icon clickable"
             onClick={() => dateRef.current?.showPicker()}   // FIX
             required
+          />  */}
+          {/* Calendar icon that opens the date picker */}
+          <Calendar
+            className="icon clickable"
+            onClick={() => dateRef.current?.setOpen(true)}
           />
-
-          <input
+          <DatePicker
+            ref={dateRef}
+            selected={row.exam_date ? new Date(row.exam_date) : null}
+            onChange={(date) => {
+              const formatted = date.toISOString().split("T")[0]; // YYYY-MM-DD
+              updateRoutine(index, "exam_date", formatted);
+            }}
+            dateFormat="dd/MM/yyyy"
+            placeholderText="dd/mm/yyyy"
+            className="date-input"
+          />
+          {/* <input
             ref={dateRef}
             type="date"
             value={row.exam_date}
             required
             onChange={(e) => updateRoutine(index, "exam_date", e.target.value)}
-          />
+          /> */}
         </div>
       </td>
 
@@ -120,6 +136,8 @@ const CreateExamRoutine = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showRoutineForm, setShowRoutineForm] = useState(false);
   const [subjects, setSubjects] = useState([]);
+  const [showPublishModal, setShowPublishModal] = useState(false);
+
 
   const [routineRows, setRoutineRows] = useState([
     { subject_id: "", exam_date: "", start_time: "", end_time: "" },
@@ -139,6 +157,8 @@ const CreateExamRoutine = () => {
     setRoutineRows([{ subject_id: "", exam_date: "", start_time: "", end_time: "" }]);
     setSelectedSubjects([]);
   };
+
+
 
 
   // ==================================================================
@@ -237,13 +257,33 @@ const CreateExamRoutine = () => {
   // Add Row
   // ==================================================================
 
+  // const addRoutineRow = () => {
+  //   if (selectedSubjects.length >= subjects.length) {
+  //     toast.error("All subjects selected!");
+  //     return;
+  //   }
+
+  //   setRoutineRows([...routineRows, { subject_id: "", exam_date: "", start_time: "", end_time: "" }]);
+  // };
+
   const addRoutineRow = () => {
     if (selectedSubjects.length >= subjects.length) {
       toast.error("All subjects selected!");
       return;
     }
 
-    setRoutineRows([...routineRows, { subject_id: "", exam_date: "", start_time: "", end_time: "" }]);
+    // Get last row values
+    const lastRow = routineRows[routineRows.length - 1];
+
+    // Create new row with copied time
+    const newRow = {
+      subject_id: "",
+      exam_date: lastRow.exam_date || "",
+      start_time: lastRow.start_time || "",
+      end_time: lastRow.end_time || "",
+    };
+
+    setRoutineRows([...routineRows, newRow]);
   };
 
 
@@ -309,7 +349,7 @@ const CreateExamRoutine = () => {
   // Save Routine
   // ==================================================================
 
-  const saveRoutine = async () => {
+  const saveRoutine = async (isPublish = false) => {
 
   for (let i = 0; i < routineRows.length; i++) {
     const r = routineRows[i];
@@ -325,6 +365,7 @@ const CreateExamRoutine = () => {
       class_instance_id: bySubjectVars.class_name,
       group_id: bySubjectVars.group_name_bangla,
       routines: routineRows,
+      publish: isPublish ? 1 : 0, // 👈 FLAG ADDED
     };
 
     try {
@@ -335,6 +376,15 @@ const CreateExamRoutine = () => {
     }
   };
 
+
+  // ==================================================================
+  // Confirm Routine before publish on website
+  // ==================================================================
+  const confirmPublish = () => {
+    if (window.confirm("আপনি কি নিশ্চিত? রুটিনটি ওয়েবসাইটে প্রকাশ করা হবে।")) {
+      saveRoutine(true);
+    }
+  };
 
   // ==================================================================
   // RENDER
@@ -425,11 +475,98 @@ const CreateExamRoutine = () => {
             )}
           </div>
 
-          <div className="result-generator-button">
+          {/* <div className="result-generator-button">
             <button className="generate-btn btn-save" type="button" onClick={saveRoutine}>
               রুটিন সেভ করুন
             </button>
+          </div> */}
+
+          {/* <div className="result-generator-button flex gap-2 "> 
+            <button
+              className="generate-btn btn-save "
+              type="button"
+              onClick={() => saveRoutine(false)}
+            >
+              রুটিন সংরক্ষণ করুন
+            </button> 
+            <button
+              className="generate-btn btn-publish"
+              type="button"
+              onClick={() => saveRoutine(true)}
+            >
+              রুটিন সংরক্ষণ এবং ওয়েবসাইটে প্রকাশ করুন
+            </button>
+          </div> */}
+
+          
+
+          <div className="result-generator-button flex gap-3">
+
+            {/* Normal Save */}
+            <button
+              type="button"
+              onClick={() => saveRoutine(false)}
+              className=" btn-save flex items-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-medium px-4 py-2 rounded-lg transition"
+            >
+              <Save size={18} />
+              রুটিন সংরক্ষণ করুন
+            </button>
+
+            {/* Save + Publish */}
+            {/* <button
+              type="button"
+              // onClick={() => saveRoutine(true)}
+              onClick={confirmPublish}
+              className="btn-publish flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-lg transition shadow-sm"
+            >
+              <Upload size={18} />
+              সংরক্ষণ এবং প্রকাশ করুন
+            </button> */}
+
+            <button
+              type="button"
+              onClick={() => setShowPublishModal(true)}
+              className="btn-publish flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white font-semibold px-4 py-2 rounded-lg transition shadow-sm"
+            >
+              <Upload size={18} />
+              রুটিন সংরক্ষণ এবং ওয়েবসাইটে প্রকাশ করুন
+            </button>
+
+            {showPublishModal && (
+              <div className="fixed inset-0 flex items-center justify-center bg-black/40 z-50">
+                <div className="bg-white p-6 rounded-xl shadow-xl w-96 animate-fadeIn">
+                  <h2 className="text-xl font-bold text-gray-800 mb-3 text-center">নিশ্চিতকরণ</h2>
+
+                  <p className="text-gray-700 mb-6">
+                    আপনি কি নিশ্চিত? রুটিনটি ওয়েবসাইটে প্রকাশ করা হবে।
+                  </p>
+
+                  <div className="flex justify-end gap-3">
+                    <button
+                      className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300"
+                      onClick={() => setShowPublishModal(false)}
+                    >
+                      বাতিল
+                    </button>
+
+                    <button
+                      className="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700"
+                      onClick={() => {
+                        saveRoutine(true);
+                        setShowPublishModal(false);
+                      }}
+                    >
+                      নিশ্চিত করুন
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+
           </div>
+
+
 
         </div>
       </form>

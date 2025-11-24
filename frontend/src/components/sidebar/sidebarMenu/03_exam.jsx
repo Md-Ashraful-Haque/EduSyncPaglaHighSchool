@@ -39,7 +39,7 @@ const submenuItems = [
   {
     id: "result-item-3",
     to: "/admin/exam-attendance",
-    label: "পরীক্ষার উপস্থিতি কার্ড",
+    label: "পরীক্ষার উপস্থিতি শীট",
     menuType: "result_processing",
     inputField: "inputField",
     visibility: ["All"],

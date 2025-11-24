@@ -54,6 +54,51 @@
   }
 }
 
+.btn-save{
+    padding: 12px 15px; 
+    border-radius: 100px;
+    transition: all 300ms  ease-in-out; 
+    font-weight: 700;
+    font-family: "SolaimanLipi", sans-serif;
+    min-width: 130px;
+    min-height: 44px;
+    padding: 12px 15px; 
+    border-radius: 100px;
+    transition: all 300ms ease-in-out;
+}
+.btn-save:hover {
+    color: rgb(46, 46, 46);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background-color: rgb(123, 96, 185);
+}
+.btn-publish{
+    padding: 12px 15px; 
+    border-radius: 100px;
+    transition: all 300ms  ease-in-out; 
+    font-weight: 700;
+    font-family: "SolaimanLipi", sans-serif;
+    min-width: 130px;
+    min-height: 44px;
+    padding: 12px 15px; 
+    border-radius: 100px;
+    transition: all 300ms ease-in-out;
+}
+.btn-publish:hover {
+    color: rgb(46, 46, 46);
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background-color: rgb(245, 95, 36);
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.15s ease-out;
+}
+
+
+
 /* ------------------------- */
 /* INPUT WITH ICON */
 /* ------------------------- */
@@ -70,12 +115,12 @@
     width: 20px;
     height: 20px;
     cursor: pointer;
-    z-index: 3; /* Ensures icon is on top */
+    // z-index: 3;
   }
 
   select,
   input[type="date"],
-  input[type="time"] {
+  input[type="time"],.react-datepicker-wrapper {
     width: 100%;
     padding: 12px 14px;
     padding-left: 40px !important;
@@ -89,6 +134,11 @@
       box-shadow: 0 0 0 2px rgba(142, 45, 226, 0.2);
       outline: none;
     }
+  }
+  .react-datepicker-wrapper {
+    input{
+      width: 90px;
+    } 
   }
 }
 
