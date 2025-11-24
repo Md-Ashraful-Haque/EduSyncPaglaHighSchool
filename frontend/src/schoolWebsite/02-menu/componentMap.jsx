@@ -9,6 +9,8 @@ import TeacherInfo from "../10-teacher-info/TeacherInfo";
 import HistoryPage from "../06-history-of-institute/HistoryPage"; 
 import ManagingCommitteePage from '../07-managing-committee/ManagingCommitteePage'
 import InstituteApproval from "../12-institute-approval/InstituteApproval"; 
+import ExamRoutineDownload from "../13-download-exam-routine/P00_ExamRoutineDownload"; 
+
 
 export const componentMap = {
   "contact-address": ContactInfo,
@@ -23,7 +25,7 @@ export const componentMap = {
   "permission-and-recognition-of-teaching-in-the-institution": InstituteApproval,
   "category-wise-approved-branch-information": NoticeBoard,
   "our-faculty": TeacherInfo,
-  "routine": NoticeBoard,
+  "routine": ExamRoutineDownload,
   "view-results": NoticeBoard,
   "admission-information": NoticeBoard,
   "download-admit-card": NoticeBoard,

@@ -8,6 +8,8 @@ import ContactInfo from "schoolWebsite/08-contact-info/ContactInfo";
 import { componentMap } from "./componentMap";
 import { useAppContext } from "ContextAPI/AppContext";
 import { ChevronDown } from "lucide-react";
+import { ResultContextAPIProvider } from "ContextAPI/MarksInputBySubjectContext";
+
 
 const Menu = () => {
   const { instituteInfo, isAuthenticated } = useAppContext();
@@ -126,8 +128,11 @@ const Menu = () => {
 
       {/* =================== Single Page=================== */}
       <FullScreenModal isOpen={isModalOpen} onClose={handleModalClose}>
-        {activeSinglePageComponent &&
+        <ResultContextAPIProvider  >
+          {activeSinglePageComponent &&
           React.createElement(activeSinglePageComponent)}
+        </ResultContextAPIProvider>
+        
       </FullScreenModal>
     </>
   );

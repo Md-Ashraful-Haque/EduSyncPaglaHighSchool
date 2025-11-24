@@ -23,8 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-wkdk)+4=im0#6up=^@o-=^hph=k$q7$%dq@yuu_opcj4nt3(qt'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = False
-DEBUG = True
+DEBUG = False
+# DEBUG = True
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 20000  # or any number you expect
 
 X_FRAME_OPTIONS = 'ALLOWALL'

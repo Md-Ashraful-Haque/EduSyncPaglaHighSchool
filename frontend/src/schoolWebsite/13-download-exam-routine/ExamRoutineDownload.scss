@@ -1,0 +1,208 @@
+@use "../../assets/03-common-sass/essentials"as *;
+@use "sass-mq"as *;
+/* ========== Page Wrapper ========== */
+
+.exam-routine-download-wrapper {
+  background: white;
+  font-family: "Kalpurush", "SolaimanLipi", Arial, sans-serif;
+}
+
+.exam-routine-download-page {
+  // width: 210mm;
+  min-height: 297mm;
+  padding: 20mm;
+  // margin: auto;
+  background: white;
+  position: relative;
+
+  @media screen and (min-width: 992px) { 
+    min-width: 1024px;
+  }
+}
+
+/* ========== Header ========== */
+
+.exam-routine-download-header {
+  text-align: center;
+  margin-bottom: 20px;
+  border-bottom: none;
+  padding-bottom: 10px;
+}
+.exam-routine-download-school-info {
+  // border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .exam-routine-download-school-name-logo {
+    width: 100%;
+    // border: 1px solid rgb(19, 219, 96);
+    display: flex;
+    justify-content: center;
+    .exam-routine-download-school-name {
+      position: relative;
+      // border: 1px solid rgb(37, 8, 168);
+      width: fit-content;
+
+      .exam-routine-download-logo-box {
+        position: absolute;
+        left: -88px;
+        top: 0px; 
+      }
+    }
+  }
+
+
+}
+
+
+.exam-routine-download-logo {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.exam-routine-download-logo-placeholder {
+  width: 80px;
+  height: 80px;
+  border: 2px solid #000;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ========== School Info ========== */
+
+.exam-routine-download-school-name {
+  font-size: 40px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.exam-routine-download-school-address {
+  font-size: 16px;
+  margin: 4px 0;
+}
+
+.exam-routine-download-exam-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+.exam-routine-download-form-title {
+  font-size: 18px;
+  margin-top: 6px;
+  font-weight: bold;
+  span{
+    border: 1px solid black;
+    border-radius: 100px;
+    padding: 4px 12px 0px;
+    width: fit-content;
+  }
+}
+
+/* ========== Student Info ========== */
+
+.exam-routine-download-student-info {
+  font-size: 17px;
+  margin-top: 18px;
+  line-height: 1.6;
+
+  .exam-routine-download-std-details-container{
+    display: flex;
+    justify-content: center;
+    // font-weight: 700;
+    font-size: 20px;
+    .exam-routine-download-std-details{
+      display: flex;
+      
+      min-width: 50px;
+      padding: 0px 8px;
+      .dotted-underline {
+        text-decoration: underline dotted;
+        text-underline-offset: 4px;  // space between text & underline
+        font-style: italic;  
+        font-weight: 700;
+        font-size: 18px;
+        margin-top: -2px;
+      }
+      span{
+        font-weight: 700;
+        padding-right: 8px;
+
+      }
+    }
+  }
+  
+}
+
+/* ========== Table Styling ========== */
+
+.exam-routine-download-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 18px;
+  font-size: 16px;
+}
+
+.exam-routine-download-table th,
+.exam-routine-download-table td {
+  border: 1px solid #000;
+  padding: 12px 8px;
+}
+
+.exam-routine-download-table th {
+  text-align: center;
+  font-weight: bold;
+}
+
+// ==================== Signature ====================
+
+// .exam-routine-download-page {
+//   position: relative;
+//   height: 1123px; // A4 height in px (for 96dpi screens)
+//   padding-bottom: 120px; // space so table doesn't overlap footer
+//   page-break-after: always;
+// }
+
+.exam-routine-download-footer {
+  // border: 1px solid red;
+  position: absolute;
+  bottom: 0px;        // distance from bottom of page
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 60px;
+}
+
+.signature-box {
+  text-align: center;
+}
+
+.signature-line {
+  border-top: 1px solid #000;
+  width: 160px;
+  margin: 0 auto 5px auto;
+}
+
+/* ========== Page Break ========== */
+
+.exam-routine-download-page-break {
+  page-break-after: always;
+}
+
+/* ========== Print Mode ========== */
+
+@media print {
+  .exam-routine-download-page {
+    width: 210mm;
+    min-height: 297mm; 
+
+    margin: 0;
+    padding: 6mm 10mm !important;
+    page-break-after: always;
+  }
+}
