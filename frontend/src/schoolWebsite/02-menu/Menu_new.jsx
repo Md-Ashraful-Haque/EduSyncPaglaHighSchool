@@ -80,7 +80,7 @@ const Menu = () => {
                   {Component}
                 </a>
               ) : (
-                <a href={item.slug} onClick={closeMenu}>
+                <a href={item.url? item.url : item.slug} onClick={closeMenu}>
                   {item.name_bn}
                   {Component}
                   {/* {item.slug} */}

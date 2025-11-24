@@ -27,7 +27,7 @@ export const componentMap = {
   "view-results": NoticeBoard,
   "admission-information": NoticeBoard,
   "download-admit-card": NoticeBoard,
-  "online-admission": NoticeBoard, 
+  // "online-admission": NoticeBoard, 
   "offline-admission-form": NoticeBoard,
   
 };

@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom"; // ✅ Step 1
 import PropTypes from "prop-types";
 import "./website.scss";
 
-import Header from "./01-header/Header";
+// import Header from "./01-header/Header";
 import Menu from "./02-menu/Menu_new";
 import SliderCarousel from "./03-homeSlider/HomeSlider";
 import SliderHeadline from "./03-homeSlider/SliderHeadline";
