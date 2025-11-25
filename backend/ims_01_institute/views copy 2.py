@@ -18,44 +18,14 @@ from rest_framework.authentication import SessionAuthentication, BasicAuthentica
 from .models import Institute 
 
 
-# //////////////////////////////////////////////////////////////////////
-# //////////////////////////////////////////////////////////////////////
-# //////////////////////////////////////////////////////////////////////
-
-
 class YearListView(APIView):
-    permission_classes = [AllowAny]
-    def get(self, request):
-        userProfile = getUserProfile(request.user)
-        institute_id = userProfile.institute 
-        # institute_code = request.query_params.get('instituteCode')  
-        
-        
-        
-        try:
-            # print("institute_code", institute_code)
-            years = Year.objects.filter(institute_id=institute_id)
-            serializer = YearSerializer(years, many=True)
-            return Response(serializer.data)
-        except Exception as e:
-            return Response(
-                {"error": str(e)}, 
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
-
-
-class PublicYearListView(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
         # userProfile = getUserProfile(request.user)
         # institute_id = userProfile.institute 
-        institute_code = request.query_params.get('instituteCode')  
-        
-        
         
         try:
-            print("institute_code", institute_code)
-            years = Year.objects.filter(institute__institute_code=institute_code)
+            years = Year.objects.filter(institute_id=1)
             serializer = YearSerializer(years, many=True)
             return Response(serializer.data)
         except Exception as e:
@@ -65,163 +35,19 @@ class PublicYearListView(APIView):
             )
 
 
-class PublicClassListView(APIView):
-    """
-    API view to retrieve a filtered list of classes
-    based on the logged-in teacher, year, and shift.
-    """
-    permission_classes = [AllowAny]
-    def get(self, request):
-        try:
-            institute_code = request.query_params.get('instituteCode')
-
-            # Get filter parameters from the request query string
-            year_id = request.query_params.get('year')
-            shift = request.query_params.get('shift')
-
-            if not year_id or not shift:
-                return Response(
-                    {"error": "Both 'year' and 'shift' parameters are required."},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
-            
-            classes = Class.objects.filter( 
-                institute__institute_code=institute_code,
-                year__year=year_id,
-                shift=shift
-            )
-
-            # Serialize the filtered classes
-            serializer = ClassSerializer(classes, many=True)
-
-            return Response(serializer.data)
-
-        except Exception as e:
-            # Handle unexpected server errors
-            return Response(
-                {"error": f"Server error: {str(e)}"},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
-
-class PublicGroupListView(APIView):
-    """
-    API view to retrieve groups assigned to the logged-in teacher,
-    filtered by institute, year, and class.
-    """
-    permission_classes = [AllowAny]
-    def get(self, request):
-        try:
-            institute_code = request.query_params.get('instituteCode')
-
-            # Get query parameters
-            year = request.query_params.get('year')
-            class_id = request.query_params.get('class_name')  # better to rename to class_id
-
-            # Validate input
-            if not year or not class_id:
-                return Response(
-                    {"error": "Both 'year' and 'class_name' parameters are required."},
-                    status=status.HTTP_400_BAD_REQUEST
-                ) 
-            # Filter groups:
-            groups = Group.objects.filter( 
-                institute__institute_code=institute_code,
-                year__year=year,
-                class_instance_id=class_id
-            )
-
-            serializer = GroupSerializer(groups, many=True)
-            return Response(serializer.data)
-
-        except Exception as e:
-            print("Error:", str(e))
-            return Response(
-                {"error": f"Server error: {str(e)}"},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
-
-
-class PublicSectionListView(APIView):
-    """
-    API view to retrieve sections of a group in a class 
-    where the logged-in teacher teaches.
-    """
-    permission_classes = [AllowAny]
-    def get(self, request):
-        try: 
-            institute_code = request.query_params.get('instituteCode')
-            year_id = request.query_params.get('year')
-            class_id = request.query_params.get('class_name')
-            group_id = request.query_params.get('group')
-            
-            
-                # ✅ Check if values are present and valid integers
-            if not all([year_id, class_id, group_id]):
-                return Response(
-                    {"error": "Missing parameters: year, class_name, or group."},
-                    status=status.HTTP_400_BAD_REQUEST
-                ) 
-            # If teacher is assigned, return sections of the group
-            sections = Section.objects.filter(
-                institute__institute_code=institute_code,
-                group_id=group_id,
-                class_instance_id=class_id,
-                year__year=year_id,
-            )
-
-            serializer = SectionSerializer(sections, many=True)
-            return Response(serializer.data)
-
-        except Exception as e:
-            return Response(
-                {"error": f"Server error: {str(e)}"},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
-def PublicAllClassListView( request):
-        # print("///////////////// Front end class filter using year and shift //////////////////////////////")
-        # userProfile = getUserProfile(request.user)
-        # # print("////////////////////// ", userProfile ," /////////////////")
-        # institute_id = userProfile.institute
-        permission_classes = [AllowAny]
-        institute_code = request.query_params.get('instituteCode')  
-        
-        year = request.query_params.get('year') 
-        shift = request.query_params.get('shift') 
-        if not all([ institute_code, year, shift]): 
-            return Response(
-                {"error": "Missing parameters: institute_code, year, class_id"},
-                status=status.HTTP_400_BAD_REQUEST
-            )
-        
-        
-        try:
-            classes = Class.objects.filter(institute__institute_code=institute_code, year__year=year, shift=shift)  # Filter by institute ID
-            serializer = ClassSerializer(classes, many=True)
-            return Response(serializer.data)
-        except Exception as e:
-            return Response(
-                {"error": str(e)}, 
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
-            )
-
-
-# //////////////////////////////////////////////////////////////////////
-# //////////////////////////////////////////////////////////////////////
-# //////////////////////////////////////////////////////////////////////
 # ///////////////////////////////////////  Filter Class Name using Year and Shift Name from front End.
 def AllClassListView( request):
         # print("///////////////// Front end class filter using year and shift //////////////////////////////")
         userProfile = getUserProfile(request.user)
-        # # print("////////////////////// ", userProfile ," /////////////////")
+        # print("////////////////////// ", userProfile ," /////////////////")
+        
         institute_id = userProfile.institute
-        # permission_classes = [AllowAny]
-        # institute_code = request.query_params.get('instituteCode')  
         
         year = request.query_params.get('year') 
         shift = request.query_params.get('shift') 
         if not all([ institute_id, year, shift]): 
             return Response(
-                {"error": "Missing parameters: institute_code, year, class_id"},
+                {"error": "Missing parameters: institute_id, year, class_id"},
                 status=status.HTTP_400_BAD_REQUEST
             )
         
@@ -318,19 +144,16 @@ def AllSubjectListView(request):
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
 
-#Private 
+
+
 class ClassListView(APIView):
     """
     API view to retrieve a filtered list of classes
     based on the logged-in teacher, year, and shift.
-    """ 
+    """
+
     def get(self, request):
         try:
-            print("+++++++++++++++++++++++++++++++++++++++++++++++++")
-            print("+++++++++++++++++++++++++++++++++++++++++++++++++")
-            print("request: ", request)
-            print("+++++++++++++++++++++++++++++++++++++++++++++++++")
-            print("+++++++++++++++++++++++++++++++++++++++++++++++++")
             # Get the user profile of the currently logged-in user
             user_profile = getUserProfile(request.user) 
             if user_profile.can_teach_all_subjects:
@@ -340,13 +163,6 @@ class ClassListView(APIView):
             # Get filter parameters from the request query string
             year_id = request.query_params.get('year')
             shift = request.query_params.get('shift')
-            
-            print("+++++++++++++++++++++++++++++++++++++++++++++++++")
-            print("+++++++++++++++++++++++++++++++++++++++++++++++++")
-            print("year_id: ", year_id)
-            print("shift: ", shift)
-            print("+++++++++++++++++++++++++++++++++++++++++++++++++")
-            print("+++++++++++++++++++++++++++++++++++++++++++++++++")
 
             if not year_id or not shift:
                 return Response(
@@ -450,7 +266,6 @@ class GroupListView(APIView):
                 {"error": f"Server error: {str(e)}"},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
-
 
 
 class SectionListView(APIView):

@@ -5,11 +5,12 @@ import PropTypes from "prop-types";
 
 
 const MarksInputBySubjectContext = createContext();
-
+const instituteCode = `${import.meta.env.VITE_INSTITUTE_CODE}`;
 // Create a Provider Component
 export const ResultContextAPIProvider = ({ children, initialValues = {} }) => {
 
   const [bySubjectVars, setBySubjectVars] = useState({
+    instituteCode:instituteCode,
     year: initialValues.year || new Date().getFullYear(),
     shift: initialValues.shift || 'morning',
     class_name: initialValues.class_name || '',

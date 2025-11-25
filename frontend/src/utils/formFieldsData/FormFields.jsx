@@ -50,6 +50,22 @@ export const getFormOptionData = async (apiUrl, queryData) => {
   return data;
 };
 
+export const getPublicFormOptionData = async (apiUrl, queryData = {}) => {
+  try {
+    const { data } = await axios.get(apiUrl, {
+      params: queryData,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    return data;
+  } catch (error) {
+    console.error("Public API fetch error:", error);
+    return [];
+  }
+};
+
+
 /**
  * Reusable function to fetch data from the API
  * @param {function} createNewAccessToken - Function to refresh the access token
@@ -57,6 +73,8 @@ export const getFormOptionData = async (apiUrl, queryData) => {
  * @param {Object} queryData - Query parameters for the API call
  * @returns {Promise<Array>} - API response data or an empty array
  */
+
+
 export const fetchData = async (
   createNewAccessToken,
   endpoint,
@@ -79,5 +97,27 @@ export const fetchData = async (
     }
     // console.error(`Error fetching data from ${endpoint}:`, error);
     return []; // Return empty array in case of errors
+  }
+};
+
+
+export const fetchPublicData = async (createNewAccessToken,endpoint, queryData = {}) => {
+  const apiUrl = `${import.meta.env.VITE_API_URL}/${endpoint}/`;
+  console.log("==========================queryData============================");
+  console.log("endpoint: ",endpoint);
+  console.log("queryData: ",queryData);
+  console.log("======================================================");
+  try {
+    const { data } = await axios.get(apiUrl, {
+      params: queryData,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    return data;
+  } catch (error) {
+    console.error(`Public API fetch error at ${endpoint}:`, error);
+    return [];
   }
 };

@@ -12,6 +12,10 @@ urlpatterns = [
     path('subjects-id-name/', SubjectListView.as_view(), name='subjects-list'),
     path('marktype-id-name/', MarkTypeListView.as_view(), name='marktype-list'),
     # path('marktype-for-sub-name-id-name/', MarkTypeForSubNameListView.as_view(), name='marktype-for-subname-list'),
+    path('public-years/', PublicYearListView.as_view(), name='public-year-list'),
+    path('public-classes/', PublicClassListView.as_view(), name='public-classes-list'),
+    path('public-groups-id-name/', PublicGroupListView.as_view(), name='public-group-list'),
+    path('public-sections-id-name/', PublicSectionListView.as_view(), name='public-sections-id-name'),
     #for admin JS
     #API Call
     path('years-admin/', get_years_by_institute, name='get_years_by_institute'),

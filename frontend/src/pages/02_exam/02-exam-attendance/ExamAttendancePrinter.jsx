@@ -79,7 +79,7 @@ const ExamAttendancePrinter = ({
                 {instituteInfo?.address || "ঠিকানা"} 
                 {instituteInfo?.website &&(
                   <div>
-                    ওয়েবসাইট: <a href="www.paglahighschool.edu.bd">{instituteInfo?.website}</a>
+                    ওয়েবসাইট: <a href={instituteInfo?.website}>{instituteInfo?.website}</a>
                   </div>
                 )}
               </p>

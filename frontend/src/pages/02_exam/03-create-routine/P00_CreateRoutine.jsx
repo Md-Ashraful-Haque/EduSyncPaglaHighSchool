@@ -3,6 +3,7 @@ import "./CreateRoutine.scss";
 
 import SelectFields from "pageComponents/SelectFields";
 import YearSelector from "pageComponents/yearSelector/YearSelector";
+// import PublicYearSelector from "pageComponents/yearSelector/PublicYearSelector";
 import FormHeading from "pageComponents/classwise-or-sectionwise/FormHeading";
 
 import Loading_1 from "LoadingComponent/loading/Loading_1";
@@ -451,11 +452,11 @@ const CreateExamRoutine = () => {
               <div id="option-component">
                 <div className="option-label"> বছর </div>
                 <div className="option-value">
-                  <YearSelector />
+                  <YearSelector /> 
+                  
                 </div>
               </div>
-            </div>
-
+            </div> 
             {/* CLASS/GROUP/EXAM */}
             <SelectFields fields={["class", "group", "exam-by-year"]} />
 

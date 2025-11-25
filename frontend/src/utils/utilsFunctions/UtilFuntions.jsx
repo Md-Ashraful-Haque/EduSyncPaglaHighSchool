@@ -273,3 +273,45 @@ export const doDeleteAPIcalls = async (
     throw error; // Throw error to handle it on the calling side
   }
 };
+
+
+
+/////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+export const doPublicAPIcall = async (
+  endpoint,
+  payload = {},
+  method = "GET"
+) => {
+  const apiUrl = `${import.meta.env.VITE_API_URL}/${endpoint}/`;
+
+  try {
+    const config = {
+      url: apiUrl,
+      method,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    // GET → params  
+    if (method === "GET") {
+      config.params = payload;
+    }
+    // POST/PUT/PATCH → data
+    else {
+      config.data = payload;
+    }
+
+    const { data } = await axios(config);
+    return data;
+  } catch (error) {
+    console.error(`Public API call error (${endpoint}):`, error);
+    return [];
+  }
+};
+
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////

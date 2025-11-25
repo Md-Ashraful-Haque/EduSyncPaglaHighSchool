@@ -1,46 +1,33 @@
 
-import "./ExamAttendance.scss"; 
+import "./ExamRoutineDownload.scss"; 
 import React from "react";
 import SelectFields from "pageComponents/SelectFields";
-// import SelectFields from "../00-field_selector/SelectFields";
-import YearSelector from "pageComponents/yearSelector/YearSelector";
-
+import PublicSelectFields from "pageComponents/PublicSelectFields";
+// import YearSelector from "pageComponents/yearSelector/YearSelector";
+import PublicYearSelector from "pageComponents/yearSelector/PublicYearSelector";
+// import { ResultContextAPIProvider } from "ContextAPI/MarksInputBySubjectContext";
 import { useMarksInputBySubjectContext } from "ContextAPI/MarksInputBySubjectContext";
-// import ResultTable from "./01_result_table";
-import FullScreenModal from "pageComponents/02_full_screen_window";
-// import Marksheet from "./02_marksheet";
-import showBangla from "../../../utils/utilsFunctions/engNumberToBang";
-import schoolLogo from "../../../assets/images/eduSyncLogo.svg";
-import ToggleLanguage from "pageComponents/toggleResult";
-import { generatePDF } from "../../../utils/utilsFunctions/pdfDownload";
-import OpenNewTabWithHeader from "./ExamAttendanceNewTab";
-import { ResultContextAPIProvider } from "ContextAPI/MarksInputBySubjectContext";
+import FullScreenModal from "pageComponents/02_full_screen_window"; 
+import OpenNewTabWithHeader from "./ExamRoutineDownloadNewTab";
 import Loading_1 from "LoadingComponent/loading/Loading_1";
-// import MarksheetTableHeader from "./92_marksheet_table_header";
-import ExamAttendancePrinter from "./ExamAttendancePrinter"; 
+import ExamRoutineDownloadPrinter from "./ExamRoutineDownloadPrinter"; 
 
 import { toast } from "react-toastify";
 
-import { doGetAPIcall } from "Utils/utilsFunctions/UtilFuntions";
+import { doGetAPIcall,doPublicAPIcall } from "Utils/utilsFunctions/UtilFuntions";
 import { useAppContext } from "ContextAPI/AppContext";
 import { useState } from "react";
 
 import ClasswiseOrSectionwise from "pageComponents/classwise-or-sectionwise/ClasswiseOrSectionwise";
-
-// import MeritReportHeader from "./01-merit-report-header";
-// import MeritReportTable from "./02_merit_report_table";
+const instituteCode = `${import.meta.env.VITE_INSTITUTE_CODE}`;
 ////////////////////////////////////////////////////////////////////////////////
-const ExamAttendance = () => {
+const ExamRoutineDownload = () => {
   const { createNewAccessToken } = useAppContext();
   const [students, setStudents] = useState([]); // State for serializer data
   const [studentsCommonInfo, setStudentsCommonInfo] = useState(null); // State for serializer data
   const [HeadSignature, setHeadSignature] = useState(null); // State for serializer data
   const [instituteInfo, setInstituteInfo] = useState(null); // State for serializer data
-
-
-  const [examAndInstituteInfo, setExamAndInstituteInfo] = useState({}); // State for serializer data
-  const [results, setResults] = useState([]); // State for serializer data
-  const [highest_marks, setHighest_marks] = useState([]); // State for serializer data
+  
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [examRoutine, setExamRoutine] = useState([]);
@@ -86,25 +73,23 @@ const ExamAttendance = () => {
       year_type: resultOption.year,
       class_type: resultOption.class,
       section_type: resultOption.section,
+      
+      
     };
 
     try {
-      const response = await doGetAPIcall(
-        createNewAccessToken,
-        "exam-attendance",
+      const response = await doPublicAPIcall( 
+        "public-exam-routine",
         requestData
       );
-
-      // console.log("institute_info: ", response.institute_info);
-      // console.log("student_list: ", response.student_list);
-      // console.log("student_common_info: ", response.student_common_info);
-      // console.log("head_master_signature: ", response.head_master_signature);
+      
       setInstituteInfo(response.institute_info || response); 
-      setStudents(response.student_list || response); 
-      setStudentsCommonInfo(response.student_common_info || response); 
-      setHeadSignature(response.head_master_signature || response); 
+      // setStudents(response.student_list || response); 
+      // setStudentsCommonInfo(response.student_common_info || response); 
+      // setHeadSignature(response.head_master_signature || response); 
       setExamRoutine(response.exam_routine || []);   // ⭐ ADD THIS
-
+      // console.log("response.institute_info : ", response.institute_info );
+      // console.log("response.exam_routine : ", response.exam_routine );
 
       setIsModalOpen(!isModalOpen);
     } catch (error) {
@@ -138,13 +123,6 @@ const ExamAttendance = () => {
     }
   };
   
-
-  // Construct filename from first student
-  // const firstStudent = results[0];
-  // const fileName = firstStudent
-  //   ? `${firstStudent.class_name}-${firstStudent.group_name}-${firstStudent.section_name_display}-মার্কশীট.pdf`
-  //   : "marksheets.pdf";
-
   if (isLoading) {
     return (
       <>
@@ -160,7 +138,7 @@ const ExamAttendance = () => {
       <ClasswiseOrSectionwise
         Option={resultOption}
         updateOption={updateResultOption}
-        heading={"পরীক্ষার উপস্থিতি ডাউনলোড ফর্ম"}
+        heading={"পরীক্ষার রুটিন ডাউনলোড ফর্ম"}
       />
       {/* see result using the form below */}
       <form onSubmit={handleSubmit}>
@@ -193,33 +171,33 @@ const ExamAttendance = () => {
               <div id="option-component">
                 <div className="option-label"> বছর </div>
                 <div className="option-value">
-                  <YearSelector />
+                  <PublicYearSelector />
                 </div>
               </div>
             </div>
 
             {resultOption.class ? (
-              <SelectFields fields={["class", "group", "exam-by-year"]} />
+              <PublicSelectFields fields={["class", "group", "exam-by-year"]} />
             ) : (
-              <SelectFields
+              <PublicSelectFields
                 fields={["class", "group", "section", "exam-by-year"]}
               />
             )}
           </div> 
           <div className="result-generator-button">
             <button type="submit" className="generate-btn">
-              পরীক্ষার উপস্থিতি শীট দেখুন
+              পরীক্ষার রুটিন দেখুন
             </button>
           </div>
         </div>
       </form>
 
       <div className="downloadFullResult">
-        {students.length > 0 && (
+        {examRoutine.length > 0 && (
           <React.Fragment>
             <FullScreenModal isOpen={isModalOpen} onClose={handleModalClose}>
 
-              <ExamAttendancePrinter
+              <ExamRoutineDownloadPrinter
                 students={students}
                 studentsCommonInfo={studentsCommonInfo}
                 HeadSignature={HeadSignature}
@@ -237,27 +215,18 @@ const ExamAttendance = () => {
                     HeadSignature={HeadSignature}
                     instituteInfo={instituteInfo}
                     examRoutine={examRoutine}
-                  />
-                  {/* <OpenNewTabWithHeader
-                    bySubjectVars={bySubjectVars}
-                    examAndInstituteInfo={examAndInstituteInfo}
-                    firstStudent={firstStudent}
-                    results={results}
-                    highest_marks={highest_marks}
-                  /> */}
+                  /> 
                 </div>
               </div>
             </FullScreenModal>
           </React.Fragment>
         )}
       </div>
-      {/* {results.length > 0 && <ResultTable results={results} />} */}
-
-      {/* </div> */}
+      
     </div>
   );
 };
 
-ExamAttendance.propTypes = {};
+ExamRoutineDownload.propTypes = {};
 
-export default ExamAttendance;
+export default ExamRoutineDownload;

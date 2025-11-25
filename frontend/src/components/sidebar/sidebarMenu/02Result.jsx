@@ -46,7 +46,7 @@ const submenuItems = [
     visibility: ["Head Teacher", "Admin"],
   }, 
   {
-    id: "result-item-5",
+    id: "result-item-6",
     to: "/admin/show-merit-report",
     label: "মেধা তালিকা",
     menuType: "result_processing",

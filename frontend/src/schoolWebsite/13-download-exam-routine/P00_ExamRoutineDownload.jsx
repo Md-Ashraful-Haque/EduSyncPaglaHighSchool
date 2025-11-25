@@ -2,7 +2,9 @@
 import "./ExamRoutineDownload.scss"; 
 import React from "react";
 import SelectFields from "pageComponents/SelectFields";
-import YearSelector from "pageComponents/yearSelector/YearSelector";
+import PublicSelectFields from "pageComponents/PublicSelectFields";
+// import YearSelector from "pageComponents/yearSelector/YearSelector";
+import PublicYearSelector from "pageComponents/yearSelector/PublicYearSelector";
 // import { ResultContextAPIProvider } from "ContextAPI/MarksInputBySubjectContext";
 import { useMarksInputBySubjectContext } from "ContextAPI/MarksInputBySubjectContext";
 import FullScreenModal from "pageComponents/02_full_screen_window"; 
@@ -12,12 +14,12 @@ import ExamRoutineDownloadPrinter from "./ExamRoutineDownloadPrinter";
 
 import { toast } from "react-toastify";
 
-import { doGetAPIcall } from "Utils/utilsFunctions/UtilFuntions";
+import { doGetAPIcall,doPublicAPIcall } from "Utils/utilsFunctions/UtilFuntions";
 import { useAppContext } from "ContextAPI/AppContext";
 import { useState } from "react";
 
 import ClasswiseOrSectionwise from "pageComponents/classwise-or-sectionwise/ClasswiseOrSectionwise";
-
+const instituteCode = `${import.meta.env.VITE_INSTITUTE_CODE}`;
 ////////////////////////////////////////////////////////////////////////////////
 const ExamRoutineDownload = () => {
   const { createNewAccessToken } = useAppContext();
@@ -71,12 +73,13 @@ const ExamRoutineDownload = () => {
       year_type: resultOption.year,
       class_type: resultOption.class,
       section_type: resultOption.section,
+      
+      
     };
 
     try {
-      const response = await doGetAPIcall(
-        createNewAccessToken,
-        "exam-attendance",
+      const response = await doPublicAPIcall( 
+        "public-exam-routine",
         requestData
       );
       
@@ -85,7 +88,10 @@ const ExamRoutineDownload = () => {
       setStudentsCommonInfo(response.student_common_info || response); 
       setHeadSignature(response.head_master_signature || response); 
       setExamRoutine(response.exam_routine || []);   // ⭐ ADD THIS
-
+      console.log("response.institute_info : ", response.institute_info );
+      console.log("response.exam_routine : ", response.exam_routine );
+      console.log("examRoutine : ", examRoutine );
+      console.log("instituteInfo : ", instituteInfo );
 
       setIsModalOpen(!isModalOpen);
     } catch (error) {
@@ -167,15 +173,15 @@ const ExamRoutineDownload = () => {
               <div id="option-component">
                 <div className="option-label"> বছর </div>
                 <div className="option-value">
-                  <YearSelector />
+                  <PublicYearSelector />
                 </div>
               </div>
             </div>
 
             {resultOption.class ? (
-              <SelectFields fields={["class", "group", "exam-by-year"]} />
+              <PublicSelectFields fields={["class", "group", "exam-by-year"]} />
             ) : (
-              <SelectFields
+              <PublicSelectFields
                 fields={["class", "group", "section", "exam-by-year"]}
               />
             )}
@@ -186,10 +192,9 @@ const ExamRoutineDownload = () => {
             </button>
           </div>
         </div>
-      </form>
-
+      </form> 
       <div className="downloadFullResult">
-        {students.length > 0 && (
+        {examRoutine.length > 0 && (
           <React.Fragment>
             <FullScreenModal isOpen={isModalOpen} onClose={handleModalClose}>
 

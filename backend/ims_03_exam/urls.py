@@ -9,6 +9,9 @@ urlpatterns = [
     path("exam-routine-create/", create_exam_routine, name="exam-routine-create"),
     path("exam-routine-list/", get_exam_routine, name="exam-routine-list"),
     path("exam-attendance/", ExamAttendanceView.as_view(), name="exam-attendance"),
+
+    path('public-exams-id-name/', PublicExamListView.as_view(), name='public-exam-list'),
+    path("public-exam-routine/", PublicExamAttendanceView.as_view(), name="public-exam-routine"),
 ]
 
 

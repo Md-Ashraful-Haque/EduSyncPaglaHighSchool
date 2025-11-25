@@ -64,7 +64,7 @@ const ExamRoutineDownloadPrinter = ({
                 {instituteInfo?.address || "ঠিকানা"} <br />
                 {instituteInfo?.website &&(
                   <div>
-                    ওয়েবসাইট: <a href="www.paglahighschool.edu.bd">{instituteInfo?.website}</a>
+                    ওয়েবসাইট: <a href={instituteInfo?.website}>{instituteInfo?.website}</a>
                   </div>
                 )}
               </p>
