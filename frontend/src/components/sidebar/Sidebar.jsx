@@ -12,6 +12,7 @@ import {
   StudentInfo,
   ExamMenu,
   AccountsMenu,
+  Attendance,
 } from "./sidebarMenu/index.jsx";
 
 // import { useContext } from "react";
@@ -45,6 +46,7 @@ const Sidebar = () => {
         
         <TeacherInfo menuId="TeacherInfo" />
         <StudentInfo menuId="StudentInfo" />
+        <Attendance menuId="Attendance" />
         <ExamMenu menuId="Exam" />  
         <ResultMenu menuId="ResultMenu" />
 

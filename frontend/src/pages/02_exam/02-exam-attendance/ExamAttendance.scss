@@ -136,33 +136,35 @@
 
 /* ========== Table Styling ========== */
 
+// .exam-attendance-table {
+//   width: 100%;
+//   border-collapse: collapse;
+//   margin-top: 18px;
+//   font-size: 16px;
+// }
 .exam-attendance-table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 18px;
-  font-size: 16px;
-}
+  border-spacing: 0;
+  // border-radius: 16px;
+  overflow: hidden;
 
-.exam-attendance-table th,
-.exam-attendance-table td {
-  border: 1px solid #000;
-  padding: 9px 8px;
-}
+  // ✅ FORCE visible outer border on all 4 sides
+  // outline: 1.5px solid #0f064a;   // 👈 this fixes the missing left/right
+  // outline-offset: -1.5px;
 
-.exam-attendance-table th {
-  text-align: center;
-  font-weight: bold;
+  th,
+  td {
+    text-align: center;
+    padding: 12px;
+    border: 1px solid rgb(234, 235, 247);
+    // border: 1px solid #0f064a;
+  } 
 }
-
+ 
 // ==================== Signature ====================
 
-// .exam-attendance-page {
-//   position: relative;
-//   height: 1123px; // A4 height in px (for 96dpi screens)
-//   padding-bottom: 120px; // space so table doesn't overlap footer
-//   page-break-after: always;
-// }
-
+ 
 .exam-attendance-footer {
   // border: 1px solid red;
   position: absolute;
@@ -200,5 +202,12 @@
     margin: 0;
     padding: 6mm 10mm !important;
     page-break-after: always;
+  }
+
+  .exam-attendance-table { 
+    th,
+    td { 
+      border: 1px solid #0f064a;
+    } 
   }
 }

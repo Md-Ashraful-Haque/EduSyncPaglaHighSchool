@@ -43,6 +43,52 @@ class Institute(models.Model):
 #         ordering = ['name']
 
 
+class Shift(models.Model):
+    """
+    Represents an academic shift like:
+    Morning (প্রভাতী), Day (দিবা), Evening (সান্ধ্য)
+    """
+
+    shift_name_eng = models.CharField(
+        max_length=100,
+        unique=True,
+        verbose_name="Shift Name (English)"
+    )
+
+    shift = models.CharField(
+        max_length=100,
+        unique=True,
+        verbose_name="Shift Name (Bangla)"
+    )
+
+    shift_name_eng_lowercase = models.CharField(
+        max_length=100, 
+        verbose_name="Lowercase(morning)"
+    )
+
+    is_active = models.BooleanField(default=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    
+
+    class Meta:
+        verbose_name = "Shift"
+        verbose_name_plural = "01 Shifts"
+        ordering = ['shift_name_eng']
+
+    def save(self, *args, **kwargs):
+        # ✅ Automatically convert to lowercase
+        if self.shift_name_eng:
+            self.shift_name_eng_lowercase = self.shift_name_eng.lower().strip()
+
+        super().save(*args, **kwargs)
+        
+    def __str__(self):
+        return f"{self.shift_name_eng} ({self.shift})"
+
+
+
 class Year(models.Model):
     institute = models.ForeignKey(Institute, on_delete=models.CASCADE, related_name='years')
     year = models.PositiveIntegerField()

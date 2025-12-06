@@ -11,6 +11,15 @@ class InstituteAdmin(admin.ModelAdmin):
 admin.site.register(Institute, InstituteAdmin)
 
 
+@admin.register(Shift)
+class ShiftAdmin(admin.ModelAdmin):
+    list_display = ('id', 'shift_name_eng', 'shift_name_eng_lowercase','shift', 'is_active')
+    search_fields = ('shift_name_eng', 'shift_name_eng_lowercase','shift')
+    list_filter = ('is_active',)
+    list_editable = ('is_active',)
+    readonly_fields = ('shift_name_eng_lowercase',)
+
+
 class YearAdmin(admin.ModelAdmin):
     search_fields = ['year']
     list_filter = ['institute']

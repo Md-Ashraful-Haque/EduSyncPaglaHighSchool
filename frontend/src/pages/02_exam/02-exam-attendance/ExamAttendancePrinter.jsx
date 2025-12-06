@@ -3,7 +3,7 @@ import React from "react";
 
 import showBangla from "../../../utils/utilsFunctions/engNumberToBang";
 
-
+import { formatDateDMY } from "Utils/utilsFunctions/UtilFuntions";
 function getBanglaDayName(dateString) {
   const date = new Date(dateString);
   const dayIndex = date.getDay(); // 0 = Sunday ... 6 = Saturday
@@ -154,7 +154,7 @@ const ExamAttendancePrinter = ({
             <tbody>
               {examRoutine?.map((item, i) => (
                 <tr key={i}>
-                  <td style={{textAlign:"center"}} >{showBangla(item.exam_date)}</td>
+                  <td style={{textAlign:"center"}} >{showBangla(formatDateDMY(item.exam_date))}</td>
                   <td style={{textAlign:"center"}}> {getBanglaDayName(item.exam_date)} </td>
                   <td>{item.subject_name}</td>
                   <td> </td>

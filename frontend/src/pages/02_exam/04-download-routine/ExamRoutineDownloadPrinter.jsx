@@ -3,7 +3,7 @@ import React from "react";
 
 import showBangla from "../../../utils/utilsFunctions/engNumberToBang";
 import formatTime12h from "../../../utils/utilsFunctions/UtilFuntions";
-
+import { formatDateDMY } from "Utils/utilsFunctions/UtilFuntions";
 
 function getBanglaDayName(dateString) {
   const date = new Date(dateString);
@@ -131,7 +131,7 @@ const ExamRoutineDownloadPrinter = ({
             <tbody>
               {examRoutine?.map((item, i) => (
                 <tr key={i}>
-                  <td style={{textAlign:"center"}} >{showBangla(item.exam_date)}</td>
+                  <td style={{textAlign:"center"}} >{showBangla(formatDateDMY(item.exam_date))}</td>
                   <td style={{textAlign:"center"}} > {getBanglaDayName(item.exam_date)} </td>
                   <td >{item.subject_name}</td>
                   <td style={{textAlign:"center"}} > {showBangla(formatTime12h(item.start_time))} </td>

@@ -1,8 +1,15 @@
+// import { areAllFieldsFilled } from "Utils/utilsFunctions/UtilFuntions";
+import dayjs from "dayjs";
 import axios from "axios";
+
+export const formatDateDMY = (date) => {
+  return dayjs(date).format("DD-MM-YYYY");
+};
 
 
 export const areAllFieldsFilled = (vars) => {
   // Check if all fields are filled (not null, undefined, or an empty string)
+  // console.log("AllFields: ", vars);
   return Object.values(vars).every(
     (value) => value !== null && value !== undefined && value !== ""
   );

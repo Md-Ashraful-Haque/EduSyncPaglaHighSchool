@@ -26,6 +26,7 @@ urlpatterns = [
     path('', include('institute_management.urls')),
     path('api/', include('ims_01_institute.urls')),
     path('api/', include('ims_02_account.urls')),
+    path('api/', include('ims_05_attendance.urls')),
     path('api/', include('ims_03_exam.urls')),
     path('api/', include('ims_04_result.urls')),
     path('api/', include('ims_20_website.urls')),

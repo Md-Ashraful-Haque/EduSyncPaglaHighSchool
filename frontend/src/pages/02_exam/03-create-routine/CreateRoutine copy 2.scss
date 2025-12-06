@@ -142,25 +142,21 @@
   }
 }
 
-#exam-routine{
-  /* Enable native picker */
-  input[type="date"],
-  input[type="time"] {
-    pointer-events: auto !important;
-    padding-right: 0 !important;
-  }
-
-  /* Hide default icons */
-  input[type="date"]::-webkit-calendar-picker-indicator,
-  input[type="time"]::-webkit-calendar-picker-indicator {
-    
-    opacity: 1;
-    cursor: pointer; 
-    display: none; 
-  }
-
+/* Enable native picker */
+input[type="date"],
+input[type="time"] {
+  pointer-events: auto !important;
+  padding-right: 0 !important;
 }
 
+/* Hide default icons */
+input[type="date"]::-webkit-calendar-picker-indicator,
+input[type="time"]::-webkit-calendar-picker-indicator {
+  
+  opacity: 1;
+  cursor: pointer; 
+  display: none; 
+}
 
 
 /* Delete button */

@@ -103,10 +103,10 @@ export const fetchData = async (
 
 export const fetchPublicData = async (createNewAccessToken,endpoint, queryData = {}) => {
   const apiUrl = `${import.meta.env.VITE_API_URL}/${endpoint}/`;
-  console.log("==========================queryData============================");
-  console.log("endpoint: ",endpoint);
-  console.log("queryData: ",queryData);
-  console.log("======================================================");
+  // console.log("==========================queryData============================");
+  // console.log("endpoint: ",endpoint);
+  // console.log("queryData: ",queryData);
+  // console.log("======================================================");
   try {
     const { data } = await axios.get(apiUrl, {
       params: queryData,

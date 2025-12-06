@@ -375,43 +375,7 @@ const CreateExamRoutine = () => {
       toast.error("Failed to save routine, Error: ", err);
     }
   };
-
-  // const saveRoutine = async (isPublish = false) => {
-
-  // for (let i = 0; i < routineRows.length; i++) {
-  //   const r = routineRows[i];
-
-  //   if (!r.subject_id || !r.exam_date || !r.start_time || !r.end_time) {
-  //     toast.error(`Row ${i + 1}: All fields are required`);
-  //     return;
-  //   }
-  // }
-
-  //   const payload = {
-  //     exam_id: bySubjectVars.exam_name,
-  //     class_instance_id: bySubjectVars.class_name,
-  //     group_id: bySubjectVars.group_name_bangla,
-  //     routines: routineRows,
-  //     publish: isPublish ? 1 : 0, // 👈 FLAG ADDED
-  //   };
-
-  //   try {
-  //     await saveFormData(createNewAccessToken, "exam-routine-create", payload);
-  //     toast.success("Routine saved successfully!");
-  //   } catch (err) {
-  //     toast.error("Failed to save routine, Error: ", err);
-  //   }
-  // };
-
-  // ==================================================================
-  // Confirm Routine before publish on website
-  // ==================================================================
-  // const confirmPublish = () => {
-  //   if (window.confirm("আপনি কি নিশ্চিত? রুটিনটি ওয়েবসাইটে প্রকাশ করা হবে।")) {
-  //     saveRoutine(true);
-  //   }
-  // };
-
+ 
   // ==================================================================
   // RENDER
   // ==================================================================
@@ -419,7 +383,7 @@ const CreateExamRoutine = () => {
   if (isLoading) return <Loading_1 />;
 
   return (
-    <div className="generate-result">
+    <div className="generate-result" id="exam-routine">
       <FormHeading heading="পরীক্ষার রুটিন তৈরির ফর্ম" groupwise="বিভাগ" />
 
       <form>

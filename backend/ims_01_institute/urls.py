@@ -12,6 +12,7 @@ urlpatterns = [
     path('subjects-id-name/', SubjectListView.as_view(), name='subjects-list'),
     path('marktype-id-name/', MarkTypeListView.as_view(), name='marktype-list'),
     # path('marktype-for-sub-name-id-name/', MarkTypeForSubNameListView.as_view(), name='marktype-for-subname-list'),
+    path('public-shifts/', PublicShiftListView.as_view(), name='public-shift-list'),
     path('public-years/', PublicYearListView.as_view(), name='public-year-list'),
     path('public-classes/', PublicClassListView.as_view(), name='public-classes-list'),
     path('public-groups-id-name/', PublicGroupListView.as_view(), name='public-group-list'),
@@ -26,4 +27,5 @@ urlpatterns = [
     path('subject-by-group/', get_subject_by_group, name='get_subject_by_group'),
     path('institute-info/', InstituteInfoAPIView.as_view(), name='institute-info'),
     path('mark-types-by-subject/', MarkTypesBySubject.as_view(), name='mark-types-by-subject'),
+    path("shift-to-section-data/", ShiftToSectionDataAPIView.as_view()),
 ]

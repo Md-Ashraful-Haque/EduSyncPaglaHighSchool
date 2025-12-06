@@ -3,18 +3,18 @@ import "./ExamAttendance.scss";
 import React from "react";
 import SelectFields from "pageComponents/SelectFields";
 // import SelectFields from "../00-field_selector/SelectFields";
-import YearSelector from "pageComponents/yearSelector/YearSelector";
+// import YearSelector from "pageComponents/yearSelector/YearSelector";
 
 import { useMarksInputBySubjectContext } from "ContextAPI/MarksInputBySubjectContext";
 // import ResultTable from "./01_result_table";
 import FullScreenModal from "pageComponents/02_full_screen_window";
 // import Marksheet from "./02_marksheet";
-import showBangla from "../../../utils/utilsFunctions/engNumberToBang";
-import schoolLogo from "../../../assets/images/eduSyncLogo.svg";
-import ToggleLanguage from "pageComponents/toggleResult";
-import { generatePDF } from "../../../utils/utilsFunctions/pdfDownload";
+// import showBangla from "../../../utils/utilsFunctions/engNumberToBang";
+// import schoolLogo from "../../../assets/images/eduSyncLogo.svg";
+// import ToggleLanguage from "pageComponents/toggleResult";
+// import { generatePDF } from "../../../utils/utilsFunctions/pdfDownload";
 import OpenNewTabWithHeader from "./ExamAttendanceNewTab";
-import { ResultContextAPIProvider } from "ContextAPI/MarksInputBySubjectContext";
+// import { ResultContextAPIProvider } from "ContextAPI/MarksInputBySubjectContext";
 import Loading_1 from "LoadingComponent/loading/Loading_1";
 // import MarksheetTableHeader from "./92_marksheet_table_header";
 import ExamAttendancePrinter from "./ExamAttendancePrinter"; 
@@ -38,9 +38,9 @@ const ExamAttendance = () => {
   const [instituteInfo, setInstituteInfo] = useState(null); // State for serializer data
 
 
-  const [examAndInstituteInfo, setExamAndInstituteInfo] = useState({}); // State for serializer data
-  const [results, setResults] = useState([]); // State for serializer data
-  const [highest_marks, setHighest_marks] = useState([]); // State for serializer data
+  // const [examAndInstituteInfo, setExamAndInstituteInfo] = useState({}); // State for serializer data
+  // const [results, setResults] = useState([]); // State for serializer data
+  // const [highest_marks, setHighest_marks] = useState([]); // State for serializer data
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [examRoutine, setExamRoutine] = useState([]);
@@ -166,6 +166,9 @@ const ExamAttendance = () => {
       <form onSubmit={handleSubmit}>
         <div className="field-selector-form-container">
           <div className="field-selector-form">
+
+
+            
             <div id="field-selector-form">
               <div id="option-component">
                 <div className="option-label"> শিফট </div>
@@ -189,20 +192,20 @@ const ExamAttendance = () => {
               </div>
             </div>
 
-            <div id="field-selector-form">
+            {/* <div id="field-selector-form">
               <div id="option-component">
                 <div className="option-label"> বছর </div>
                 <div className="option-value">
                   <YearSelector />
                 </div>
               </div>
-            </div>
-
+            </div> */}
+            <SelectFields fields={["year", ]} />
             {resultOption.class ? (
-              <SelectFields fields={["class", "group", "exam-by-year"]} />
+              <SelectFields fields={[ "class", "group", "exam-by-year"]} />
             ) : (
               <SelectFields
-                fields={["class", "group", "section", "exam-by-year"]}
+                fields={[ "class", "group", "section", "exam-by-year"]}
               />
             )}
           </div> 
@@ -214,6 +217,9 @@ const ExamAttendance = () => {
         </div>
       </form>
 
+      {/* ////////////////////////////////////////////////////////////////////////////////////////////////// */}
+      {/* /////////////////////////////////////{ Download Section }///////////////////////////////////////// */}
+      {/* ////////////////////////////////////////////////////////////////////////////////////////////////// */}
       <div className="downloadFullResult">
         {students.length > 0 && (
           <React.Fragment>

@@ -3,6 +3,11 @@ from rest_framework import serializers
 from .models import *
 
 
+class ShiftSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Shift
+        fields = ['id','shift_name_eng','shift_name_eng_lowercase','shift']  # Include the custom field 
+
 class YearSerializer(serializers.ModelSerializer):
     class Meta:
         model = Year

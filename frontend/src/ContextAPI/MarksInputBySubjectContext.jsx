@@ -12,14 +12,14 @@ export const ResultContextAPIProvider = ({ children, initialValues = {} }) => {
   const [bySubjectVars, setBySubjectVars] = useState({
     instituteCode:instituteCode,
     year: initialValues.year || new Date().getFullYear(),
-    shift: initialValues.shift || 'morning',
+    shift: initialValues.shift || 'morning', 
     class_name: initialValues.class_name || '',
     group_name_bangla: initialValues.group_name_bangla || '', 
     section_name: initialValues.section_name || '',
     exam_name: initialValues.exam_name || '',
-    subject_name_display: initialValues.subject_name_display || '',
-    // mark_type_display: initialValues.mark_type_display || '',
+    subject_name_display: initialValues.subject_name_display || '', 
     isBangla: initialValues.isBangla || false,
+    date: initialValues.date || new Date().toISOString().split("T")[0],
   });
 
   // Update specific variable in the `vars` object

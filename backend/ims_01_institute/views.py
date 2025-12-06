@@ -44,6 +44,19 @@ class YearListView(APIView):
             )
 
 
+class PublicShiftListView(APIView):
+    permission_classes = [AllowAny]
+    def get(self, request): 
+        try: 
+            shifts = Shift.objects.all()
+            serializer = ShiftSerializer(shifts, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            return Response(
+                {"error": str(e)}, 
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
 class PublicYearListView(APIView):
     permission_classes = [AllowAny]
     def get(self, request):
@@ -326,11 +339,11 @@ class ClassListView(APIView):
     """ 
     def get(self, request):
         try:
-            print("+++++++++++++++++++++++++++++++++++++++++++++++++")
-            print("+++++++++++++++++++++++++++++++++++++++++++++++++")
-            print("request: ", request)
-            print("+++++++++++++++++++++++++++++++++++++++++++++++++")
-            print("+++++++++++++++++++++++++++++++++++++++++++++++++")
+            # print("+++++++++++++++++++++++++++++++++++++++++++++++++")
+            # print("+++++++++++++++++++++++++++++++++++++++++++++++++")
+            # print("request: ", request)
+            # print("+++++++++++++++++++++++++++++++++++++++++++++++++")
+            # print("+++++++++++++++++++++++++++++++++++++++++++++++++")
             # Get the user profile of the currently logged-in user
             user_profile = getUserProfile(request.user) 
             if user_profile.can_teach_all_subjects:
@@ -341,12 +354,12 @@ class ClassListView(APIView):
             year_id = request.query_params.get('year')
             shift = request.query_params.get('shift')
             
-            print("+++++++++++++++++++++++++++++++++++++++++++++++++")
-            print("+++++++++++++++++++++++++++++++++++++++++++++++++")
-            print("year_id: ", year_id)
-            print("shift: ", shift)
-            print("+++++++++++++++++++++++++++++++++++++++++++++++++")
-            print("+++++++++++++++++++++++++++++++++++++++++++++++++")
+            # print("+++++++++++++++++++++++++++++++++++++++++++++++++")
+            # print("+++++++++++++++++++++++++++++++++++++++++++++++++")
+            # print("year_id: ", year_id)
+            # print("shift: ", shift)
+            # print("+++++++++++++++++++++++++++++++++++++++++++++++++")
+            # print("+++++++++++++++++++++++++++++++++++++++++++++++++")
 
             if not year_id or not shift:
                 return Response(
@@ -751,3 +764,53 @@ class MarkTypesBySubject(APIView):
             'all_mark_types': all_mark_types.data,  # ✅ Correctly serialized
         }
         return Response(response_data)
+
+
+class ShiftToSectionDataAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        data = request.query_params
+
+        institute_code = data.get("instituteCode")
+        year_value = data.get("year")
+        shift_eng = data.get("shift")   # morning/day/evening
+        class_id = data.get("class_name")
+        group_id = data.get("group_name")
+        section_id = data.get("section_name")
+        
+        # print('institute_code,year_value ,shift_eng ,class_id ,group_id , section_id: ',institute_code,year_value ,shift_eng ,class_id ,group_id , section_id)
+
+        # ✅ Get Institute
+        institute = Institute.objects.get(institute_code=institute_code)
+
+        # ✅ Get Year
+        year_obj = Year.objects.get(institute=institute, year=year_value)
+
+        # ✅ Get Shift Bangla
+        shift_obj = Shift.objects.filter(
+            shift_name_eng_lowercase=shift_eng
+        ).first()
+
+        # ✅ Get Class Info
+        class_obj = Class.objects.get(id=class_id)
+        class_data = ClassSerializer(class_obj).data
+
+        # ✅ Get Group Info
+        group_obj = Group.objects.get(id=group_id)
+        group_data = GroupSerializer(group_obj).data
+
+        # ✅ Get Section Info
+        section_obj = Section.objects.get(id=section_id)
+        section_data = SectionSerializer(section_obj).data
+
+        # ✅ Final Response
+        return Response({
+            "year": year_value,
+            "shift": shift_eng,
+            "shift_name_bangla": shift_obj.shift if shift_obj else "",
+
+            "class": class_data,
+            "group": group_data,
+            "section": section_data
+        })

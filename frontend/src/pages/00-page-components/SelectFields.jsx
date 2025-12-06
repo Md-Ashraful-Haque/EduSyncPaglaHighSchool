@@ -19,6 +19,29 @@ import PropTypes from "prop-types";
 // Configuration for form fields
 const FORM_FIELDS = [
   {
+    key: "shift",
+    label: "শিফট", // "Classes" in Bengali
+    endpoint: "public-shifts", //API End point
+    valueKey: "shift_name_eng_lowercase", // Which column of the table will be used?
+    labelKey: "shift", // labelKey use for get value of bySubjectVars like bySubjectVars[labelKey] where labelKey is the member variable of bySubjectVars
+    //dependencyKeys is contain the member variable of bySubjectVars->useState
+    dependencyKeys: ["year","class_name","group_name_bangla", "section_name", "exam_name", "subject_name_display", "mark_type_display"],
+    fetchParams: (vars) => ({ 
+      instituteCode: vars.instituteCode, 
+    }),
+  },
+  {
+    key: "year",
+    label: "বছর", // "Classes" in Bengali
+    endpoint: "public-years",
+    valueKey: "year",
+    labelKey: "year", 
+    dependencyKeys: ["class_name","group_name_bangla", "section_name", "exam_name", "subject_name_display", "mark_type_display"],
+    fetchParams: (vars) => ({
+      instituteCode: vars.instituteCode, 
+    }),
+  },
+  {
     key: "class",
     label: "শ্রেণি", // "Classes" in Bengali
     endpoint: "classes",
@@ -113,6 +136,7 @@ const FORM_FIELDS = [
       // exam: vars.exam_name,
     }),
   },
+  
 ];
 
 const SelectFields = ({ fields = FORM_FIELDS.map((f) => f.key) }) => {
@@ -142,7 +166,7 @@ const SelectFields = ({ fields = FORM_FIELDS.map((f) => f.key) }) => {
 };
 
 SelectFields.propTypes = {
-  fields: PropTypes.arrayOf(PropTypes.oneOf(["class", "group", "section", "exam", "subject", "type","exam-by-year"])),
+  fields: PropTypes.arrayOf(PropTypes.oneOf(["shift","year","class", "group", "section", "exam", "subject", "type","exam-by-year"])),
 };
 
 export default SelectFields;
