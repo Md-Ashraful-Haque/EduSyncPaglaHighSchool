@@ -125,7 +125,7 @@
         display: block;
         width: 60px;
         height: 2px;
-        background: linear-gradient(90deg, #4CAF50, #45a049);
+        background: linear-gradient(90deg, #4f4caf, #454ba0);
         margin-top: 2px;
         border-radius: 2px;
       }
@@ -226,46 +226,30 @@
           }
         }
       }
-      .print-button-for-field-selection {
-        display: flex;
-        border: 1px solid blue;
-        justify-content: center;
-        align-items: center;
-        padding: 8px 12px;
-        border-radius: 7px;
-        background-color: #5700e7;
-        color: white;
-        font-weight: 600;
-        transition: all 300ms ease-in-out;
-        box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
-        &:hover{
-          background-color: #2d0075;
-        }
-      }
     }
 
     // Student List Section
     .student-list {
-      background: #fcfcfc;
-      padding: 24px;
-      border-radius: 12px;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-      border: 1px solid #e2e8f0;
+      // background: white;
+      // padding: 24px;
+      // border-radius: 12px;
+      // box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+      // border: 1px solid #e2e8f0;
       // border: 1px solid blue !important;
-      overflow-x: auto;
+      // overflow-x: auto;
 
       table {
         width: 100%;
         border-collapse: separate;
         border-spacing: 0;
-        font-size: 14px;
+        font-size: 12px;
 
         thead {
           tr {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 
             th {
-              padding: 14px 12px;
+              padding: 12px 4px;
               text-align: center;
               font-weight: 900;
               color: white;
@@ -300,13 +284,6 @@
                   color: gray;
                   font-size: 12px;
                 }
-              }
-
-              .status-cell{
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
               }
             }
             &:hover {
@@ -604,6 +581,23 @@
       width: 100% !important;
     }
 
+    .print-button-for-field-selection {
+      display: flex;
+      border: 1px solid blue;
+      justify-content: center;
+      align-items: center;
+      padding: 8px 12px;
+      border-radius: 7px;
+      background-color: #5700e7;
+      color: white;
+      font-weight: 600;
+      transition: all 300ms ease-in-out;
+      box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 2px, rgba(0, 0, 0, 0.07) 0px 2px 4px, rgba(0, 0, 0, 0.07) 0px 4px 8px, rgba(0, 0, 0, 0.07) 0px 8px 16px, rgba(0, 0, 0, 0.07) 0px 16px 32px, rgba(0, 0, 0, 0.07) 0px 32px 64px;
+      &:hover{
+        background-color: #2d0075;
+      }
+    }
+
     // Mobile specific adjustments
     @media (max-width: 480px) {
       font-size: 0.9rem;
@@ -629,42 +623,6 @@
   }
 }
 
-/* ✅ Toggle button (mobile only) */
-.mobile-status-toggle-btn {
-  display: none;
-  margin-left: 10px;
-  padding: 6px 12px;
-  font-size: 12px;
-  border-radius: 6px;
-  background: #4f46e5;
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-
-/* ✅ Default visibility */
-.status-show {
-  display: table-cell;
-}
-
-.status-hide-mobile {
-  display: table-cell;
-}
-
-/* ✅ Mobile behavior */
-@media (max-width: 1400px) {
-  .mobile-status-toggle-btn {
-    display: inline-block;
-  }
-
-  .status-hide-mobile {
-    display: none; // ✅ only hidden on mobile
-  }
-
-  .status-show {
-    display: table-cell;
-  }
-}
 
 
 /* PRINT FIX */
@@ -688,3 +646,236 @@
   }
 
 }
+
+
+ 
+/* ===============================
+   MONTHLY ATTENDANCE TABLE (SCSS)
+================================ */
+
+#month-attendance-wrapper-id{
+  width: 100%;
+  margin: auto;
+  .month-attendance-wrapper {
+    margin-top: 1rem; 
+    background: #ffffff;
+    overflow: hidden;
+    
+    
+
+    .month-attendance-scroll {
+      overflow-x: auto;
+      overflow-y: hidden;
+    }
+
+    /* ✅ IMPORTANT FIX: auto layout */
+    .month-attendance-table {
+      // width: max-content;
+      // width: max-content; 
+      // font-size: 18px;
+      width:  320mm; 
+      @media screen and (min-width: 1400px) { 
+        width:  400mm; 
+      }
+      border-collapse: collapse;
+      table-layout: auto;
+      font-size: 14px;
+
+      /* ===============================
+        TABLE HEADER
+      ================================ */
+      thead {
+        th {
+          background: #4f46e5;
+          color: #ffffff;
+          // padding: 0px;
+          padding: 6px 4px;
+          border: 1px solid #c7d2fe;
+          text-align: center;
+          white-space: nowrap;
+          font-weight: 600;
+        }
+      }
+
+      /* ===============================
+        TABLE BODY
+      ================================ */
+      tbody {
+        tr {
+          transition: background 0.2s ease;
+
+          &:hover {
+            background: #f1f5f9;
+          }
+        }
+
+        td {
+          // padding: 0px;
+          padding: 4px;
+          border: 1px solid #e5e7eb;
+          text-align: center;
+          white-space: nowrap;
+          @media screen and (min-width: 1400px) { 
+            padding: 8px; 
+            font-size: 18px;
+          }
+        }
+      }
+
+      /* ===============================
+        ✅ STICKY COLUMNS (FIXED)
+      ================================ */
+      .sticky-col {
+        @media screen and (min-width: 1200px) {
+          position: sticky;
+        }
+        background: #f8fff8; 
+        text-align: left; 
+        padding-left: 6px;
+        font-weight: 600;
+        white-space: nowrap;
+        box-shadow: 2px 0 3px rgba(0, 0, 0, 0.03);
+      }
+
+      .sticky-roll {
+        left: 0;
+        width: 32px !important; 
+        text-align: center;
+      }
+
+      .sticky-name {
+        left: 32px !important;;
+        // left: 48px !important;;
+        // max-width: 150px !important;;
+        // min-width: 180px;
+        min-width: 150px !important;
+        max-width: 150px !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .col-heading{
+        text-align: center;
+        font-weight: 700;
+        background: #1f14e3;
+      }
+
+      // .sticky-supervisor {
+      //   left: 240px;
+      //   width: 120px;
+      //   min-width: 120px;
+      // }
+
+      /* ===============================
+        DATE CELLS
+      ================================ */
+      .day-col,
+      .day-cell {
+        // min-width: 24px !important;
+        // max-width: 24px !important;
+        // padding: 6px;
+        font-size: 16px;
+        width: 23px !important;
+        text-align: center;
+        @media screen and (min-width: 1400px) { 
+          width: 28px !important;
+        }
+      }
+
+      /* ===============================
+        SUMMARY COLUMNS
+      ================================ */
+      .summary-col {
+        background: #fff7e6;
+        // color: rgb(79, 70, 229) !important;
+        max-width: 80px;
+        font-weight: 600;
+
+        &.col-heading{
+          text-align: center;
+          font-weight: 700;
+          background: #1f14e3;
+        }
+      }
+
+      /* ===============================
+        STATUS ICON COLORS
+      ================================ */
+      .cell-icon {
+        display: inline-block;
+        font-size: 13px;
+        font-weight: 700;
+
+        &--present {
+          color: #16a34a;
+        }
+
+        &--absent {
+          color: #ef4444;
+        }
+
+        &--late {
+          color: #f59e0b;
+        }
+
+        &--holiday {
+          color: #3b82f6;
+        }
+      }
+
+      /* ===============================
+        ATTENDANCE PERCENT BAR
+      ================================ */
+      .percent-cell {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        .percent-bar {
+          flex: 1;
+          height: 12px;
+          border-radius: 999px;
+          background: #e5e7eb;
+          overflow: hidden;
+
+          .percent-bar-fill {
+            height: 100%;
+            border-radius: 999px;
+            background: linear-gradient(90deg, #22c55e, #4ade80);
+          }
+        }
+
+        .percent-label {
+          font-size: 11px;
+          font-weight: 700;
+        }
+      }
+    }
+  }
+}
+
+.day-attendance-date{
+  padding-right: 16px;
+}
+/* ===============================
+   MOBILE RESPONSIVE
+================================ */
+@media (max-width: 768px) {
+  .month-attendance-wrapper {
+    .month-attendance-table {
+      .sticky-name {
+        width: 130px;
+        min-width: 130px;
+      } 
+
+      .summary-col {
+        min-width: 70px;
+      }
+    }
+  }
+}
+ 
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////
+

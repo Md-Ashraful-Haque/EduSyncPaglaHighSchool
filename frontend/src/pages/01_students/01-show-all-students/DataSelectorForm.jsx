@@ -126,8 +126,9 @@ const DataSelectorFormFields = () => {
           <div className="container-fluid">
             <div className="row">
               <div className="flex flex-wrap gap-4 justify-center xl:justify-between items-center p-2">
-                <div className="flex flex-wrap justify-center gap-1 py-2">
-                  <div id="field-selector-form">
+                
+                <div className="flex flex-wrap justify-center gap-2 py-2">
+                  {/* <div id="field-selector-form">
                     <div id="option-component">
                       <div className="option-label !border-0 bg-none bg-transparent">
                         শিফট
@@ -141,10 +142,7 @@ const DataSelectorFormFields = () => {
                             onChange={(event) => handleChange(event, "shift")}
                           >
                             <option value="morning">Morning</option>
-                            <option value="day">Day</option>
-                            {/* <option value="afternoon">Afternoon</option> */}
-                            {/* <option value="day">Day</option> */}
-                            {/* <option value="evening">Evening</option> */}
+                            <option value="day">Day</option> 
                           </select>
                         </div>
                       </div>
@@ -159,7 +157,9 @@ const DataSelectorFormFields = () => {
                         <YearSelector />
                       </div>
                     </div>
-                  </div>
+                  </div> */}
+                  <SelectFields fields={["shift"]}  /> 
+                  <SelectFields fields={["year"]} /> 
                 </div>
                 
                   {/* Alternative: Elevated Button Group */}

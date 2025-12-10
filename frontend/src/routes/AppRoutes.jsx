@@ -34,6 +34,7 @@ import {
 
 import {
   P01_Attendance,  
+  P02_AttendanceReport,
 } from "../pages/04-attendance/Z99_index";
 import { P01_ShowAllStudents } from "../pages/01_students/Z99_index"; 
 import { P01_ShowAllTeachers } from "../pages/00_teachers/Z99_index";
@@ -116,6 +117,7 @@ const AppRoutes = () => {
       <Route path="/attendance" element={<ProtectedRoute><RootLayout /></ProtectedRoute>}>
         <Route index element={<Navigate to="dashboard" />} />
         <Route path="student-attendance" element={<P01_Attendance />} />  
+        <Route path="student-attendance-report" element={<P02_AttendanceReport />} />  
         <Route path="*" element={<PageNotFound404 />} />
       </Route>
 

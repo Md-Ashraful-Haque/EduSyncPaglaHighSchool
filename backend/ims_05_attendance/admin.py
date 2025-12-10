@@ -72,7 +72,7 @@ class StudentAttendanceAdmin(admin.ModelAdmin):
     """
     Standalone admin view: usually used for search/reporting
     """
-    list_display = (
+    list_display = ( 
         'student',
         'attendance_day',
         'status',

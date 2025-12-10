@@ -35,17 +35,34 @@ const FormOption = ({ name, fetchData, valueKey, labelKey, dependencyKeys = [] }
 
   return (
     <div id="option-component">
-      <div className="option-label">{name}</div>
+      <div
+        className="option-label"
+        style={{
+          backgroundColor:
+            labelKey === "shift" || labelKey === "year" ? "#e5e5e5" : "",
+        }}
+      >
+        {name}
+      </div>
       <div className="option-value">
         {/* Dropdown to select an option */}
         <select
           value={bySubjectVars[labelKey]} // Bind dropdown value to context
           onChange={(event) => handleChange(event, labelKey)} // Handle value changes
         >
-          <option value="">{name} নির্বাচন করুন</option> {/* Default option */}
+          {labelKey == "shift" || labelKey == "year" ? (
+            <option value=""> -------- </option>
+          ) : (
+            <option value=""> নির্বাচন করুন</option>
+          )}
+          {/* <option value="">{name} নির্বাচন করুন</option>  */}
           {options &&
             options.map((option) => (
-              <option key={option[valueKey]} value={option[valueKey]}>
+              <option
+                className="option"
+                key={option[valueKey]}
+                value={option[valueKey]}
+              >
                 {option[labelKey]} {/* Render option label */}
               </option>
             ))}

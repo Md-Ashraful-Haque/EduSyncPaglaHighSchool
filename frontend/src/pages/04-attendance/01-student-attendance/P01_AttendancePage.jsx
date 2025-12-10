@@ -31,6 +31,7 @@ const STATUS_OPTIONS = [
   { value: "absent", label: "Absent" },
   { value: "late", label: "Late" },
   { value: "holiday", label: "Holiday" },
+  { value: "initial", label: "Initial" },
   // { value: "half_day", label: "Half Day" },
 ];
 
@@ -42,7 +43,14 @@ function AttendancePage() {
   const [loading, setLoading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [printing, setPrinting] = useState(false);
-  const [message, setMessage] = useState("");
+  const [selectedAllStatus, setSelectedAllStatus] = useState("");
+  const [showExtraStatus, setShowExtraStatus] = useState(false);
+
+  // const [message, setMessage] = useState("");
+  const [message, setMessage] = useState({
+    text: "",
+    type: "" // "success" | "error" | "warning" | "info"
+  });
 
 /////////////////////////////////////////////////////////////////
 /////////////////////// Download section import Start/////////////////
@@ -85,16 +93,18 @@ const handleModalClose = () => {
         setAttendanceDayId(data.id);
         const mapped = data.student_attendances.map((sa) => ({
           id: sa.id,
-          student_id: sa.student.student_id,
+          student_id: sa.student.id,
+          // student_id: sa.student.student_id,
           roll_number: sa.student.roll_number,
           name: sa.student.name,
           fathers_name: sa.student.fathers_name,
           phone_number: sa.student.phone_number,
-          status: sa.status || "absent",
+          status: sa.status || "initial",
           entry_time: sa.entry_time || "",
           exit_time: sa.exit_time || "",
           note: sa.note || "",
         }));
+        setSelectedAllStatus("");
         setStudents(mapped);
       });
     }
@@ -144,11 +154,17 @@ const handleModalClose = () => {
 
   const handleSave = async () => {
     if (!attendanceDayId) {
-      setMessage("Load attendance first.");
+      setMessage({
+        text: "Load attendance first.",
+        type: "success",
+      });
       return;
     }
     setSaving(true);
-    setMessage("");
+    setMessage({
+      text: "",
+      type: "empty",
+    });
 
     try {
       const payload = {
@@ -163,12 +179,28 @@ const handleModalClose = () => {
         })),
       };
       await saveFormData(createNewAccessToken, "attendance", payload);
-      setMessage("Attendance saved successfully.");
+      setMessage({
+        text: "Attendance saved successfully.",
+        type: "success",
+      });
     } catch (err) {
       console.error(err);
-      setMessage(
-        err.response?.data?.detail || "Failed to save attendance data."
-      );
+
+      const apiError =
+        err.response?.data?.detail ||
+        err.response?.data?.students?.[0]?.student_id?.[0] ||
+        "Failed to save attendance data.";
+
+      setMessage({
+        text: apiError,
+        type: "error",
+      });
+
+      
+      // setMessage({
+      //   text: err.response?.data?.detail || "Failed to save attendance data.",
+      //   type: "error",
+      // });
     } finally {
       setSaving(false);
     }
@@ -176,27 +208,45 @@ const handleModalClose = () => {
   const printAttendance = async () => { 
     setPrinting(true);
     handleModalClose();
-    setMessage("");
+    setMessage({
+        text:"",
+        type: "empty",
+      });
 
     try {
        
-      setMessage("Attendance print successfully.");
+      setMessage( {
+        text: "Attendance print successfully.",
+        type: "success",
+      } );
     } catch (err) { 
-      setMessage(
-        err.response?.data?.detail || "Failed to save attendance data."
-      );
+      setMessage({
+        text: err.response?.data?.detail || "Failed to save attendance data.",
+        type: "error",
+      });
     } finally {
       setPrinting(false);
     }
   };
 
   return (
-    <div id="daily-attendance" className="attendance-page" >
-      <h2>শিক্ষার্থীর উপস্থিতি ফর্ম</h2>
+    <div id="daily-attendance" className="attendance-page">
+      {/* <h2>শিক্ষার্থীর উপস্থিতি ফর্ম</h2> */}
       {/* <FormHeading heading="শিক্ষার্থীর উপস্থিতি ফর্ম" groupwise="বিভাগ" /> */}
-      {message && (
-        <MessagePopup message={message} type="success" duration={3000} />
+      {message.text && (
+        <MessagePopup message={message.text} type= {message.type} duration={3000} />
       )}
+
+      <div className="flex flex-wrap gap-2 justify-center xl:justify-between items-center p-2">
+        <div className="flex flex-wrap justify-left gap-4 py-2">
+          <h2>শিক্ষার্থীর উপস্থিতি ফর্ম</h2>
+        </div>
+
+        <div className="flex flex-wrap gap-4">
+          <SelectFields fields={["shift"]} />
+          <SelectFields fields={["year"]} />
+        </div>
+      </div>
 
       {/* Select Criteria */}
       <div className="criteria-card" style={{ marginBottom: "20px" }}>
@@ -214,16 +264,21 @@ const handleModalClose = () => {
           <SelectCalendarFields /> */}
 
           <div className="criteria-grid">
-            <div className="field-item"><SelectFields fields={["shift"]} /></div>
-            <div className="field-item"><SelectFields fields={["year"]} /></div>
-            <div className="field-item"><SelectFields fields={["class"]} /></div>
-            <div className="field-item"><SelectFields fields={["group"]} /></div>
-            <div className="field-item"><SelectFields fields={["section"]} /></div>
-            <div className="field-item"><SelectCalendarFields /></div>
+            {/* <div className="field-item"><SelectFields fields={["shift"]} /></div>
+            <div className="field-item"><SelectFields fields={["year"]} /></div> */}
+            <div className="field-item">
+              <SelectFields fields={["class"]} />
+            </div>
+            <div className="field-item">
+              <SelectFields fields={["group"]} />
+            </div>
+            <div className="field-item">
+              <SelectFields fields={["section"]} />
+            </div>
+            <div className="field-item">
+              <SelectCalendarFields />
+            </div>
           </div>
-
-
-
         </div>
       </div>
 
@@ -238,18 +293,46 @@ const handleModalClose = () => {
             marginBottom: "10px",
           }}
         >
-          <span className="all-status-for-attendance"> সকল শিক্ষার্থীর উপস্থিতি নির্ধারণ করুন:</span>
+          <span className="all-status-for-attendance"> 
+            {/* সকল শিক্ষার্থীর উপস্থিতি নির্ধারণ করুন: */}
+            সকল উপস্থিতি নির্ধারণ :
+          </span>
           {/* <span>Set attendance for all students as:</span> */}
-          {STATUS_OPTIONS.map((opt) => (
+          {/* {STATUS_OPTIONS.map((opt) => (
             <label key={opt.value}>
               <input
                 type="radio"
-                name="all_status"
+                name="all_status" 
                 onChange={() => setStatusForAll(opt.value)}
-              />{" "}
+              />
+              {opt.label}
+            </label>
+          ))}   */}
+          {STATUS_OPTIONS.map((opt) => (
+            <label key={opt.value} style={{ cursor: "pointer" }}>
+              <input
+                type="radio"
+                name="all_status"
+                value={opt.value}
+                checked={selectedAllStatus === opt.value}   // ✅ CONTROLLED
+                onChange={() => {
+                  setSelectedAllStatus(opt.value);          // ✅ SAVE SELECTION
+                  setStatusForAll(opt.value);               // ✅ APPLY TO ALL STUDENTS
+                }}
+              />
               {opt.label}
             </label>
           ))}
+
+          <button
+            className="print-button-for-field-selection"
+            onClick={printAttendance}
+            disabled={saving}
+          >
+            {printing ? "Printing..." : "প্রিন্ট ভিউ দেখুন"}
+          </button> 
+
+            
         </div>
       )}
 
@@ -262,9 +345,19 @@ const handleModalClose = () => {
                 {/* <th>#</th> */}
                 <th>Roll</th>
                 <th>Name</th>
-                <th colSpan={STATUS_OPTIONS.length}>Attendance</th>
-                {/* ////////////// Fathers Name //////////////////
-                {/* <th>Fathers Name</th> */}
+                <th colSpan={showExtraStatus? STATUS_OPTIONS.length : 2}>
+                  Attendance
+                  <button 
+                    type="button"
+                    onClick={() => setShowExtraStatus((prev) => !prev)}
+                    className="btn btn-success mobile-status-toggle-btn"
+                  >
+                    {showExtraStatus ? "Hide" : "Show All"}
+                  </button>
+
+                </th>
+                {/* ////////////// Fathers Name ///////////////// */}
+                <th className="show-in-desktop">Fathers Name</th>
                 <th>Entry Time</th>
                 <th>Exit Time</th>
                 <th>Note</th>
@@ -275,30 +368,27 @@ const handleModalClose = () => {
                 <tr key={s.student_id}>
                   {/* <td>{idx + 1}</td> */}
                   <td>{s.roll_number}</td>
-                  <td> 
-
+                  <td>
                     <div className="attendance-student-name-con">
-                      <div > {s.name} </div> 
+                      <div className="name"> {s.name} </div>
                       <div className="phone-number"> {s.phone_number} </div>
                     </div>
-
-
                   </td>
-                  {STATUS_OPTIONS.map((opt) => {
+                  {/* {STATUS_OPTIONS.map((opt) => {
                     const inputId = `status_${s.student_id}_${opt.value}`;
 
                     return (
                       <td key={opt.value}>
                         <input
                           type="radio"
-                          id={inputId}   // ✅ unique id
+                          id={inputId} // ✅ unique id
                           name={`status_${s.student_id}`}
                           checked={s.status === opt.value}
                           onChange={() => handleStatusChange(idx, opt.value)}
                         />
 
                         <label
-                          htmlFor={inputId}   // ✅ connects label to input
+                          htmlFor={inputId} // ✅ connects label to input
                           style={{
                             fontSize: "10px",
                             cursor: "pointer",
@@ -309,13 +399,47 @@ const handleModalClose = () => {
                         </label>
                       </td>
                     );
+                  })} */}
+
+                  {STATUS_OPTIONS.map((opt, optIndex) => {
+                    const inputId = `status_${s.student_id}_${opt.value}`;
+
+                    const isAlwaysVisible = optIndex < 2; // ✅ first 2 always visible
+                    const visibilityClass =
+                      isAlwaysVisible || showExtraStatus
+                        ? "status-show"
+                        : "status-hide-mobile";
+
+                    return (
+                      <td key={opt.value} className={` ${visibilityClass}`}>
+                        <div className="status-cell">
+                            <input
+                              type="radio"
+                              id={inputId}
+                              name={`status_${s.student_id}`}
+                              checked={s.status === opt.value}
+                              onChange={() => handleStatusChange(idx, opt.value)}
+                            />
+
+                            <label
+                              htmlFor={inputId}
+                              style={{
+                                fontSize: "10px",
+                                cursor: "pointer",
+                                marginLeft: "4px",
+                              }}
+                            >
+                              {opt.value}
+                            </label>
+                        </div>
+                      </td>
+                    );
                   })}
 
+
                   {/* ////////////// Fathers Name ////////////////// */}
-                  {/* <td>
-                    {s.fathers_name}
-                  </td> */}
-                  
+                  <td className="show-in-desktop">{s.fathers_name}</td>
+
                   <td>
                     <input
                       type="time"
@@ -349,50 +473,54 @@ const handleModalClose = () => {
           </table>
 
           <div id="attendance-btn" className="attendance-save-btn">
-          {/* <div className="attendance-save-btn" style={{ marginTop: "15px", textAlign: "center" }}> */}
+            {/* <div className="attendance-save-btn" style={{ marginTop: "15px", textAlign: "center" }}> */}
             <button onClick={handleSave} disabled={saving}>
-              {saving ? "Saving..." : "Save Attendance"}
+              {saving ? "Saving..." : "সংরক্ষণ করুন"}
             </button>
 
-            <button className="attendance-print-btn" onClick={printAttendance} disabled={saving}>
-              {printing ? "Printing..." : "Print Attendance"}
+            <button
+              className="attendance-print-btn"
+              onClick={printAttendance}
+              disabled={saving}
+            >
+              {printing ? "Printing..." : "প্রিন্ট ভিউ দেখুন"}
             </button>
-
-            
           </div>
           {/* ////////////////////////////////////////////////////////////////////////////////////////////////// */}
-            {/* /////////////////////////////////////{ Download Section Start}//////////////////////////////////// */}
-            {/* ////////////////////////////////////////////////////////////////////////////////////////////////// */}
-            <div className="downloadFullResult">
-              {students.length > 0 && (
-                <React.Fragment>
-                  <FullScreenModal isOpen={isModalOpen} onClose={handleModalClose}>
+          {/* /////////////////////////////////////{ Download Section Start}//////////////////////////////////// */}
+          {/* ////////////////////////////////////////////////////////////////////////////////////////////////// */}
+          <div className="downloadFullResult">
+            {students.length > 0 && (
+              <React.Fragment>
+                <FullScreenModal
+                  isOpen={isModalOpen}
+                  onClose={handleModalClose}
+                >
+                  <ShowDataBeforePrint
+                    students={students}
+                    instituteInfo={instituteInfo}
+                    shiftToYearInfo={shiftToYearInfo}
+                    date={bySubjectVars.date}
+                  />
 
-                    <ShowDataBeforePrint
-                      students={students} 
-                      instituteInfo={instituteInfo}  
-                      shiftToYearInfo={shiftToYearInfo}
-                      date={bySubjectVars.date}
-                    /> 
-
-                    <div className="download-button">
-                      <div className="print-button"> 
-                        <PrintPage
-                          students={students} 
-                          instituteInfo={instituteInfo}  
-                          shiftToYearInfo={shiftToYearInfo}
-                          date={bySubjectVars.date}
-                        /> 
-                      </div>
+                  <div className="download-button">
+                    <div className="print-button">
+                      <PrintPage
+                        students={students}
+                        instituteInfo={instituteInfo}
+                        shiftToYearInfo={shiftToYearInfo}
+                        date={bySubjectVars.date}
+                      />
                     </div>
-                  </FullScreenModal>
-                </React.Fragment>
-              )}
-            </div>
+                  </div>
+                </FullScreenModal>
+              </React.Fragment>
+            )}
+          </div>
 
-            {/* ////////////////////////////////////////////////////////////////////////////////////////////////// */}
-            {/* /////////////////////////////////////{ Download Section End }///////////////////////////////////// */}
-            {/* ////////////////////////////////////////////////////////////////////////////////////////////////// */}
+          {/* ////////////////////////////////////////////////////////////////////////////////////////////////// */}
+          {/* /////////////////////////////////////{ Download Section End }///////////////////////////////////// */}
+          {/* ////////////////////////////////////////////////////////////////////////////////////////////////// */}
         </div>
       )}
     </div>

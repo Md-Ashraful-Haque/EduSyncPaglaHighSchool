@@ -94,6 +94,7 @@ class StudentAttendance(models.Model):
         ('absent', 'Absent'),
         ('holiday', 'Holiday'),
         ('half_day', 'Half Day'),
+        ('initial', 'Initial'),
     ]
 
     attendance_day = models.ForeignKey(
@@ -108,7 +109,7 @@ class StudentAttendance(models.Model):
     )
 
     status = models.CharField(
-        max_length=20, choices=STATUS_CHOICES, default='present'
+        max_length=20, choices=STATUS_CHOICES, default='initial'
     )
     entry_time = models.TimeField(null=True, blank=True)
     exit_time = models.TimeField(null=True, blank=True)

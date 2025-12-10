@@ -1,0 +1,7 @@
+.show-in-desktop {
+  display: none; // Hidden by default (mobile + tablet)
+
+  @media (min-width: 1400px) { // Desktop and up
+    display: block;
+  }
+}

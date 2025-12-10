@@ -1,82 +1,3 @@
-// #field-selector-form {
-//   & {
-
-//     @media screen and (max-width: 576px) {
-//       min-width: 300px;
-//     }
-//   }
-
-//   .form-fields {
-//     display: flex;
-//     flex-wrap: wrap;
-//     justify-content: center;
-//     align-items: center;
-//     width: 100%;
-//     gap: 24px; 
-//   }
-
-//   .label-and-value {
-//     & {
-//       // border: 1px solid red;
-//       display: flex;
-
-//     }
-
-//     .label {
-//       // border: 1px solid red;
-//     }
-
-//     .value {
-//       // border: 1px solid red;
-      
-//     }
-//   }
-
-//   .input-calendar {
-
-//     position: relative;
-//     font-family: SolaimanLipi, sans-serif;
-//     font-weight: 400;
-//     background-color: transparent;
-//     width: 100%;
-//     min-width: 120px;
-//     // min-width: 120px;
-//     height: 42px;
-//     border-radius: 5px;
-//     border-top-left-radius: 0px;
-//     border-bottom-left-radius: 0px;
-//     // border: 1px solid #D2C5FF;
-//     outline: none;
-//     padding: 0px 0px;
-//     // padding: 0px 10px;
-//     display: flex;
-//     align-items: center;
-
-//     input {
-//       width: 100%;
-//       cursor: pointer;
-//       outline: none !important;
-//       box-shadow: none !important;
-//     }
-
-//     input[type="date"]::-webkit-calendar-picker-indicator {
-//       cursor: pointer;
-//     }
-
-//     input:focus {
-//       outline: none !important;
-//       box-shadow: none !important;
-//       border-color: #D2C5FF; // ✅ keep your normal border color
-//     }
-
-//     input:active {
-//       outline: none !important;
-//       box-shadow: none !important;
-//     }
-
-//   }
-// }
-
 #field-selector-form {
 
   @media screen and (max-width: 576px) {
@@ -88,8 +9,9 @@
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    // width: 100%;
     gap: 24px;
+    // border: 1px solid red;
   }
 
   .label-and-value {
@@ -100,9 +22,12 @@
     position: relative;
     font-family: SolaimanLipi, sans-serif;
     background-color: transparent;
-    width: 100%;
+    // border: 1px solid red;
+    width: 80px;
     min-width: 120px;
-    height: 42px;
+    // min-width: 100%;
+    // height: 42px;
+    // height: 100%;
     border-radius: 0 5px 5px 0;
     outline: none;
     display: flex;
@@ -111,15 +36,20 @@
 
     .react-datepicker-wrapper{
       // border: 1px solid red;
-      width: 120px; 
-      min-width: 100%; 
+      // width: 120px; 
+      // min-width: 100%; 
+      // width: 100%; 
+      // min-width: 100%; 
       .react-datepicker__input-container{
         // border: 1px solid blue;
+        // width: 100%; 
+        // min-width: 100%; 
       }
     }
 
     input {
       width: 100%;
+      min-width: 100%; 
       cursor: pointer;
       outline: none;
       box-shadow: none;
@@ -136,4 +66,28 @@
       border-color: #D2C5FF;
     }
   }
+}
+
+
+/* ✅ Friday Style */
+.datepicker-friday {
+  background-color: #fde68a !important; // Yellow
+  color: #92400e !important;
+  border-radius: 50%;
+  font-weight: 600;
+}
+
+/* ✅ Saturday Style */
+.datepicker-saturday {
+  background-color: #fecaca !important; // Light red
+  color: #7f1d1d !important;
+  border-radius: 50%;
+  font-weight: 600;
+}
+
+/* ✅ Keep hover effect nice */
+.datepicker-friday:hover,
+.datepicker-saturday:hover {
+  background-color: #f59e0b !important;
+  color: white !important;
 }

@@ -1,7 +1,7 @@
 // import { areAllFieldsFilled } from "Utils/utilsFunctions/UtilFuntions";
 import dayjs from "dayjs";
 import axios from "axios";
-
+import { renderToString } from "react-dom/server";
 export const formatDateDMY = (date) => {
   return dayjs(date).format("DD-MM-YYYY");
 };
@@ -322,3 +322,79 @@ export const doPublicAPIcall = async (
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////
+
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+
+
+export const usePrintWindow = () => {
+  const openPrintWindow = ({
+    title = "Document",
+    component,
+    containerClass = "print-container",
+    pageOrientation
+  }) => {
+    const headContent = document.head.innerHTML;
+
+    const renderedContent = renderToString(component);
+
+    const newTab = window.open("", "_blank");
+
+    if (!newTab) {
+      alert("Please allow pop-ups for this website.");
+      return;
+    }
+
+    // ✅ Generate print CSS dynamically
+    const printStyle = `
+      <style>
+        @page {
+          size: A4 ${pageOrientation}; 
+        } 
+          @media print {
+            html, body {
+              width:  297mm !important;
+              height: 210mm !important; 
+              margin: 8px; 
+            } 
+            .month-attendance-table { 
+                width:  max-content !important;
+            }
+          }
+      </style>
+    `;
+
+    newTab.document.write(`
+      <!DOCTYPE html>
+      <html>
+        <head>
+          ${headContent}
+          ${printStyle}
+          <title>${title}</title>
+        </head>
+        <body>
+          <div class="${containerClass}">
+            ${renderedContent}
+          </div>
+          <script>
+            window.onload = function () {
+              window.print();
+            };
+            window.addEventListener('afterprint', function () {
+              window.close();
+            });
+          </script>
+        </body>
+      </html>
+    `);
+
+    newTab.document.close();
+  };
+
+  return { openPrintWindow };
+};
+
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////

@@ -10,6 +10,13 @@ const submenuItems = [
     menuType: "student_list",
     
   },   
+  {
+    id: "attendance-menu-item-2",
+    to: "/attendance/student-attendance-report",
+    label: "শিক্ষার্থীর উপস্থিতি রিপোর্ট",
+    menuType: "student_list",
+    
+  },   
 ];
 
 const Attendance = ({ menuId }) => {

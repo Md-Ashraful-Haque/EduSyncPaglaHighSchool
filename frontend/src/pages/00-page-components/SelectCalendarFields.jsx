@@ -15,13 +15,8 @@ const SelectCalendarFields = () => {
       <div id="option-component">
         <div className="option-label"> তারিখ </div>
         <div className="option-value">
-          <div className="input-calendar">
-            {/* <input
-              type="date"
-              value={bySubjectVars.date}
-              onChange={(e) => updateBySubjectVars("date", e.target.value)} 
-            /> */}
-            <DatePicker
+          <div className="input-calendar"> 
+            {/* <DatePicker
               // ref={dateRef}
               selected={bySubjectVars.date ? new Date(bySubjectVars.date) : null}
               onChange={(date) => {
@@ -31,7 +26,29 @@ const SelectCalendarFields = () => {
               dateFormat="dd/MM/yyyy"
               placeholderText="dd/mm/yyyy"
               className="calendar-input"
+            /> */}
+
+            <DatePicker
+              selected={bySubjectVars.date ? new Date(bySubjectVars.date) : null}
+              onChange={(date) => {
+                const formatted = date.toISOString().split("T")[0]; // YYYY-MM-DD
+                updateBySubjectVars("date", formatted);
+              }}
+              dateFormat="dd/MM/yyyy"
+              placeholderText="dd/mm/yyyy"
+              className="calendar-input"
+
+              // ✅ THIS IS THE KEY PART
+              dayClassName={(date) => {
+                const day = date.getDay(); // 0=Sunday, 5=Friday, 6=Saturday
+
+                if (day === 5) return "datepicker-friday";   // ✅ Friday
+                if (day === 6) return "datepicker-saturday"; // ✅ Saturday
+
+                return undefined;
+              }}
             />
+
           </div>
         </div>
       </div>

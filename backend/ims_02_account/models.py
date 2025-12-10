@@ -370,7 +370,8 @@ class Student(models.Model):
     picture_cropped = ImageRatioField('picture', '300x380')    
 
     def __str__(self):
-        return f"{self.name} "
+        return f"{self.name}"
+        # return f"{self.name}({self.id})"
         # return f"{self.name}- {self.roll_number} - {self.class_instance.class_name}- {self.institute.name} - {self.year.year}"
 
     def save(self, *args, **kwargs):
