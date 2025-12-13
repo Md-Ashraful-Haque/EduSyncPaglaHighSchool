@@ -337,28 +337,24 @@ const StudentListForOneSubject = () => {
 
             <div id="field-selector-form">
               <div className="form-fields">
-                <div id="option-component" className="border">
+                <div id="option-component" >
                   <div className="option-label">CSV:</div>
-                  <div className="option-value">
-                    {/* <input
-                      className="w-full"
-                      type="file"
-                      accept=".csv"
-                      onChange={handleCSVUpload}
-                    /> */}
 
+
+                  <div className="option-value" style={{padding:"0px", cursor: "pointer"}}> 
                     <div className="relative">
                       <input
-                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer border"
                         type="file"
                         accept=".csv"
                         onChange={handleCSVUpload}
                       />
-                      <div className="w-full px-3 py-2  bg-white text-sm">
+                      <div className="w-full px-3 text-sm ">
                         {selectedFile ? selectedFile.name : 'Choose file'}
                       </div>
                     </div>
                   </div>
+
                 </div>
               </div>
             </div>

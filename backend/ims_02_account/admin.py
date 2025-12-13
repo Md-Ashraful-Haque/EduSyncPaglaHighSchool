@@ -187,27 +187,117 @@ class StudentAdmin(ImageCroppingMixin, admin.ModelAdmin):
 admin.site.register(Student, StudentAdmin)
 
 
+# class StudentClassHistoryAdmin(admin.ModelAdmin):
+#     # Fields to enable searching
+#     search_fields = ['student__username', 'institute__name', 'class_instance__class_name']
+
+#     # Fields to enable filtering
+#     list_filter = ['institute__name', 'year__year', 'class_instance__class_name']
+
+#     # Display fields in the list view
+#     list_display = ['student', 'institute', 'year', 'class_instance', 'section', 'group', 'from_date', 'to_date']
+
+#     # Fields to be displayed in the detail view
+#     fieldsets = [
+#         (None, {'fields': ['student', 'institute', 'year', 'class_instance', 'section', 'group', 'from_date', 'to_date']}),
+#     ]
+
+#     # Enable autocomplete for ForeignKey fields
+#     autocomplete_fields = ['student', 'institute', 'year', 'class_instance', 'section', 'group']
+
+# # Register the StudentClassHistory model with the custom ModelAdmin
+# admin.site.register(StudentClassHistory, StudentClassHistoryAdmin)
+
+#////////////////////////////////////////////////////////////////////////////////////////////
+#/////////////////////////////// Student Promotion Admin ///////////////////////////////
+#////////////////////////////////////////////////////////////////////////////////////////////
+from django.contrib import admin
+from django.utils.html import format_html
+from .models import StudentClassHistory
+
+
+@admin.register(StudentClassHistory)
 class StudentClassHistoryAdmin(admin.ModelAdmin):
-    # Fields to enable searching
-    search_fields = ['student__username', 'institute__name', 'class_instance__class_name']
+    list_display = (
+        "id",
+        "student_name",
+        "institute",
+        "year",
+        "class_instance",
+        "group",
+        "section",
+        "from_date",
+        "to_date",
+        "is_current",
+        "promotion_batch",
+        "created_at",
+    )
 
-    # Fields to enable filtering
-    list_filter = ['institute__name', 'year__year', 'class_instance__class_name']
+    list_filter = (
+        "institute",
+        "year",
+        "class_instance__class_name",
+        "class_instance__shift",
+        "group__group_name",
+        "section__section_name",
+        "is_current",
+        "promotion_batch",
+        "from_date",
+    )
 
-    # Display fields in the list view
-    list_display = ['student', 'institute', 'year', 'class_instance', 'section', 'group', 'from_date', 'to_date']
+    search_fields = (
+        "student__name",
+        "student__roll_number",
+        "student__student_id",
+        "promotion_batch",
+    )
 
-    # Fields to be displayed in the detail view
-    fieldsets = [
-        (None, {'fields': ['student', 'institute', 'year', 'class_instance', 'section', 'group', 'from_date', 'to_date']}),
-    ]
+    autocomplete_fields = (
+        "student",
+        "institute",
+        "year",
+        "class_instance",
+        "group",
+        "section",
+    )
 
-    # Enable autocomplete for ForeignKey fields
-    autocomplete_fields = ['student', 'institute', 'year', 'class_instance', 'section', 'group']
+    readonly_fields = (
+        "created_at",
+        "updated_at",
+    )
 
-# Register the StudentClassHistory model with the custom ModelAdmin
-admin.site.register(StudentClassHistory, StudentClassHistoryAdmin)
+    ordering = ("-from_date",)
 
+    # ---------------------------------------------------
+    # Custom display fields
+    # ---------------------------------------------------
+    def student_name(self, obj):
+        return f"{obj.student.name} (Roll: {obj.student.roll_number})"
+    student_name.short_description = "Student"
+
+    # ---------------------------------------------------
+    # Admin Actions
+    # ---------------------------------------------------
+    actions = ["mark_as_current", "mark_as_not_current"]
+
+    def mark_as_current(self, request, queryset):
+        """Marks selected histories as current (sets others false)."""
+        for history in queryset:
+            history.is_current = True
+            history.to_date = None
+            history.save()
+        self.message_user(request, "Selected entries marked as current.")
+    mark_as_current.short_description = "Mark selected as CURRENT"
+
+    def mark_as_not_current(self, request, queryset):
+        """Closes the selected histories."""
+        for history in queryset:
+            if history.to_date is None:
+                history.to_date = history.from_date  # or today
+            history.is_current = False
+            history.save()
+        self.message_user(request, "Selected entries marked as NOT current.")
+    mark_as_not_current.short_description = "Mark selected as NOT CURRENT"
 
 
 class GuardianAdmin(admin.ModelAdmin):

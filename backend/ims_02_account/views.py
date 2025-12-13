@@ -722,3 +722,91 @@ def current_user_info(request):
         "username": user.username,
         "institute_id": user.institute.id
     })
+
+
+#////////////////////////////////////////////////////////////////////////////////////////////
+#/////////////////////////////// Studnet Promotion ///////////////////////////////
+#////////////////////////////////////////////////////////////////////////////////////////////
+from django.db import transaction
+from django.utils import timezone
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import BulkPromoteSerializer
+from .models import Student, StudentClassHistory
+
+class PromoteStudentsAPIView(APIView):
+    """
+    POST payload example:
+    {
+      "student_ids": [1,2,3],
+      "new_year_id": 12,
+      "new_class_id": 24,
+      "new_group_id": 5,
+      "new_section_id": 9,
+      "promotion_date": "2025-01-01",
+      "promotion_batch": "2025-6to7"
+    }
+    """
+    def post(self, request):
+        serializer = BulkPromoteSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        data = serializer.validated_data
+
+        student_ids = data['student_ids']
+        new_year = data['new_year']
+        new_class = data['new_class']
+        new_group = data.get('new_group')
+        new_section = data['new_section']
+        promotion_date = data.get('promotion_date') or timezone.now().date()
+        promotion_batch = data.get('promotion_batch')
+
+        students = Student.objects.filter(id__in=student_ids).select_for_update()
+
+        if students.count() != len(student_ids):
+            missing = set(student_ids) - set(students.values_list('id', flat=True))
+            return Response({"detail": f"Students not found: {list(missing)}"}, status=status.HTTP_400_BAD_REQUEST)
+
+        results = []
+        with transaction.atomic():
+            for student in students:
+                # close previous history rows (where is_current True or to_date is null)
+                last = student.class_history.filter(is_current=True).first()
+                if not last:
+                    last = student.class_history.filter(to_date__isnull=True).first()
+
+                if last:
+                    last.to_date = promotion_date
+                    last.is_current = False
+                    last.save()
+
+                # create new history row
+                new_history = StudentClassHistory.objects.create(
+                    student=student,
+                    institute=student.institute,
+                    year=new_year,
+                    class_instance=new_class,
+                    group=new_group,
+                    section=new_section,
+                    from_date=promotion_date,
+                    to_date=None,
+                    is_current=True,
+                    promotion_batch=promotion_batch
+                )
+
+                # update student fields
+                student.year = new_year
+                student.class_instance = new_class
+                student.group = new_group
+                student.section = new_section
+
+                # optionally generate or update roll_number logic here
+                # student.roll_number = new_roll_value  # if you want to change roll on promotion
+                student.save()
+
+                results.append({
+                    "student_id": student.id,
+                    "history_id": new_history.id
+                })
+
+        return Response({"promoted": results}, status=status.HTTP_200_OK)

@@ -178,3 +178,48 @@ class StudentDetailSerializer(StudentUdpateSerializer):
     class_instance = ClassSerializer(read_only=True)
     group = GroupSerializer(read_only=True)
     section = SectionSerializer(read_only=True)
+
+
+
+#////////////////////////////////////////////////////////////////////////////////////////////
+#/////////////////////////////// Student Promotion Serializer ///////////////////////////////
+#////////////////////////////////////////////////////////////////////////////////////////////
+from rest_framework import serializers
+from ims_02_account.models import Student,StudentClassHistory
+from ims_01_institute.models import Year, Class as ClassModel, Group, Section
+
+class BulkPromoteSerializer(serializers.Serializer):
+    student_ids = serializers.ListField(child=serializers.IntegerField(), allow_empty=False)
+    new_year_id = serializers.IntegerField()
+    new_class_id = serializers.IntegerField()
+    new_group_id = serializers.IntegerField(required=False, allow_null=True)
+    new_section_id = serializers.IntegerField()
+    promotion_date = serializers.DateField(required=False)
+    promotion_batch = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+
+    def validate(self, data):
+        # Validate existence of the new class/year/section/group
+        try:
+            data['new_year'] = Year.objects.get(pk=data['new_year_id'])
+        except Year.DoesNotExist:
+            raise serializers.ValidationError("new_year_id not found")
+
+        try:
+            data['new_class'] = ClassModel.objects.get(pk=data['new_class_id'])
+        except ClassModel.DoesNotExist:
+            raise serializers.ValidationError("new_class_id not found")
+
+        try:
+            data['new_section'] = Section.objects.get(pk=data['new_section_id'])
+        except Section.DoesNotExist:
+            raise serializers.ValidationError("new_section_id not found")
+
+        if data.get('new_group_id'):
+            try:
+                data['new_group'] = Group.objects.get(pk=data['new_group_id'])
+            except Group.DoesNotExist:
+                raise serializers.ValidationError("new_group_id not found")
+        else:
+            data['new_group'] = None
+
+        return data

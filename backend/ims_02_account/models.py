@@ -403,34 +403,107 @@ class Student(models.Model):
         verbose_name_plural = "04 Students"
 
 
+# class StudentClassHistory(models.Model):
+#     student = models.ForeignKey(
+#         User, on_delete=models.CASCADE, related_name="class_history"
+#     )
+#     institute = models.ForeignKey(
+#         Institute, on_delete=models.CASCADE, verbose_name="Institute"
+#     )
+#     year = models.ForeignKey(Year, on_delete=models.CASCADE, verbose_name="Year")
+#     class_instance = models.ForeignKey(
+#         Class, on_delete=models.CASCADE, verbose_name="Class"
+#     )
+#     section = models.ForeignKey(
+#         Section, on_delete=models.CASCADE, verbose_name="Section"
+#     )
+#     group = models.ForeignKey(
+#         Group, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Group"
+#     )
+#     from_date = models.DateField()
+#     to_date = models.DateField(
+#         null=True, blank=True
+#     )  # Null if the student is still in this class
+
+#     def __str__(self):
+#         return f"{self.student}"
+#         # return f"{self.student} - {self.class_instance} ({self.from_date} to {self.to_date})"
+
+#     class Meta:
+#         verbose_name_plural = "05 StudentClassHistories"
+from django.db import models, transaction
+from django.utils import timezone
+
+# import Student, Institute, Year, Class, Section, Group models above or relative import
+# from .models import Student, Institute, Year, Class, Section, Group
+
 class StudentClassHistory(models.Model):
+    
+    """
+    Tracks student's class membership over time.
+    - 'student' must point to the Student model (not User).
+    - 'from_date' and optional 'to_date'. If to_date is null -> currently enrolled in that class.
+    - 'is_current' is maintained automatically for convenience.
+    - 'promotion_batch' helps group bulk promotions.
+    """
+    
     student = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="class_history"
+        "ims_02_account.Student",  # change "yourapp" to the actual app label or import Student above
+        on_delete=models.CASCADE,
+        related_name="class_history"
     )
     institute = models.ForeignKey(
-        Institute, on_delete=models.CASCADE, verbose_name="Institute"
+        "ims_01_institute.Institute", on_delete=models.CASCADE, verbose_name="Institute"
     )
-    year = models.ForeignKey(Year, on_delete=models.CASCADE, verbose_name="Year")
+    year = models.ForeignKey("ims_01_institute.Year", on_delete=models.CASCADE, verbose_name="Year")
     class_instance = models.ForeignKey(
-        Class, on_delete=models.CASCADE, verbose_name="Class"
+        "ims_01_institute.Class", on_delete=models.CASCADE, verbose_name="Class"
     )
     section = models.ForeignKey(
-        Section, on_delete=models.CASCADE, verbose_name="Section"
+        "ims_01_institute.Section", on_delete=models.CASCADE, verbose_name="Section"
     )
     group = models.ForeignKey(
-        Group, on_delete=models.CASCADE, null=True, blank=True, verbose_name="Group"
+        "ims_01_institute.Group", on_delete=models.CASCADE, null=True, blank=True, verbose_name="Group"
     )
-    from_date = models.DateField()
-    to_date = models.DateField(
-        null=True, blank=True
-    )  # Null if the student is still in this class
 
-    def __str__(self):
-        return f"{self.student}"
-        # return f"{self.student} - {self.class_instance} ({self.from_date} to {self.to_date})"
+    from_date = models.DateField()
+    to_date = models.DateField(null=True, blank=True)  # Null if the student is still in this class
+
+    # convenience fields
+    is_current = models.BooleanField(default=False, db_index=True, help_text="True if this history row represents the student's current class (to_date is null).")
+    promotion_batch = models.CharField(max_length=128, null=True, blank=True, help_text="Optional batch id/name for bulk promotions (e.g. '2025-promotion-6to7').")
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name_plural = "05 StudentClassHistories"
+        indexes = [
+            models.Index(fields=['student', 'is_current']),
+            models.Index(fields=['institute', 'year', 'class_instance', 'section']),
+        ]
+        ordering = ['-from_date']
+
+    def __str__(self):
+        return f"{self.student} — {self.class_instance} ({self.from_date} to {self.to_date or 'Present'})"
+
+    def save(self, *args, **kwargs):
+        # Maintain invariants: if is_current True then to_date must be null.
+        if self.is_current:
+            self.to_date = None
+
+        super().save(*args, **kwargs)
+
+        # Ensure only one is_current per student
+        if self.is_current:
+            # set others to is_current False
+            self.__class__.objects.filter(student=self.student).exclude(pk=self.pk).update(is_current=False)
+
+        # If an object was saved without is_current but to_date is null, set is_current True
+        if not self.is_current and self.to_date is None:
+            # avoid recursion: update directly
+            self.__class__.objects.filter(pk=self.pk).update(is_current=True)
+            self.__class__.objects.filter(student=self.student).exclude(pk=self.pk).update(is_current=False)
 
 
 class Guardian(models.Model):

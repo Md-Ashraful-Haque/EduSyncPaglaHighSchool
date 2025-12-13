@@ -29,7 +29,7 @@ const DataSelectorFormFields = () => {
             <div className="subject-selector-form-container">
               <div className="subject-selector-form current-session-header shift-and-session-header">
                 <div className="session-and-shift">
-                  <div id="field-selector-form">
+                  {/* <div id="field-selector-form">
                     <div id="option-component">
                       <div className="option-label"> শিফট </div>
                       <div className="option-value">
@@ -43,10 +43,7 @@ const DataSelectorFormFields = () => {
                             }}
                           >
                             <option value="morning">Morning</option>
-                            <option value="day">Day</option>
-                            {/* <option value="afternoon">Afternoon</option> */}
-                            {/* <option value="day">Day</option> */}
-                            {/* <option value="evening">Evening</option> */}
+                            <option value="day">Day</option> 
                           </select>
                         </div>
                       </div>
@@ -60,7 +57,10 @@ const DataSelectorFormFields = () => {
                         <YearSelector />
                       </div>
                     </div>
-                  </div>
+                  </div> */}
+
+                  <SelectFields fields={["shift"]} />
+                  <SelectFields fields={["year"]} />
                 </div>
               </div>
               {/* <div className="subject-selector-form current-session-header">

@@ -631,7 +631,7 @@
 
 /* ✅ Toggle button (mobile only) */
 .mobile-status-toggle-btn {
-  display: none;
+  // display: none;
   margin-left: 10px;
   padding: 6px 12px;
   font-size: 12px;
@@ -649,6 +649,7 @@
 
 .status-hide-mobile {
   display: table-cell;
+  display: none; 
 }
 
 /* ✅ Mobile behavior */
@@ -657,9 +658,9 @@
     display: inline-block;
   }
 
-  .status-hide-mobile {
-    display: none; // ✅ only hidden on mobile
-  }
+  // .status-hide-mobile {
+  //   display: none; // ✅ only hidden on mobile
+  // }
 
   .status-show {
     display: table-cell;
@@ -688,3 +689,4 @@
   }
 
 }
+

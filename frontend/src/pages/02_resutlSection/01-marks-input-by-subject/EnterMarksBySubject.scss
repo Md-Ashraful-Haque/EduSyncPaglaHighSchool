@@ -368,6 +368,14 @@
             width: 100%;
             max-width: 290px;
           }
+          .relative{
+            // border: 1px solid red;
+            padding: 10px;
+            cursor: pointer;
+            input{
+              cursor: pointer;   
+            }
+          }
         }
       }
 

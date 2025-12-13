@@ -254,18 +254,8 @@ const handleModalClose = () => {
           className="criteria-grid"
           style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}
         >
-          {/* <SelectFields fields={["shift","year","class","group","section",]} />  */}
-
-          {/* <SelectFields fields={["shift"]} />
-          <SelectFields fields={["year"]} />
-          <SelectFields fields={["class"]} />
-          <SelectFields fields={["group"]} />
-          <SelectFields fields={["section"]} />
-          <SelectCalendarFields /> */}
-
-          <div className="criteria-grid">
-            {/* <div className="field-item"><SelectFields fields={["shift"]} /></div>
-            <div className="field-item"><SelectFields fields={["year"]} /></div> */}
+        
+          <div className="criteria-grid"> 
             <div className="field-item">
               <SelectFields fields={["class"]} />
             </div>
@@ -297,17 +287,7 @@ const handleModalClose = () => {
             {/* সকল শিক্ষার্থীর উপস্থিতি নির্ধারণ করুন: */}
             সকল উপস্থিতি নির্ধারণ :
           </span>
-          {/* <span>Set attendance for all students as:</span> */}
-          {/* {STATUS_OPTIONS.map((opt) => (
-            <label key={opt.value}>
-              <input
-                type="radio"
-                name="all_status" 
-                onChange={() => setStatusForAll(opt.value)}
-              />
-              {opt.label}
-            </label>
-          ))}   */}
+          {/* <span>Set attendance for all students as:</span> */} 
           {STATUS_OPTIONS.map((opt) => (
             <label key={opt.value} style={{ cursor: "pointer" }}>
               <input
@@ -346,6 +326,7 @@ const handleModalClose = () => {
                 <th>Roll</th>
                 <th>Name</th>
                 <th colSpan={showExtraStatus? STATUS_OPTIONS.length : 2}>
+                {/* <th colSpan={STATUS_OPTIONS.length}> */}
                   Attendance
                   <button 
                     type="button"
@@ -374,38 +355,14 @@ const handleModalClose = () => {
                       <div className="phone-number"> {s.phone_number} </div>
                     </div>
                   </td>
-                  {/* {STATUS_OPTIONS.map((opt) => {
-                    const inputId = `status_${s.student_id}_${opt.value}`;
-
-                    return (
-                      <td key={opt.value}>
-                        <input
-                          type="radio"
-                          id={inputId} // ✅ unique id
-                          name={`status_${s.student_id}`}
-                          checked={s.status === opt.value}
-                          onChange={() => handleStatusChange(idx, opt.value)}
-                        />
-
-                        <label
-                          htmlFor={inputId} // ✅ connects label to input
-                          style={{
-                            fontSize: "10px",
-                            cursor: "pointer",
-                            marginLeft: "4px",
-                          }}
-                        >
-                          {opt.value}
-                        </label>
-                      </td>
-                    );
-                  })} */}
-
+                  
                   {STATUS_OPTIONS.map((opt, optIndex) => {
                     const inputId = `status_${s.student_id}_${opt.value}`;
 
                     const isAlwaysVisible = optIndex < 2; // ✅ first 2 always visible
-                    const visibilityClass =
+                    // const visibilityClass = showExtraStatus ? "status-show" : "status-hide-mobile";
+                        
+                        const visibilityClass =
                       isAlwaysVisible || showExtraStatus
                         ? "status-show"
                         : "status-hide-mobile";
@@ -439,6 +396,7 @@ const handleModalClose = () => {
 
                   {/* ////////////// Fathers Name ////////////////// */}
                   <td className="show-in-desktop">{s.fathers_name}</td>
+                  {/* <td className="show-in-desktop">{s.fathers_name}</td> */}
 
                   <td>
                     <input
