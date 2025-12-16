@@ -276,8 +276,8 @@ class StudentSubjectResult(models.Model):
             subj = s.subject
             grade, point = s.grade_and_point  # Assume returns tuple: (str, float)
             
-            if int(self.student.roll_number) == 20:
-                print("Subject and result and optional: ", subj, grade, point, subj.is_optional)
+            # if int(self.student.roll_number) == 20:
+            #     print("Subject and result and optional: ", subj, grade, point, subj.is_optional)
             # print("grade, point: ", grade, point )
             if subj.is_optional:
                 # total_subjects -= 1 

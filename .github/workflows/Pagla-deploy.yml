@@ -1,28 +1,28 @@
-# name: Deploy Updated Files to cPanel
+name: Deploy Updated Files to cPanel
 
-# on:
-#   push:
-#     branches:
-#       - main
+on:
+  push:
+    branches:
+      - main
 
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest
-#     environment: Secrets for EduSyncWithSite for uploading changes into cPanel  # Add environment
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v3
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: Secrets for EduSyncWithSite for uploading changes into cPanel  # Add environment
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-#       - name: Upload updated files to cPanel
-#         uses: appleboy/scp-action@v0.1.4  # Pin to a specific version
-#         with:
-#           host: ${{ secrets.SFTP_HOST }}
-#           username: ${{ secrets.SFTP_USER }}
-#           key: ${{ secrets.SFTP_PRIVATE_KEY }}
-#           port: ${{ secrets.SFTP_PORT }}
-#           # source: "frontend/dist/" 
-#           # target: "/home/nexasoft/paglahighschool.nexasofts.com"
-#           source: "."  # Adjust if specific files/folders are needed
-#           target: "/home/nexasoft/paglahighschool.nexasofts.com"
-#           strip_components: 0
-#           debug: true
+      - name: Upload updated files to cPanel
+        uses: appleboy/scp-action@v0.1.4  # Pin to a specific version
+        with:
+          host: ${{ secrets.SFTP_HOST }}
+          username: ${{ secrets.SFTP_USER }}
+          key: ${{ secrets.SFTP_PRIVATE_KEY }}
+          port: ${{ secrets.SFTP_PORT }}
+          # source: "frontend/dist/" 
+          # target: "/home/nexasoft/paglahighschool.nexasofts.com"
+          source: "."  # Adjust if specific files/folders are needed
+          target: "/home/nexasoft/paglahighschool.nexasofts.com"
+          strip_components: 0
+          debug: true
