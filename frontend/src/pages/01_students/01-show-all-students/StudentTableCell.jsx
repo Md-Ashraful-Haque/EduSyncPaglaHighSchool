@@ -9,7 +9,7 @@ const StudentTableCell = ({ student }) => {
 
   return (
     <>
-      <td className="px-2 py-3 border-bottom">
+      {/* <td className="px-2 py-3 border-bottom"> */}
         <div className="flex items-center space-x-3">
           {/* {(() => {
             console.log("student:", student);
@@ -32,7 +32,7 @@ const StudentTableCell = ({ student }) => {
             )}
           </div> 
         </div>
-      </td>
+      {/* </td> */}
 
       {/* Modal for full-size image */}
       {isModalOpen && (

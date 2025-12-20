@@ -10,11 +10,13 @@ import FullScreenModal from "pageComponents/02_full_screen_window";
 import CustomSelect from './ControlTableItem'
 import StudentTableCell from './StudentTableCell'
 import { toast } from "react-toastify";
+
+
 const StudentsListWithSearch = ({
   students,
   setStudentList,
   itemPerPage,
-  handleItemPerPageChange,
+  handleItemPerPageChange=null,
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -181,7 +183,10 @@ const StudentsListWithSearch = ({
                       {student.roll_number}
                     </div>
                   </td>
-                  <StudentTableCell key={student.student_id} student={student} />                  
+                  <td className="px-2 py-3 border-bottom">
+                    <StudentTableCell key={student.student_id} student={student} />                  
+
+                  </td>
 
                   <td className="px-2 py-3 border-bottom">
                     <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-700"

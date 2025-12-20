@@ -11,14 +11,14 @@ class StudentSerializer(serializers.ModelSerializer):
 
 # class StudentSerializerAllFields(serializers.ModelSerializer):
 class StudentSerializerAllFields(MultiCroppedImageMixin):
-    # year = serializers.CharField(source='year.year')
     class_name = serializers.CharField(source='class_instance.class_name.name_bengali')
+    group_name_in_bangla = serializers.CharField(source='section.group.group_name.name_bengali', allow_null=True)
+    section_name_display = serializers.SerializerMethodField() 
+    # year = serializers.CharField(source='year.year')
     # class_name_in_english = serializers.CharField(source='student.class_instance.class_name.name')
     # roll_number = serializers.CharField(source='student.roll_number')
     # group_name = serializers.CharField(source='group', allow_null=True)
-    group_name_in_bangla = serializers.CharField(source='section.group.group_name.name_bengali', allow_null=True)
     # section_name = serializers.CharField(source='section.section_name', allow_null=True)
-    section_name_display = serializers.SerializerMethodField() 
     
     class Meta:
         model = Student

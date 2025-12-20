@@ -28,7 +28,8 @@ export function markTypeBangla(markType) {
     "Theory": "তাত্ত্বিক",
     "Practical": "ব্যবহারিক",
     "Written(CQ)": "সিকিউ", 
-    "Continuous Assessment": "ধারাবাহিক মূল্যায়ন",
+    "Continuous Assessment": "ধারা. মূল্যায়ন",
+    // "Continuous Assessment": "ধারাবাহিক মূল্যায়ন",
     "Class Test": "ক্লাস টেস্ট",
     "Annual Exam": "বার্ষিক পরীক্ষা",
   };

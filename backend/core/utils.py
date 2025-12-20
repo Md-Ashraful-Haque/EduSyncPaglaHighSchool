@@ -5,7 +5,7 @@ import inspect, re
 #////////////////////////////// Rest API ///////////////////////////
 from rest_framework.response import Response
 from rest_framework import status 
-
+from rest_framework.pagination import PageNumberPagination
 
 def create_user_for_profile(profile_instance):
     User = get_user_model()
@@ -76,3 +76,10 @@ def debug(var1=None, var2=None, var3=None, var4=None):
     print(f"\t\t: {var4}")
     print(f"\n=====================//// {var3} End////======================\n")
     
+
+
+
+class OptionalPagination(PageNumberPagination):
+    page_size = 20
+    page_size_query_param = "page_size"
+    max_page_size = 500

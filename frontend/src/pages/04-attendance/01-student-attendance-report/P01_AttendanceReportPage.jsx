@@ -80,15 +80,34 @@ function AttendanceReportPage() {
   
   
       ///////////////////////////////////////////////////////////
+      // const requiredValueForAPICallPrint = {
+      //   instituteCode: bySubjectVars.instituteCode,
+      //   shift: bySubjectVars.shift,
+      //   year: bySubjectVars.year,
+      //   class_name: bySubjectVars.class_name,
+      //   group_name: bySubjectVars.group_name_bangla,
+      //   section_name: bySubjectVars.section_name,
+      //   date: bySubjectVars.date,
+      // };
       const requiredValueForAPICallPrint = {
-        instituteCode: bySubjectVars.instituteCode,
+        institute_code: bySubjectVars.instituteCode,
         shift: bySubjectVars.shift,
         year: bySubjectVars.year,
-        class_name: bySubjectVars.class_name,
-        group_name: bySubjectVars.group_name_bangla,
-        section_name: bySubjectVars.section_name,
+        class_id: bySubjectVars.class_name,
+        group_id: bySubjectVars.group_name_bangla,
+        section_id: bySubjectVars.section_name,
         date: bySubjectVars.date,
       };
+      // instituteCode: "PHS";
+      // year: 2025;
+      // shift: "morning";
+      // class_name: "78";
+      // group_name: "118";
+      // section_name: "161";
+      // date: "2025-12-18";
+      // console.log("///////////////////////////////");
+      // console.log("requiredValueForAPICallPrint: ", requiredValueForAPICallPrint);
+      // console.log("///////////////////////////////");
   
       const canSearchPrint = areAllFieldsFilled(requiredValueForAPICallPrint);
   
@@ -99,7 +118,7 @@ function AttendanceReportPage() {
           requiredValueForAPICallPrint
         ).then((data) => { 
           setShiftToYearInfo(data);
-          console.log("data: ",data);
+          // console.log("data: ",data);
         });
       }
       ///////////////////////////////////////////////////////////

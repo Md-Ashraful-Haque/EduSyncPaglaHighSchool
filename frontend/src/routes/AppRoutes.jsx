@@ -36,7 +36,10 @@ import {
   P01_Attendance,  
   P02_AttendanceReport,
 } from "../pages/04-attendance/Z99_index";
-import { P01_ShowAllStudents } from "../pages/01_students/Z99_index"; 
+import {
+  P01_ShowAllStudents,
+  P02_StudentIDCard,
+} from "../pages/01_students/Z99_index"; 
 import { P01_ShowAllTeachers } from "../pages/00_teachers/Z99_index";
 
 const AppRoutes = () => {
@@ -88,8 +91,14 @@ const AppRoutes = () => {
         <Route index element={<Navigate to="dashboard" />} />
         <Route path="dashboard" element={<Dashboard />} />
         <Route path="add-student" element={<AddStudent />} />
+        
+        {/* ////////////////////// Teacher Menu ///////////////////////////////// */}
         <Route path="show-all-teacher" element={<P01_ShowAllTeachers />} />
-        <Route path="show-all-student" element={<P01_ShowAllStudents />} />
+
+
+        {/* ////////////////////// Student Menu ///////////////////////////////// */}
+        <Route path="student/show-all-student" element={<P01_ShowAllStudents />} />
+        <Route path="student/student-id-card" element={<P02_StudentIDCard />} />
         
         {/* <Route path="create-exam-routine" element={<P00_CreateExamRoutine />} /> */}
         <Route path="admit-card" element={<P00_AdmitCard />} />

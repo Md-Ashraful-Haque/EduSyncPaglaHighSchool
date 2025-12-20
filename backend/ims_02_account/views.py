@@ -29,15 +29,16 @@ from rest_framework.settings import api_settings
 # from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework import generics, status
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view 
+from rest_framework.exceptions import NotFound
+from rest_framework.generics import ListAPIView, RetrieveAPIView
 # from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from .models import Teacher
 from .serializers import TeacherCardSerializer
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
-
-
+from core.utils import OptionalPagination
 User = get_user_model()
 
 from .models import *
@@ -222,10 +223,105 @@ class CustomPagination(PageNumberPagination):
             'results': data
         })
 
+# class StudentDetailByStudentIDAPIView(RetrieveAPIView):
+#     serializer_class = StudentSerializerAllFields
+#     permission_classes = [IsAuthenticated]
+#     lookup_field = "student_id"
+
+#     def get_queryset(self):
+#         return Student.objects.select_related(
+#             "institute", "year", "class_instance", "group", "section"
+#         )
+
+class StudentDetailByInstituteAndStudentIDAPIView(RetrieveAPIView):
+    serializer_class = StudentSerializerAllFields
+    permission_classes = [IsAuthenticated]
+
+    def get_object(self):
+        data = self.request.query_params
+
+        institute_code = data.get("institute_code")
+        student_id = data.get("student_id") 
+        # year = data.get("year")
+        # shift_eng = data.get("shift")
+        # class_id = data.get("class_id")
+        # group_id = data.get("group_id")
+        # section_id = data.get("section_id")
+
+        try:
+            return Student.objects.select_related(
+                "institute", "year", "class_instance", "group", "section"
+            ).get(
+                institute__institute_code=institute_code,
+                student_id=student_id
+            )
+        except Student.DoesNotExist:
+            raise NotFound("Student not found for this institute")
+
+class StudentListAPIView(ListAPIView):
+    serializer_class = StudentSerializerAllFields
+    permission_classes = [IsAuthenticated]
+    pagination_class = OptionalPagination
+
+    def paginate_queryset(self, queryset):
+        """
+        Enable / disable pagination dynamically
+        """
+        paginate = self.request.query_params.get("paginate", "true")
+
+        if paginate.lower() in ["false", "0", "no", "off", "all"]:
+            return None  # ❌ Disable pagination
+
+        return super().paginate_queryset(queryset)  # ✅ Enable pagination
+
+    def get_queryset(self):
+        queryset = Student.objects.select_related(
+            "institute", "year", "class_instance", "group", "section"
+        )
+
+        # instituteCode = self.request.query_params.get("instituteCode")
+        # year = self.request.query_params.get("year")
+        # class_id = self.request.query_params.get("class")
+        # group = self.request.query_params.get("group")
+        # section = self.request.query_params.get("section")
+        
+        data = self.request.query_params
+
+        institute_code = data.get("institute_code")
+        year = data.get("year")
+        shift_eng = data.get("shift")
+        class_id = data.get("class_id")
+        group_id = data.get("group_id")
+        section_id = data.get("section_id")
+        
+        # print("===========> ",instituteCode,year, class_id, group ,section)
+
+        if institute_code:
+            queryset = queryset.filter(institute__institute_code=institute_code)
+        # print("=====> ",queryset)
+        if year:
+            queryset = queryset.filter(year__year=year)
+        # print("year =====> ",queryset)
+
+        if class_id:
+            queryset = queryset.filter(class_instance_id=class_id)
+        # print("class_id =====> ",queryset)
+
+        if group_id:
+            queryset = queryset.filter(group_id=group_id)
+        # print("group =====> ",queryset)
+
+        if section_id:
+            queryset = queryset.filter(section_id=section_id)
+        # print("///////////////////////////////////////////////////////")
+        # print("section: ", queryset)
+        # print("section: ", len(queryset))
+        # print("///////////////////////////////////////////////////////")
+        return queryset.order_by("roll_number")
 
 
 
-#Return all student 
+#Return all student with paginator
 class AllStudentListView(generics.ListAPIView):
     # permission_classes = [IsStaffUser]
     permission_classes = [IsAuthenticated]

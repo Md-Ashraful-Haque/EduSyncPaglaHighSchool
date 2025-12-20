@@ -10,7 +10,13 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout_view'),
     
     path('students-roll-name/', StudentListView.as_view(), name='student-list'),
-    path('all-students/', AllStudentListView.as_view(), name='student-list'),
+    path('all-students/', AllStudentListView.as_view(), name='student-list'), #With Paginator
+    path("students/", StudentListAPIView.as_view(), name="student-list"),
+    path(
+        "students/details/",
+        StudentDetailByInstituteAndStudentIDAPIView.as_view(),
+        name="student-detail-by-institute-and-student-id",
+    ),
     path('save-students/', SaveStudents.as_view(), name='student-list'),
     path('update-students/', UpdateStudentsView.as_view(), name="update-students"),
     

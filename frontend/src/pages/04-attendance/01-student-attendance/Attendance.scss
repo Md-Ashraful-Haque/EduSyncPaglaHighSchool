@@ -262,13 +262,15 @@
 
         thead {
           tr {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            // background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            // background: linear-gradient(135deg, #adadad 0%, #bcbabf 100%);
+            background: linear-gradient(136deg, #dfdfdf 0%, #d9d9d9 100%);
 
             th {
               padding: 14px 12px;
               text-align: center;
               font-weight: 900;
-              color: white;
+              color: rgb(34, 33, 33);
               // border: none;
               white-space: nowrap;
               letter-spacing: 0.3px;

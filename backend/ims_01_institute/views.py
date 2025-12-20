@@ -772,12 +772,14 @@ class ShiftToSectionDataAPIView(APIView):
     def get(self, request):
         data = request.query_params
 
-        institute_code = data.get("instituteCode")
+        institute_code = data.get("institute_code")
         year_value = data.get("year")
-        shift_eng = data.get("shift")   # morning/day/evening
-        class_id = data.get("class_name")
-        group_id = data.get("group_name")
-        section_id = data.get("section_name")
+        shift_eng = data.get("shift")
+        class_id = data.get("class_id")
+        group_id = data.get("group_id")
+        section_id = data.get("section_id")
+        
+        
         
         # print('institute_code,year_value ,shift_eng ,class_id ,group_id , section_id: ',institute_code,year_value ,shift_eng ,class_id ,group_id , section_id)
 
