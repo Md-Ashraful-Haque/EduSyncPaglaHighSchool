@@ -15,12 +15,12 @@ const submenuItems = [
   //   to: "/promote-student",
   //   label: "Promote Student",
   // },
-  {
-    id: "students-menu-item-3",
-    to: "/admin/student/student-id-card",
-    label: "আইডি কার্ড প্রিন্ট",
-    menuType: "student_list",
-  },
+  // {
+  //   id: "students-menu-item-3",
+  //   to: "/admin/student/student-id-card",
+  //   label: "আইডি কার্ড প্রিন্ট",
+  //   menuType: "student_list",
+  // },
   // {
   //   id: "students-menu-item-4",
   //   to: "/leave-application",
