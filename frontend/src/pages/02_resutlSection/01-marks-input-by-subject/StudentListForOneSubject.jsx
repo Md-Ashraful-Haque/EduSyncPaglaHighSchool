@@ -114,6 +114,11 @@ const StudentListForOneSubject = () => {
     if (fileInputRef.current) {
       fileInputRef.current.value = ""; // file input reset
     }
+
+    setBulkApply({});
+    setPendingBulk(null);
+    setInitialMarksSnapshot({});
+
   }, [bySubjectVars]);
 
   // const handleMarksChange = (studentId, value) => {
@@ -164,18 +169,7 @@ const StudentListForOneSubject = () => {
     });
   };
 
-  // const confirmBulkApply = () => {
-  //   setBulkApply((prev) => ({
-  //     ...prev,
-  //     [pendingBulk.markType]: pendingBulk.checked,
-  //   }));
-
-  //   if (pendingBulk.checked) {
-  //     setAllMarks(pendingBulk.markType, pendingBulk.max_marks);
-  //   } else {
-  //     setAllMarks(pendingBulk.markType, "");
-  //   }
-  // };
+  
   const confirmBulkApply = () => {
     setBulkApply((prev) => ({
       ...prev,
@@ -220,21 +214,7 @@ const StudentListForOneSubject = () => {
     setPendingBulk({ markType, max_marks, checked });
   };
 
-  // const handleBulkToggle = (markType, max_marks, checked) => {
-  //   setPendingBulk({ markType, max_marks, checked });
-
-  //   setBulkApply((prev) => ({
-  //     ...prev,
-  //     [markType]: checked,
-  //   }));
-
-  //   if (checked) {
-  //     setAllMarks(markType, max_marks);
-  //   } else {
-  //     setAllMarks(markType, "");
-  //   }
-  // };
-
+  
   /////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////
@@ -573,23 +553,8 @@ const StudentListForOneSubject = () => {
                                 ({type.max_marks}){/* {type.mark_type} */}
                               </span>
                             </div>
+                            
 
-                            {/* <label className="relative inline-flex items-center cursor-pointer">
-                              <input
-                                type="checkbox"
-                                className="sr-only peer"
-                                checked={bulkApply[type.mark_type] || false}
-                                onChange={(e) =>
-                                  handleBulkToggle(
-                                    type.mark_type,
-                                    type.max_marks,
-                                    e.target.checked
-                                  )
-                                }
-                              />
-                              <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-blue-600 transition-all"></div>
-                              <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-all peer-checked:translate-x-5"></div>
-                            </label> */}
                             {["CA", "Practical"].includes(type.mark_type) && (
                               <label className="relative inline-flex items-center cursor-pointer">
                                 <input
