@@ -17,11 +17,9 @@ import { toast } from "react-toastify";
 import MarkTypeCheckboxes from "./MarkTypeCheckboxes";
 import SelectFields from "pageComponents/SelectFields";
 
-
-
 const StudentListForOneSubject = () => {
-  const { createNewAccessToken,vars } = useAppContext();
-  const { bySubjectVars} = useMarksInputBySubjectContext();
+  const { createNewAccessToken, vars } = useAppContext();
+  const { bySubjectVars } = useMarksInputBySubjectContext();
   const [showStudent, setShowStudent] = useState(false);
   const [showAllMarkType, setShowAllMarkType] = useState(false);
   const [markTypes, setMarkTypes] = useState([]);
@@ -36,8 +34,8 @@ const StudentListForOneSubject = () => {
   const fileInputRef = useRef(null);
 
   const [bulkApply, setBulkApply] = useState({});
-
-  
+  const [pendingBulk, setPendingBulk] = useState(null);
+  const [initialMarksSnapshot, setInitialMarksSnapshot] = useState({});
 
   useEffect(() => {
     // console.log("bySubjectVars: ", bySubjectVars);
@@ -109,7 +107,6 @@ const StudentListForOneSubject = () => {
       });
     }
 
-
     ////////////////////////////////// Reset file selection //////////
 
     // console.log("selectedFile: ", selectedFile)
@@ -127,85 +124,139 @@ const StudentListForOneSubject = () => {
   // };
 
   const handleMarksChange = (studentId, markType, value) => {
-  setMarks(prevMarks => {
-    // Get previous marks for the student or empty object
-    const studentMarks = prevMarks[studentId] || {};
+    setMarks((prevMarks) => {
+      // Get previous marks for the student or empty object
+      const studentMarks = prevMarks[studentId] || {};
 
-    // Update the specific markType with new value
-    const updatedStudentMarks = {
-      ...studentMarks,
-      [markType]: value === '' ? -1 : Number(value)  // convert to number, keep '' for empty input
-    };
+      // Update the specific markType with new value
+      const updatedStudentMarks = {
+        ...studentMarks,
+        [markType]: value === "" ? -1 : Number(value), // convert to number, keep '' for empty input
+      };
 
-    return {
-      ...prevMarks,
-      [studentId]: updatedStudentMarks,
-    };
-  });
-};
-
-///////////////////////////////////////////////////////
-///////////////////////////////////////////////////////
-///////////////////////////////////////////////////////
-///////////////////////////////////////////////////////
-///////////////////////////////////////////////////////
-
-const setAllMarks = (markType, value) => {
-  setMarks(prevMarks => {
-    const updatedMarks = { ...prevMarks };
-
-    students.forEach(student => {
-      const studentId = student.id;
-
-      updatedMarks[studentId] = {
-        ...(prevMarks[studentId] || {}),
-        [markType]: value === "" ? -1 : Number(value),
+      return {
+        ...prevMarks,
+        [studentId]: updatedStudentMarks,
       };
     });
+  };
 
-    return updatedMarks;
-  });
-};
+  ///////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////
 
+  const setAllMarks = (markType, value) => {
+    setMarks((prevMarks) => {
+      const updatedMarks = { ...prevMarks };
 
-const handleBulkToggle = (markType,max_marks, checked) => {
-  setBulkApply(prev => ({
-    ...prev,
-    [markType]: checked,
-  }));
+      students.forEach((student) => {
+        const studentId = student.id;
 
-  if (checked){
-    setAllMarks(markType, max_marks);
-  }else{
-    setAllMarks(markType, "");
-  }
+        updatedMarks[studentId] = {
+          ...(prevMarks[studentId] || {}),
+          [markType]: value === "" ? -1 : Number(value),
+        };
+      });
 
-};
+      return updatedMarks;
+    });
+  };
 
+  // const confirmBulkApply = () => {
+  //   setBulkApply((prev) => ({
+  //     ...prev,
+  //     [pendingBulk.markType]: pendingBulk.checked,
+  //   }));
 
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////
- 
+  //   if (pendingBulk.checked) {
+  //     setAllMarks(pendingBulk.markType, pendingBulk.max_marks);
+  //   } else {
+  //     setAllMarks(pendingBulk.markType, "");
+  //   }
+  // };
+  const confirmBulkApply = () => {
+    setBulkApply((prev) => ({
+      ...prev,
+      [pendingBulk.markType]: pendingBulk.checked,
+    }));
+
+    if (pendingBulk.checked) {
+      // Apply bulk value
+      setAllMarks(pendingBulk.markType, pendingBulk.max_marks);
+    } else {
+      // Restore original values
+      const snapshot = initialMarksSnapshot[pendingBulk.markType];
+
+      if (!snapshot) return;
+
+      setMarks((prevMarks) => {
+        const updatedMarks = { ...prevMarks };
+
+        Object.entries(snapshot).forEach(([studentId, value]) => {
+          updatedMarks[studentId] = {
+            ...(prevMarks[studentId] || {}),
+            [pendingBulk.markType]: value,
+          };
+        });
+
+        return updatedMarks;
+      });
+    }
+  };
+
+  const handleBulkToggle = (markType, max_marks, checked) => {
+    if (checked) {
+      // Capture current values BEFORE bulk apply
+      setInitialMarksSnapshot((prev) => ({
+        ...prev,
+        [markType]: students.reduce((acc, student) => {
+          acc[student.id] = marks?.[student.id]?.[markType] ?? -1;
+          return acc;
+        }, {}),
+      }));
+    }
+    setPendingBulk({ markType, max_marks, checked });
+  };
+
+  // const handleBulkToggle = (markType, max_marks, checked) => {
+  //   setPendingBulk({ markType, max_marks, checked });
+
+  //   setBulkApply((prev) => ({
+  //     ...prev,
+  //     [markType]: checked,
+  //   }));
+
+  //   if (checked) {
+  //     setAllMarks(markType, max_marks);
+  //   } else {
+  //     setAllMarks(markType, "");
+  //   }
+  // };
+
+  /////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////
+
   const handleSubmitForSaveOrUpdateMarks = async (e) => {
     e.preventDefault();
     // console.log("Save able marks: ",marks);
 
     const filteredMarks = Object.fromEntries(
-        Object.entries(marks).map(([studentId, markTypes]) => [
-          studentId,
-          Object.fromEntries(
-            Object.entries(markTypes).filter(([type]) =>
-              selectedMarkTypes.includes(type)
-            )
+      Object.entries(marks).map(([studentId, markTypes]) => [
+        studentId,
+        Object.fromEntries(
+          Object.entries(markTypes).filter(([type]) =>
+            selectedMarkTypes.includes(type)
           )
-        ])
-      );
+        ),
+      ])
+    );
 
-      // console.log(filteredMarks);
-
+    // console.log(filteredMarks);
 
     // console.log("filteredMarks: ",filteredMarks);
 
@@ -247,7 +298,7 @@ const handleBulkToggle = (markType,max_marks, checked) => {
       // console.error("Error submitting marks:", error.response?.data || error.message);
       // Show error toast message
 
-      toast.error( error.response.data.detail);
+      toast.error(error.response.data.detail);
     }
   };
 
@@ -262,7 +313,7 @@ const handleBulkToggle = (markType,max_marks, checked) => {
     return valid;
   };
 
-  const handleBlur = (studentId,markType, value, max) => {
+  const handleBlur = (studentId, markType, value, max) => {
     // const num = parseInt(value, 10);
     // const isInvalid = isNaN(num) || num < -1 || num > max || num === '';
     const isInvalid = validateInput(value, max);
@@ -271,7 +322,7 @@ const handleBulkToggle = (markType,max_marks, checked) => {
       ...prev,
       // [studentId]: isInvalid,
       [`${studentId}_${markType}`]: isInvalid,
-    })); 
+    }));
     if (isInvalid) {
       toast.error(
         "অনুগ্রহ করে -1 থেকে " + max + " এর মধ্যে একটি সংখ্যা প্রদান করুন।",
@@ -288,14 +339,15 @@ const handleBulkToggle = (markType,max_marks, checked) => {
 
       setTimeout(() => {
         // Focus the specific input element for this student and markType
-        if (inputRefs.current[studentId] && inputRefs.current[studentId][markType]) {
+        if (
+          inputRefs.current[studentId] &&
+          inputRefs.current[studentId][markType]
+        ) {
           inputRefs.current[studentId][markType].focus();
         }
       }, 100);
     }
-
   };
-
 
   const handleCSVUpload = (event) => {
     const file = event.target.files[0];
@@ -308,7 +360,10 @@ const handleBulkToggle = (markType,max_marks, checked) => {
       const text = e.target.result;
 
       // লাইন ভেঙে array বানানো
-      const lines = text.split("\n").map((line) => line.trim()).filter(Boolean);
+      const lines = text
+        .split("\n")
+        .map((line) => line.trim())
+        .filter(Boolean);
 
       if (lines.length < 2) {
         console.error("CSV does not have enough data.");
@@ -347,14 +402,16 @@ const handleBulkToggle = (markType,max_marks, checked) => {
           updatedMarks[student.id] = {};
 
           selectedMarkTypes.forEach((markType) => {
-            // console.log("markType: ", markType); 
-            let markTypeMap = markType === "WR"? "Written": markType;
-            updatedMarks[student.id][markType] = row[markTypeMap] ? Number(row[markTypeMap]) : -1;
+            // console.log("markType: ", markType);
+            let markTypeMap = markType === "WR" ? "Written" : markType;
+            updatedMarks[student.id][markType] = row[markTypeMap]
+              ? Number(row[markTypeMap])
+              : -1;
           });
-        }else{
+        } else {
           updatedMarks[student.id] = {};
 
-          selectedMarkTypes.forEach((markType) => { 
+          selectedMarkTypes.forEach((markType) => {
             updatedMarks[student.id][markType] = marks[student.id][markType];
           });
         }
@@ -367,9 +424,59 @@ const handleBulkToggle = (markType,max_marks, checked) => {
     reader.readAsText(file);
   };
 
-
   return (
     <>
+
+    {/* /////////////////////////////////////////////////////////////////////////////////////
+    ////////////// Show modal for use same marks for CA and Practicle //////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////// */}
+      {pendingBulk && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
+            <h3 className="text-lg font-semibold text-gray-800 mb-2">
+              Confirm Bulk Update
+            </h3>
+
+            <p className="text-sm text-gray-600 mb-6">
+              {/* This will apply marks for{" "}
+              <span className="font-semibold text-gray-800">
+                {markTypeBangla(pendingBulk.markType)}
+              </span>{" "}
+              to <span className="font-semibold">ALL students</span>. This
+              action cannot be undone. */}
+
+              প্রয়োগ করলে সকল শিক্ষার্থীর <span className="font-semibold text-gray-800">
+                {markTypeBangla(pendingBulk.markType)}
+              </span>{" "}
+              নম্বর {pendingBulk.max_marks} হবে এবং সংরক্ষণ করলে পূর্ববর্তী তথ্য আপডেট করা হবে, তাই সাবধানে  নিশ্চিত করুন।
+
+
+            </p>
+
+            <div className="flex justify-end gap-3">
+              <button
+                className="px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200"
+                onClick={() => setPendingBulk(null)}
+              >
+                {/* Cancel */}
+                বাতিল করুন
+              </button>
+
+              <button
+                className="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700"
+                onClick={() => {
+                  confirmBulkApply();
+                  setPendingBulk(null);
+                }}
+              >
+                {/* Yes, Apply */}
+                হ্যা, প্রয়োগ করুন
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="subject-selector-form-container p-2">
         <div className="subject-selector-form current-session-header">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 m-2 sm:!m-4 xl:!m-8">
@@ -384,11 +491,13 @@ const handleBulkToggle = (markType,max_marks, checked) => {
 
             <div id="field-selector-form">
               <div className="form-fields">
-                <div id="option-component" >
+                <div id="option-component">
                   <div className="option-label">CSV:</div>
 
-
-                  <div className="option-value" style={{padding:"0px", cursor: "pointer"}}> 
+                  <div
+                    className="option-value"
+                    style={{ padding: "0px", cursor: "pointer" }}
+                  >
                     <div className="relative">
                       <input
                         className="absolute inset-0 w-full h-full opacity-0 cursor-pointer border"
@@ -397,11 +506,10 @@ const handleBulkToggle = (markType,max_marks, checked) => {
                         onChange={handleCSVUpload}
                       />
                       <div className="w-full px-3 text-sm ">
-                        {selectedFile ? selectedFile.name : 'Choose file'}
+                        {selectedFile ? selectedFile.name : "Choose file"}
                       </div>
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>
@@ -425,7 +533,9 @@ const handleBulkToggle = (markType,max_marks, checked) => {
           <div className="section-wise-student-marks-entry">
             <div className="marks-entry-for-one-subject">
               <div className="container-fluid overflow-auto">
-                 <div className="row flex-nowrap !min-w-[574px]"> {/*/////////////////////////////// */}
+                <div className="row flex-nowrap !min-w-[574px]">
+                  {" "}
+                  {/*/////////////////////////////// */}
                   <div className="col-1 d-none d-lg-block">
                     <div className="heading serial-no">ক্রমিক নং</div>
                   </div>
@@ -460,11 +570,11 @@ const handleBulkToggle = (markType,max_marks, checked) => {
                             <div className="text-sm font-semibold text-gray-800">
                               {markTypeBangla(type.mark_type_display)}{" "}
                               <span className="text-gray-500 font-normal">
-                                ({type.max_marks})
+                                ({type.max_marks}){/* {type.mark_type} */}
                               </span>
                             </div>
 
-                            <label className="relative inline-flex items-center cursor-pointer">
+                            {/* <label className="relative inline-flex items-center cursor-pointer">
                               <input
                                 type="checkbox"
                                 className="sr-only peer"
@@ -479,24 +589,42 @@ const handleBulkToggle = (markType,max_marks, checked) => {
                               />
                               <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-blue-600 transition-all"></div>
                               <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-all peer-checked:translate-x-5"></div>
-                            </label>
+                            </label> */}
+                            {["CA", "Practical"].includes(type.mark_type) && (
+                              <label className="relative inline-flex items-center cursor-pointer">
+                                <input
+                                  type="checkbox"
+                                  className="sr-only peer"
+                                  checked={bulkApply[type.mark_type] || false}
+                                  onChange={(e) =>
+                                    handleBulkToggle(
+                                      type.mark_type,
+                                      type.max_marks,
+                                      e.target.checked
+                                    )
+                                  }
+                                />
+                                <div className="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-blue-600 transition-all"></div>
+                                <div className="absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-all peer-checked:translate-x-5"></div>
+                              </label>
+                            )}
                           </div>
-
                         </div>
                       ) : null;
                     })
                   ) : (
                     <p>No mark types found.</p>
                   )}
-
                   <div className="col-1 col-md-2 col-lg-1">
                     <div className="heading">মোট</div>
                   </div>
-
                 </div>
 
                 {/* <form onSubmit={handleSubmit}> */}
-                <form onSubmit={handleSubmitForSaveOrUpdateMarks} className="!min-w-[550px] mb-32 ">
+                <form
+                  onSubmit={handleSubmitForSaveOrUpdateMarks}
+                  className="!min-w-[550px] mb-32 "
+                >
                   {students.map((student, index) => {
                     const isEven = index % 2 === 0;
                     const rowClass = isEven ? "data-even" : "data-odd";
@@ -532,9 +660,6 @@ const handleBulkToggle = (markType,max_marks, checked) => {
                                 <div
                                   className={`heading marks-heading ${rowClass}`}
                                 >
-
-
-
                                   <input
                                     className={`
                                         ${markValue === -1 ? "!text-sm" : ""}
@@ -584,34 +709,38 @@ const handleBulkToggle = (markType,max_marks, checked) => {
                                       }
                                     }}
                                   />
-
-
-
                                 </div>
                               </div>
                             ) : null
-                        )} 
+                        )}
                         {/* /////////////////////////////////////////////////////////////////////////
                         ///////////////////////////////////////////////////////////////////////// */}
                         <div className="col-1 col-md-2 col-lg-1">
                           {(() => {
                             const sum = Object.entries(studentMarks)
-                              .filter(([markType]) => selectedMarkTypes.includes(markType))
+                              .filter(([markType]) =>
+                                selectedMarkTypes.includes(markType)
+                              )
                               .reduce((acc, [, markValue]) => {
                                 const num = Number(markValue);
-                                return acc + (isNaN(num) || num === -1 ? 0 : num);
+                                return (
+                                  acc + (isNaN(num) || num === -1 ? 0 : num)
+                                );
                               }, 0);
 
                             // check special cases
-                            const highlightRed = [39, 49, 59, 69, 79].includes(sum) || sum < 33;
+                            const highlightRed =
+                              [39, 49, 59, 69, 79].includes(sum) || sum < 33;
                             // console.log("===========highlightRed: ", highlightRed);
                             return (
                               <div
                                 className={`heading ${
-                                  highlightRed ? "!bg-red-100 !text-red-700" : "!bg-green-100 !text-green-700"
+                                  highlightRed
+                                    ? "!bg-red-100 !text-red-700"
+                                    : "!bg-green-100 !text-green-700"
                                 }`}
                               >
-                                {sum} 
+                                {sum}
                               </div>
                             );
                           })()}
