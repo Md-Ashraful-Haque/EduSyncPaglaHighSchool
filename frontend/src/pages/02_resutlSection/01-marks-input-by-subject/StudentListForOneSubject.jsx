@@ -413,8 +413,8 @@ const StudentListForOneSubject = () => {
       {pendingBulk && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
           <div className="bg-white rounded-xl shadow-xl w-full max-w-md p-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">
-              Confirm Bulk Update
+            <h3 className="text-lg text-center font-semibold text-gray-800 mb-3">
+              সমষ্টিগত নম্বর প্রয়োগ নিশ্চিতকরণ
             </h3>
 
             <p className="text-sm text-gray-600 mb-6">
@@ -433,7 +433,7 @@ const StudentListForOneSubject = () => {
 
             </p>
 
-            <div className="flex justify-end gap-3">
+            <div className="flex justify-end gap-3 mt-8">
               <button
                 className="px-4 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200"
                 onClick={() => setPendingBulk(null)}
