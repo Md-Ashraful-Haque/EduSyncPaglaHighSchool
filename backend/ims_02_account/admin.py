@@ -153,6 +153,7 @@ class TeacherAdmin(ImageCroppingMixin, admin.ModelAdmin):
         # td.field-subject>.related-widget-wrapper select{
         #     max-width: 200px !important;
         # }
+
 @admin.register(Examination)
 class ExaminationAdmin(admin.ModelAdmin):
     list_display = ("name", "name_bn", "order")

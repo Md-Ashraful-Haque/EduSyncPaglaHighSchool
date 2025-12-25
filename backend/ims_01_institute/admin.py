@@ -3,12 +3,102 @@ from django.apps import apps
 from .models import *
 
 
-class InstituteAdmin(admin.ModelAdmin):
-    search_fields = ['mobile_number__icontains', 'name__icontains', 'email__icontains']
-    list_display = ['institute_code', 'name', 'institute_eiin','mobile_number', 'email']
+# class InstituteAdmin(admin.ModelAdmin):
+#     search_fields = ['mobile_number__icontains', 'name__icontains', 'email__icontains']
+#     list_display = ['institute_code', 'name', 'institute_eiin','mobile_number', 'email']
+
+# admin.site.register(Institute, InstituteAdmin)
+from django.contrib import admin
+from image_cropping import ImageCroppingMixin
+from .models import Institute
 
 
-admin.site.register(Institute, InstituteAdmin)
+@admin.register(Institute)
+class InstituteAdmin(ImageCroppingMixin, admin.ModelAdmin):
+
+    # 🔍 Search & Filter
+    search_fields = [
+        'name',
+        'name_in_english',
+        'institute_code',
+        'institute_eiin',
+        'mobile_number',
+        'email',
+    ]
+
+    list_filter = ['created_at']
+
+    # 📋 List View
+    list_display = [
+        'name',
+        'name_in_english',
+        'institute_code',
+        'mobile_number',
+        'email',
+        'created_at',
+    ]
+
+    ordering = ['name']
+
+    # 🧩 Form Layout
+    fieldsets = [
+        ("Basic Information", {
+            'fields': (
+                'name',
+                'name_in_english',
+                'institute_code',
+                'institute_eiin',
+                'address',
+            )
+        }),
+
+        ("Contact Information", {
+            'fields': (
+                'mobile_number',
+                'email',
+                'website',
+            )
+        }),
+
+        ("Media", {
+            'fields': (
+                'logo',
+                'picture',
+                'signature',
+                'signature_cropped',
+            )
+        }),
+
+        ("Signature Labels (English)", {
+            'fields': (
+                'signature_of_class_teacher',
+                'signature_of_class_guardian',
+                'signature_of_head',
+            )
+        }),
+
+        ("Signature Labels (Bangla)", {
+            'fields': (
+                'signature_of_class_bangla',
+                'signature_of_class_guardian_bangla',
+                'signature_of_head_bangla',
+            )
+        }),
+
+        ("Timestamps", {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',),
+        }),
+    ]
+
+    # 🔒 Readonly
+    readonly_fields = ['created_at', 'updated_at']
+
+    # 🎨 Admin Media (optional – add if needed)
+    # class Media:
+    #     css = {
+    #         'all': ('admin/css/custom_institute_admin.css',)
+    #     }
 
 
 @admin.register(Shift)

@@ -219,9 +219,11 @@ const StudentsTable = ({
             studentId={editStudentId}
             closeEditStudentData={closeEditStudent}
           /> */}
-          <StudentIDCard 
-            student={singleStudents}
-          />
+          {/* <div className="bg-[#f2f2f2] w-[100%] h-[100%]"> */}
+            <StudentIDCard 
+              student={singleStudents}
+            />
+          {/* </div> */}
         </FullScreenModal>
       )}
     </>

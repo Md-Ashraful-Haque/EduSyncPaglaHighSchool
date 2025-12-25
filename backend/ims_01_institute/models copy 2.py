@@ -1,8 +1,6 @@
 from django.db import models
 from core.constants import *
 from core.utils import debug
-from image_cropping import ImageCropField, ImageRatioField
-from backend.utils import safe_upload_to_teacher_signature
 
 class Institute(models.Model):
     name = models.CharField(max_length=255)
@@ -17,11 +15,7 @@ class Institute(models.Model):
     logo = models.ImageField(upload_to='institute_logos/', null=True, blank=True)
     picture = models.ImageField(upload_to='institute_pictures/', null=True, blank=True)
     # head_signature = models.ImageField(upload_to='institute_pictures/', null=True, blank=True)
-    signature = ImageCropField(upload_to=safe_upload_to_teacher_signature,help_text="Signature of Head", blank=True, null=True)
-    signature_cropped = ImageRatioField('signature', '300x120') 
-    
     created_at = models.DateTimeField(auto_now_add=True)
-
     updated_at = models.DateTimeField(auto_now=True)
     signature_of_class_teacher = models.CharField(max_length=255, null=True, blank=True)
     signature_of_class_bangla = models.CharField(max_length=255, null=True, blank=True)

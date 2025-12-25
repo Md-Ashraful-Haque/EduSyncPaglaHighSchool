@@ -15,11 +15,15 @@ const StudentResultForTabulation = ({ singleMarksheetForStudent, indexForColor,r
         indexForColor % 2 != 0 ? "!bg-blue-50" : ""
       }`}
     >
-      {/* <td className=" ">
+      {
+      /*
+      <td className=" ">
         {bySubjectVars.isBangla
           ? showBangla(serialNo)
           : serialNo}
-      </td> */}
+      </td>
+      */
+      }
 
       <td className=" ">
         {bySubjectVars.isBangla
@@ -92,11 +96,13 @@ const StudentResultForTabulation = ({ singleMarksheetForStudent, indexForColor,r
           ? showBangla(resultOfOneStudent.total_obtained_marks)
           : resultOfOneStudent.total_obtained_marks}
       </td>
+      
       <td className=" ">
         {bySubjectVars.isBangla
           ? showBangla(resultOfOneStudent.gpa.toFixed(2))
           : resultOfOneStudent.gpa.toFixed(2)}
       </td>
+
       <td className="result-col">
         {resultOfOneStudent.letter_grade === "Fail"
           ? "F"

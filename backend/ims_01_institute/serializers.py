@@ -2,7 +2,7 @@
 from rest_framework import serializers
 from .models import *
 
-
+from backend.utils import MultiCroppedImageMixin
 class ShiftSerializer(serializers.ModelSerializer):
     class Meta:
         model = Shift
@@ -92,15 +92,19 @@ class MarkTypeSerializer(serializers.ModelSerializer):
         fields = ['id','mark_type','mark_type_display'] 
 
 
-class InstituteSerializer(serializers.ModelSerializer):
+class InstituteSerializer(MultiCroppedImageMixin):
     logo_url = serializers.SerializerMethodField()
     picture_url = serializers.SerializerMethodField()
 
     class Meta:
         model = Institute
+        image_fields = ["signature", ] #picture_cropped_url picture_url
+        crop_sizes = {
+            "signature": (300, 120),      # portrait ratio 
+        }
         fields = [
             'id', 'name', 'name_in_english', 'institute_code','institute_eiin', 'address',
-            'mobile_number', 'email', 'website', 'logo_url', 'picture_url',
+            'mobile_number', 'email', 'website', 'logo_url', 'picture_url','signature', 
             'signature_of_class_teacher', 'signature_of_class_bangla',
             'signature_of_class_guardian', 'signature_of_class_guardian_bangla',
             'signature_of_head', 'signature_of_head_bangla',
