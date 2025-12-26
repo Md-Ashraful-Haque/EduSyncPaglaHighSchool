@@ -212,10 +212,10 @@ class StudentSubjectResult(models.Model):
         subjects = list(
             self.subjectforresult.select_related('subject').order_by('subject__serial_number')
         )
-        
+
         # Count of compulsory (non-optional) subjects for the class
         total_subjects = self.class_instance.subjectforims.filter(is_optional=False, group=self.group).count()
-        
+
         # debug("total_subjects: ", total_subjects)
         # debug("self.class_instance", self.class_instance)
 
@@ -255,14 +255,14 @@ class StudentSubjectResult(models.Model):
         subjects = list(
             self.subjectforresult.select_related('subject').order_by('subject__serial_number')
         )
-        
+
         # print("subjects: ", subjects,len(subjects))
-        
+
         # Count of compulsory (non-optional) subjects for the class
         # total_subjects = self.class_instance.subjectforims.filter(is_optional=False, group=self.group)
         # print("total_subjects: ", total_subjects)
         total_subjects = self.class_instance.subjectforims.filter(is_optional=False, group=self.group).count()
-        
+
         # debug("total_subjects: ", total_subjects)
         # debug("self.class_instance", self.class_instance)
         # if int(self.student.roll_number) == 20:
@@ -270,21 +270,21 @@ class StudentSubjectResult(models.Model):
         total_grade_point = 0
         participated_subjects = 0
         counted_combined_groups = set()
-        
+
         # print("\n\n\n Student name, roll and section: ",self.student.name, self.student.roll_number, self.section.section_name.name)
         for s in subjects:
             subj = s.subject
             grade, point = s.grade_and_point  # Assume returns tuple: (str, float)
-            
+
             # if int(self.student.roll_number) == 20:
             #     print("Subject and result and optional: ", subj, grade, point, subj.is_optional)
             # print("grade, point: ", grade, point )
             if subj.is_optional:
-                # total_subjects -= 1 
+                # total_subjects -= 1
                 if subj.full_marks == 100 and point > 2:
                     total_grade_point += point - 2
                 continue
-            
+
             subject_code = s.subject.subject_name.code
 
             # --- Handle combined subjects (Bangla/English) ---
@@ -314,10 +314,6 @@ class StudentSubjectResult(models.Model):
                 total_grade_point += point
                 participated_subjects += 1
 
-            
-
-            
-
         # If not all required subjects were attended
         # print("participated_subjects < total_subjects", participated_subjects , total_subjects)
         if participated_subjects < total_subjects:
@@ -339,10 +335,10 @@ class StudentSubjectResult(models.Model):
         subjects = list(
             self.subjectforresult.select_related('subject').order_by('subject__serial_number')
         )
-        
+
         # Count of compulsory (non-optional) subjects for the class
         total_subjects = self.class_instance.subjectforims.filter(is_optional=False, group=self.group).count()
-        
+
         # debug("total_subjects: ", total_subjects)
         # debug("self.class_instance", self.class_instance)
         # if int(self.student.roll_number) == 3:
@@ -357,11 +353,11 @@ class StudentSubjectResult(models.Model):
             #     print("Subject Name: ", s.subject.subject_name.name, grade, point )
             # print("grade, point: ", grade, point )
             if subj.is_optional:
-                # total_subjects -= 1 
+                # total_subjects -= 1
                 # if subj.full_marks == 100 and point > 2:
                 #     total_grade_point += point - 2
                 continue
-            
+
             subject_code = s.subject.subject_name.code
 
             # --- Handle combined subjects (Bangla/English) ---
@@ -389,10 +385,6 @@ class StudentSubjectResult(models.Model):
                 total_grade_point += point
                 participated_subjects += 1
 
-            
-
-            
-
         # If not all required subjects were attended
         # print("participated_subjects < total_subjects", participated_subjects , total_subjects)
         if participated_subjects < total_subjects:
@@ -414,10 +406,10 @@ class StudentSubjectResult(models.Model):
     #     subjects = list(
     #         self.subjectforresult.select_related('subject').order_by('subject__serial_number')
     #     )
-        
+
     #     # Count of compulsory (non-optional) subjects for the class
     #     total_subjects = self.class_instance.subjectforims.filter(is_optional=False, group=self.group).count()
-        
+
     #     # debug("total_subjects: ", total_subjects)
     #     # debug("self.class_instance", self.class_instance)
 
@@ -430,7 +422,7 @@ class StudentSubjectResult(models.Model):
     #         if subj.is_optional:
     #             total_subjects -= 1
     #             continue
-            
+
     #         subject_code = s.subject.subject_name.code
 
     #         # --- Handle combined subjects (Bangla/English) ---
@@ -453,10 +445,6 @@ class StudentSubjectResult(models.Model):
     #             total_grade_point += point
     #             participated_subjects += 1
 
-            
-
-            
-
     #     # If not all required subjects were attended
     #     if participated_subjects < total_subjects:
     #         return 0.0
@@ -474,7 +462,7 @@ class StudentSubjectResult(models.Model):
         subjects = list(
             self.subjectforresult.select_related('subject').order_by('subject__serial_number')
         )
-        
+
         # Count of compulsory (non-optional) subjects for the class
         total_subjects = self.class_instance.subjectforims.filter(is_optional=False, group=self.group).count() 
         total_grade_point = 0
@@ -499,7 +487,6 @@ class StudentSubjectResult(models.Model):
             return 0.0
 
         return round(total_grade_point / participated_subjects, 2)
-    
 
     @property
     def final_grade(self) -> str:
@@ -545,7 +532,6 @@ class StudentSubjectResult(models.Model):
 
         return total_marks
 
-    
     @property
     def failed_subject_count_for_tabulation(self) -> int:
         """
@@ -556,10 +542,16 @@ class StudentSubjectResult(models.Model):
         """
         try:
             # Fetch all participated subjects (prefetch subject to avoid N+1 queries)
-            subjects = list(self.subjectforresult.select_related('subject').order_by('subject__serial_number'))
+            subjects = list(
+                self.subjectforresult.select_related("subject").order_by(
+                    "subject__serial_number"
+                )
+            )
             # print("Total Subject: ", len(subjects))
 
-            total_compulsory_subjects = self.class_instance.subjectforims.filter(is_optional=False, group=self.group).count()
+            total_compulsory_subjects = self.class_instance.subjectforims.filter(
+                is_optional=False, group=self.group
+            ).count()
             # print("student roll: ", self.student.name, self.student.roll_number)
             # print("total_compulsory_subjects: ", total_compulsory_subjects)
 
@@ -568,14 +560,14 @@ class StudentSubjectResult(models.Model):
             #     1 for s in subjects if not s.has_passed_all_mark_types_for_tabulation
             # )
             failed_count = 0
-            
+
             # failed_count = sum(
             #     1 for s in subjects if not s.subject.is_optional and not s.has_passed_all_mark_types_for_tabulation
             # )
             # failed_count_six_to_ten = sum(
             #     1 for s in subjects if not s.subject.is_optional and s.total_marks < s.subject.pass_marks
             # )
-            
+
             if  6 <= self.student.class_instance.class_name.code <= 8:
                 failed_count = sum(
                 1 for s in subjects if not s.subject.is_optional and s.total_marks < s.subject.pass_marks
@@ -584,7 +576,7 @@ class StudentSubjectResult(models.Model):
                 failed_count = sum(
                 1 for s in subjects if not s.subject.is_optional and not s.has_passed_all_mark_types_for_tabulation
             )
-            
+
             # print("failed_count_six_to_ten: ", failed_count_six_to_ten)
             # print("failed_count: ", failed_count)
 
@@ -627,29 +619,34 @@ class StudentSubjectResult(models.Model):
 
             failed_count = 0
             counted_combined_groups = set()
+            
+            if  6 <= self.student.class_instance.class_name.code <= 8:
+                failed_count = sum(
+                1 for s in subjects if not s.subject.is_optional and s.total_marks < s.subject.pass_marks
+            )
+            else:
+                for s in subjects:
+                    subject_code = s.subject.subject_name.code
 
-            for s in subjects:
-                subject_code = s.subject.subject_name.code
+                    # --- Handle combined subjects (Bangla/English) ---
+                    for group, rules in COMBINED_SUBJECTS.items():
+                        if subject_code in rules["papers"]:
+                            if group not in counted_combined_groups:  # avoid double counting
+                                combined_subjects = SubjectForResult.objects.filter(
+                                    student_from_result_table=self,
+                                    subject__subject_name__code__in=rules["papers"]
+                                )
 
-                # --- Handle combined subjects (Bangla/English) ---
-                for group, rules in COMBINED_SUBJECTS.items():
-                    if subject_code in rules["papers"]:
-                        if group not in counted_combined_groups:  # avoid double counting
-                            combined_subjects = SubjectForResult.objects.filter(
-                                student_from_result_table=self,
-                                subject__subject_name__code__in=rules["papers"]
-                            )
+                                # Count fail if the combined rule fails
+                                if not any(combined_subjects) or not s.has_passed_all_mark_types:
+                                    failed_count += 1
 
-                            # Count fail if the combined rule fails
-                            if not any(combined_subjects) or not s.has_passed_all_mark_types:
-                                failed_count += 1
-
-                            counted_combined_groups.add(group)
-                        break
-                else:
-                    # --- Default rule: non-combined compulsory subject ---
-                    if not s.subject.is_optional and not s.has_passed_all_mark_types:
-                        failed_count += 1
+                                counted_combined_groups.add(group)
+                            break
+                    else:
+                        # --- Default rule: non-combined compulsory subject ---
+                        if not s.subject.is_optional and not s.has_passed_all_mark_types:
+                            failed_count += 1
 
             # --- If student missed some compulsory subjects → count as fail ---
             not_participated = max(0, total_compulsory_subjects - len(subjects))
@@ -659,7 +656,6 @@ class StudentSubjectResult(models.Model):
         except Exception as e:
             print("Error in failed_subject_count:", e)
             return 0
-
 
 
 class SubjectForResult(models.Model):
@@ -884,7 +880,6 @@ class SubjectForResult(models.Model):
         
         
         return all(mark_type.is_pass for mark_type in mark_types)
-
 
 
 class TypewiseMarksForSubject(models.Model):
