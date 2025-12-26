@@ -25,7 +25,7 @@ COMBINED_SUBJECTS = {
     "ENG_TEN": {   # English (combined group)
         "papers": ["g-91003", "g-91004"],   # subject codes
         "mcq_pass": 0,
-        "cq_pass": 60,
+        "cq_pass": 66,
     },
 }
 

@@ -109,9 +109,9 @@ const TabulationSheet = ({
             {/* <caption>Examination Summary Statistics</caption> */}
             <tr>
                 <th> </th>
-                <th>Studnets</th>
+                <th>Students</th>
                 <th>Grade</th>
-                <th>Studnets</th>
+                <th>Students</th>
                 <th> </th>
                 <th>Value</th>
             </tr>
